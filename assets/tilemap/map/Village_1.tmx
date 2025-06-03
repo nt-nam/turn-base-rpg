@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="337">
+ <tileset firstgid="1" source="fullmap.tsx"/>
+ <layer id="1" name="Map_Layer" width="9" height="8">
+  <data encoding="csv">
+28221,28222,28223,28224,28225,28226,28227,28228,28229,
+28410,28411,28412,28413,28414,28415,28416,28417,28418,
+28599,28600,28601,28602,28603,28604,28605,28606,28607,
+28788,28789,28790,28791,28792,28793,28794,28795,28796,
+28977,28978,28979,28980,28981,28982,28983,28984,28985,
+29166,29167,29168,29169,29170,29171,29172,29173,29174,
+29355,29356,29357,29358,29359,29360,29361,29362,29363,
+29544,29545,29546,29547,29548,29549,29550,29551,29552
+</data>
+ </layer>
+ <objectgroup color="#00ffff" id="7" name="wall">
+  <object id="324" x="0" y="237.333" width="137.333" height="18.6667"/>
+  <object id="325" x="184.667" y="237.667" width="103.333" height="18.3333"/>
+  <object id="326" x="249.667" y="0" width="38.3333" height="234"/>
+  <object id="327" x="201.667" y="2.66667" width="48" height="168.667"/>
+  <object id="328" x="154" y="136.333" width="28.3333" height="10"/>
+  <object id="329" x="87.6667" y="4.33333" width="113.667" height="133"/>
+  <object id="330" x="24.6667" y="2" width="62.3333" height="107.667"/>
+  <object id="331" x="0" y="0" width="25.3333" height="236.333"/>
+  <object id="332" x="25" y="213.667" width="34.3333" height="22.6667"/>
+  <object id="333" x="80.6667" y="179.667" width="16" height="24.3333"/>
+  <object id="334" x="73.3333" y="182.667" width="31.3333" height="14.6667"/>
+  <object id="335" x="25.3333" y="134" width="15" height="57.3333"/>
+  <object id="336" x="74" y="109.333" width="13" height="17.3333"/>
+ </objectgroup>
+ <objectgroup id="13" name="line"/>
+ <objectgroup color="#0055ff" id="9" name="way">
+  <object id="312" name="door" x="138.5" y="237.5" width="45.875" height="14">
+   <properties>
+    <property name="index" type="int" value="1"/>
+    <property name="moveTo" value="Village_0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="10" name="npc">
+  <object id="314" name="npc" x="117.5" y="146.5">
+   <properties>
+    <property name="index" type="int" value="1"/>
+    <property name="name" value="village chief"/>
+    <property name="vn" value="trưởng làng"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ff55ff" id="12" name="object"/>
+ <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#00ff00" id="8" name="player">
+  <object id="321" name="spawn" x="160" y="224">
+   <properties>
+    <property name="index" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

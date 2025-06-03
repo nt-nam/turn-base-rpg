@@ -1,0 +1,118 @@
+{
+BitmapFont: { default-font: { file: default.fnt } },
+Color: {
+  green: { "a": 1, "b": 0, "g": 1, "r": 0 },
+  forestGreen: { "a": 1, "b": 0, "g": 0, "r": 0.5 },
+  greenShade: { "a": 1, "b": 0.24, "g": 0.24, "r": 0.22 },
+  emeraldGreen: { "a": 1, "b": 0.28, "g": 0.65, "r": 0.26 },
+  lightGreen: { "a": 1, "b": 0.53, "g": 0.53, "r": 0.53 },
+  limeGreen: { "a": 1, "b": 0, "g": 1, "r": 0.4 },
+  oliveGreen: { "a": 1, "b": 0, "g": 0.5, "r": 0.5 },
+  paleGreen: { "a": 1, "b": 0.6, "g": 1, "r": 0.6 },
+
+  red: { "a": 1, "b": 0, "g": 0, "r": 1 },
+  indianRed: { "a": 1, "b": 0.31, "g": 0.36, "r": 0.8 },
+  coral: { "a": 1, "b": 0.31, "g": 0.31, "r": 1 },
+  brickRed: { "a": 1, "b": 0.12, "g": 0.22, "r": 0.64 },
+  amber: { "a": 1, "b": 0, "g": 0, "r": 1 },
+  darkRed: { "a": 1, "b": 0, "g": 0, "r": 0.5 },
+  lightRed: { "a": 1, "b": 0.5, "g": 0.5, "r": 1 },
+  crimson: { "a": 1, "b": 0.22, "g": 0.01, "r": 0.86 },
+
+  copper: { "a": 1, "b": 0.2, "g": 0.45, "r": 0.72 },
+  redBrown: { "a": 1, "b": 0.21, "g": 0.33, "r": 0.73 },
+  darkBrown: { "a": 1, "b": 0, "g": 0.29, "r": 0.59 },
+  chocolateBrown: { "a": 1, "b": 0.1, "g": 0.07, "r": 0.82 },
+  saddleBrown: { "a": 1, "b": 0.18, "g": 0.13, "r": 0.55 },
+  lightBrown: { "a": 1, "b": 0.4, "g": 0.3, "r": 0.7 },
+
+  skyBlue: { "a": 1, "b": 0.97, "g": 0.76, "r": 0.43 },
+  mediumTurquoise: { "a": 1, "b": 0.67, "g": 0.69, "r": 0.13 },
+  darkCyan: { "a": 1, "b": 0.31, "g": 0.46, "r": 0.0 },
+  lightBlue: { "a": 1, "b": 1, "g": 0.85, "r": 0.6 },
+  navyBlue: { "a": 1, "b": 0.5, "g": 0.5, "r": 0 },
+  royalBlue: { "a": 1, "b": 1, "g": 0.38, "r": 0.25 },
+
+  gray: { "a": 1, "b": 0.8, "g": 0.8, "r": 0.8 },
+  gray2: { "a": 1, "b": 0.5, "g": 0.5, "r": 0.5 },
+  lightGray: { "a": 1, "b": 0.9, "g": 0.9, "r": 0.9 },
+  darkGray: { "a": 1, "b": 0.4, "g": 0.4, "r": 0.4 },
+  slateGray: { "a": 1, "b": 0.44, "g": 0.5, "r": 0.44 },
+
+  white: { "a": 1, "b": 1, "g": 1, "r": 1 },
+  lightIvory: { "a": 1, "b": 0.89, "g": 0.89, "r": 1 },
+  lightYellow: { "a": 1, "b": 0.58, "g": 0.58, "r": 1 },
+  gold: { "a": 1, "b": 0, "g": 0.84, "r": 1 },
+  lemonYellow: { "a": 1, "b": 0.34, "g": 1, "r": 1 },
+  paleYellow: { "a": 1, "b": 0.8, "g": 0.8, "r": 1 },
+
+  black: { "a": 1, "b": 0, "g": 0, "r": 0 },
+  charcoal: { "a": 1, "b": 0.27, "g": 0.27, "r": 0.27 },
+  jetBlack: { "a": 1, "b": 0.19, "g": 0.19, "r": 0.19 },
+
+  lightPink: { "a": 1, "b": 0.71, "g": 0.71, "r": 1 },
+  hotPink: { "a": 1, "b": 0.36, "g": 0.17, "r": 1 },
+  deepPink: { "a": 1, "b": 0.57, "g": 0.07, "r": 1 }
+},
+TintedDrawable: {
+	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } },
+},
+ButtonStyle: {
+	default: { down: default-round-down, up: default-round, disabled: default-round },
+	toggle: { parent: default, checked: default-round-down }
+},
+TextButtonStyle: {
+	default: { parent: default, font: default-font, fontColor: white, disabledFontColor: gray },
+	toggle: { parent: default, checked: default-round-down, downFontColor: red }
+},
+ScrollPaneStyle: {
+	default: { vScroll: default-scroll, hScrollKnob: default-round-large, background: default-rect, hScroll: default-scroll, vScrollKnob: default-round-large }
+},
+SelectBoxStyle: {
+	default: {
+		font: default-font, fontColor: white, background: default-select,
+		scrollStyle: default,
+		listStyle: { font: default-font, selection: default-select-selection }
+	}
+},
+SplitPaneStyle: {
+	default-vertical: { handle: default-splitpane-vertical },
+	default-horizontal: { handle: default-splitpane }
+},
+WindowStyle: {
+	default: { titleFont: default-font, background: default-window, titleFontColor: white },
+	dialog: { parent: default, stageBackground: dialogDim }
+},
+ProgressBarStyle: {
+	default-horizontal: { background: default-slider, knob: default-slider-knob },
+	default-vertical: { background: default-slider, knob: default-round-large }
+},
+SliderStyle: {
+	default-horizontal: { parent: default-horizontal },
+	default-vertical: { parent: default-vertical }
+},
+LabelStyle: {
+	default: { font: default-font, fontColor: white }
+},
+TextFieldStyle: {
+	default: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: cursor }
+},
+CheckBoxStyle: {
+	default: { checkboxOn: check-on, checkboxOff: check-off, font: default-font, fontColor: white }
+},
+ListStyle: {
+	default: { fontColorUnselected: white, selection: selection, fontColorSelected: white, font: default-font }
+},
+TouchpadStyle: {
+	default: { background: default-pane, knob: default-round-large }
+},
+TreeStyle: {
+	default: { minus: tree-minus, plus: tree-plus, selection: default-select-selection }
+},
+TextTooltipStyle: {
+	default: {
+		label: { font: default-font, fontColor: white },
+		background: default-pane, wrapWidth: 150
+	}
+},
+}
