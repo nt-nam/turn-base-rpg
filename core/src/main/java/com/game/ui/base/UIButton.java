@@ -1,0 +1,104 @@
+package com.game.ui.base;
+
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.game.MainGame;
+
+public class UIButton extends TextButton {
+
+    public UIButton(String text) {
+        super(text, MainGame.getAsM().getSkin(), "toggle");  //thay thế cho styleName default
+        tu();
+    }
+
+    public UIButton(String text, String styleName) {
+        super(text, MainGame.getAsM().getSkin(), styleName);
+    }
+
+    public UIButton name(String name) {
+        this.setName(name);
+        return this;
+    }
+
+    public UIButton pos(float x, float y) {
+        this.setPosition(x, y);
+        return this;
+    }
+
+    public UIButton size(float w, float h) {
+        this.setSize(w, h);
+        return this;
+    }
+
+    public UIButton scale(float scale) {
+        this.setScale(scale);
+        return this;
+    }
+
+    public UIButton onClick(Runnable action) {
+        this.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                action.run();
+            }
+        });
+        return this;
+    }
+
+    public UIButton onTouchDown(Runnable action) {
+        this.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                action.run();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+        return this;
+    }
+
+    public UIButton onTouchUp(Runnable action) {
+        this.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                action.run();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        return this;
+    }
+
+
+    public UIButton tu() {
+        this.addListener(new ClickListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                setChecked(false);
+            }
+        });
+        return this;
+    }
+
+    private void initTouchEffect(boolean enableTouchEffect) {
+        this.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (enableTouchEffect) {
+                    addAction(Actions.scaleTo(0.95f, 0.95f, 0.1f));
+                }
+                super.touchDown(event, x, y, pointer, button);
+                return false;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (enableTouchEffect) {
+                    addAction(Actions.scaleTo(1f, 1f, 0.1f));
+                }
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+    }
+}

@@ -61,6 +61,7 @@ subprojects {
   ext.appName = 'turn_base_RPG'
   repositories {
     mavenCentral()
+    google()
     maven { url 'https://s01.oss.sonatype.org' }
     // You may want to remove the following line if you have errors downloading dependencies.
     mavenLocal()
