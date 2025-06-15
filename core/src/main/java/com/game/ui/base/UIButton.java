@@ -1,9 +1,12 @@
 package com.game.ui.base;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.game.MainGame;
 
 public class UIButton extends TextButton {
@@ -15,6 +18,26 @@ public class UIButton extends TextButton {
 
     public UIButton(String text, String styleName) {
         super(text, MainGame.getAsM().getSkin(), styleName);
+    }
+
+    public UIButton(String text, TextureRegion up, TextureRegion down) {
+        super(text, createStyle(up, down));
+        tu();
+    }
+
+    public UIButton(TextureRegion up, TextureRegion down) {
+        super("", createStyle(up, down));
+        tu();
+    }
+
+    private static TextButtonStyle createStyle(TextureRegion up, TextureRegion down) {
+        TextButtonStyle style = new TextButtonStyle();
+        style.up = new TextureRegionDrawable(up);
+        style.down = new TextureRegionDrawable(down);
+        style.checked = style.down;
+        // Không cần set font nếu không có text, nhưng LibGDX yêu cầu không null, nên cứ để default:
+        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+        return style;
     }
 
     public UIButton name(String name) {
@@ -100,5 +123,20 @@ public class UIButton extends TextButton {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
+    }
+
+    public UIButton parent(Group rootGroup) {
+        rootGroup.addActor(this);
+        return this;
+    }
+
+    public UIButton bounds(int x, int y, float width, float height) {
+        this.setBounds(x, y, width, height);
+        return this;
+    }
+
+    public UIButton debug(boolean b) {
+        this.setDebug(b);
+        return this;
     }
 }

@@ -34,15 +34,20 @@ public class MenuScreen extends BaseScreen {
             .fillParent()
             .al(Align.center)
             .child(
-                new UIButton("New Game").onClick(()->  MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
-                new UIButton("Load Game").onClick(()->  MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
-                new UIButton("Setting").onClick(()->  MainGame.getScM().showScreen(ScreenType.MAIN_SETTING))
+                new UIButton("New Game").onClick(() -> MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
+                new UIButton("Load Game").onClick(() -> MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
+                new UIButton("Setting").onClick(() -> MainGame.getScM().showScreen(ScreenType.MAIN_SETTING))
             ).padChildren(20)
-            .sizeChildren(150,50);
+            .sizeChildren(150, 50);
 
         rootGroup.addActor(table1);
 
+
+
+
+
     }
+
 
 
     @Override
@@ -50,6 +55,8 @@ public class MenuScreen extends BaseScreen {
         super.show();
         Gdx.app.log("MenuScreen", "show() called");
         stage.addActor(rootGroup);
+//        engine.addEntity();
+//        engine.addSystem();
     }
 
     @Override
@@ -87,6 +94,8 @@ public class MenuScreen extends BaseScreen {
     public static void loadingAsset() {
         MainGame.getAsM().load("texture/default.png", Texture.class);
         MainGame.getAsM().load("music/music_demo.mp3", Music.class);
+
+
     }
 
 }

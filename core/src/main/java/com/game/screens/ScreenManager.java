@@ -59,6 +59,8 @@ public class ScreenManager implements Disposable {
                 return new LoadingScreen();
             case MENU_GAME:
                 return new MenuScreen();
+            case CHECK_ATLAS:
+                return new CheckRegionScreen();
             case NEW_PLAYER:
                 return new NewPlayerScreen();
             case SELECT_PLAYER:
@@ -101,6 +103,9 @@ public class ScreenManager implements Disposable {
     private boolean needLoadingFor(ScreenType targetScreen) {
         switch (targetScreen) {
             case MAIN_GAME:
+                return true;
+            case CHECK_ATLAS:
+                CheckRegionScreen.loadingAsset();
                 return true;
             case MENU_GAME:
                 MenuScreen.loadingAsset();

@@ -1,5 +1,6 @@
 package com.game;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.managers.AudioManager;
+import com.game.managers.CharacterTilemapManager;
 import com.game.managers.GAssetManager;
 import com.game.ui.HUDManager;
 import com.game.managers.InputManager;
@@ -22,6 +24,7 @@ import com.game.screens.ScreenType;
 
 public class MainGame extends Game {
     private static AudioManager aum;
+    private static CharacterTilemapManager ctm;
     private static GAssetManager asm;
     private static EventManager evm;
     private static HUDManager hudm;
@@ -36,12 +39,20 @@ public class MainGame extends Game {
     private OrthographicCamera camera;
     private Viewport viewport;
     private static Stage stage;
+    private static Engine engine;
 
     public static AudioManager getAum() {
         if (aum == null) {
             aum = new AudioManager();
         }
         return aum;
+    }
+
+    public static CharacterTilemapManager getCtm(){
+        if (ctm == null) {
+            ctm = new CharacterTilemapManager();
+        }
+        return ctm;
     }
 
     public static GAssetManager getAsM() {
@@ -112,6 +123,10 @@ public class MainGame extends Game {
         return stage;
     }
 
+    public static Engine getEngine() {
+        return engine;
+    }
+
     public static MainGame getInstance(){
         return (MainGame) Gdx.app.getApplicationListener();
     }
@@ -139,8 +154,8 @@ public class MainGame extends Game {
         asm.loadSkin("ui/uiskin.json");
         asm.loadFont("ui/default.fnt");
         asm.finishLoading();
-        getScM().showScreen(ScreenType.MENU_GAME);
         Gdx.input.setInputProcessor(stage);
+        getScM().showScreen(ScreenType.MENU_GAME);
     }
 
     @Override

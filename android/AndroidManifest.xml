@@ -12,9 +12,9 @@
       tools:ignore="UnusedAttribute"
       android:theme="@style/GdxTheme">
     <activity
-        android:name="com.game.pxworld.com.game1.pxworld.android.AndroidLauncher"
+        android:name="com.game.pxworld.android.AndroidLauncher"
         android:label="@string/app_name"
-        android:screenOrientation="portrait"
+        android:screenOrientation="landscape"
         android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
         android:exported="true">
         <intent-filter>

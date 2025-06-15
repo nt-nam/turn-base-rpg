@@ -16,5 +16,6 @@ public enum ScreenType {
     QUEST,               //Quản lý nhiệm vụ
     MINI_MAP,            //Xem World Map mini hoặc dungeon map
     PAUSE,               //Pause → Resume, Save, Quit to Menu
-    TUTORIAL
+    TUTORIAL,
+    CHECK_ATLAS
 }

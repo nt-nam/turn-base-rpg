@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
 public class GAssetManager {
     private final AssetManager am;
+    String currentMapName = null;
 
     public GAssetManager() {
         am = new AssetManager();
+        am.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
     }
 
     // ==== API chung ====
@@ -31,6 +34,10 @@ public class GAssetManager {
 
     public boolean update() {
         return am.update();
+    }
+
+    public boolean isLoaded(String path) {
+        return am.isLoaded(path);
     }
 
     public float getProgress() {
@@ -62,7 +69,7 @@ public class GAssetManager {
     public TextureAtlas getAtlas(String path) {
         TextureAtlas atlas = get(path, TextureAtlas.class);
         for (Texture texture : atlas.getTextures()) {
-            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         }
         return atlas;
     }
@@ -106,12 +113,24 @@ public class GAssetManager {
         return get(path, Sound.class);
     }
 
-    public void loadTiledMap(String path) {
-        load(path, TiledMap.class);
+    public void loadTiledMap(String mapName) {
+        if (currentMapName != null) {
+            am.unload("tilemap/map/" + currentMapName + ".tmx");
+        }
+        currentMapName = mapName;
+        am.load("tilemap/map/map_" + mapName + ".tmx", TiledMap.class);
     }
 
-    public TiledMap getTiledMap(String path) {
-        return get(path, TiledMap.class);
+    public void loadCharacterTiledMap(String tileName) {
+        am.load("tilemap/character/" + tileName + ".tmx", TiledMap.class);
+    }
+
+    public TiledMap getTiledMap(String mapName) {
+        return get("tilemap/map/map_" + mapName + ".tmx", TiledMap.class);
+    }
+
+    public TiledMap getCharacterTiledMap(String tileName) {
+        return get("tilemap/map/character" + tileName + ".tmx", TiledMap.class);
     }
 
     public JsonValue loadJson(String path) {

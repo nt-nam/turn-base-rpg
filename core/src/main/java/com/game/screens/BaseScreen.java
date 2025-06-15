@@ -10,13 +10,18 @@ import com.game.MainGame;
 import com.game.utils.ResourceUtils;
 
 public abstract class BaseScreen implements Screen {
-
     protected Stage stage;
+    protected float screenWidth;
+    protected float screenHeight;
+//    protected Engine engine;
     protected Group rootGroup;
     protected Label title;
 
     public BaseScreen() {
         stage = MainGame.getStage();
+        screenWidth = stage.getWidth();
+        screenHeight = stage.getHeight();
+//        engine = MainGame.getEngine();
         rootGroup = new Group();
         rootGroup.setSize(stage.getWidth(), stage.getHeight());
     }
@@ -39,6 +44,7 @@ public abstract class BaseScreen implements Screen {
 
         stage.act(delta);
         stage.draw();
+//        engine.update(delta);
 
         updateUI(delta);
     }
@@ -60,7 +66,8 @@ public abstract class BaseScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-
+        this.screenWidth = stage.getWidth();
+        this.screenHeight = stage.getHeight();
     }
 
     @Override

@@ -20,6 +20,10 @@ android {
       res.setSrcDirs(['res'])
       assets.setSrcDirs(['../assets'])
       jniLibs.setSrcDirs(['libs'])
+      assets {
+        exclude '**/debug_assets/**'
+        exclude '**/LaserSprites/**'
+      }
     }
   }
   packagingOptions {
