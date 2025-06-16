@@ -164,5 +164,12 @@ Thumbs.db
 ## You should delete or comment out the next line if you have configuration in a different resource-config.json .
 **/resource-config.json
 
+## Custom
 *.keystore
 *.jks
+event.md
+checklist.md
+description.md
+StepByStep.md
+GIT_GUIDELINES.md
+general.md
