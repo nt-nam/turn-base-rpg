@@ -1,5 +1,7 @@
 package com.game.screens;
 
+import static com.game.utils.Constants.UI_WOOD;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.game.MainGame;
+import com.game.ui.base.UIButton;
 import com.game.utils.ResourceUtils;
 
 public abstract class BaseScreen implements Screen {
@@ -61,6 +64,16 @@ public abstract class BaseScreen implements Screen {
         title.setFontScale(2);
         title.setPosition(150, stage.getHeight() - 50);
         parent.addActor(title);
+    }
+
+    protected void createCloseButton(ScreenType prevScreen) {
+        UIButton btnClose = new UIButton(
+            MainGame.getAsM().getRegion(UI_WOOD, "x_up_037"),
+            MainGame.getAsM().getRegion(UI_WOOD, "x_down_038"))
+            .size(screenWidth*0.1f, screenWidth*0.1f)
+            .pos(screenWidth*0.8f, screenHeight * 0.8f)
+            .onClick(()-> {MainGame.getScM().showScreen(prevScreen);}).debug(false);
+        rootGroup.addActor(btnClose);
     }
 
     @Override

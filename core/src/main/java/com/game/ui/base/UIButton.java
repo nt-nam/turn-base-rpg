@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.game.MainGame;
+import com.game.managers.event.ui.ClickButtonEvent;
 
 public class UIButton extends TextButton {
 
@@ -60,10 +61,21 @@ public class UIButton extends TextButton {
         return this;
     }
 
+    public UIButton fontScale(float scale) {
+        this.getLabel().setFontScale(scale);
+        return this;
+    }
+
+    public UIButton fontScale(float scaleX, float scaleY) {
+        this.getLabel().setFontScale(scaleX, scaleY);
+        return this;
+    }
+
     public UIButton onClick(Runnable action) {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                MainGame.getEvM().dispatch(new ClickButtonEvent());
                 action.run();
             }
         });

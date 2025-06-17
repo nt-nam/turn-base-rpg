@@ -21,7 +21,7 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void createScreen() {
-        Gdx.app.log("MainMenuScreen", "show() called");
+        Gdx.app.log("MenuScreen", "create() called");
 
         Image bg = new Image(MainGame.getAsM().getTexture("texture/default.png"));
         bg.setSize(250, 250);
@@ -34,18 +34,13 @@ public class MenuScreen extends BaseScreen {
             .fillParent()
             .al(Align.center)
             .child(
-                new UIButton("New Game").onClick(() -> MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
-                new UIButton("Load Game").onClick(() -> MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
-                new UIButton("Setting").onClick(() -> MainGame.getScM().showScreen(ScreenType.MAIN_SETTING))
+                new UIButton("New Game").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
+                new UIButton("Load Game").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
+                new UIButton("Setting").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.MAIN_SETTING))
             ).padChildren(20)
-            .sizeChildren(150, 50);
+            .sizeChildren(screenWidth*0.2f,screenHeight*0.1f);
 
         rootGroup.addActor(table1);
-
-
-
-
-
     }
 
 
@@ -66,36 +61,34 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void resize(int width, int height) {
-        Gdx.app.log("MainMenuScreen", "resize(" + width + ", " + height + ") called");
+        Gdx.app.log("MenuScreen", "resize(" + width + ", " + height + ") called");
         super.resize(width, height);
     }
 
     @Override
     public void pause() {
-        Gdx.app.log("MainMenuScreen", "pause() called");
+        Gdx.app.log("MenuScreen", "pause() called");
     }
 
     @Override
     public void resume() {
-        Gdx.app.log("MainMenuScreen", "resume() called");
+        Gdx.app.log("MenuScreen", "resume() called");
     }
 
     @Override
     public void hide() {
-        Gdx.app.log("MainMenuScreen", "hide() called");
+        Gdx.app.log("MenuScreen", "hide() called");
     }
 
     @Override
     public void dispose() {
-        Gdx.app.log("MainMenuScreen", "dispose() called");
+        Gdx.app.log("MenuScreen", "dispose() called");
         super.dispose();
     }
 
     public static void loadingAsset() {
         MainGame.getAsM().load("texture/default.png", Texture.class);
         MainGame.getAsM().load("music/music_demo.mp3", Music.class);
-
-
     }
 
 }

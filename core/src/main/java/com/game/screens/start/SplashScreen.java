@@ -12,7 +12,6 @@ public class SplashScreen extends BaseScreen {
 
     @Override
     protected void createScreen() {
-        super.createScreen();
     }
 
     @Override

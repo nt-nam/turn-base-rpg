@@ -1,7 +1,6 @@
-package com.game.ecs.components;
+package com.game.ecs.component;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.math.Vector2;
 
 public class PositionComponent implements Component {
     public float x = 0, y = 0;

@@ -3,9 +3,9 @@ package com.game.ecs.entities;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.game.MainGame;
-import com.game.ecs.components.PositionComponent;
-import com.game.ecs.components.SpriteComponent;
-import com.game.ecs.components.StatsComponent;
+import com.game.ecs.component.PositionComponent;
+import com.game.ecs.component.SpriteComponent;
+import com.game.ecs.component.StatsComponent;
 
 public class EntityFactory {
     public static Entity createPlayer(TextureAtlas.AtlasRegion region){

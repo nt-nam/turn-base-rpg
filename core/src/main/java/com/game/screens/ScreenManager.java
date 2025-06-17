@@ -116,6 +116,9 @@ public class ScreenManager implements Disposable {
             case WORLD_MAP:
                 WorldMapScreen.loadingAsset();
                 return true;
+            case SELECT_PLAYER:
+                SelectPlayerScreen.loadingAsset();
+                return true;
             case BATTLE:
                 return true;
             default:

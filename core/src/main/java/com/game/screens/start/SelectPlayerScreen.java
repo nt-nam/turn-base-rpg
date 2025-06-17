@@ -1,11 +1,14 @@
 package com.game.screens.start;
 
+import static com.game.utils.Constants.UI_WOOD;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.MainGame;
 import com.game.screens.BaseScreen;
+import com.game.screens.ScreenType;
+import com.game.ui.base.UIImage;
 
 public class SelectPlayerScreen extends BaseScreen {
 
@@ -15,11 +18,18 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
+        MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
     }
 
     @Override
     protected void createScreen() {
-        super.createScreen();
+        createBackground();
+        createCloseButton(ScreenType.MENU_GAME);
+    }
+    private void createBackground() {
+        String namePopup = "popup_000";
+        TextureRegion skill = MainGame.getAsM().getRegion(UI_WOOD, "popup_000");
+        UIImage popup = new UIImage(skill).name(namePopup).parent(rootGroup).bounds(0, 0, screenWidth, screenHeight).debug(false);
     }
 
     @Override

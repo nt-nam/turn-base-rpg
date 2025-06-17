@@ -15,7 +15,6 @@ public class WorldMapScreen extends BaseScreen {
 
     @Override
     protected void createScreen() {
-        super.createScreen();
     }
 
     public static void loadingAsset(){

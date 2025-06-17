@@ -5,8 +5,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.game.ecs.components.PositionComponent;
-import com.game.ecs.components.SpriteComponent;
+import com.game.ecs.component.PositionComponent;
+import com.game.ecs.component.SpriteComponent;
 
 public class RenderSystem extends IteratingSystem {
     private SpriteBatch batch;

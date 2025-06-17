@@ -53,6 +53,10 @@ select2_up_073
 bounds:144,64,32,32
 select2_down_075
 bounds:176,64,32,32
+btn_up
+bounds:48,80,16,16
+btn_down
+bounds:64,80,16,16
 bar_in_080
 bounds:0,80,48,16
 bar_out_096

@@ -14,6 +14,15 @@ public class EventManager {
         listeners.computeIfAbsent(type, k -> new ArrayList<>()).add(listener);
     }
 
+    public <T extends GameEvent> void unsubscribe(Class<T> type, Consumer<T> listener) {
+        List<Consumer<?>> consumerList = listeners.get(type);
+        if (consumerList != null) {
+            consumerList.remove(listener);
+            // Nếu không còn ai lắng nghe, remove luôn khỏi map cho sạch
+            if (consumerList.isEmpty()) listeners.remove(type);
+        }
+    }
+
     public <T extends GameEvent> void dispatch(T event) {
         List<Consumer<?>> consumerList = listeners.get(event.getClass());
         if (consumerList != null) {

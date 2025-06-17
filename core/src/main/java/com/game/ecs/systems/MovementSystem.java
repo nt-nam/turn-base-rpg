@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.game.ecs.components.PositionComponent;
-import com.game.ecs.components.VelocityComponent;
+import com.game.ecs.component.PositionComponent;
+import com.game.ecs.component.VelocityComponent;
 
 public class MovementSystem extends IteratingSystem {
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);

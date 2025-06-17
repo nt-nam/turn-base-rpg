@@ -6,8 +6,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.game.ecs.components.InputComponent;
-import com.game.ecs.components.PositionComponent;
+import com.game.ecs.component.InputComponent;
+import com.game.ecs.component.PositionComponent;
 
 public class PlayerInputSystem extends IteratingSystem {
     private ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);

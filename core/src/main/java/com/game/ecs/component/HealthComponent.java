@@ -1,4 +1,4 @@
-package com.game.ecs.components;
+package com.game.ecs.component;
 
 import com.badlogic.ashley.core.Component;
 
@@ -16,6 +16,7 @@ public class HealthComponent implements Component {
             currentHP = 0;
         }
     }
+
     public boolean isDead() {
         return currentHP <= 0;
     }
@@ -28,16 +29,4 @@ public class HealthComponent implements Component {
         return maxHP;
     }
 
-    public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
-    }
-
-    public void setCurrentHP(int currentHP) {
-        this.currentHP = currentHP;
-    }
-
-    public void setHealth(int currentHP, int maxHP) {
-        this.currentHP = currentHP;
-        this.maxHP = maxHP;
-    }
 }
