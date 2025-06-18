@@ -2,6 +2,7 @@ package com.game.screens;
 
 import static com.game.utils.Constants.UI_WOOD;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,17 +15,17 @@ import com.game.utils.ResourceUtils;
 
 public abstract class BaseScreen implements Screen {
     protected Stage stage;
+    protected static Engine engine;
     protected float screenWidth;
     protected float screenHeight;
-//    protected Engine engine;
     protected Group rootGroup;
     protected Label title;
 
     public BaseScreen() {
         stage = MainGame.getStage();
+        engine = MainGame.getEngine();
         screenWidth = stage.getWidth();
         screenHeight = stage.getHeight();
-//        engine = MainGame.getEngine();
         rootGroup = new Group();
         rootGroup.setSize(stage.getWidth(), stage.getHeight());
     }
@@ -47,7 +48,7 @@ public abstract class BaseScreen implements Screen {
 
         stage.act(delta);
         stage.draw();
-//        engine.update(delta);
+        engine.update(delta);
 
         updateUI(delta);
     }

@@ -3,6 +3,7 @@ package com.game;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -21,6 +22,8 @@ import com.game.screens.ScreenManager;
 import com.game.ui.UIManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
+import com.game.utils.ClickLoggerInputProcessor;
+import com.game.utils.data.GameSession;
 
 public class MainGame extends Game {
     private static AudioManager aum;
@@ -35,11 +38,15 @@ public class MainGame extends Game {
     private static ScreenManager scm;
     private static UIManager uim;
 
+    private static GameSession session;
+
     private static SpriteBatch batch;
     private OrthographicCamera camera;
     private Viewport viewport;
     private static Stage stage;
     private static Engine engine;
+
+    InputMultiplexer multiplexer;
 
     public static AudioManager getAum() {
         if (aum == null) {
@@ -113,7 +120,12 @@ public class MainGame extends Game {
         }
         return uim;
     }
-
+    public static GameSession getSession() {
+        if (session == null) {
+            session = new GameSession();
+        }
+        return session;
+    }
 
     public static SpriteBatch batch() {
         return batch;
@@ -124,6 +136,9 @@ public class MainGame extends Game {
     }
 
     public static Engine getEngine() {
+        if (engine == null) {
+            engine = new Engine();
+        }
         return engine;
     }
 
@@ -135,6 +150,7 @@ public class MainGame extends Game {
     public void create() {
         asm = new GAssetManager();
         batch = new SpriteBatch();
+        multiplexer = new InputMultiplexer();
 
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
@@ -154,7 +170,10 @@ public class MainGame extends Game {
         asm.loadSkin("ui/uiskin.json");
         asm.loadFont("ui/default.fnt");
         asm.finishLoading();
-        Gdx.input.setInputProcessor(stage);
+//        Gdx.input.setInputProcessor(stage);
+        multiplexer.addProcessor(stage); // nếu có stage
+//        multiplexer.addProcessor(new ClickLoggerInputProcessor(camera));
+        Gdx.input.setInputProcessor(multiplexer);
         getScM().showScreen(ScreenType.MENU_GAME);
     }
 

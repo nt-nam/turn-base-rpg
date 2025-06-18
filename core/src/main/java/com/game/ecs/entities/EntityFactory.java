@@ -12,7 +12,7 @@ public class EntityFactory {
         Entity entity = MainGame.getEngine().createEntity();
         entity.add(new PositionComponent(5, 5));
         entity.add(new StatsComponent(100, 100, 20, 10, 30, 30, 1));
-        entity.add(new SpriteComponent(region, 0, 0));
+//        entity.add(new SpriteComponent(region, 0, 0));
         // Add more component (InputComponent, InventoryComponent...)
         MainGame.getEngine().addEntity(entity);
         return entity;

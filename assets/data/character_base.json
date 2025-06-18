@@ -1,6 +1,7 @@
 [
   {
-    "knightId": "01Knight",
+    "characterId": "01Knight",
+    "type": "knight",
     "name": "Crimson Blade",
     "desc": "A master swordsman with balanced power and defense.",
     "hp": 120,
@@ -12,7 +13,8 @@
     "skills": ["slash", "shield_bash"]
   },
   {
-    "knightId": "02Knight",
+    "characterId": "02Knight",
+    "type": "knight",
     "name": "Azure Sentinel",
     "desc": "Quick and nimble, excels at dodging enemy attacks.",
     "hp": 105,
@@ -24,7 +26,8 @@
     "skills": ["dash_strike", "evasion"]
   },
   {
-    "knightId": "03Knight",
+    "characterId": "03Knight",
+    "type": "knight",
     "name": "Iron Guardian",
     "desc": "Wears heavy armor and can withstand massive damage.",
     "hp": 150,
@@ -36,7 +39,8 @@
     "skills": ["iron_wall", "taunt"]
   },
   {
-    "knightId": "04Knight",
+    "characterId": "04Knight",
+    "type": "knight",
     "name": "Emerald Duelist",
     "desc": "Expert at fast, multi-hit attacks.",
     "hp": 95,
@@ -48,7 +52,8 @@
     "skills": ["double_strike", "quickstep"]
   },
   {
-    "knightId": "05Knight",
+    "characterId": "05Knight",
+    "type": "knight",
     "name": "Golden Paladin",
     "desc": "Holy knight with strong healing and protection magic.",
     "hp": 110,
@@ -60,7 +65,8 @@
     "skills": ["heal", "divine_shield"]
   },
   {
-    "knightId": "06Knight",
+    "characterId": "06Knight",
+    "type": "knight",
     "name": "Shadow Reaver",
     "desc": "A rogue knight skilled in critical strikes from the shadows.",
     "hp": 100,
@@ -72,7 +78,8 @@
     "skills": ["shadow_step", "ambush"]
   },
   {
-    "knightId": "07Knight",
+    "characterId": "07Knight",
+    "type": "knight",
     "name": "Frost Warden",
     "desc": "Controls ice magic to slow and damage enemies.",
     "hp": 112,
@@ -84,7 +91,8 @@
     "skills": ["frost_blast", "ice_shield"]
   },
   {
-    "knightId": "08Knight",
+    "characterId": "08Knight",
+    "type": "knight",
     "name": "Thunder Herald",
     "desc": "Unleashes lightning attacks with high speed.",
     "hp": 108,
@@ -96,7 +104,8 @@
     "skills": ["thunder_strike", "charge"]
   },
   {
-    "knightId": "09Knight",
+    "characterId": "09Knight",
+    "type": "knight",
     "name": "Sacred Lancer",
     "desc": "Specializes in spear attacks and buffs allies.",
     "hp": 115,
@@ -108,7 +117,8 @@
     "skills": ["pierce", "rally"]
   },
   {
-    "knightId": "10Knight",
+    "characterId": "10Knight",
+    "type": "knight",
     "name": "Violet Phantom",
     "desc": "Uses illusion and poison to outsmart foes.",
     "hp": 102,

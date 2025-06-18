@@ -118,7 +118,7 @@ public class GAssetManager {
             am.unload("tilemap/map/" + currentMapName + ".tmx");
         }
         currentMapName = mapName;
-        am.load("tilemap/map/map_" + mapName + ".tmx", TiledMap.class);
+        am.load("tilemap/map/" + mapName + ".tmx", TiledMap.class);
     }
 
     public void loadCharacterTiledMap(String tileName) {
@@ -126,7 +126,7 @@ public class GAssetManager {
     }
 
     public TiledMap getTiledMap(String mapName) {
-        return get("tilemap/map/map_" + mapName + ".tmx", TiledMap.class);
+        return get("tilemap/map/" + mapName + ".tmx", TiledMap.class);
     }
 
     public TiledMap getCharacterTiledMap(String tileName) {
