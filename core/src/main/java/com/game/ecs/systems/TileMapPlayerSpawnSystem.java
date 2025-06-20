@@ -7,11 +7,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
+import com.game.ecs.component.AnimationStateComponent;
 import com.game.ecs.component.CharacterBaseDataComponent;
+import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ecs.factory.CharacterLoader;
+import com.game.screens.main.WorldMapScreen;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
 
@@ -21,7 +25,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
     private final int spawnIndex;
     private final OrthographicCamera camera;
     private boolean spawned = false;
-    private static final float SCALE = 4.5f;
+    private static final float SCALE = WorldMapScreen.SCALE;
 
     public TileMapPlayerSpawnSystem(Engine engine, TiledMap map, int spawnIndex, OrthographicCamera camera) {
         this.engine = engine;
@@ -47,15 +51,17 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
                     camera.update();
 
                     // Tạo entity player
-                    String knightId = GameSession.selectedKnightId;
-                    CharacterBaseData charData = CharacterLoader.getCharacterBaseData(knightId);
+                    String characterId = GameSession.selectedCharacterId;
+                    CharacterBaseData charData = CharacterLoader.getCharacterBaseData(characterId);
                     CharacterBaseDataComponent data = CharacterBaseDataComponent.from(charData);
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());
                     player.add(new PositionComponent(x, y));
                     player.add(data);
-                    player.add(new SpriteComponent(knightId, "idle"));
+                    player.add(new SpriteComponent(characterId, "idle",SCALE));
+                    player.add(new AnimationStateComponent());
+                    player.add(new BoundComponent(new Rectangle(30, 10, 16*SCALE, 16*SCALE)));
 
                     engine.addEntity(player);
                     spawned = true;

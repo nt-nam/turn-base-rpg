@@ -1,5 +1,8 @@
 package com.game.utils.data;
 
+import com.game.ecs.component.EnemyTriggerComponent;
+import com.game.ecs.systems.TriggerComponent;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,13 +15,19 @@ public class GameSession {
     public static int selectedSlot = 0; // Save slot
 
     // Character selection
-    public static String selectedKnightId = "";
+    public static String selectedCharacterId = "";
     public static int selectedPlayerSpawnIndex = 0;
+    public static String skillCharacter = "";
 
     // Position/state
     public static String currentMapId = "village_0";
     public static float playerX = 0, playerY = 0;
     public static String playerDirection = "down";
+    public static PendingTeleport pendingTeleport = null;
+    public static boolean moveLeft = false;
+    public static boolean moveRight = false;
+    public static boolean moveUp = false;
+    public static boolean moveDown = false;
 
     // Stats/resources
     public static int gold = 0;
@@ -31,6 +40,9 @@ public class GameSession {
 //    public static List<ItemData> inventory = new ArrayList<>();
 //    public static List<SkillData> skills = new ArrayList<>();
     public static List<String> partyMembers = new ArrayList<>();
+
+    public static EnemyTriggerComponent currentEnemy = null;
+
 
     // Quests/progress
 //    public static Map<String, QuestState> questStates = new HashMap<>();

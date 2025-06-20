@@ -1,0 +1,238 @@
+[
+  {
+    "id": "blue_attack",
+    "icon": "blue_attack",
+    "name": "Blue Slash",
+    "group": "blue",
+    "type": "attack",
+    "desc": "Deal a swift blue-colored slash, increasing attack power.",
+    "effect": [
+      { "stat": "atk", "percent": 120, "desc": "Increases attack by 20% for this strike." }
+    ]
+  },
+  {
+    "id": "blue_attack_big",
+    "icon": "blue_attack_big",
+    "name": "Blue Mega Slash",
+    "group": "blue",
+    "type": "attack",
+    "desc": "A devastating blue slash that deals massive damage.",
+    "effect": [
+      { "stat": "atk", "percent": 160, "desc": "Increases attack by 60% for this strike." }
+    ]
+  },
+  {
+    "id": "blue_heal",
+    "icon": "blue_heal",
+    "name": "Blue Healing",
+    "group": "blue",
+    "type": "heal",
+    "desc": "Restores a portion of HP to self.",
+    "effect": [
+      { "stat": "hp", "percent": 25, "desc": "Heals 25% of max HP." }
+    ]
+  },
+  {
+    "id": "blue_ultimate",
+    "icon": "blue_ultimate",
+    "name": "Blue Ultimate",
+    "group": "blue",
+    "type": "ultimate",
+    "desc": "A powerful blue skill that greatly enhances stats and heals.",
+    "effect": [
+      { "stat": "atk", "percent": 40, "desc": "Increases attack by 40%." },
+      { "stat": "def", "percent": 40, "desc": "Increases defense by 40%." },
+      { "stat": "hp", "percent": 40, "desc": "Heals 40% of max HP." }
+    ]
+  },
+
+  {
+    "id": "green_attack",
+    "icon": "green_attack",
+    "name": "Green Jab",
+    "group": "green",
+    "type": "attack",
+    "desc": "A quick green strike that boosts agility-based damage.",
+    "effect": [
+      { "stat": "agi", "percent": 120, "desc": "Increases agility-based damage by 20%." }
+    ]
+  },
+  {
+    "id": "green_attack_big",
+    "icon": "green_attack_big",
+    "name": "Green Tornado",
+    "group": "green",
+    "type": "attack",
+    "desc": "Unleashes a powerful tornado, dealing massive agility-based damage.",
+    "effect": [
+      { "stat": "agi", "percent": 160, "desc": "Increases agility-based damage by 60%." }
+    ]
+  },
+  {
+    "id": "green_heal",
+    "icon": "green_heal",
+    "name": "Green Regeneration",
+    "group": "green",
+    "type": "heal",
+    "desc": "Restores HP to all allies with nature's energy.",
+    "effect": [
+      { "stat": "hp", "percent": 18, "desc": "Heals all allies for 18% of max HP." }
+    ]
+  },
+  {
+    "id": "green_ultimate",
+    "icon": "green_ultimate",
+    "name": "Nature's Embrace",
+    "group": "green",
+    "type": "ultimate",
+    "desc": "Unleashes the full power of nature to restore and empower.",
+    "effect": [
+      { "stat": "agi", "percent": 40, "desc": "Increases agility by 40%." },
+      { "stat": "def", "percent": 30, "desc": "Increases defense by 30%." },
+      { "stat": "hp", "percent": 30, "desc": "Heals all allies for 30% of max HP." }
+    ]
+  },
+
+  {
+    "id": "orange_attack",
+    "icon": "orange_attack",
+    "name": "Fiery Strike",
+    "group": "orange",
+    "type": "attack",
+    "desc": "A burning attack that increases critical rate.",
+    "effect": [
+      { "stat": "crit", "percent": 115, "desc": "Increases critical chance by 15% for this strike." }
+    ]
+  },
+  {
+    "id": "orange_attack_big",
+    "icon": "orange_attack_big",
+    "name": "Inferno Slash",
+    "group": "orange",
+    "type": "attack",
+    "desc": "A massive fiery attack with high crit damage.",
+    "effect": [
+      { "stat": "crit", "percent": 140, "desc": "Increases critical chance by 40% for this strike." }
+    ]
+  },
+  {
+    "id": "orange_heal",
+    "icon": "orange_heal",
+    "name": "Warm Recovery",
+    "group": "orange",
+    "type": "heal",
+    "desc": "A warm light heals a portion of HP.",
+    "effect": [
+      { "stat": "hp", "percent": 20, "desc": "Heals 20% of max HP." }
+    ]
+  },
+  {
+    "id": "orange_ultimate",
+    "icon": "orange_ultimate",
+    "name": "Phoenix Revival",
+    "group": "orange",
+    "type": "ultimate",
+    "desc": "Revives allies and gives a powerful crit boost.",
+    "effect": [
+      { "stat": "hp", "percent": 40, "desc": "Revives and heals all allies for 40% of max HP." },
+      { "stat": "crit", "percent": 35, "desc": "Increases all allies' critical rate by 35%." }
+    ]
+  },
+
+  {
+    "id": "pink_attack",
+    "icon": "pink_attack",
+    "name": "Love Strike",
+    "group": "pink",
+    "type": "attack",
+    "desc": "A charming attack that increases all stats slightly.",
+    "effect": [
+      { "stat": "atk", "percent": 110, "desc": "Increases attack by 10%." },
+      { "stat": "agi", "percent": 110, "desc": "Increases agility by 10%." }
+    ]
+  },
+  {
+    "id": "pink_attack_big",
+    "icon": "pink_attack_big",
+    "name": "Heart Burst",
+    "group": "pink",
+    "type": "attack",
+    "desc": "A powerful attack that charms and weakens enemies.",
+    "effect": [
+      { "stat": "atk", "percent": 130, "desc": "Increases attack by 30%." },
+      { "stat": "def", "percent": -20, "desc": "Reduces target's defense by 20%." }
+    ]
+  },
+  {
+    "id": "pink_heal",
+    "icon": "pink_heal",
+    "name": "Gentle Heal",
+    "group": "pink",
+    "type": "heal",
+    "desc": "A soft, soothing heal for all allies.",
+    "effect": [
+      { "stat": "hp", "percent": 22, "desc": "Heals all allies for 22% of max HP." }
+    ]
+  },
+  {
+    "id": "pink_ultimate",
+    "icon": "pink_ultimate",
+    "name": "Eternal Love",
+    "group": "pink",
+    "type": "ultimate",
+    "desc": "Grants a huge all-stat boost and full heal.",
+    "effect": [
+      { "stat": "atk", "percent": 50, "desc": "Increases attack by 50%." },
+      { "stat": "agi", "percent": 50, "desc": "Increases agility by 50%." },
+      { "stat": "hp", "percent": 100, "desc": "Heals all HP." }
+    ]
+  },
+
+  {
+    "id": "yellow_attack",
+    "icon": "yellow_attack",
+    "name": "Lightning Strike",
+    "group": "yellow",
+    "type": "attack",
+    "desc": "A fast lightning attack that boosts speed.",
+    "effect": [
+      { "stat": "agi", "percent": 130, "desc": "Increases agility by 30%." }
+    ]
+  },
+  {
+    "id": "yellow_attack_big",
+    "icon": "yellow_attack_big",
+    "name": "Thunderstorm",
+    "group": "yellow",
+    "type": "attack",
+    "desc": "Massive AoE attack, boosts speed and crit.",
+    "effect": [
+      { "stat": "agi", "percent": 150, "desc": "Increases agility by 50%." },
+      { "stat": "crit", "percent": 20, "desc": "Increases critical rate by 20%." }
+    ]
+  },
+  {
+    "id": "yellow_heal",
+    "icon": "yellow_heal",
+    "name": "Shining Heal",
+    "group": "yellow",
+    "type": "heal",
+    "desc": "A burst of light heals a large portion of HP.",
+    "effect": [
+      { "stat": "hp", "percent": 30, "desc": "Heals 30% of max HP." }
+    ]
+  },
+  {
+    "id": "yellow_ultimate",
+    "icon": "yellow_ultimate",
+    "name": "Solar Ascend",
+    "group": "yellow",
+    "type": "ultimate",
+    "desc": "Massive heal and all-stat boost for the party.",
+    "effect": [
+      { "stat": "hp", "percent": 50, "desc": "Heals all allies for 50% of max HP." },
+      { "stat": "atk", "percent": 35, "desc": "Increases attack by 35%." },
+      { "stat": "agi", "percent": 35, "desc": "Increases agility by 35%." }
+    ]
+  }
+]

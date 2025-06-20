@@ -2,22 +2,21 @@ package com.game.ecs.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.ecs.component.SpriteComponent;
-import com.badlogic.gdx.graphics.g2d.*;
 import com.game.ecs.component.PositionComponent;
 import com.game.utils.data.AnimationCache;
 
 public class SpriteRenderSystem extends EntitySystem {
-    private SpriteBatch batch = new SpriteBatch();
-    private OrthographicCamera camera;
-    private ComponentMapper<PositionComponent> posM = ComponentMapper.getFor(PositionComponent.class);
-    private ComponentMapper<SpriteComponent> sprM = ComponentMapper.getFor(SpriteComponent.class);
-
-    private Engine engine;
+    private final SpriteBatch batch = new SpriteBatch();
+    private final OrthographicCamera camera;
+    private final ComponentMapper<PositionComponent> posM = ComponentMapper.getFor(PositionComponent.class);
+    private final ComponentMapper<SpriteComponent> sprM = ComponentMapper.getFor(SpriteComponent.class);
+    private final Engine engine;
 
     public SpriteRenderSystem(Engine engine, OrthographicCamera camera) {
         this.engine = engine;
@@ -26,25 +25,62 @@ public class SpriteRenderSystem extends EntitySystem {
 
     @Override
     public void update(float deltaTime) {
-        ImmutableArray<Entity> entities = engine.getEntitiesFor(Family.all(PositionComponent.class, SpriteComponent.class).get());
         batch.setProjectionMatrix(camera.combined);
+
+        // Nếu muốn hỗ trợ render layer, hãy sort entities trước (code mẫu để lại comment)
+        ImmutableArray<Entity> entities = engine.getEntitiesFor(
+            Family.all(PositionComponent.class, SpriteComponent.class).get()
+        );
+
         batch.begin();
         for (Entity entity : entities) {
             PositionComponent pos = posM.get(entity);
             SpriteComponent spr = sprM.get(entity);
 
-            // Cập nhật stateTime
-            spr.stateTime += deltaTime;
+            TextureRegion frame = null;
 
-            // Lấy Animation từ cache
-            Animation<TextureRegion> anim = AnimationCache.get(spr.characterId, spr.animationName);
-            if (anim == null) continue; // Không có animation thì bỏ qua
+            // Nếu có animation thì render animation
+            if (spr.characterId != null && spr.animationName != null) {
+                Animation<TextureRegion> anim = AnimationCache.get(spr.characterId, spr.animationName);
+                if (anim != null) {
+                    spr.stateTime += deltaTime;
+                    boolean looping = anim.getPlayMode() == Animation.PlayMode.LOOP || anim.getPlayMode() == Animation.PlayMode.LOOP_PINGPONG;
+                    frame = anim.getKeyFrame(spr.stateTime, looping);
+                }
+            }
 
-            // Lấy frame hiện tại
-            TextureRegion frame = anim.getKeyFrame(spr.stateTime, true);
+            // Nếu không có animation, dùng staticRegion
+            if (frame == null && spr.staticRegion != null) {
+                frame = spr.staticRegion;
+            }
 
-            // Render tại vị trí pos.x, pos.y
-            batch.draw(frame, pos.x, pos.y);
+            if (frame == null) continue; // Không có gì để vẽ
+
+            // Xử lý flipX, flipY
+            if (spr.flipX != frame.isFlipX()) frame.flip(true, false);
+            if (spr.flipY != frame.isFlipY()) frame.flip(false, true);
+
+            // Áp dụng color, alpha
+            batch.setColor(spr.tint.r, spr.tint.g, spr.tint.b, spr.alpha);
+
+            // Vẽ, hỗ trợ origin & rotation nếu muốn
+            float width = frame.getRegionWidth() * spr.scale;
+            float height = frame.getRegionHeight() * spr.scale;
+            float originX = spr.originX;
+            float originY = spr.originY;
+            float rotation = spr.rotation;
+
+            batch.draw(
+                frame,
+                pos.x, pos.y,
+                originX, originY,
+                width, height,
+                1f, 1f,
+                rotation
+            );
+
+            // Reset lại màu batch về mặc định để tránh ảnh hưởng entity tiếp theo
+            batch.setColor(Color.WHITE);
         }
         batch.end();
     }

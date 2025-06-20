@@ -18,4 +18,12 @@ public class AnimationCache {
     public static Animation<TextureRegion> get(String characterId, String animName) {
         return animMap.get(characterId + "_" + animName);
     }
+
+    public static void clear() {
+        animMap.clear();
+    }
+
+    public static void remove(String characterId, String animName) {
+        animMap.remove(characterId + "_" + animName);
+    }
 }

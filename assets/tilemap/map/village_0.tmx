@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="339">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="348">
  <tileset firstgid="1" source="fullmap.tsx"/>
  <layer id="1" name="Map_Layer" width="14" height="12">
   <data encoding="csv">
@@ -26,7 +26,6 @@
   <object id="288" x="75" y="76" width="53.3333" height="20"/>
   <object id="290" x="130.333" y="102" width="12.6667" height="13.3333"/>
   <object id="291" x="196.667" y="213.333" width="12.6667" height="30.3333"/>
-  <object id="294" x="325" y="332.667" width="54.3333" height="51"/>
   <object id="295" x="351.333" y="130.667" width="110" height="64"/>
   <object id="296" x="338.667" y="150.667" width="13.6667" height="37.6667"/>
   <object id="298" x="385" y="211.667" width="15" height="39"/>
@@ -36,6 +35,8 @@
   <object id="305" x="64.0682" y="165.455" width="34.6591" height="14.1818"/>
   <object id="322" x="25.125" y="134.875" width="39.5" height="6.875"/>
   <object id="323" x="0.375" y="141.75" width="63.625" height="38.75"/>
+  <object id="339" x="-4.90909" y="77.6364" width="4.90909" height="82.3636"/>
+  <object id="340" x="180.5" y="384" width="107.5" height="7.5"/>
  </objectgroup>
  <objectgroup id="13" name="line">
   <object id="274" x="106.273" y="180.409">
@@ -44,63 +45,78 @@
   <object id="276" x="192.5" y="226">
    <polygon points="0,0 -2,19.5 -59.5,50"/>
   </object>
-  <object id="278" x="132.5" y="277">
-   <polygon points="0,0 28.5,8.5 44,34"/>
-  </object>
-  <object id="280" x="176.5" y="313.5">
-   <polygon points="0,0 0.5,26 -23,69"/>
-  </object>
-  <object id="281" x="178.5" y="341">
-   <polygon points="0,0 23,26 20,42.5"/>
-  </object>
   <object id="289" x="160.667" y="81.3333">
    <polygon points="0,0 -31.6667,15.3333 -33,-0.666667"/>
-  </object>
-  <object id="292" x="352.667" y="213.667">
-   <polygon points="-2,-2.33333 -80,58 25.3333,123.667"/>
   </object>
   <object id="297" x="363.333" y="128.667">
    <polygon points="0,0 -63.3333,-32 -102.333,-71.6667 -71.6667,-94"/>
   </object>
-  <object id="301" x="353.333" y="212">
-   <polygon points="-2.33333,-2 30.3333,19 30.6667,48.6667"/>
-  </object>
   <object id="302" x="418" y="196">
    <polygon points="0,0 25,25.6667 24.3333,-2.66667"/>
   </object>
-  <object id="293" x="266" y="385">
+  <object id="293" x="265.5" y="385.25">
    <polygon points="0,0 20.3333,-27.6667 58.6667,-28 57.3333,-1.33333"/>
   </object>
+  <object id="342" x="200.364" y="382.909">
+   <polygon points="0,0 2.36364,-15.0909 -23.2727,-44.1818 -49.6364,0"/>
+  </object>
+  <object id="343" x="133.273" y="275.455">
+   <polygon points="0,0 15.2727,12 28.3636,9.63636 31.2727,27.8182 44.3636,38.3636 44.5455,64"/>
+  </object>
+  <object id="344" x="349.25" y="323.25">
+   <polygon points="0,0 -76.5,-44.75 -75.75,-57.25 -39.5,-78.5 -28,-79 -17.75,-96.5 3.75,-111.25 21.25,-101.5 66.25,-53"/>
+  </object>
+  <object id="346" x="357" y="317.5">
+   <polygon points="0,0 -33.75,23 -33,64.5 0.25,66.25"/>
+  </object>
  </objectgroup>
- <objectgroup color="#0055ff" id="9" name="way">
-  <object id="306" name="way" x="199.125" y="375.75" width="67.625" height="8">
+ <objectgroup color="#0055ff" id="9" name="teleport">
+  <object id="306" x="199.125" y="371.122" width="67.625" height="12.6284">
    <properties>
-    <property name="index" type="int" value="0"/>
+    <property name="block" type="bool" value="true"/>
+    <property name="map" value="Backyard_1"/>
+    <property name="name" value="Backyard 1"/>
+    <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="307" name="way" x="-0.545455" y="80.9091" width="9.45455" height="61.4545">
+  <object id="307" x="0.483074" y="79.8809" width="9.45455" height="61.4545">
    <properties>
-    <property name="index" type="int" value="1"/>
+    <property name="index" type="int" value="5"/>
+    <property name="map" value="Topple_Road_1"/>
+    <property name="name" value="Topple Road"/>
+    <property name="spawn" type="int" value="0"/>
    </properties>
   </object>
-  <object id="308" name="door" x="48" y="53.5682" width="25.8182" height="34.3409">
+  <object id="308" x="44.4002" y="67.4533" width="25.8182" height="34.3409">
    <properties>
-    <property name="index" type="int" value="4"/>
+    <property name="block" type="bool" value="false"/>
+    <property name="map" value="village_4"/>
+    <property name="name" value="Home"/>
+    <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="310" name="door" x="318.375" y="92.25" width="31.125" height="30.625">
+  <object id="310" x="313.747" y="104.592" width="31.125" height="30.625">
    <properties>
-    <property name="index" type="int" value="1"/>
+    <property name="block" type="bool" value="false"/>
+    <property name="map" value="village_1"/>
+    <property name="name" value="Main House"/>
+    <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="311" name="door" x="307.614" y="276.273" width="24.7273" height="35.875">
+  <object id="311" x="303.5" y="288.101" width="24.7273" height="35.875">
    <properties>
-    <property name="index" type="int" value="2"/>
+    <property name="block" type="bool" value="false"/>
+    <property name="map" value="village_2"/>
+    <property name="name" value="Forge House"/>
+    <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
-  <object id="312" name="door" x="147.25" y="223.25" width="29.875" height="41.75">
+  <object id="312" x="157.321" y="232.071" width="29.875" height="41.75">
    <properties>
-    <property name="index" type="int" value="3"/>
+    <property name="block" type="bool" value="false"/>
+    <property name="map" value="village_3"/>
+    <property name="name" value="Shop"/>
+    <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
@@ -146,7 +162,14 @@
   </object>
  </objectgroup>
  <objectgroup color="#ff55ff" id="12" name="object"/>
- <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#ff0000" id="11" name="enemies">
+  <object id="347" x="154.098" y="327.927" width="28.9865" height="20.9739">
+   <properties>
+    <property name="level" type="int" value="1"/>
+    <property name="name" value="01Knight"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#00ff00" id="8" name="player">
   <object id="320" name="spawn" x="234.5" y="363.5">
    <properties>
@@ -154,31 +177,31 @@
    </properties>
    <point/>
   </object>
-  <object id="321" name="spawn" x="20" y="121">
+  <object id="321" name="spawn" x="15.3333" y="124.333">
    <properties>
     <property name="index" type="int" value="5"/>
    </properties>
    <point/>
   </object>
-  <object id="335" name="spawn" x="295.25" y="315">
+  <object id="335" name="spawn" x="277.055" y="323.955">
    <properties>
     <property name="index" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="336" name="spawn" x="182.5" y="275.75">
+  <object id="336" name="spawn" x="190.814" y="279.331">
    <properties>
     <property name="index" type="int" value="3"/>
    </properties>
    <point/>
   </object>
-  <object id="337" name="spawn" x="51" y="98.5">
+  <object id="337" name="spawn" x="51.3333" y="101.167">
    <properties>
     <property name="index" type="int" value="4"/>
    </properties>
    <point/>
   </object>
-  <object id="338" name="spawn" x="325.75" y="139.25">
+  <object id="338" name="spawn" x="314.207" y="149.535">
    <properties>
     <property name="index" type="int" value="1"/>
    </properties>

@@ -5,11 +5,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class TileMapComponent implements Component {
-    public TiledMap tiledMap;
+    public TiledMap map;
     public OrthogonalTiledMapRenderer renderer;
 
     public TileMapComponent(TiledMap map, OrthogonalTiledMapRenderer renderer) {
-        this.tiledMap = map;
+        this.map = map;
         this.renderer = renderer;
     }
 }

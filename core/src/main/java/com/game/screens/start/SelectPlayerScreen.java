@@ -14,7 +14,6 @@ public class SelectPlayerScreen extends BaseScreen {
 
     public SelectPlayerScreen() {
         super();
-        createScreen();
     }
 
     public static void loadingAsset() {

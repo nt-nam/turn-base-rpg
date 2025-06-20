@@ -46,9 +46,9 @@ public abstract class BaseScreen implements Screen {
 
         updateLogic(delta);
 
+        engine.update(delta);
         stage.act(delta);
         stage.draw();
-        engine.update(delta);
 
         updateUI(delta);
     }

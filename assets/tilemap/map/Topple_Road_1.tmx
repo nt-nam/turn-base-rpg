@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="13" height="13" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="367">
+ <tileset firstgid="1" source="fullmap.tsx"/>
+ <layer id="1" name="Map_Layer" width="13" height="13">
+  <data encoding="csv">
+25537,25538,25539,25540,25541,25542,25543,25544,25545,25546,25547,25548,25549,
+25726,25727,25728,25729,25730,25731,25732,25733,25734,25735,25736,25737,25738,
+25915,25916,25917,25918,25919,25920,25921,25922,25923,25924,25925,25926,25927,
+26104,26105,26106,26107,26108,26109,26110,26111,26112,26113,26114,26115,26116,
+26293,26294,26295,26296,26297,26298,26299,26300,26301,26302,26303,26304,26305,
+26482,26483,26484,26485,26486,26487,26488,26489,26490,26491,26492,26493,26494,
+26671,26672,26673,26674,26675,26676,26677,26678,26679,26680,26681,26682,26683,
+26860,26861,26862,26863,26864,26865,26866,26867,26868,26869,26870,26871,26872,
+27049,27050,27051,27052,27053,27054,27055,27056,27057,27058,27059,27060,27061,
+27238,27239,27240,27241,27242,27243,27244,27245,27246,27247,27248,27249,27250,
+27427,27428,27429,27430,27431,27432,27433,27434,27435,27436,27437,27438,27439,
+27616,27617,27618,27619,27620,27621,27622,27623,27624,27625,27626,27627,27628,
+27805,27806,27807,27808,27809,27810,27811,27812,27813,27814,27815,27816,27817
+</data>
+ </layer>
+ <objectgroup color="#000000" id="7" name="wall">
+  <object id="323" x="19.375" y="252.25" width="63.625" height="38.75"/>
+  <object id="347" x="416" y="-2.5" width="12" height="418.5"/>
+  <object id="348" x="-1.5" y="-12" width="417.5" height="12"/>
+  <object id="350" x="52.5" y="1.5" width="25.5" height="94"/>
+  <object id="351" x="77" y="91" width="56.5" height="69"/>
+  <object id="352" x="39.5" y="155.5" width="22.5" height="104.5"/>
+  <object id="353" x="62" y="153" width="39" height="24.5"/>
+  <object id="354" x="81.5" y="268.5" width="71.5" height="64"/>
+  <object id="355" x="148.5" y="287" width="52" height="46.5"/>
+  <object id="356" x="194.5" y="298.5" width="37.5" height="48.5"/>
+  <object id="357" x="231.818" y="324.5" width="52.6818" height="55"/>
+  <object id="358" x="285.5" y="335.182" width="18" height="38"/>
+  <object id="359" x="298.318" y="347.5" width="46.6818" height="33"/>
+  <object id="360" x="341.5" y="334.5" width="29" height="49"/>
+  <object id="361" x="371.5" y="346" width="19" height="44.5"/>
+ </objectgroup>
+ <objectgroup id="13" name="line">
+  <object id="362" x="420" y="300.5">
+   <polygon points="0,0 -84.5,-18 -114,-42 -137,-78 -152,-119 -116.5,-145 -138,-177 -98,-208.5 -51.5,-239.5 -5.5,-269.5"/>
+  </object>
+  <object id="363" x="378.5" y="-2">
+   <polygon points="0,0 7,17 -11,32.5 -25.5,22 -22.5,0"/>
+  </object>
+  <object id="364" x="341" y="1">
+   <polygon points="0,0 -18,12 -42,12 -53,-1"/>
+  </object>
+  <object id="365" x="243.5" y="0">
+   <polygon points="0,0 -23,39 -80,41.5 -90.5,13 -107.5,26 -138,28 -152.5,7.5 -147,-3"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0055ff" id="9" name="teleport">
+  <object id="310" x="357.375" y="1.25" width="58.125" height="53.625">
+   <properties>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="village_1"/>
+    <property name="spawn" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="311" x="390.523" y="295.091" width="24.7273" height="70.4205">
+   <properties>
+    <property name="index" type="int" value="5"/>
+    <property name="map" value="village_0"/>
+    <property name="name" value="Village"/>
+    <property name="spawn" type="int" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="10" name="npc"/>
+ <objectgroup color="#ff55ff" id="12" name="object"/>
+ <objectgroup color="#ff0000" id="11" name="enemies">
+  <object id="366" x="294.5" y="255.5" width="9.5" height="81">
+   <properties>
+    <property name="level" type="int" value="1"/>
+    <property name="name" value="01Knight"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#00ff00" id="8" name="player">
+  <object id="320" name="spawn" x="363.727" y="326.955">
+   <properties>
+    <property name="index" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="338" name="spawn" x="333.75" y="53.25">
+   <properties>
+    <property name="index" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

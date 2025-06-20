@@ -32,10 +32,13 @@
   <object id="342" x="91" y="249.5" width="46.5" height="5.5"/>
  </objectgroup>
  <objectgroup id="13" name="line"/>
- <objectgroup color="#0055ff" id="9" name="way">
+ <objectgroup color="#0055ff" id="9" name="teleport">
   <object id="324" name="door" x="95.9375" y="237.313" width="38.375" height="12.375">
    <properties>
     <property name="index" type="int" value="2"/>
+    <property name="map" value="Village_0"/>
+    <property name="name" value="Village"/>
+    <property name="spawn" type="int" value="2"/>
    </properties>
   </object>
  </objectgroup>
@@ -54,7 +57,7 @@
  <objectgroup color="#00ff00" id="8" name="player">
   <object id="344" name="spawn" x="113.875" y="228.875">
    <properties>
-    <property name="index" type="int" value="0"/>
+    <property name="index" type="int" value="1"/>
    </properties>
    <point/>
   </object>

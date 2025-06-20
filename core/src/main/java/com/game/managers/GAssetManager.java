@@ -160,4 +160,8 @@ public class GAssetManager {
     public String resolve(String image) {
         return "textures/" + image;
     }
+
+    public void unload(String s) {
+        am.unload(s);
+    }
 }

@@ -1,5 +1,6 @@
 package com.game.ui.base;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -14,6 +15,10 @@ public class UIImage extends Image {
 
     public UIImage(TextureRegion region) {
         super(region);
+    }
+
+    public UIImage(Texture texture) {
+        super(texture);
     }
 
     public UIImage(String atlasPath, String regionName) {

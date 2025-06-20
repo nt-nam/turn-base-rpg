@@ -120,6 +120,7 @@ public class ScreenManager implements Disposable {
                 SelectPlayerScreen.loadingAsset();
                 return true;
             case BATTLE:
+                BattleScreen.loadingAsset();
                 return true;
             default:
                 return false;

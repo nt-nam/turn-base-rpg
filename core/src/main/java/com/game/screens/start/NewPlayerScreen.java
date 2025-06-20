@@ -29,7 +29,7 @@ import com.game.utils.data.GameSession;
 public class NewPlayerScreen extends BaseScreen {
     private int currentKnightIndex = 0;
     private ImmutableArray<Entity> knightEntities;
-    private ComponentMapper<CharacterBaseDataComponent> baseDataMapper = ComponentMapper.getFor(CharacterBaseDataComponent.class);
+    private static final ComponentMapper<CharacterBaseDataComponent> baseDataMapper = ComponentMapper.getFor(CharacterBaseDataComponent.class);
 
     private Image knightAnimImage;
     private UILabel knightStatsLabel;
@@ -42,6 +42,7 @@ public class NewPlayerScreen extends BaseScreen {
     public NewPlayerScreen() {
         super();
         Gdx.app.log("NewPlayerScreen", "create() called");
+        Gdx.app.log("NewPlayerScreen", "create() called, baseDataMapper=" + baseDataMapper);
         createScreen();
     }
 
@@ -123,7 +124,7 @@ public class NewPlayerScreen extends BaseScreen {
 
                 playerNameField.getStage().setKeyboardFocus(null);
                 GameSession.playerName = nameInput;
-                GameSession.selectedKnightId = getCurrentKnightId();
+                GameSession.selectedCharacterId = getCurrentKnightId();
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
         rootGroup.addActor(btnSelect);
@@ -151,12 +152,15 @@ public class NewPlayerScreen extends BaseScreen {
         createCloseButton(ScreenType.MENU_GAME);
     }
 
-    /** Helper lấy entity hiện tại */
+    /**
+     * Helper lấy entity hiện tại
+     */
     private Entity getCurrentKnightEntity() {
         return knightEntities.get(currentKnightIndex);
     }
 
     private CharacterBaseDataComponent getCurrentKnightData() {
+        Gdx.app.log("NewPlayerScreen", "getCurrentKnightData, baseDataMapper=" + baseDataMapper);
         return baseDataMapper.get(getCurrentKnightEntity());
     }
 
@@ -182,6 +186,7 @@ public class NewPlayerScreen extends BaseScreen {
         Animation<TextureRegion> anim = new Animation<>(0.1f, idleFrames, Animation.PlayMode.LOOP);
         return new Image(anim.getKeyFrame(0)) {
             float stateTime = 0f;
+
             @Override
             public void act(float delta) {
                 super.act(delta);
@@ -205,7 +210,7 @@ public class NewPlayerScreen extends BaseScreen {
         knightAnimImage.remove();
         knightAnimImage = createCharacterImage(getCurrentKnightId(), "idle");
         knightAnimImage.setSize(characterSize, characterSize);
-        knightAnimImage.setPosition(leftWidth - characterSize, screenHeight * 0.5f - characterSize / 2);
+        knightAnimImage.setPosition(leftWidth - characterSize, screenHeight * 0.6f - characterSize / 2);
         rootGroup.addActor(knightAnimImage);
 
         knightStatsLabel.setText(getCurrentKnightStats());
@@ -224,7 +229,8 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     @Override
-    protected void updateLogic(float delta) {}
+    protected void updateLogic(float delta) {
+    }
 
     @Override
     public void render(float delta) {
@@ -234,10 +240,18 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     @Override
-    protected void updateUI(float delta) {}
+    protected void updateUI(float delta) {
+    }
 
     @Override
     public void dispose() {
+        for (int i = 1; i <= 10; i++) { // tùy số lượng knight
+            String knightId = (i == 10 ? i : "0" + i) + "Knight";
+//            if(!knightId.equals(getCurrentKnightId()))
+            MainGame.getAsM().unload(CHARACTER + knightId + ".atlas");
+        }
+        MainGame.getAsM().unload(CHARACTER + getCurrentKnightId() + ".atlas");
+        ;
         title.remove();
     }
 }
