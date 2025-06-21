@@ -36,7 +36,7 @@ public class CharacterLoader {
         Array<CharacterBaseData> result = new Array<>();
         if (characterList == null) return result;
         for (CharacterBaseData c : characterList)
-            if (type.equals(c.type)) result.add(c);
+            if (type.equals(c.classType)) result.add(c);
         return result;
     }
 }

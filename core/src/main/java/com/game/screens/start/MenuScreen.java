@@ -24,10 +24,16 @@ public class MenuScreen extends BaseScreen {
         Gdx.app.log("MenuScreen", "create() called");
 
         Image bg = new Image(MainGame.getAsM().getTexture("texture/default.png"));
-        bg.setSize(250, 250);
+        bg.setSize(screenWidth*0.4f, screenHeight*0.8f);
         rootGroup.addActor(bg);
+        bg.setPosition(screenWidth *0.0f, screenHeight*0.1f);
 
-        createTitle("Menu Screen", rootGroup);
+        Image bg2 = new Image(MainGame.getAsM().getTexture("texture/default2.png"));
+        bg2.setSize(screenWidth*0.4f, screenHeight*0.7f);
+        rootGroup.addActor(bg2);
+        bg2.setPosition(screenWidth *0.6f, screenHeight*0.15f);
+
+//        createTitle("Menu Screen", rootGroup);
 
         UITable table1 = new UITable()
             .name("tbMenu")
@@ -88,6 +94,7 @@ public class MenuScreen extends BaseScreen {
 
     public static void loadingAsset() {
         MainGame.getAsM().load("texture/default.png", Texture.class);
+        MainGame.getAsM().load("texture/default2.png", Texture.class);
         MainGame.getAsM().load("music/music_demo.mp3", Music.class);
     }
 

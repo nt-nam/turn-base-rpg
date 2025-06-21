@@ -12,16 +12,22 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
+import com.game.core.BattleSimulationResult;
+import com.game.core.BattleSimulator;
+import com.game.core.Mappers;
+import com.game.core.TurnResult;
 import com.game.ecs.component.AnimationStateComponent;
 import com.game.ecs.component.BattleCharacterComponent;
 import com.game.ecs.component.BoundComponent;
-import com.game.ecs.component.EffectComponent;
+import com.game.ecs.component.CharacterBaseDataComponent;
 import com.game.ecs.component.MoveToComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SkillStateComponent;
 import com.game.ecs.component.SpriteComponent;
-import com.game.ecs.component.StatsComponent;
+import com.game.ecs.component.StatComponent;
+import com.game.ecs.factory.CharacterLoader;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.SkillStateSystem;
 import com.game.ecs.systems.SkillSystem;
@@ -32,6 +38,7 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UIProgressBar;
 import com.game.utils.data.AnimationCache;
+import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
 
 import java.util.Arrays;
@@ -77,6 +84,7 @@ public class BattleScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+
         System.out.println("BattleScreen.show");
 
         // --- TẠO ECS ENTITY ---
@@ -87,27 +95,31 @@ public class BattleScreen extends BaseScreen {
         float enemyY = screenHeight * 0.5f;
 
 
-        String enemiesId = "07Knight";
+        String enemiesId = "02Knight";
         loadAllAnimations(enemiesId, CHARACTER + enemiesId + ".atlas");
         loadAllAnimations(GameSession.selectedCharacterId, CHARACTER + GameSession.selectedCharacterId + ".atlas");
         loadAllAnimationsSkill(GameSession.skillCharacter, SKILL_SKILL);
 
         // Player entity
+        CharacterBaseData dataPlayer = CharacterLoader.getCharacterBaseData(GameSession.selectedCharacterId);
         player = engine.createEntity();
         player.add(new PositionComponent(playerX, playerY));
         player.add(new SpriteComponent(GameSession.selectedCharacterId, "idle", 10, false)); // false = không flip
-        player.add(new StatsComponent(120, 120, 18, 12, 40, 40, 1));
+        player.add(new StatComponent(120, 120, 18, 12, 40, 40));
         player.add(new BattleCharacterComponent(true, Arrays.asList("slash", "shield_bash")));
+        player.add(CharacterBaseDataComponent.from(dataPlayer));
         player.add(new AnimationStateComponent());
         engine.addEntity(player);
 
 
         // Enemy entity
+        CharacterBaseData dataEnemies = CharacterLoader.getCharacterBaseData(enemiesId);
         enemy = engine.createEntity();
         enemy.add(new PositionComponent(enemyX, enemyY));
         enemy.add(new SpriteComponent(enemiesId, "idle", 7, true)); // true = flip, hướng qua trái
-        enemy.add(new StatsComponent(150, 150, 14, 8, 30, 30, 1));
+        enemy.add(new StatComponent(150, 150, 14, 8, 30, 30));
         enemy.add(new BattleCharacterComponent(false, Arrays.asList("fireball", "taunt")));
+        enemy.add(CharacterBaseDataComponent.from(dataEnemies));
         enemy.add(new AnimationStateComponent());
         engine.addEntity(enemy);
 
@@ -128,6 +140,79 @@ public class BattleScreen extends BaseScreen {
         engine.addSystem(new SkillSystem(engine));
 //        engine.addSystem(new BattleTurnSystem(...));
 //        engine.addSystem(new SkillEffectSystem(...));
+        resultBattle();
+    }
+
+    private void resultBattle() {
+        Array<Entity> playerTeam = new Array<>();
+        Array<Entity> enemyTeam = new Array<>();
+        Entity entity = engine.createEntity();
+
+//        String enemyId1 = "01Knight";
+//        entity.add(new StatComponent(150, 100, 18, 6, 40, 10));
+//        CharacterBaseData dataEntity = CharacterLoader.getCharacterBaseData(enemyId1);
+//        entity.add(CharacterBaseDataComponent.from(dataEntity));
+//        playerTeam.add(entity);
+//
+//        String enemyId2 = "02Knight";
+//        entity.add(new StatComponent(120, 180, 22, 4, 35, 25));
+//        dataEntity = CharacterLoader.getCharacterBaseData(enemyId2);
+//        entity.add(CharacterBaseDataComponent.from(dataEntity));
+//        playerTeam.add(entity);
+//
+//        String enemyId3 = "03Knight";
+//        entity.add(new StatComponent(200, 80, 12, 15, 28, 5));
+//        dataEntity = CharacterLoader.getCharacterBaseData(enemyId3);
+//        entity.add(CharacterBaseDataComponent.from(dataEntity));
+//        playerTeam.add(entity);
+//
+//        String enemyId4 = "04Knight";
+//        entity.add(new StatComponent(170, 130, 20, 8, 33, 15));
+//        dataEntity = CharacterLoader.getCharacterBaseData(enemyId4);
+//        entity.add(CharacterBaseDataComponent.from(dataEntity));
+//        enemyTeam.add(entity);
+//
+//        String enemyId5 = "05Knight";
+//        entity.add(new StatComponent(140, 160, 16, 10, 38, 20));
+//        dataEntity = CharacterLoader.getCharacterBaseData(enemyId5);
+//        entity.add(CharacterBaseDataComponent.from(dataEntity));
+//        enemyTeam.add(entity);
+
+        playerTeam.add(player);
+        enemyTeam.add(enemy);
+
+        // Chạy mô phỏng kết quả trận đấu
+        BattleSimulationResult result = BattleSimulator.run(playerTeam, enemyTeam);
+
+        // Log ra từng lượt đánh
+        for (TurnResult turn : result.turns) {
+            System.out.println(
+                "Battle: " + turn.actorId +
+                    " X " + turn.targetId +
+                    " :: " + turn.damage +
+                    " damage :: " + turn.tempStat.hp + " hp :: " + turn.tempStat.mp + " mp" +
+                    (turn.isCritical ? " [CRIT]" : "") +
+                    (turn.targetDead ? " -> Doi phuong chet!" : "")
+            );
+        }
+//        for (TurnResult turn : result.turns) {
+//            Entity actorE = getEntityById(turn.actorId); // Viết utility để tìm Entity qua id (hoặc map sẵn)
+//            Entity targetE = getEntityById(turn.targetId);
+//
+//            CharacterBaseDataComponent actorData = Mappers.base.get(actorE);
+//            CharacterBaseDataComponent targetData = Mappers.base.get(targetE);
+//
+//            System.out.println(
+//                "[" + actorData.classType + "] " + actorData.name +
+//                    " tấn công [" + targetData.classType + "] " + targetData.name +
+//                    " gây " + turn.damage + " damage" +
+//                    (turn.isCritical ? " [CRIT]" : "") +
+//                    (turn.targetDead ? " -> Đối phương chết!" : "")
+//            );
+//        }
+
+        // Log ra đội thắng
+        System.out.println("Doi thang: " + result.winner);
     }
 
     private void loadAllAnimations(String characterId, String atlasPath) {
