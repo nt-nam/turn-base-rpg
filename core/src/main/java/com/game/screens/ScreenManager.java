@@ -127,6 +127,15 @@ public class ScreenManager implements Disposable {
         }
     }
 
+    public void clearScreenCache() {
+        for (ScreenType type : screenCache.keySet().toArray(new ScreenType[0])) {
+            if (type != ScreenType.WORLD_MAP) {
+                Screen screen = screenCache.remove(type);
+                if (screen != null) screen.dispose();
+            }
+        }
+    }
+
     @Override
     public void dispose() {
         System.out.println("Disposing ScreenManager and all cached screens...");

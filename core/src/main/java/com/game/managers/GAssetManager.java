@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -77,6 +78,11 @@ public class GAssetManager {
     public TextureRegion getRegion(String atlasPath, String regionName) {
         TextureAtlas atlas = getAtlas(atlasPath);
         return atlas.findRegion(regionName);
+    }
+
+    public NinePatch getRegion9patch(String atlasPath, String regionName, int padding) {
+        TextureAtlas atlas = getAtlas(atlasPath);
+        return new NinePatch(atlas.findRegion(regionName),padding,padding,padding,padding);
     }
 
     public void loadTexture(String path) {

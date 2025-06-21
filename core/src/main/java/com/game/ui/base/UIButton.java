@@ -1,11 +1,13 @@
 package com.game.ui.base;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.game.MainGame;
 import com.game.managers.event.ui.ClickButtonEvent;
@@ -26,7 +28,39 @@ public class UIButton extends TextButton {
         tu();
     }
 
+    public UIButton(String text, NinePatch up, NinePatch down) {
+        super(text, createStyle(up, down));
+        tu();
+    }
+
     public UIButton(TextureRegion up, TextureRegion down) {
+        super("", createStyle(up, down));
+        tu();
+    }
+
+    public UIButton(TextureRegion region) {
+        super("", createStyle(region, region));
+        tu();
+
+        this.setTransform(true); // Cho phép scale/rotate actor
+
+        this.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                UIButton.this.setOrigin(getWidth() / 2, getHeight() / 2); // Tâm scale
+                UIButton.this.setScale(0.9f); // Nhỏ lại khi nhấn
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                UIButton.this.setScale(1f); // Trả về như cũ
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+    }
+
+    public UIButton(TextureRegion on,TextureRegion up, TextureRegion down) {
         super("", createStyle(up, down));
         tu();
     }
@@ -35,6 +69,16 @@ public class UIButton extends TextButton {
         TextButtonStyle style = new TextButtonStyle();
         style.up = new TextureRegionDrawable(up);
         style.down = new TextureRegionDrawable(down);
+        style.checked = style.down;
+        // Không cần set font nếu không có text, nhưng LibGDX yêu cầu không null, nên cứ để default:
+        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+        return style;
+    }
+
+    private static TextButtonStyle createStyle(NinePatch up, NinePatch down) {
+        TextButtonStyle style = new TextButtonStyle();
+        style.up = new NinePatchDrawable(up);
+        style.down = new NinePatchDrawable(down);
         style.checked = style.down;
         // Không cần set font nếu không có text, nhưng LibGDX yêu cầu không null, nên cứ để default:
         style.font = MainGame.getAsM().getSkin().getFont("default-font");

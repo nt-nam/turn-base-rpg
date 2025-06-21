@@ -4,9 +4,14 @@ import com.badlogic.ashley.core.Component;
 
 public class SkillStateComponent implements Component {
     public enum State {
-        IDLE, WALK, RUN, ATTACK, JUMP, HURT, DIE
+        HIDE,
+        ATTACK,
+        ATTACK_BIG,
+        EXPLODE,
+        HEAL,
+        ULTIMATE,
     }
 
-    public State current = State.IDLE;
+    public State current = State.HIDE;
     public State requested = null;
 }

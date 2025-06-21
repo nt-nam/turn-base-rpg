@@ -1,0 +1,16 @@
+| Hệ           | Miêu tả                               | Khắc chế ai?     |
+| ------------ | ------------------------------------- | ---------------- |
+|   Warrior    | Trung bình, cân bằng                  | Assassin, Mage   |
+|   Assassin   | Sát thương lớn, thủ kém, tấn công sau | Ranger, Support  |
+|   Mage       | AoE, dame cao, máu vừa                | Ranger, Assassin |
+|   Ranger     | Dame cao, def kém, xuyen giap         | Warrior, Tank    |
+|   Support    | Buff/heal, ít MP, spam skill          | Không khắc ai    |
+|   Tank       | Def cao, dame yếu                     | Không khắc ai    |
+
+Sau này có thể cần thêm
+Human
+Elf
+Beast
+Demon
+Mech
+Undead

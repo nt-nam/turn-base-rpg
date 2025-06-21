@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpriteComponent implements Component {
-    public String characterId;
+    public String spriteId;
     public String animationName;
     public TextureRegion staticRegion = null;
     public float stateTime = 0;
@@ -24,19 +24,19 @@ public class SpriteComponent implements Component {
         this.flipX = flipX;
     }
 
-    public SpriteComponent(String characterId, String animationName) {
-        this.characterId = characterId;
+    public SpriteComponent(String spriteId, String animationName) {
+        this.spriteId = spriteId;
         this.animationName = animationName;
     }
 
-    public SpriteComponent(String characterId, String animationName, float scale) {
-        this.characterId = characterId;
+    public SpriteComponent(String spriteId, String animationName, float scale) {
+        this.spriteId = spriteId;
         this.animationName = animationName;
         this.scale = scale;
     }
 
     public SpriteComponent(String id, String anim, float scale, boolean flipX) {
-        this.characterId = id;
+        this.spriteId = id;
         this.animationName = anim;
         this.scale = scale;
         this.flipX = flipX;

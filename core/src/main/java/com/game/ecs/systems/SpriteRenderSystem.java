@@ -40,8 +40,8 @@ public class SpriteRenderSystem extends EntitySystem {
             TextureRegion frame = null;
 
             // Nếu có animation thì render animation
-            if (spr.characterId != null && spr.animationName != null) {
-                Animation<TextureRegion> anim = AnimationCache.get(spr.characterId, spr.animationName);
+            if (spr.spriteId != null && spr.animationName != null) {
+                Animation<TextureRegion> anim = AnimationCache.get(spr.spriteId, spr.animationName);
                 if (anim != null) {
                     spr.stateTime += deltaTime;
                     boolean looping = anim.getPlayMode() == Animation.PlayMode.LOOP || anim.getPlayMode() == Animation.PlayMode.LOOP_PINGPONG;

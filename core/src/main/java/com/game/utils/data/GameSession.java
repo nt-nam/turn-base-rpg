@@ -17,7 +17,7 @@ public class GameSession {
     // Character selection
     public static String selectedCharacterId = "";
     public static int selectedPlayerSpawnIndex = 0;
-    public static String skillCharacter = "";
+    public static String skillCharacter = "orange";
 
     // Position/state
     public static String currentMapId = "village_0";

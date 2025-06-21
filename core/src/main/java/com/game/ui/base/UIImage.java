@@ -1,9 +1,11 @@
 package com.game.ui.base;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
 
@@ -72,6 +74,11 @@ public class UIImage extends Image {
 
     public UIImage debug(boolean b) {
         this.setDebug(b);
+        return this;
+    }
+
+    public UIImage nine(TextureRegion region,int i, int i1, int i2, int i3) {
+        this.setDrawable(new NinePatchDrawable(new NinePatch(region, i, i1, i2, i3)));
         return this;
     }
 }

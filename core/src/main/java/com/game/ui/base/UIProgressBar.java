@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.game.MainGame;
-import com.game.utils.Constants;
 
 public class UIProgressBar extends ProgressBar {
 
@@ -28,8 +27,11 @@ public class UIProgressBar extends ProgressBar {
         TextureRegion barOut = MainGame.getAsM().getRegion(UI_POPUP,type);
         TextureRegion barIn = MainGame.getAsM().getRegion(UI_POPUP, "line_empty");
 
-        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(barOut);
-        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(barIn);
+//        NinePatchDrawable bgDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,type,3));
+//        NinePatchDrawable fillDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,"line_empty",15));
+
+        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP,type));
+        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP,"line_empty"));
 
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = bgDrawable;
@@ -51,6 +53,11 @@ public class UIProgressBar extends ProgressBar {
 
     public UIProgressBar value(float value) {
         setValue(value);
+        return this;
+    }
+
+    public UIProgressBar update(float value) {
+        setValue(getValue()+value);
         return this;
     }
 
@@ -92,6 +99,11 @@ public class UIProgressBar extends ProgressBar {
 
     public UIProgressBar debug(boolean b) {
         setDebug(b);
+        return this;
+    }
+
+    public UIProgressBar bounds(float v, float v1, float v2, float v3) {
+        setBounds(v, v1, v2, v3);
         return this;
     }
 }
