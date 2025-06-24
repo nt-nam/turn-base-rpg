@@ -17,7 +17,6 @@ import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
-import com.game.ecs.factory.CharacterLoader;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;

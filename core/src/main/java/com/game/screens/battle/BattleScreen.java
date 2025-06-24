@@ -4,7 +4,6 @@ import static com.game.utils.Constants.*;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -30,7 +29,6 @@ import com.game.ecs.component.SkillStateComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ecs.component.SpriteDebugComponent;
 import com.game.ecs.component.StatComponent;
-import com.game.ecs.factory.CharacterLoader;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.SkillStateSystem;
 import com.game.ecs.systems.SkillSystem;
@@ -45,8 +43,6 @@ import com.game.utils.data.AnimationCache;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
 import com.game.utils.data.JsonLoader;
-
-import java.util.Arrays;
 
 public class BattleScreen extends BaseScreen {
     private static final String bg = "texture/battle/summer.png";
