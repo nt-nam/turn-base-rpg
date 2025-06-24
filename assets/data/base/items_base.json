@@ -1,0 +1,262 @@
+[
+  {
+    "id": "arrowbox_293",
+    "name": "arrowbox",
+    "level": 1
+  },
+  {
+    "id": "cup_323",
+    "name": "cup",
+    "level": 1
+  },
+  {
+    "id": "cup_324",
+    "name": "cup",
+    "level": 2
+  },
+  {
+    "id": "cup_325",
+    "name": "cup",
+    "level": 3
+  },
+  {
+    "id": "cup_326",
+    "name": "cup",
+    "level": 4
+  },
+  {
+    "id": "shovel_338",
+    "name": "shovel",
+    "level": 1
+  },
+  {
+    "id": "shovel_339",
+    "name": "shovel",
+    "level": 2
+  },
+  {
+    "id": "shovel_340",
+    "name": "shovel",
+    "level": 3
+  },
+  {
+    "id": "shovel_341",
+    "name": "shovel",
+    "level": 4
+  },
+  {
+    "id": "food_315",
+    "name": "food",
+    "level": 1
+  },
+  {
+    "id": "food_316",
+    "name": "food",
+    "level": 2
+  },
+  {
+    "id": "food_317",
+    "name": "food",
+    "level": 3
+  },
+  {
+    "id": "food_318",
+    "name": "food",
+    "level": 4
+  },
+  {
+    "id": "food_319",
+    "name": "food",
+    "level": 5
+  },
+  {
+    "id": "food_320",
+    "name": "food",
+    "level": 6
+  },
+  {
+    "id": "food_321",
+    "name": "food",
+    "level": 7
+  },
+  {
+    "id": "metal_330",
+    "name": "metal",
+    "level": 1
+  },
+  {
+    "id": "metal_331",
+    "name": "metal",
+    "level": 2
+  },
+  {
+    "id": "metal_332",
+    "name": "metal",
+    "level": 3
+  },
+  {
+    "id": "metal_333",
+    "name": "metal",
+    "level": 4
+  },
+  {
+    "id": "metal_334",
+    "name": "metal",
+    "level": 5
+  },
+  {
+    "id": "metal_335",
+    "name": "metal",
+    "level": 6
+  },
+  {
+    "id": "water_345",
+    "name": "water",
+    "level": 1
+  },
+  {
+    "id": "water_346",
+    "name": "water",
+    "level": 2
+  },
+  {
+    "id": "water_347",
+    "name": "water",
+    "level": 3
+  },
+  {
+    "id": "water_348",
+    "name": "water",
+    "level": 4
+  },
+  {
+    "id": "water_349",
+    "name": "water",
+    "level": 5
+  },
+  {
+    "id": "water_350",
+    "name": "water",
+    "level": 6
+  },
+  {
+    "id": "diamond_360",
+    "name": "diamond",
+    "level": 1
+  },
+  {
+    "id": "diamond_361",
+    "name": "diamond",
+    "level": 2
+  },
+  {
+    "id": "diamond_362",
+    "name": "diamond",
+    "level": 3
+  },
+  {
+    "id": "diamond_363",
+    "name": "diamond",
+    "level": 4
+  },
+  {
+    "id": "diamond_364",
+    "name": "diamond",
+    "level": 5
+  },
+  {
+    "id": "gemstore_375",
+    "name": "gemstore",
+    "level": 1
+  },
+  {
+    "id": "gemstore_376",
+    "name": "gemstore",
+    "level": 2
+  },
+  {
+    "id": "gemstore_377",
+    "name": "gemstore",
+    "level": 3
+  },
+  {
+    "id": "gemstore_378",
+    "name": "gemstore",
+    "level": 4
+  },
+  {
+    "id": "gemstore_379",
+    "name": "gemstore",
+    "level": 5
+  },
+  {
+    "id": "gem_390",
+    "name": "gem",
+    "level": 1
+  },
+  {
+    "id": "gem_391",
+    "name": "gem",
+    "level": 2
+  },
+  {
+    "id": "gem_392",
+    "name": "gem",
+    "level": 3
+  },
+  {
+    "id": "gem_393",
+    "name": "gem",
+    "level": 4
+  },
+  {
+    "id": "gem_394",
+    "name": "gem",
+    "level": 5
+  },
+  {
+    "id": "powder_405",
+    "name": "powder",
+    "level": 1
+  },
+  {
+    "id": "powder_406",
+    "name": "powder",
+    "level": 2
+  },
+  {
+    "id": "powder_407",
+    "name": "powder",
+    "level": 3
+  },
+  {
+    "id": "powder_408",
+    "name": "powder",
+    "level": 4
+  },
+  {
+    "id": "powder_409",
+    "name": "powder",
+    "level": 5
+  },
+  {
+    "id": "key_420",
+    "name": "key",
+    "level": 1
+  },
+  {
+    "id": "key_421",
+    "name": "key",
+    "level": 2
+  },
+  {
+    "id": "key_422",
+    "name": "key",
+    "level": 3
+  },
+  {
+    "id": "egg_423",
+    "name": "egg",
+    "level": 1
+  }
+]

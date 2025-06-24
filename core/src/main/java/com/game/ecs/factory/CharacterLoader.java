@@ -11,11 +11,23 @@ import com.game.utils.data.CharacterBaseData;
 
 public class CharacterLoader {
     private static Array<CharacterBaseData> characterList;
+    private static Json json = new Json();
+
+    // Load bất kỳ class nào từ JSON, sử dụng kiểu lớp truyền vào
+    public static <T> Array<T> loadArray(String filePath, Class<T> type) {
+        return json.fromJson(Array.class, type, Gdx.files.internal(filePath));
+    }
+
+    // Load một đối tượng duy nhất từ JSON
+    public static <T> T loadObject(String filePath, Class<T> type) {
+        return json.fromJson(type, Gdx.files.internal(filePath));
+    }
+
 
     // Load tất cả character vào ECS engine, cho mọi loại (knight, npc, enemy, ...)
     public static void loadAllCharacters(Engine engine) {
         Json json = new Json();
-        characterList = json.fromJson(Array.class, CharacterBaseData.class, Gdx.files.internal("data/character_base.json"));
+        characterList = json.fromJson(Array.class, CharacterBaseData.class, Gdx.files.internal("data/base/character_base.json"));
         for (CharacterBaseData c : characterList) {
             Entity e = engine.createEntity();
             e.add(CharacterBaseDataComponent.from(c));
@@ -29,6 +41,11 @@ public class CharacterLoader {
         for (CharacterBaseData c : characterList)
             if (c.characterId.equals(characterId)) return c;
         return null;
+    }
+
+    public static Array<CharacterBaseData> getCharacterList() {
+        if (characterList == null) return null;
+        return characterList;
     }
 
     // Lấy list theo type (knight/npc/enemy/...)

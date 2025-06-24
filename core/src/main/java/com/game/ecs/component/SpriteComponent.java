@@ -9,7 +9,6 @@ public class SpriteComponent implements Component {
     public String animationName;
     public TextureRegion staticRegion = null;
     public float stateTime = 0;
-    public float scale = 1f;
     public boolean flipX = false;
     public boolean flipY = false;
 
@@ -18,9 +17,8 @@ public class SpriteComponent implements Component {
     public float alpha = 1f; // trong suốt
     public Color tint = Color.WHITE.cpy(); // màu vẽ
 
-    public SpriteComponent(TextureRegion staticRegion, float scale, boolean flipX) {
+    public SpriteComponent(TextureRegion staticRegion, boolean flipX) {
         this.staticRegion = staticRegion;
-        this.scale = scale;
         this.flipX = flipX;
     }
 
@@ -29,16 +27,10 @@ public class SpriteComponent implements Component {
         this.animationName = animationName;
     }
 
-    public SpriteComponent(String spriteId, String animationName, float scale) {
-        this.spriteId = spriteId;
-        this.animationName = animationName;
-        this.scale = scale;
-    }
 
-    public SpriteComponent(String id, String anim, float scale, boolean flipX) {
+    public SpriteComponent(String id, String anim, boolean flipX) {
         this.spriteId = id;
         this.animationName = anim;
-        this.scale = scale;
         this.flipX = flipX;
     }
 }

@@ -1,0 +1,23 @@
+[
+  {
+    "type": "equip",
+    "id": "knife_137",
+    "quantity": 1
+  },
+  {
+    "type": "equip",
+    "id": "axe_195",
+    "quantity": 1
+  },
+  {
+    "type": "items",
+    "id": "powder_405",
+    "quantity": 5
+  },
+  {
+    "type": "items",
+    "id": "shovel_340",
+    "quantity": 4
+  }
+]
+

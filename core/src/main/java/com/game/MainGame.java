@@ -13,26 +13,21 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.managers.AudioManager;
 import com.game.managers.CharacterTilemapManager;
 import com.game.managers.GAssetManager;
-import com.game.ui.HUDManager;
-import com.game.managers.InputManager;
-import com.game.managers.LevelManager;
 import com.game.managers.MapManager;
 import com.game.managers.SaveManager;
 import com.game.screens.ScreenManager;
 import com.game.ui.UIManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
-import com.game.utils.ClickLoggerInputProcessor;
 import com.game.utils.data.GameSession;
+import com.game.utils.data.JsonLoader;
 
 public class MainGame extends Game {
-    private static AudioManager aum;
-    private static CharacterTilemapManager ctm;
-    private static GAssetManager asm;
-    private static EventManager evm;
-    private static HUDManager hudm;
-    private static InputManager im;
-    private static LevelManager lvm;
+    private static AudioManager audioManager;
+    private static CharacterTilemapManager characterTilemapManager;
+    private static JsonLoader jsonLoader;
+    private static GAssetManager assetManager;
+    private static EventManager eventManager;
     private static MapManager mpm;
     private static SaveManager pm;
     private static ScreenManager scm;
@@ -49,77 +44,30 @@ public class MainGame extends Game {
     InputMultiplexer multiplexer;
 
     public static AudioManager getAum() {
-        if (aum == null) {
-            aum = new AudioManager();
+        if (audioManager == null) {
+            audioManager = new AudioManager();
         }
-        return aum;
-    }
-
-    public static CharacterTilemapManager getCtm(){
-        if (ctm == null) {
-            ctm = new CharacterTilemapManager();
-        }
-        return ctm;
+        return audioManager;
     }
 
     public static GAssetManager getAsM() {
-        if (asm == null) { asm = new GAssetManager();}
-        return asm;
+        if (assetManager == null) { assetManager = new GAssetManager();}
+        return assetManager;
     }
 
     public static EventManager getEvM() {
-        if (evm == null) {
-            evm = new EventManager();
+        if (eventManager == null) {
+            eventManager = new EventManager();
         }
-        return evm;
+        return eventManager;
     }
 
-    public static HUDManager getHudm() {
-        if (hudm == null) {
-            hudm = new HUDManager(stage.getRoot());
-        }
-        return hudm;
-    }
-
-    public static InputManager getIm() {
-        if (im == null) {
-            im = new InputManager();
-        }
-        return im;
-    }
-
-    public static LevelManager getLvm() {
-        if (lvm == null) {
-            lvm = new LevelManager();
-        }
-        return lvm;
-    }
-
-    public static MapManager getMpm() {
-        if (mpm == null) {
-            mpm = new MapManager();
-        }
-        return mpm;
-    }
-
-    public static SaveManager getPm() {
-        if (pm == null) {
-            pm = new SaveManager();
-        }
-        return pm;
-    }
 
     public static ScreenManager getScM() {
         if(scm == null) scm = new ScreenManager();
         return scm;
     }
 
-    public static UIManager getUim() {
-        if (uim == null) {
-            uim = new UIManager();
-        }
-        return uim;
-    }
     public static GameSession getSession() {
         if (session == null) {
             session = new GameSession();
@@ -148,7 +96,7 @@ public class MainGame extends Game {
 
     @Override
     public void create() {
-        asm = new GAssetManager();
+        assetManager = new GAssetManager();
         batch = new SpriteBatch();
         multiplexer = new InputMultiplexer();
 
@@ -167,9 +115,9 @@ public class MainGame extends Game {
         stage = new Stage(viewport);
         scm = new ScreenManager();
 
-        asm.loadSkin("ui/uiskin.json");
-        asm.loadFont("ui/default.fnt");
-        asm.finishLoading();
+        assetManager.loadSkin("ui/uiskin.json");
+        assetManager.loadFont("ui/default.fnt");
+        assetManager.finishLoading();
 //        Gdx.input.setInputProcessor(stage);
         multiplexer.addProcessor(stage); // nếu có stage
 //        multiplexer.addProcessor(new ClickLoggerInputProcessor(camera));
@@ -190,7 +138,7 @@ public class MainGame extends Game {
         }
         getEvM().clear();
         stage.dispose();
-        asm.dispose();
+        assetManager.dispose();
         super.dispose();
     }
     @Override

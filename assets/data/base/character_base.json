@@ -1,6 +1,6 @@
 [
   {
-    "characterId": "01Knight",
+    "characterId": "warrior_Knight",
     "classType": "Warrior",
     "name": "Warrior",
     "desc": "Chiến binh cân bằng, giao tranh trực diện.",
@@ -16,7 +16,7 @@
     "role": "Fighter"
   },
   {
-    "characterId": "02Knight",
+    "characterId": "assassin_Knight",
     "classType": "Assassin",
     "name": "Assassin",
     "desc": "Sát thủ tốc độ, đánh sau, dame lớn thủ yếu.",
@@ -32,7 +32,7 @@
     "role": "DPS"
   },
   {
-    "characterId": "03Knight",
+    "characterId": "mage_Knight",
     "classType": "Mage",
     "name": "Mage",
     "desc": "Phép AoE, dame lớn, máu trung bình.",
@@ -48,7 +48,7 @@
     "role": "Caster"
   },
   {
-    "characterId": "04Knight",
+    "characterId": "ranger_Knight",
     "classType": "Ranger",
     "name": "Ranger",
     "desc": "Cung thủ tầm xa, xuyên giáp, dame cao.",
@@ -64,7 +64,7 @@
     "role": "DPS"
   },
   {
-    "characterId": "05Knight",
+    "characterId": "support_Knight",
     "classType": "Support",
     "name": "Support",
     "desc": "Hồi máu, buff, ít tốn MP.",
@@ -80,7 +80,7 @@
     "role": "Healer"
   },
   {
-    "characterId": "06Knight",
+    "characterId": "tank_Knight",
     "classType": "Tank",
     "name": "Tank",
     "desc": "Thủ cực cao, dame thấp.",

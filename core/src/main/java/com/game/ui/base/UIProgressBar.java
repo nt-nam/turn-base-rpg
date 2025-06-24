@@ -24,14 +24,14 @@ public class UIProgressBar extends ProgressBar {
 
     public UIProgressBar(float min, float max, float stepSize, boolean vertical, String type) {
         super(min, max, stepSize, vertical, MainGame.getAsM().getSkin());
-        TextureRegion barOut = MainGame.getAsM().getRegion(UI_POPUP,type);
+        TextureRegion barOut = MainGame.getAsM().getRegion(UI_POPUP, type);
         TextureRegion barIn = MainGame.getAsM().getRegion(UI_POPUP, "line_empty");
 
 //        NinePatchDrawable bgDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,type,3));
 //        NinePatchDrawable fillDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,"line_empty",15));
 
-        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP,type));
-        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP,"line_empty"));
+        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, type));
+        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, "line_empty"));
 
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = bgDrawable;
@@ -57,13 +57,18 @@ public class UIProgressBar extends ProgressBar {
     }
 
     public UIProgressBar update(float value) {
-        setValue(getValue()+value);
+        setValue(getValue() + value);
         return this;
     }
 
     public UIProgressBar animateTo(float value, float duration) {
         setAnimateDuration(duration);
         setValue(value);
+        return this;
+    }
+
+    public UIProgressBar visible(boolean visible) {
+        setVisible(visible);
         return this;
     }
 

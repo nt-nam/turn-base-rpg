@@ -3,11 +3,11 @@ package com.game.ecs.component;
 import com.badlogic.ashley.core.Component;
 
 public class GridComponent implements Component {
-    public int x;
-    public int y;
+    public int row;
+    public int col;
 
-    GridComponent(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public GridComponent(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
 }

@@ -1,7 +1,6 @@
 [
   {
     "id": "blue_attack",
-    "icon": "blue_attack",
     "name": "Blue Slash",
     "group": "blue",
     "type": "attack",
@@ -12,7 +11,6 @@
   },
   {
     "id": "blue_attack_big",
-    "icon": "blue_attack_big",
     "name": "Blue Mega Slash",
     "group": "blue",
     "type": "attack",
@@ -23,7 +21,6 @@
   },
   {
     "id": "blue_heal",
-    "icon": "blue_heal",
     "name": "Blue Healing",
     "group": "blue",
     "type": "heal",
@@ -34,7 +31,6 @@
   },
   {
     "id": "blue_ultimate",
-    "icon": "blue_ultimate",
     "name": "Blue Ultimate",
     "group": "blue",
     "type": "ultimate",
@@ -48,7 +44,6 @@
 
   {
     "id": "green_attack",
-    "icon": "green_attack",
     "name": "Green Jab",
     "group": "green",
     "type": "attack",
@@ -59,7 +54,6 @@
   },
   {
     "id": "green_attack_big",
-    "icon": "green_attack_big",
     "name": "Green Tornado",
     "group": "green",
     "type": "attack",
@@ -70,7 +64,6 @@
   },
   {
     "id": "green_heal",
-    "icon": "green_heal",
     "name": "Green Regeneration",
     "group": "green",
     "type": "heal",
@@ -81,7 +74,6 @@
   },
   {
     "id": "green_ultimate",
-    "icon": "green_ultimate",
     "name": "Nature's Embrace",
     "group": "green",
     "type": "ultimate",
@@ -95,7 +87,6 @@
 
   {
     "id": "orange_attack",
-    "icon": "orange_attack",
     "name": "Fiery Strike",
     "group": "orange",
     "type": "attack",
@@ -106,7 +97,6 @@
   },
   {
     "id": "orange_attack_big",
-    "icon": "orange_attack_big",
     "name": "Inferno Slash",
     "group": "orange",
     "type": "attack",
@@ -117,7 +107,6 @@
   },
   {
     "id": "orange_heal",
-    "icon": "orange_heal",
     "name": "Warm Recovery",
     "group": "orange",
     "type": "heal",
@@ -128,7 +117,6 @@
   },
   {
     "id": "orange_ultimate",
-    "icon": "orange_ultimate",
     "name": "Phoenix Revival",
     "group": "orange",
     "type": "ultimate",
@@ -141,7 +129,6 @@
 
   {
     "id": "pink_attack",
-    "icon": "pink_attack",
     "name": "Love Strike",
     "group": "pink",
     "type": "attack",
@@ -153,7 +140,6 @@
   },
   {
     "id": "pink_attack_big",
-    "icon": "pink_attack_big",
     "name": "Heart Burst",
     "group": "pink",
     "type": "attack",
@@ -165,7 +151,6 @@
   },
   {
     "id": "pink_heal",
-    "icon": "pink_heal",
     "name": "Gentle Heal",
     "group": "pink",
     "type": "heal",
@@ -176,7 +161,6 @@
   },
   {
     "id": "pink_ultimate",
-    "icon": "pink_ultimate",
     "name": "Eternal Love",
     "group": "pink",
     "type": "ultimate",
@@ -190,7 +174,6 @@
 
   {
     "id": "yellow_attack",
-    "icon": "yellow_attack",
     "name": "Lightning Strike",
     "group": "yellow",
     "type": "attack",

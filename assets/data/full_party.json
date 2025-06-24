@@ -1,0 +1,32 @@
+[
+  {
+    "characterId": "warrior_Knight",
+    "level": 1,
+    "equip": {
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
+    }
+  },
+  {
+    "characterId": "02Knight",
+    "level": 2,
+    "equip": {
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
+    }
+  },
+  {
+    "characterId": "assassin_Knight",
+    "level": 1,
+    "equip": {
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
+    }
+  }
+]

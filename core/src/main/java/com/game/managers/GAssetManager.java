@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -139,9 +141,8 @@ public class GAssetManager {
         return get("tilemap/map/character" + tileName + ".tmx", TiledMap.class);
     }
 
-    public JsonValue loadJson(String path) {
-        JsonReader reader = new JsonReader();
-        return reader.parse(new InternalFileHandleResolver().resolve(path));
+    public void loadJson(String path) {
+        am.load(path, String.class);
     }
 
     // ==== API theo nhóm ====
@@ -169,5 +170,11 @@ public class GAssetManager {
 
     public void unload(String s) {
         am.unload(s);
+    }
+
+    public JsonValue getJsonValue(String s) {
+        FileHandle fileHandle = get("data/base/character_base.json", FileHandle.class);
+        JsonReader reader = new JsonReader();
+        return reader.parse(fileHandle.readString());
     }
 }

@@ -1,11 +1,13 @@
 package com.game.ecs.component;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.gdx.utils.Array;
+
 import java.util.List;
 
 public class BattleCharacterComponent implements Component {
     public boolean isPlayer;
-    public List<String> skills;
+    public Array<String> skills;
     public BattleState state = BattleState.IDLE;
 
     public enum BattleState {
@@ -17,7 +19,7 @@ public class BattleCharacterComponent implements Component {
         LOSER      // Thua trận
     }
 
-    public BattleCharacterComponent(boolean isPlayer, List<String> skills) {
+    public BattleCharacterComponent(boolean isPlayer, Array<String> skills) {
         this.isPlayer = isPlayer;
         this.skills = skills;
     }

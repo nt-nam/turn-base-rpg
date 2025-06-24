@@ -4,47 +4,50 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SpriteComponent;
+import com.game.ecs.component.SpriteDebugComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.utils.data.AnimationCache;
 
-public class SpriteRenderSystem extends EntitySystem {
-    private final SpriteBatch batch = new SpriteBatch();
+public class SpriteDebugRenderSystem extends EntitySystem {
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final OrthographicCamera camera;
     private final ComponentMapper<PositionComponent> posM = ComponentMapper.getFor(PositionComponent.class);
     private final ComponentMapper<SpriteComponent> sprM = ComponentMapper.getFor(SpriteComponent.class);
+    private final ComponentMapper<SpriteDebugComponent> debugM = ComponentMapper.getFor(SpriteDebugComponent.class);
     private final ComponentMapper<SizeComponent> sizeM = ComponentMapper.getFor(SizeComponent.class);
     private final Engine engine;
 
-    public SpriteRenderSystem(Engine engine, OrthographicCamera camera) {
+    public SpriteDebugRenderSystem(Engine engine, OrthographicCamera camera) {
         this.engine = engine;
         this.camera = camera;
     }
 
     @Override
     public void update(float deltaTime) {
-        batch.setProjectionMatrix(camera.combined);
-
+        shapeRenderer.setProjectionMatrix(camera.combined);
         ImmutableArray<Entity> entities = engine.getEntitiesFor(
-            Family.all(PositionComponent.class, SpriteComponent.class).get()
+            Family.all(PositionComponent.class, SpriteComponent.class, SpriteDebugComponent.class).get()
         );
 
-        batch.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);
+
         for (Entity entity : entities) {
             PositionComponent pos = posM.get(entity);
             SpriteComponent spr = sprM.get(entity);
+            SizeComponent size = sizeM.get(entity);
 
             TextureRegion frame = null;
 
-            // Nếu có animation thì render animation
+            // Lấy frame từ animation nếu có
             if (spr.spriteId != null && spr.animationName != null) {
                 Animation<TextureRegion> anim = AnimationCache.get(spr.spriteId, spr.animationName);
                 if (anim != null) {
-                    spr.stateTime += deltaTime;
                     boolean looping = anim.getPlayMode() == Animation.PlayMode.LOOP || anim.getPlayMode() == Animation.PlayMode.LOOP_PINGPONG;
                     frame = anim.getKeyFrame(spr.stateTime, looping);
                 }
@@ -55,39 +58,26 @@ public class SpriteRenderSystem extends EntitySystem {
                 frame = spr.staticRegion;
             }
 
-            if (frame == null) continue; // Không có gì để vẽ
+            if (frame == null) continue;
 
-            // Xử lý flipX, flipY
-            if (spr.flipX != frame.isFlipX()) frame.flip(true, false);
-            if (spr.flipY != frame.isFlipY()) frame.flip(false, true);
+            // Kích thước khung: ưu tiên SizeComponent nếu có, nếu không dùng mặc định
+            float width = sizeM.has(entity) ? size.width * size.scaleX : frame.getRegionWidth();
+            float height = sizeM.has(entity) ? size.height * size.scaleY : frame.getRegionHeight();
+            // Điều chỉnh vị trí dựa trên origin và tỷ lệ kích thước
+            float scaleX = sizeM.has(entity) ? width / frame.getRegionWidth() : 1;
+            float scaleY = sizeM.has(entity) ? height / frame.getRegionHeight() : 1;
+            float x = pos.x - (spr.originX * scaleX);
+            float y = pos.y - (spr.originY * scaleY);
 
-            // Áp dụng color, alpha
-            batch.setColor(spr.tint.r, spr.tint.g, spr.tint.b, spr.alpha);
-
-            // Kích thước vẽ: ưu tiên SizeComponent nếu có, nếu không dùng mặc định
-            float width = sizeM.has(entity) ? sizeM.get(entity).width *sizeM.get(entity).scaleX: frame.getRegionWidth();
-            float height = sizeM.has(entity) ? sizeM.get(entity).height *sizeM.get(entity).scaleY: frame.getRegionHeight();
-            float originX = spr.originX;
-            float originY = spr.originY;
-            float rotation = spr.rotation;
-
-            batch.draw(
-                frame,
-                pos.x, pos.y,
-                originX, originY,
-                width, height,
-                1f, 1f,
-                rotation
-            );
-
-            // Reset lại màu batch
-            batch.setColor(Color.WHITE);
+            // Vẽ khung
+            shapeRenderer.rect(x, y, width, height);
         }
-        batch.end();
+
+        shapeRenderer.end();
     }
 
     @Override
     public void removedFromEngine(Engine engine) {
-        batch.dispose();
+        shapeRenderer.dispose();
     }
 }

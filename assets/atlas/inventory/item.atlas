@@ -4,7 +4,7 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 
-item_sword_000
+sword_000
   rotate: false
   xy: 0,0
   size: 48,48
@@ -12,7 +12,7 @@ item_sword_000
   offset: 0,0
   index: -1
 
-item_sword_001
+sword_001
   rotate: false
   xy: 48,0
   size: 48,48
@@ -20,7 +20,7 @@ item_sword_001
   offset: 0,0
   index: -1
 
-item_sword_002
+sword_002
   rotate: false
   xy: 96,0
   size: 48,48
@@ -28,7 +28,7 @@ item_sword_002
   offset: 0,0
   index: -1
 
-item_sword_003
+sword_003
   rotate: false
   xy: 144,0
   size: 48,48
@@ -36,63 +36,7 @@ item_sword_003
   offset: 0,0
   index: -1
 
-item_armor_008
-  rotate: false
-  xy: 384,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_009
-  rotate: false
-  xy: 432,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_010
-  rotate: false
-  xy: 480,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_011
-  rotate: false
-  xy: 528,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_012
-  rotate: false
-  xy: 576,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_013
-  rotate: false
-  xy: 624,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_014
-  rotate: false
-  xy: 672,0
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sword_015
+sword_015
   rotate: false
   xy: 0,48
   size: 48,48
@@ -100,7 +44,7 @@ item_sword_015
   offset: 0,0
   index: -1
 
-item_sword_016
+sword_016
   rotate: false
   xy: 48,48
   size: 48,48
@@ -108,7 +52,7 @@ item_sword_016
   offset: 0,0
   index: -1
 
-item_sword_017
+sword_017
   rotate: false
   xy: 96,48
   size: 48,48
@@ -116,7 +60,7 @@ item_sword_017
   offset: 0,0
   index: -1
 
-item_sword_018
+sword_018
   rotate: false
   xy: 144,48
   size: 48,48
@@ -124,39 +68,7 @@ item_sword_018
   offset: 0,0
   index: -1
 
-item_armor_023
-  rotate: false
-  xy: 384,48
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_024
-  rotate: false
-  xy: 432,48
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_025
-  rotate: false
-  xy: 480,48
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_026
-  rotate: false
-  xy: 528,48
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sword_030
+sword_030
   rotate: false
   xy: 0,96
   size: 48,48
@@ -164,7 +76,7 @@ item_sword_030
   offset: 0,0
   index: -1
 
-item_sword_031
+sword_031
   rotate: false
   xy: 48,96
   size: 48,48
@@ -172,7 +84,7 @@ item_sword_031
   offset: 0,0
   index: -1
 
-item_sword_032
+sword_032
   rotate: false
   xy: 96,96
   size: 48,48
@@ -180,7 +92,7 @@ item_sword_032
   offset: 0,0
   index: -1
 
-item_sword_033
+sword_033
   rotate: false
   xy: 144,96
   size: 48,48
@@ -188,63 +100,7 @@ item_sword_033
   offset: 0,0
   index: -1
 
-item_armor_038
-  rotate: false
-  xy: 384,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_039
-  rotate: false
-  xy: 432,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_040
-  rotate: false
-  xy: 480,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_041
-  rotate: false
-  xy: 528,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_042
-  rotate: false
-  xy: 576,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_043
-  rotate: false
-  xy: 624,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_044
-  rotate: false
-  xy: 672,96
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sword_045
+sword_045
   rotate: false
   xy: 0,144
   size: 48,48
@@ -252,7 +108,7 @@ item_sword_045
   offset: 0,0
   index: -1
 
-item_sword_046
+sword_046
   rotate: false
   xy: 48,144
   size: 48,48
@@ -260,7 +116,7 @@ item_sword_046
   offset: 0,0
   index: -1
 
-item_sword_047
+sword_047
   rotate: false
   xy: 96,144
   size: 48,48
@@ -268,7 +124,7 @@ item_sword_047
   offset: 0,0
   index: -1
 
-item_sword_048
+sword_048
   rotate: false
   xy: 144,144
   size: 48,48
@@ -276,31 +132,7 @@ item_sword_048
   offset: 0,0
   index: -1
 
-item_armor_053
-  rotate: false
-  xy: 384,144
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_054
-  rotate: false
-  xy: 432,144
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_055
-  rotate: false
-  xy: 480,144
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sword_060
+sword_060
   rotate: false
   xy: 0,192
   size: 48,48
@@ -308,7 +140,7 @@ item_sword_060
   offset: 0,0
   index: -1
 
-item_sword_061
+sword_061
   rotate: false
   xy: 48,192
   size: 48,48
@@ -316,7 +148,7 @@ item_sword_061
   offset: 0,0
   index: -1
 
-item_sword_062
+sword_062
   rotate: false
   xy: 96,192
   size: 48,48
@@ -324,7 +156,7 @@ item_sword_062
   offset: 0,0
   index: -1
 
-item_sword_063
+sword_063
   rotate: false
   xy: 144,192
   size: 48,48
@@ -332,7 +164,7 @@ item_sword_063
   offset: 0,0
   index: -1
 
-item_sword_064
+sword_064
   rotate: false
   xy: 192,192
   size: 48,48
@@ -340,7 +172,7 @@ item_sword_064
   offset: 0,0
   index: -1
 
-item_sword_065
+sword_065
   rotate: false
   xy: 240,192
   size: 48,48
@@ -348,55 +180,7 @@ item_sword_065
   offset: 0,0
   index: -1
 
-item_armor_068
-  rotate: false
-  xy: 384,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_069
-  rotate: false
-  xy: 432,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_070
-  rotate: false
-  xy: 480,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_071
-  rotate: false
-  xy: 528,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_072
-  rotate: false
-  xy: 576,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_armor_073
-  rotate: false
-  xy: 624,192
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sword_075
+sword_075
   rotate: false
   xy: 0,240
   size: 48,48
@@ -404,7 +188,7 @@ item_sword_075
   offset: 0,0
   index: -1
 
-item_sword_076
+sword_076
   rotate: false
   xy: 48,240
   size: 48,48
@@ -412,7 +196,7 @@ item_sword_076
   offset: 0,0
   index: -1
 
-item_sword_077
+sword_077
   rotate: false
   xy: 96,240
   size: 48,48
@@ -420,7 +204,7 @@ item_sword_077
   offset: 0,0
   index: -1
 
-item_sword_078
+sword_078
   rotate: false
   xy: 144,240
   size: 48,48
@@ -428,7 +212,7 @@ item_sword_078
   offset: 0,0
   index: -1
 
-item_sword_079
+sword_079
   rotate: false
   xy: 192,240
   size: 48,48
@@ -436,7 +220,7 @@ item_sword_079
   offset: 0,0
   index: -1
 
-item_sword_080
+sword_080
   rotate: false
   xy: 240,240
   size: 48,48
@@ -444,7 +228,7 @@ item_sword_080
   offset: 0,0
   index: -1
 
-item_sword_081
+sword_081
   rotate: false
   xy: 288,240
   size: 48,48
@@ -452,7 +236,223 @@ item_sword_081
   offset: 0,0
   index: -1
 
-item_armor_083
+armor_008
+  rotate: false
+  xy: 384,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_009
+  rotate: false
+  xy: 432,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_010
+  rotate: false
+  xy: 480,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_011
+  rotate: false
+  xy: 528,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_012
+  rotate: false
+  xy: 576,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_013
+  rotate: false
+  xy: 624,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_014
+  rotate: false
+  xy: 672,0
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_023
+  rotate: false
+  xy: 384,48
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_024
+  rotate: false
+  xy: 432,48
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_025
+  rotate: false
+  xy: 480,48
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_026
+  rotate: false
+  xy: 528,48
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_038
+  rotate: false
+  xy: 384,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_039
+  rotate: false
+  xy: 432,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_040
+  rotate: false
+  xy: 480,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_041
+  rotate: false
+  xy: 528,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_042
+  rotate: false
+  xy: 576,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_043
+  rotate: false
+  xy: 624,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_044
+  rotate: false
+  xy: 672,96
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_053
+  rotate: false
+  xy: 384,144
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_054
+  rotate: false
+  xy: 432,144
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_055
+  rotate: false
+  xy: 480,144
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_068
+  rotate: false
+  xy: 384,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_069
+  rotate: false
+  xy: 432,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_070
+  rotate: false
+  xy: 480,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_071
+  rotate: false
+  xy: 528,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_072
+  rotate: false
+  xy: 576,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_073
+  rotate: false
+  xy: 624,192
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+armor_083
   rotate: false
   xy: 384,240
   size: 48,48
@@ -460,7 +460,7 @@ item_armor_083
   offset: 0,0
   index: -1
 
-item_armor_084
+armor_084
   rotate: false
   xy: 432,240
   size: 48,48
@@ -468,7 +468,7 @@ item_armor_084
   offset: 0,0
   index: -1
 
-item_armor_085
+armor_085
   rotate: false
   xy: 480,240
   size: 48,48
@@ -476,7 +476,7 @@ item_armor_085
   offset: 0,0
   index: -1
 
-item_spear_105
+spear_105
   rotate: false
   xy: 0,336
   size: 48,48
@@ -484,7 +484,7 @@ item_spear_105
   offset: 0,0
   index: -1
 
-item_spear_106
+spear_106
   rotate: false
   xy: 48,336
   size: 48,48
@@ -492,7 +492,7 @@ item_spear_106
   offset: 0,0
   index: -1
 
-item_spear_107
+spear_107
   rotate: false
   xy: 96,336
   size: 48,48
@@ -500,7 +500,7 @@ item_spear_107
   offset: 0,0
   index: -1
 
-item_spear_108
+spear_108
   rotate: false
   xy: 144,336
   size: 48,48
@@ -508,7 +508,7 @@ item_spear_108
   offset: 0,0
   index: -1
 
-item_ring_113
+ring_113
   rotate: false
   xy: 384,336
   size: 48,48
@@ -516,7 +516,7 @@ item_ring_113
   offset: 0,0
   index: -1
 
-item_ring_114
+ring_114
   rotate: false
   xy: 432,336
   size: 48,48
@@ -524,7 +524,7 @@ item_ring_114
   offset: 0,0
   index: -1
 
-item_ring_115
+ring_115
   rotate: false
   xy: 480,336
   size: 48,48
@@ -532,7 +532,7 @@ item_ring_115
   offset: 0,0
   index: -1
 
-item_ring_116
+ring_116
   rotate: false
   xy: 528,336
   size: 48,48
@@ -540,7 +540,7 @@ item_ring_116
   offset: 0,0
   index: -1
 
-item_ring_117
+ring_117
   rotate: false
   xy: 576,336
   size: 48,48
@@ -548,7 +548,7 @@ item_ring_117
   offset: 0,0
   index: -1
 
-item_ring_118
+ring_118
   rotate: false
   xy: 624,336
   size: 48,48
@@ -556,7 +556,7 @@ item_ring_118
   offset: 0,0
   index: -1
 
-item_ring_119
+ring_119
   rotate: false
   xy: 672,336
   size: 48,48
@@ -564,199 +564,7 @@ item_ring_119
   offset: 0,0
   index: -1
 
-item_trident_120
-  rotate: false
-  xy: 0,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_trident_121
-  rotate: false
-  xy: 48,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_trident_122
-  rotate: false
-  xy: 96,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_128
-  rotate: false
-  xy: 384,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_129
-  rotate: false
-  xy: 432,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_130
-  rotate: false
-  xy: 480,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_131
-  rotate: false
-  xy: 528,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_132
-  rotate: false
-  xy: 576,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_necklace_133
-  rotate: false
-  xy: 624,384
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_135
-  rotate: false
-  xy: 0,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_136
-  rotate: false
-  xy: 48,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_137
-  rotate: false
-  xy: 96,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_138
-  rotate: false
-  xy: 144,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_139
-  rotate: false
-  xy: 192,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_knife_140
-  rotate: false
-  xy: 240,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_143
-  rotate: false
-  xy: 384,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_144
-  rotate: false
-  xy: 432,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_145
-  rotate: false
-  xy: 480,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_146
-  rotate: false
-  xy: 528,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_147
-  rotate: false
-  xy: 576,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scarf_148
-  rotate: false
-  xy: 624,432
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_trident_150
-  rotate: false
-  xy: 0,480
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sickle_151
-  rotate: false
-  xy: 48,480
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_sickle_152
-  rotate: false
-  xy: 96,480
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_ring_158
+ring_158
   rotate: false
   xy: 384,480
   size: 48,48
@@ -764,7 +572,7 @@ item_ring_158
   offset: 0,0
   index: -1
 
-item_ring_159
+ring_159
   rotate: false
   xy: 432,480
   size: 48,48
@@ -772,7 +580,7 @@ item_ring_159
   offset: 0,0
   index: -1
 
-item_ring_160
+ring_160
   rotate: false
   xy: 480,480
   size: 48,48
@@ -780,7 +588,7 @@ item_ring_160
   offset: 0,0
   index: -1
 
-item_ring_161
+ring_161
   rotate: false
   xy: 528,480
   size: 48,48
@@ -788,7 +596,7 @@ item_ring_161
   offset: 0,0
   index: -1
 
-item_ring_162
+ring_162
   rotate: false
   xy: 576,480
   size: 48,48
@@ -796,7 +604,7 @@ item_ring_162
   offset: 0,0
   index: -1
 
-item_ring_163
+ring_163
   rotate: false
   xy: 624,480
   size: 48,48
@@ -804,7 +612,87 @@ item_ring_163
   offset: 0,0
   index: -1
 
-item_necklace_173
+trident_120
+  rotate: false
+  xy: 0,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+trident_121
+  rotate: false
+  xy: 48,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+trident_122
+  rotate: false
+  xy: 96,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+trident_150
+  rotate: false
+  xy: 0,480
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_128
+  rotate: false
+  xy: 384,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_129
+  rotate: false
+  xy: 432,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_130
+  rotate: false
+  xy: 480,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_131
+  rotate: false
+  xy: 528,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_132
+  rotate: false
+  xy: 576,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_133
+  rotate: false
+  xy: 624,384
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+necklace_173
   rotate: false
   xy: 384,528
   size: 48,48
@@ -812,7 +700,7 @@ item_necklace_173
   offset: 0,0
   index: -1
 
-item_necklace_174
+necklace_174
   rotate: false
   xy: 432,528
   size: 48,48
@@ -820,7 +708,7 @@ item_necklace_174
   offset: 0,0
   index: -1
 
-item_necklace_175
+necklace_175
   rotate: false
   xy: 480,528
   size: 48,48
@@ -828,7 +716,7 @@ item_necklace_175
   offset: 0,0
   index: -1
 
-item_necklace_176
+necklace_176
   rotate: false
   xy: 528,528
   size: 48,48
@@ -836,7 +724,119 @@ item_necklace_176
   offset: 0,0
   index: -1
 
-item_axe_180
+knife_135
+  rotate: false
+  xy: 0,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+knife_136
+  rotate: false
+  xy: 48,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+knife_137
+  rotate: false
+  xy: 96,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+knife_138
+  rotate: false
+  xy: 144,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+knife_139
+  rotate: false
+  xy: 192,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+knife_140
+  rotate: false
+  xy: 240,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_143
+  rotate: false
+  xy: 384,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_144
+  rotate: false
+  xy: 432,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_145
+  rotate: false
+  xy: 480,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_146
+  rotate: false
+  xy: 528,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_147
+  rotate: false
+  xy: 576,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+scarf_148
+  rotate: false
+  xy: 624,432
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+sickle_151
+  rotate: false
+  xy: 48,480
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+sickle_152
+  rotate: false
+  xy: 96,480
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+axe_180
   rotate: false
   xy: 0,576
   size: 48,48
@@ -844,7 +844,7 @@ item_axe_180
   offset: 0,0
   index: -1
 
-item_axe_181
+axe_181
   rotate: false
   xy: 48,576
   size: 48,48
@@ -852,7 +852,7 @@ item_axe_181
   offset: 0,0
   index: -1
 
-item_axe_182
+axe_182
   rotate: false
   xy: 96,576
   size: 48,48
@@ -860,7 +860,7 @@ item_axe_182
   offset: 0,0
   index: -1
 
-item_axe_183
+axe_183
   rotate: false
   xy: 144,576
   size: 48,48
@@ -868,7 +868,7 @@ item_axe_183
   offset: 0,0
   index: -1
 
-item_axe_184
+axe_184
   rotate: false
   xy: 192,576
   size: 48,48
@@ -876,7 +876,7 @@ item_axe_184
   offset: 0,0
   index: -1
 
-item_axe_195
+axe_195
   rotate: false
   xy: 0,624
   size: 48,48
@@ -884,7 +884,7 @@ item_axe_195
   offset: 0,0
   index: -1
 
-item_axe_196
+axe_196
   rotate: false
   xy: 48,624
   size: 48,48
@@ -892,7 +892,7 @@ item_axe_196
   offset: 0,0
   index: -1
 
-item_axe_197
+axe_197
   rotate: false
   xy: 96,624
   size: 48,48
@@ -900,7 +900,7 @@ item_axe_197
   offset: 0,0
   index: -1
 
-item_axe_198
+axe_198
   rotate: false
   xy: 144,624
   size: 48,48
@@ -908,7 +908,7 @@ item_axe_198
   offset: 0,0
   index: -1
 
-item_axe_199
+axe_199
   rotate: false
   xy: 192,624
   size: 48,48
@@ -916,7 +916,7 @@ item_axe_199
   offset: 0,0
   index: -1
 
-item_axe_210
+axe_210
   rotate: false
   xy: 0,672
   size: 48,48
@@ -924,7 +924,7 @@ item_axe_210
   offset: 0,0
   index: -1
 
-item_axe_211
+axe_211
   rotate: false
   xy: 48,672
   size: 48,48
@@ -932,7 +932,7 @@ item_axe_211
   offset: 0,0
   index: -1
 
-item_axe_212
+axe_212
   rotate: false
   xy: 96,672
   size: 48,48
@@ -940,7 +940,7 @@ item_axe_212
   offset: 0,0
   index: -1
 
-item_axe_213
+axe_213
   rotate: false
   xy: 144,672
   size: 48,48
@@ -948,7 +948,7 @@ item_axe_213
   offset: 0,0
   index: -1
 
-item_axe_214
+axe_214
   rotate: false
   xy: 192,672
   size: 48,48
@@ -956,7 +956,7 @@ item_axe_214
   offset: 0,0
   index: -1
 
-item_axe_215
+axe_215
   rotate: false
   xy: 240,672
   size: 48,48
@@ -964,7 +964,7 @@ item_axe_215
   offset: 0,0
   index: -1
 
-item_shield_218
+shield_218
   rotate: false
   xy: 384,672
   size: 48,48
@@ -972,7 +972,7 @@ item_shield_218
   offset: 0,0
   index: -1
 
-item_shield_219
+shield_219
   rotate: false
   xy: 432,672
   size: 48,48
@@ -980,7 +980,7 @@ item_shield_219
   offset: 0,0
   index: -1
 
-item_shield_220
+shield_220
   rotate: false
   xy: 480,672
   size: 48,48
@@ -988,7 +988,7 @@ item_shield_220
   offset: 0,0
   index: -1
 
-item_shield_221
+shield_221
   rotate: false
   xy: 528,672
   size: 48,48
@@ -996,7 +996,7 @@ item_shield_221
   offset: 0,0
   index: -1
 
-item_shield_222
+shield_222
   rotate: false
   xy: 576,672
   size: 48,48
@@ -1004,7 +1004,7 @@ item_shield_222
   offset: 0,0
   index: -1
 
-item_shield_223
+shield_223
   rotate: false
   xy: 624,672
   size: 48,48
@@ -1012,7 +1012,7 @@ item_shield_223
   offset: 0,0
   index: -1
 
-item_shield_233
+shield_233
   rotate: false
   xy: 384,720
   size: 48,48
@@ -1020,7 +1020,7 @@ item_shield_233
   offset: 0,0
   index: -1
 
-item_shield_234
+shield_234
   rotate: false
   xy: 432,720
   size: 48,48
@@ -1028,7 +1028,7 @@ item_shield_234
   offset: 0,0
   index: -1
 
-item_shield_235
+shield_235
   rotate: false
   xy: 480,720
   size: 48,48
@@ -1036,7 +1036,7 @@ item_shield_235
   offset: 0,0
   index: -1
 
-item_shield_236
+shield_236
   rotate: false
   xy: 528,720
   size: 48,48
@@ -1044,7 +1044,7 @@ item_shield_236
   offset: 0,0
   index: -1
 
-item_shield_237
+shield_237
   rotate: false
   xy: 576,720
   size: 48,48
@@ -1052,7 +1052,7 @@ item_shield_237
   offset: 0,0
   index: -1
 
-item_shield_238
+shield_238
   rotate: false
   xy: 624,720
   size: 48,48
@@ -1060,7 +1060,7 @@ item_shield_238
   offset: 0,0
   index: -1
 
-item_bow_240
+bow_240
   rotate: false
   xy: 0,768
   size: 48,48
@@ -1068,7 +1068,7 @@ item_bow_240
   offset: 0,0
   index: -1
 
-item_bow_241
+bow_241
   rotate: false
   xy: 48,768
   size: 48,48
@@ -1076,7 +1076,7 @@ item_bow_241
   offset: 0,0
   index: -1
 
-item_bow_242
+bow_242
   rotate: false
   xy: 96,768
   size: 48,48
@@ -1084,7 +1084,7 @@ item_bow_242
   offset: 0,0
   index: -1
 
-item_bow_243
+bow_243
   rotate: false
   xy: 144,768
   size: 48,48
@@ -1092,7 +1092,7 @@ item_bow_243
   offset: 0,0
   index: -1
 
-item_bow_244
+bow_244
   rotate: false
   xy: 192,768
   size: 48,48
@@ -1100,7 +1100,7 @@ item_bow_244
   offset: 0,0
   index: -1
 
-item_bow_245
+bow_245
   rotate: false
   xy: 240,768
   size: 48,48
@@ -1108,7 +1108,7 @@ item_bow_245
   offset: 0,0
   index: -1
 
-item_bow_246
+bow_246
   rotate: false
   xy: 288,768
   size: 48,48
@@ -1116,7 +1116,7 @@ item_bow_246
   offset: 0,0
   index: -1
 
-item_book_248
+book_248
   rotate: false
   xy: 384,768
   size: 48,48
@@ -1124,7 +1124,7 @@ item_book_248
   offset: 0,0
   index: -1
 
-item_book_249
+book_249
   rotate: false
   xy: 432,768
   size: 48,48
@@ -1132,7 +1132,7 @@ item_book_249
   offset: 0,0
   index: -1
 
-item_book_250
+book_250
   rotate: false
   xy: 480,768
   size: 48,48
@@ -1140,7 +1140,7 @@ item_book_250
   offset: 0,0
   index: -1
 
-item_book_251
+book_251
   rotate: false
   xy: 528,768
   size: 48,48
@@ -1148,7 +1148,7 @@ item_book_251
   offset: 0,0
   index: -1
 
-item_book_252
+book_252
   rotate: false
   xy: 576,768
   size: 48,48
@@ -1156,7 +1156,7 @@ item_book_252
   offset: 0,0
   index: -1
 
-item_book_263
+book_263
   rotate: false
   xy: 384,816
   size: 48,48
@@ -1164,7 +1164,7 @@ item_book_263
   offset: 0,0
   index: -1
 
-item_book_264
+book_264
   rotate: false
   xy: 432,816
   size: 48,48
@@ -1172,7 +1172,7 @@ item_book_264
   offset: 0,0
   index: -1
 
-item_book_265
+book_265
   rotate: false
   xy: 480,816
   size: 48,48
@@ -1180,7 +1180,7 @@ item_book_265
   offset: 0,0
   index: -1
 
-item_book_266
+book_266
   rotate: false
   xy: 528,816
   size: 48,48
@@ -1188,7 +1188,7 @@ item_book_266
   offset: 0,0
   index: -1
 
-item_book_267
+book_267
   rotate: false
   xy: 576,816
   size: 48,48
@@ -1196,7 +1196,7 @@ item_book_267
   offset: 0,0
   index: -1
 
-item_scepter_270
+scepter_270
   rotate: false
   xy: 0,864
   size: 48,48
@@ -1204,7 +1204,7 @@ item_scepter_270
   offset: 0,0
   index: -1
 
-item_scepter_271
+scepter_271
   rotate: false
   xy: 48,864
   size: 48,48
@@ -1212,7 +1212,7 @@ item_scepter_271
   offset: 0,0
   index: -1
 
-item_scepter_272
+scepter_272
   rotate: false
   xy: 96,864
   size: 48,48
@@ -1220,7 +1220,7 @@ item_scepter_272
   offset: 0,0
   index: -1
 
-item_scepter_273
+scepter_273
   rotate: false
   xy: 144,864
   size: 48,48
@@ -1228,63 +1228,7 @@ item_scepter_273
   offset: 0,0
   index: -1
 
-item_cloak_278
-  rotate: false
-  xy: 384,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_279
-  rotate: false
-  xy: 432,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_280
-  rotate: false
-  xy: 480,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_281
-  rotate: false
-  xy: 528,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_282
-  rotate: false
-  xy: 576,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_283
-  rotate: false
-  xy: 624,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_cloak_284
-  rotate: false
-  xy: 672,864
-  size: 48,48
-  orig: 48,48
-  offset: 0,0
-  index: -1
-
-item_scepter_285
+scepter_285
   rotate: false
   xy: 0,912
   size: 48,48
@@ -1292,7 +1236,7 @@ item_scepter_285
   offset: 0,0
   index: -1
 
-item_scepter_286
+scepter_286
   rotate: false
   xy: 48,912
   size: 48,48
@@ -1300,7 +1244,7 @@ item_scepter_286
   offset: 0,0
   index: -1
 
-item_scepter_287
+scepter_287
   rotate: false
   xy: 96,912
   size: 48,48
@@ -1308,7 +1252,7 @@ item_scepter_287
   offset: 0,0
   index: -1
 
-item_scepter_288
+scepter_288
   rotate: false
   xy: 144,912
   size: 48,48
@@ -1316,7 +1260,7 @@ item_scepter_288
   offset: 0,0
   index: -1
 
-item_scepter_289
+scepter_289
   rotate: false
   xy: 192,912
   size: 48,48
@@ -1324,7 +1268,7 @@ item_scepter_289
   offset: 0,0
   index: -1
 
-item_scepter_290
+scepter_290
   rotate: false
   xy: 240,912
   size: 48,48
@@ -1332,7 +1276,63 @@ item_scepter_290
   offset: 0,0
   index: -1
 
-item_arrowbox_293
+cloak_278
+  rotate: false
+  xy: 384,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_279
+  rotate: false
+  xy: 432,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_280
+  rotate: false
+  xy: 480,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_281
+  rotate: false
+  xy: 528,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_282
+  rotate: false
+  xy: 576,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_283
+  rotate: false
+  xy: 624,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+cloak_284
+  rotate: false
+  xy: 672,864
+  size: 48,48
+  orig: 48,48
+  offset: 0,0
+  index: -1
+
+arrowbox_293
   rotate: false
   xy: 384,912
   size: 48,48
@@ -1340,7 +1340,7 @@ item_arrowbox_293
   offset: 0,0
   index: -1
 
-item_food_315
+food_315
   rotate: false
   xy: 0,1008
   size: 48,48
@@ -1348,7 +1348,7 @@ item_food_315
   offset: 0,0
   index: -1
 
-item_food_316
+food_316
   rotate: false
   xy: 48,1008
   size: 48,48
@@ -1356,7 +1356,7 @@ item_food_316
   offset: 0,0
   index: -1
 
-item_food_317
+food_317
   rotate: false
   xy: 96,1008
   size: 48,48
@@ -1364,7 +1364,7 @@ item_food_317
   offset: 0,0
   index: -1
 
-item_food_318
+food_318
   rotate: false
   xy: 144,1008
   size: 48,48
@@ -1372,7 +1372,7 @@ item_food_318
   offset: 0,0
   index: -1
 
-item_food_319
+food_319
   rotate: false
   xy: 192,1008
   size: 48,48
@@ -1380,7 +1380,7 @@ item_food_319
   offset: 0,0
   index: -1
 
-item_food_320
+food_320
   rotate: false
   xy: 240,1008
   size: 48,48
@@ -1388,7 +1388,7 @@ item_food_320
   offset: 0,0
   index: -1
 
-item_food_321
+food_321
   rotate: false
   xy: 288,1008
   size: 48,48
@@ -1396,7 +1396,7 @@ item_food_321
   offset: 0,0
   index: -1
 
-item_cup_323
+cup_323
   rotate: false
   xy: 384,1008
   size: 48,48
@@ -1404,7 +1404,7 @@ item_cup_323
   offset: 0,0
   index: -1
 
-item_cup_324
+cup_324
   rotate: false
   xy: 432,1008
   size: 48,48
@@ -1412,7 +1412,7 @@ item_cup_324
   offset: 0,0
   index: -1
 
-item_cup_325
+cup_325
   rotate: false
   xy: 480,1008
   size: 48,48
@@ -1420,7 +1420,7 @@ item_cup_325
   offset: 0,0
   index: -1
 
-item_cup_326
+cup_326
   rotate: false
   xy: 528,1008
   size: 48,48
@@ -1428,7 +1428,7 @@ item_cup_326
   offset: 0,0
   index: -1
 
-item_metal_330
+metal_330
   rotate: false
   xy: 0,1056
   size: 48,48
@@ -1436,7 +1436,7 @@ item_metal_330
   offset: 0,0
   index: -1
 
-item_metal_331
+metal_331
   rotate: false
   xy: 48,1056
   size: 48,48
@@ -1444,7 +1444,7 @@ item_metal_331
   offset: 0,0
   index: -1
 
-item_metal_332
+metal_332
   rotate: false
   xy: 96,1056
   size: 48,48
@@ -1452,7 +1452,7 @@ item_metal_332
   offset: 0,0
   index: -1
 
-item_metal_333
+metal_333
   rotate: false
   xy: 144,1056
   size: 48,48
@@ -1460,7 +1460,7 @@ item_metal_333
   offset: 0,0
   index: -1
 
-item_metal_334
+metal_334
   rotate: false
   xy: 192,1056
   size: 48,48
@@ -1468,7 +1468,7 @@ item_metal_334
   offset: 0,0
   index: -1
 
-item_metal_335
+metal_335
   rotate: false
   xy: 240,1056
   size: 48,48
@@ -1476,7 +1476,7 @@ item_metal_335
   offset: 0,0
   index: -1
 
-item_shovel_338
+shovel_338
   rotate: false
   xy: 384,1056
   size: 48,48
@@ -1484,7 +1484,7 @@ item_shovel_338
   offset: 0,0
   index: -1
 
-item_shovel_339
+shovel_339
   rotate: false
   xy: 432,1056
   size: 48,48
@@ -1492,7 +1492,7 @@ item_shovel_339
   offset: 0,0
   index: -1
 
-item_shovel_340
+shovel_340
   rotate: false
   xy: 480,1056
   size: 48,48
@@ -1500,7 +1500,7 @@ item_shovel_340
   offset: 0,0
   index: -1
 
-item_shovel_341
+shovel_341
   rotate: false
   xy: 528,1056
   size: 48,48
@@ -1508,7 +1508,7 @@ item_shovel_341
   offset: 0,0
   index: -1
 
-item_water_345
+water_345
   rotate: false
   xy: 0,1104
   size: 48,48
@@ -1516,7 +1516,7 @@ item_water_345
   offset: 0,0
   index: -1
 
-item_water_346
+water_346
   rotate: false
   xy: 48,1104
   size: 48,48
@@ -1524,7 +1524,7 @@ item_water_346
   offset: 0,0
   index: -1
 
-item_water_347
+water_347
   rotate: false
   xy: 96,1104
   size: 48,48
@@ -1532,7 +1532,7 @@ item_water_347
   offset: 0,0
   index: -1
 
-item_water_348
+water_348
   rotate: false
   xy: 144,1104
   size: 48,48
@@ -1540,7 +1540,7 @@ item_water_348
   offset: 0,0
   index: -1
 
-item_water_349
+water_349
   rotate: false
   xy: 192,1104
   size: 48,48
@@ -1548,7 +1548,7 @@ item_water_349
   offset: 0,0
   index: -1
 
-item_water_350
+water_350
   rotate: false
   xy: 240,1104
   size: 48,48
@@ -1556,7 +1556,7 @@ item_water_350
   offset: 0,0
   index: -1
 
-item_diamond_360
+diamond_360
   rotate: false
   xy: 0,1152
   size: 48,48
@@ -1564,7 +1564,7 @@ item_diamond_360
   offset: 0,0
   index: -1
 
-item_diamond_361
+diamond_361
   rotate: false
   xy: 48,1152
   size: 48,48
@@ -1572,7 +1572,7 @@ item_diamond_361
   offset: 0,0
   index: -1
 
-item_diamond_362
+diamond_362
   rotate: false
   xy: 96,1152
   size: 48,48
@@ -1580,7 +1580,7 @@ item_diamond_362
   offset: 0,0
   index: -1
 
-item_diamond_363
+diamond_363
   rotate: false
   xy: 144,1152
   size: 48,48
@@ -1588,7 +1588,7 @@ item_diamond_363
   offset: 0,0
   index: -1
 
-item_diamond_364
+diamond_364
   rotate: false
   xy: 192,1152
   size: 48,48
@@ -1596,7 +1596,7 @@ item_diamond_364
   offset: 0,0
   index: -1
 
-item_gemstore_375
+gemstore_375
   rotate: false
   xy: 0,1200
   size: 48,48
@@ -1604,7 +1604,7 @@ item_gemstore_375
   offset: 0,0
   index: -1
 
-item_gemstore_376
+gemstore_376
   rotate: false
   xy: 48,1200
   size: 48,48
@@ -1612,7 +1612,7 @@ item_gemstore_376
   offset: 0,0
   index: -1
 
-item_gemstore_377
+gemstore_377
   rotate: false
   xy: 96,1200
   size: 48,48
@@ -1620,7 +1620,7 @@ item_gemstore_377
   offset: 0,0
   index: -1
 
-item_gemstore_378
+gemstore_378
   rotate: false
   xy: 144,1200
   size: 48,48
@@ -1628,7 +1628,7 @@ item_gemstore_378
   offset: 0,0
   index: -1
 
-item_gemstore_379
+gemstore_379
   rotate: false
   xy: 192,1200
   size: 48,48
@@ -1636,7 +1636,7 @@ item_gemstore_379
   offset: 0,0
   index: -1
 
-item_gem_390
+gem_390
   rotate: false
   xy: 0,1248
   size: 48,48
@@ -1644,7 +1644,7 @@ item_gem_390
   offset: 0,0
   index: -1
 
-item_gem_391
+gem_391
   rotate: false
   xy: 48,1248
   size: 48,48
@@ -1652,7 +1652,7 @@ item_gem_391
   offset: 0,0
   index: -1
 
-item_gem_392
+gem_392
   rotate: false
   xy: 96,1248
   size: 48,48
@@ -1660,7 +1660,7 @@ item_gem_392
   offset: 0,0
   index: -1
 
-item_gem_393
+gem_393
   rotate: false
   xy: 144,1248
   size: 48,48
@@ -1668,7 +1668,7 @@ item_gem_393
   offset: 0,0
   index: -1
 
-item_gem_394
+gem_394
   rotate: false
   xy: 192,1248
   size: 48,48
@@ -1676,7 +1676,7 @@ item_gem_394
   offset: 0,0
   index: -1
 
-item_flour_405
+powder_405
   rotate: false
   xy: 0,1296
   size: 48,48
@@ -1684,7 +1684,7 @@ item_flour_405
   offset: 0,0
   index: -1
 
-item_flour_406
+powder_406
   rotate: false
   xy: 48,1296
   size: 48,48
@@ -1692,7 +1692,7 @@ item_flour_406
   offset: 0,0
   index: -1
 
-item_flour_407
+powder_407
   rotate: false
   xy: 96,1296
   size: 48,48
@@ -1700,7 +1700,7 @@ item_flour_407
   offset: 0,0
   index: -1
 
-item_flour_408
+powder_408
   rotate: false
   xy: 144,1296
   size: 48,48
@@ -1708,7 +1708,7 @@ item_flour_408
   offset: 0,0
   index: -1
 
-item_flour_409
+powder_409
   rotate: false
   xy: 192,1296
   size: 48,48
@@ -1716,7 +1716,7 @@ item_flour_409
   offset: 0,0
   index: -1
 
-item_key_420
+key_420
   rotate: false
   xy: 0,1344
   size: 48,48
@@ -1724,7 +1724,7 @@ item_key_420
   offset: 0,0
   index: -1
 
-item_key_421
+key_421
   rotate: false
   xy: 48,1344
   size: 48,48
@@ -1732,7 +1732,7 @@ item_key_421
   offset: 0,0
   index: -1
 
-item_key_422
+key_422
   rotate: false
   xy: 96,1344
   size: 48,48
@@ -1740,7 +1740,7 @@ item_key_422
   offset: 0,0
   index: -1
 
-item_egg_423
+egg_423
   rotate: false
   xy: 144,1344
   size: 48,48

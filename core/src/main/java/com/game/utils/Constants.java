@@ -4,6 +4,7 @@ public class Constants {
     public static final String GAME_TITLE = "Pixel World";
     public static final String BMF = "font/arial_uni_30.fnt";
     public static final String CHARACTER = "atlas/characters/";
+    public static final String CHARACTER_BASE = "data/base/character_base.json";
     public static final String UI_WOOD = "atlas/ui/wood.atlas";
     public static final String UI_POPUP = "atlas/ui/popup.atlas";
     public static final String UI_ITEM = "atlas/ui/item.atlas";

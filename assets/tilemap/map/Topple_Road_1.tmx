@@ -72,7 +72,7 @@
   <object id="366" x="294.5" y="255.5" width="9.5" height="81">
    <properties>
     <property name="level" type="int" value="1"/>
-    <property name="name" value="01Knight"/>
+    <property name="name" value="warrior_Knight"/>
    </properties>
   </object>
  </objectgroup>

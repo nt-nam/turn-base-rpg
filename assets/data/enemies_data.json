@@ -1,6 +1,6 @@
 [
   {
-    "characterId": "01Knight",
+    "characterId": "warrior_Knight",
     "type": "knight",
     "name": "Crimson Blade",
     "desc": "A master swordsman with balanced power and defense.",
@@ -28,7 +28,7 @@
     "skills": ["dash_strike", "evasion"]
   },
   {
-    "characterId": "03Knight",
+    "characterId": "assassin_Knight",
     "type": "knight",
     "name": "Iron Guardian",
     "desc": "Wears heavy armor and can withstand massive damage.",

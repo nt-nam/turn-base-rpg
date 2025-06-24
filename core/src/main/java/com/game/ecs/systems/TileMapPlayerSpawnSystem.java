@@ -1,5 +1,7 @@
 package com.game.ecs.systems;
 
+import static com.game.utils.Constants.CHARACTER_BASE;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
@@ -13,11 +15,13 @@ import com.game.ecs.component.CharacterBaseDataComponent;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
+import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ecs.factory.CharacterLoader;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
+import com.game.utils.data.JsonLoader;
 
 public class TileMapPlayerSpawnSystem extends EntitySystem {
     private final Engine engine;
@@ -52,14 +56,17 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-                    CharacterBaseData charData = CharacterLoader.getCharacterBaseData(characterId);
+//                    CharacterBaseData charData = CharacterLoader.getCharacterBaseData(characterId);
+                    CharacterBaseData charData = JsonLoader.getValue(CHARACTER_BASE, "characterId", characterId, CharacterBaseData.class);
+
                     CharacterBaseDataComponent data = CharacterBaseDataComponent.from(charData);
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());
                     player.add(new PositionComponent(x, y));
                     player.add(data);
-                    player.add(new SpriteComponent(characterId, "idle",SCALE));
+                    player.add(new SpriteComponent(characterId, "idle"));
+                    player.add(new SizeComponent(16*SCALE, 16*SCALE));
                     player.add(new AnimationStateComponent());
                     player.add(new BoundComponent(new Rectangle(30, 10, 16*SCALE, 16*SCALE)));
 

@@ -1,28 +1,29 @@
-sword,
-spear,
-trident,
-knife,
-sickle,
-axe,
-bow,
-scepter,
-food,
-metal,
-water,
-diamond,
-gemstore,
-gem,
-flour,
-key,
-egg,
-armor,
-ring,
-necklace,
-scarf,
-headband,
-shield,
-book,
-cloak,
-arrowbox,
-cup,
-shovel
+sword       :  kiếm,
+spear       :  giáo,
+trident     :  đinh ba,
+knife       :  dao,
+sickle      :  liềm,
+axe         :  rìu,
+bow         :  cung,
+scepter     :  quyền trượng,
+food        :  thức ăn, ----------
+metal       :  kim loại,----------
+water       :  nước,----------
+diamond     :  kim cương,---------
+gemstore    :  cửa hàng đá quý,--------
+gem         :  đá quý,------------
+powder      :  bột phép,---------
+key         :  chìa khóa,-----------
+egg         :  trứng,-------------
+armor       :  áo giáp,
+ring        :  nhẫn,
+necklace    :  vòng cổ,
+scarf       :  khăn quàng cổ,
+headband    :  băng đô,
+shield      :  khiên,
+cloak       :  áo choàng,
+book        :  sách,------------
+arrowbox    :  hộp đựng tên,-----
+cup         :  cốc,--------------
+shovel      :  xẻng--------------
+

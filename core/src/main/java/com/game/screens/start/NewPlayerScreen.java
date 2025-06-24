@@ -2,10 +2,7 @@ package com.game.screens.start;
 
 import static com.game.utils.Constants.*;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -18,19 +15,20 @@ import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
 import com.game.ecs.component.CharacterBaseDataComponent;
 import com.game.ecs.component.PlayerSelectedComponent;
-import com.game.ecs.factory.CharacterLoader;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
+import com.game.utils.data.AnimationCache;
+import com.game.utils.data.CharacterBaseData;
+import com.game.utils.data.JsonLoader;
 import com.game.utils.data.GameSession;
 
 public class NewPlayerScreen extends BaseScreen {
     private int currentKnightIndex = 0;
-    private ImmutableArray<Entity> knightEntities;
-    private static final ComponentMapper<CharacterBaseDataComponent> baseDataMapper = ComponentMapper.getFor(CharacterBaseDataComponent.class);
+    private Array<CharacterBaseData> characterBaseDataList; // Lưu trữ danh sách character từ JSON
 
     private Image knightAnimImage;
     private UILabel knightStatsLabel;
@@ -43,15 +41,13 @@ public class NewPlayerScreen extends BaseScreen {
     public NewPlayerScreen() {
         super();
         Gdx.app.log("NewPlayerScreen", "create() called");
-        Gdx.app.log("NewPlayerScreen", "create() called, baseDataMapper=" + baseDataMapper);
         createScreen();
     }
 
     public static void loadingAsset() {
-        CharacterLoader.loadAllCharacters(engine);
-        for (int i = 1; i <= 5; i++) { // tùy số lượng knight
-            String knightId = (i == 10 ? i : "0" + i) + "Knight";
-            MainGame.getAsM().load(CHARACTER + knightId + ".atlas", TextureAtlas.class);
+        Array<CharacterBaseData> baseDataArray = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
+        for (CharacterBaseData baseData : baseDataArray) {
+            MainGame.getAsM().load(CHARACTER +baseData.characterId+ ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
         MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
@@ -61,11 +57,12 @@ public class NewPlayerScreen extends BaseScreen {
     @Override
     protected void createScreen() {
         createBackground();
-//        createTitle("New Player Screen", rootGroup);
 
-        // Lấy danh sách knight entity (chỉ loadAllKnights một lần duy nhất ở chỗ khởi tạo game)
-        knightEntities = MainGame.getEngine().getEntitiesFor(Family.all(CharacterBaseDataComponent.class).get());
-        if (knightEntities.size() == 0) throw new RuntimeException("No knights found!");
+        // Lấy danh sách knight từ JSON
+        characterBaseDataList = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
+        if (characterBaseDataList.size == 0) {
+            throw new RuntimeException("No knights found!");
+        }
 
         // Tạo nhân vật bên trái
         knightAnimImage = createCharacterImage(getCurrentKnightId(), "idle");
@@ -103,8 +100,8 @@ public class NewPlayerScreen extends BaseScreen {
         rootGroup.addActor(knightStatsLabel);
 
         // Nút chọn knight
-        NinePatch upSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_up"),6,6,0,0);
-        NinePatch downSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_down"),6,6,0,0);
+        NinePatch upSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_up"), 6, 6, 0, 0);
+        NinePatch downSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_down"), 6, 6, 0, 0);
         UIButton btnSelect = new UIButton("Select", upSelect, downSelect)
             .size(screenWidth * 0.2f, 70)
             .fontScale(2)
@@ -117,12 +114,12 @@ public class NewPlayerScreen extends BaseScreen {
                     return;
                 }
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
-                Entity eventEntity = MainGame.getEngine().createEntity();
-                PlayerSelectedComponent comp = MainGame.getEngine().createComponent(PlayerSelectedComponent.class);
+                Entity eventEntity = engine.createEntity();
+                PlayerSelectedComponent comp = engine.createComponent(PlayerSelectedComponent.class);
                 comp.playerName = nameInput;
                 comp.knightId = getCurrentKnightId();
                 eventEntity.add(comp);
-                MainGame.getEngine().addEntity(eventEntity);
+                engine.addEntity(eventEntity);
 
                 playerNameField.getStage().setKeyboardFocus(null);
                 GameSession.playerName = nameInput;
@@ -154,26 +151,12 @@ public class NewPlayerScreen extends BaseScreen {
         createCloseButton(ScreenType.MENU_GAME);
     }
 
-    /**
-     * Helper lấy entity hiện tại
-     */
-    private Entity getCurrentKnightEntity() {
-        return knightEntities.get(currentKnightIndex);
-    }
-
-    private CharacterBaseDataComponent getCurrentKnightData() {
-        Gdx.app.log("NewPlayerScreen", "getCurrentKnightData, baseDataMapper=" + baseDataMapper);
-        return baseDataMapper.get(getCurrentKnightEntity());
-    }
-
     private String getCurrentKnightId() {
-        return getCurrentKnightData().characterId;
+        return characterBaseDataList.get(currentKnightIndex).characterId;
     }
 
     private String getCurrentKnightStats() {
-        CharacterBaseDataComponent data = getCurrentKnightData();
-
-
+        CharacterBaseData data = characterBaseDataList.get(currentKnightIndex);
         return "Name:        " + data.name +
             "\nHP:              " + data.hp +
             "\nMP:              " + data.mp +
@@ -184,8 +167,8 @@ public class NewPlayerScreen extends BaseScreen {
             "\n      " + data.desc;
     }
 
-    private Image createCharacterImage(String CharacterId, String animationName) {
-        TextureAtlas atlas = MainGame.getAsM().get(CHARACTER + CharacterId + ".atlas", TextureAtlas.class);
+    private Image createCharacterImage(String characterId, String animationName) {
+        TextureAtlas atlas = MainGame.getAsM().get(CHARACTER + characterId + ".atlas", TextureAtlas.class);
         Array<TextureAtlas.AtlasRegion> idleFrames = atlas.findRegions(animationName);
         Animation<TextureRegion> anim = new Animation<>(0.1f, idleFrames, Animation.PlayMode.LOOP);
         return new Image(anim.getKeyFrame(0)) {
@@ -201,12 +184,12 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     private void showNextKnight() {
-        currentKnightIndex = (currentKnightIndex + 1) % knightEntities.size();
+        currentKnightIndex = (currentKnightIndex + 1) % characterBaseDataList.size;
         updateKnightDisplay();
     }
 
     private void showPrevKnight() {
-        currentKnightIndex = (currentKnightIndex - 1 + knightEntities.size()) % knightEntities.size();
+        currentKnightIndex = (currentKnightIndex - 1 + characterBaseDataList.size) % characterBaseDataList.size;
         updateKnightDisplay();
     }
 
@@ -222,12 +205,11 @@ public class NewPlayerScreen extends BaseScreen {
 
     private void createBackground() {
         String namePopup = "popup_000";
-//        TextureRegion origin = MainGame.getAsM().getRegion(UI_WOOD, "popup_000");
         TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "origin");
-        UIImage popup = new UIImage(origin).nine(origin,30,30,30,30)
+        UIImage popup = new UIImage(origin).nine(origin, 30, 30, 30, 30)
             .name(namePopup)
             .parent(rootGroup)
-            .bounds(screenWidth*0.2f, screenHeight*0.1f, screenWidth*0.6f, screenHeight*0.8f);
+            .bounds(screenWidth * 0.2f, screenHeight * 0.1f, screenWidth * 0.6f, screenHeight * 0.8f);
     }
 
     @Override
@@ -252,14 +234,14 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     @Override
+    public void hide() {
+        super.hide();
+        engine.removeAllEntities();
+        engine.removeAllSystems();
+    }
+
+    @Override
     public void dispose() {
-        for (int i = 1; i <= 5; i++) { // tùy số lượng knight
-            String knightId = (i == 10 ? i : "0" + i) + "Knight";
-//            if(!knightId.equals(getCurrentKnightId()))
-            MainGame.getAsM().unload(CHARACTER + knightId + ".atlas");
-        }
-        MainGame.getAsM().unload(CHARACTER + getCurrentKnightId() + ".atlas");
-        ;
         title.remove();
     }
 }
