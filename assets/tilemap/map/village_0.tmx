@@ -165,7 +165,7 @@
  <objectgroup color="#ff0000" id="11" name="enemies">
   <object id="347" x="154.098" y="327.927" width="28.9865" height="20.9739">
    <properties>
-    <property name="level" type="int" value="1"/>
+    <property name="0,0" value="warrior_Knight,3"/>
     <property name="name" value="warrior_Knight"/>
    </properties>
   </object>

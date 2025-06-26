@@ -2,6 +2,8 @@ package com.game.ui.base;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
 public class UIGroup extends Group {
@@ -57,6 +59,22 @@ public class UIGroup extends Group {
         } else {
             throw new ClassCastException("Actor with name '" + name + "' is not of type " + type.getSimpleName());
         }
+    }
+
+    public UIGroup parent(Group parent) {
+        parent.addActor(this);
+        return this;
+    }
+
+    public UIGroup onClick(Runnable runnable) {
+        this.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                runnable.run();
+            }
+        });
+        return this;
     }
 
     public UIGroup child(Actor... actors) {

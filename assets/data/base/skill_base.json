@@ -1,0 +1,142 @@
+{
+  "warrior": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 10
+      }
+    },
+    "2": {
+      "name": "Armor Boost",
+      "description": "Tăng giáp",
+      "effect": {
+        "armor": 20
+      }
+    },
+    "3": {
+      "name": "Damage Boost",
+      "description": "Tăng dame",
+      "effect": {
+        "damage": 30
+      }
+    }
+  },
+  "assassin": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 12
+      }
+    },
+    "2": {
+      "name": "Dodge Chance",
+      "description": "Tăng tỉ lệ né",
+      "effect": {
+        "dodgeChance": 25
+      }
+    },
+    "3": {
+      "name": "Critical Strike",
+      "description": "Tăng tỉ lệ chí mạng",
+      "effect": {
+        "critChance": 20
+      }
+    }
+  },
+  "mage": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 8
+      }
+    },
+    "2": {
+      "name": "Damage Boost",
+      "description": "Tăng dame",
+      "effect": {
+        "damage": 25
+      }
+    },
+    "3": {
+      "name": "Mana Regen",
+      "description": "Tăng mana",
+      "effect": {
+        "manaRegen": 10
+      }
+    }
+  },
+  "ranger": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 10
+      }
+    },
+    "2": {
+      "name": "Double Shot",
+      "description": "Đánh 2 lần",
+      "effect": {
+        "damage": 12,
+        "attackTimes": 2
+      }
+    },
+    "3": {
+      "name": "Damage Boost",
+      "description": "Tăng dame",
+      "effect": {
+        "damage": 30
+      }
+    }
+  },
+  "tank": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 15
+      }
+    },
+    "2": {
+      "name": "Armor Boost",
+      "description": "Tăng giáp",
+      "effect": {
+        "armor": 40
+      }
+    },
+    "3": {
+      "name": "Damage Reflection",
+      "description": "Phản dame",
+      "effect": {
+        "damageReflection": 10
+      }
+    }
+  },
+  "support": {
+    "1": {
+      "name": "Basic Attack",
+      "description": "Đánh thường",
+      "effect": {
+        "damage": 5
+      }
+    },
+    "2": {
+      "name": "Heal",
+      "description": "Hồi máu cho một nhân vật thấp máu",
+      "effect": {
+        "heal": 20
+      }
+    },
+    "3": {
+      "name": "Mass Heal",
+      "description": "Hồi máu cho 2 nhân vật thấp máu",
+      "effect": {
+        "heal": 15,
+        "targets": 2
+      }
+    }
+  }
+}

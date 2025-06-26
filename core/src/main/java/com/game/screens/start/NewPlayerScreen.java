@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
-import com.game.ecs.component.CharacterBaseDataComponent;
 import com.game.ecs.component.PlayerSelectedComponent;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
@@ -21,7 +20,6 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
-import com.game.utils.data.AnimationCache;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.JsonLoader;
 import com.game.utils.data.GameSession;
@@ -47,7 +45,7 @@ public class NewPlayerScreen extends BaseScreen {
     public static void loadingAsset() {
         Array<CharacterBaseData> baseDataArray = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
         for (CharacterBaseData baseData : baseDataArray) {
-            MainGame.getAsM().load(CHARACTER +baseData.characterId+ ".atlas", TextureAtlas.class);
+            MainGame.getAsM().load(CHARACTER_ATLAS +baseData.characterId+ ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
         MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
@@ -168,7 +166,7 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     private Image createCharacterImage(String characterId, String animationName) {
-        TextureAtlas atlas = MainGame.getAsM().get(CHARACTER + characterId + ".atlas", TextureAtlas.class);
+        TextureAtlas atlas = MainGame.getAsM().get(CHARACTER_ATLAS + characterId + ".atlas", TextureAtlas.class);
         Array<TextureAtlas.AtlasRegion> idleFrames = atlas.findRegions(animationName);
         Animation<TextureRegion> anim = new Animation<>(0.1f, idleFrames, Animation.PlayMode.LOOP);
         return new Image(anim.getKeyFrame(0)) {

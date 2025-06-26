@@ -1,105 +1,124 @@
 package com.game.core;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
-import com.game.ecs.component.CharacterBaseDataComponent;
-import com.game.ecs.component.StatComponent;
+import com.game.ecs.component.CharacterComponent;
+import com.game.ecs.systems.BattleStateSystem;
+import com.game.ecs.systems.TargetSelectionSystem;
+import com.game.ecs.systems.TurnExecutionSystem;
+import com.game.ecs.systems.TurnOrderSystem;
 
 public class BattleSimulator {
-    public static BattleSimulationResult run(Array<Entity> playerTeam, Array<Entity> enemyTeam) {
-        BattleSimulationResult result = new BattleSimulationResult();
+    private TurnOrderSystem turnOrderSystem;
+    private TargetSelectionSystem targetSelectionSystem;
+    private TurnExecutionSystem turnExecutionSystem;
+    private BattleStateSystem battleStateSystem;
 
+    public BattleSimulator() {
+        turnOrderSystem = new TurnOrderSystem();
+        targetSelectionSystem = new TargetSelectionSystem();
+        turnExecutionSystem = new TurnExecutionSystem();
+        battleStateSystem = new BattleStateSystem();
+    }
+
+    public BattleSimulationResult run(Array<Entity> playerTeam, Array<Entity> enemyTeam) {
+        if (playerTeam == null || enemyTeam == null || playerTeam.isEmpty() || enemyTeam.isEmpty()) {
+            Gdx.app.error("BattleSimulator", "Invalid teams: player=" + (playerTeam == null ? "null" : playerTeam.size) +
+                ", enemy=" + (enemyTeam == null ? "null" : enemyTeam.size));
+            throw new BattleSimulationException("Teams cannot be null or empty");
+        }
+
+        BattleSimulationResult result = new BattleSimulationResult();
+        result.rounds.add(new Array<>());
+
+        // Initialize engine
+        Engine engine = new Engine();
+        engine.addSystem(turnOrderSystem);
+        engine.addSystem(targetSelectionSystem);
+        engine.addSystem(turnExecutionSystem);
+        engine.addSystem(battleStateSystem);
+
+        // Add entities
         Array<Entity> all = new Array<>();
         all.addAll(playerTeam);
         all.addAll(enemyTeam);
-
-        ObjectMap<String, TempStat> stats = new ObjectMap<>();
         for (Entity e : all) {
-            StatComponent s = Mappers.stat.get(e);
-            CharacterBaseDataComponent c = Mappers.base.get(e);
-            stats.put(c.characterId, new TempStat(s.hp, s.mp, s.atk, s.def, s.agi, s.crit));
+            engine.addEntity(e);
+            CharacterComponent c = Mappers.base.get(e);
+            Gdx.app.log("BattleSimulator", "Added entity: " + (c != null ? c.characterId : "null"));
         }
 
-        Array<Entity> order = new Array<>(all);
-        order.sort((a, b) -> Integer.compare(
-            stats.get(b.getComponent(CharacterBaseDataComponent.class).characterId).agi,
-            stats.get(a.getComponent(CharacterBaseDataComponent.class).characterId).agi
-        ));
-
-        while (!isOver(playerTeam, enemyTeam, stats)) {
-            for (Entity actor : order) {
-                if (isDead(actor, stats)) continue;
-                Entity target = selectTarget(actor, playerTeam, enemyTeam, stats);
-                if (target == null || isDead(target, stats)) continue;
-                TurnResult turn = simulateTurn(actor, target, stats);
-                result.turns.add(turn);
+        int roundCount = 0;
+        while (!battleStateSystem.isBattleOver(playerTeam, enemyTeam)) {
+            if (roundCount >= BattleConfig.getMaxRounds()) {
+                Gdx.app.error("BattleSimulator", "Max rounds reached: " + BattleConfig.getMaxRounds());
+                result.winner = "draw max rounds";
+                break;
             }
+
+            // Update grid state
+            targetSelectionSystem.updateGridState(playerTeam, enemyTeam);
+
+            Array<Entity> order = turnOrderSystem.getTurnOrder();
+            Gdx.app.log("BattleSimulator", "Round " + (roundCount + 1) + ": Processing " + order.size + " actors");
+            Array<TurnResult> currentRound = result.rounds.get(result.rounds.size - 1);
+            boolean anyAction = false;
+
+            for (Entity actor : order) {
+                CharacterComponent actorComp = Mappers.base.get(actor);
+                String actorId = actorComp != null ? actorComp.characterId : "unknown";
+                if (battleStateSystem.isDead(actor)) {
+                    Gdx.app.log("BattleSimulator", "Skipping actor " + actorId + ": dead");
+                    continue;
+                }
+
+                Entity target = targetSelectionSystem.selectTarget(actor, playerTeam, enemyTeam);
+                if (target == null || battleStateSystem.isDead(target)) {
+                    Gdx.app.log("BattleSimulator", "No valid target for actor " + actorId);
+                    continue;
+                }
+
+                CharacterComponent targetComp = Mappers.base.get(target);
+                Gdx.app.log("BattleSimulator", "Actor " + actorId + " targeting " +
+                    (targetComp != null ? targetComp.characterId : "unknown"));
+
+                TurnResult turn = turnExecutionSystem.executeTurn(actor, target, playerTeam, enemyTeam);
+                if (turn.damage > 0 || turn.targetDead || !turn.skillUsed.isEmpty()) {
+                    currentRound.add(turn);
+                    anyAction = true;
+                    Gdx.app.log("BattleSimulator", "Action performed: " + turn.actorId + " -> " + turn.targetId +
+                        ", skill=" + turn.skillUsed + ", damage=" + turn.damage);
+                } else {
+                    Gdx.app.log("BattleSimulator", "No valid action for actor " + actorId + ": empty turn result");
+                }
+
+                if (battleStateSystem.isBattleOver(playerTeam, enemyTeam)) {
+                    Gdx.app.log("BattleSimulator", "Battle over after action by " + actorId);
+                    break;
+                }
+            }
+
+            if (!anyAction) {
+                Gdx.app.error("BattleSimulator", "No actions performed in round " + (roundCount + 1));
+                result.winner = "draw anyAction";
+                break;
+            }
+
+            if (!battleStateSystem.isBattleOver(playerTeam, enemyTeam)) {
+                result.rounds.add(new Array<>());
+            }
+
+            roundCount++;
+            turnOrderSystem.reset();
         }
 
-        result.winner = checkWinner(playerTeam, enemyTeam, stats);
+        if (result.winner == null) {
+            result.winner = battleStateSystem.checkWinner(playerTeam, enemyTeam);
+        }
+
+        Gdx.app.log("BattleSimulator", "Battle ended. Winner: " + result.winner);
         return result;
-    }
-
-    private static boolean isDead(Entity e, ObjectMap<String, TempStat> stats) {
-        return stats.get(e.getComponent(CharacterBaseDataComponent.class).characterId).hp <= 0;
-    }
-
-    private static Entity selectTarget(Entity actor, Array<Entity> team1, Array<Entity> team2, ObjectMap<String, TempStat> stats) {
-        boolean isEnemy = team2.contains(actor, true);
-        Array<Entity> opposingTeam = isEnemy ? team1 : team2;
-        for (Entity e : opposingTeam) {
-            if (!isDead(e, stats)) return e;
-        }
-        return null;
-    }
-
-    private static TurnResult simulateTurn(Entity actor, Entity target, ObjectMap<String, TempStat> stats) {
-        TempStat a = stats.get(actor.getComponent(CharacterBaseDataComponent.class).characterId);
-        TempStat t = stats.get(target.getComponent(CharacterBaseDataComponent.class).characterId);
-        float multiplier = 1f;
-
-        boolean isCritical = MathUtils.random() < t.crit * 0.01f;
-        float avoidChance = (float) t.agi / (t.agi + a.agi) * 0.5f;
-        boolean isAvoid = MathUtils.random() < avoidChance;
-
-
-        CharacterBaseDataComponent ca = Mappers.base.get(actor);
-        CharacterBaseDataComponent ct = Mappers.base.get(target);
-        if (ca.counters.contains(ct.classType, false)) multiplier += 0.25f;
-
-        int damage = (int) ((a.atk - t.def / 2f) * multiplier);
-        damage = Math.max(damage, 1);
-        damage = (isCritical ? (int) (damage * MathUtils.random(1.5f, 2f)) : damage);
-        damage = (isAvoid && !isCritical ? 0 : damage);
-        t.hp -= damage;
-
-        TurnResult r = new TurnResult();
-        r.actorId = actor.getComponent(CharacterBaseDataComponent.class).characterId;
-        r.targetId = target.getComponent(CharacterBaseDataComponent.class).characterId;
-        r.isCritical = isCritical;
-        r.damage = damage;
-        r.targetDead = t.hp <= 0;
-        r.skillUsed = "Basic Attack";
-        r.tempStat = new TempStat(t.hp, t.mp, t.atk, t.def, t.agi, t.crit);
-        return r;
-    }
-
-    private static boolean isOver(Array<Entity> team1, Array<Entity> team2, ObjectMap<String, TempStat> stats) {
-        return isTeamDead(team1, stats) || isTeamDead(team2, stats);
-    }
-
-    private static boolean isTeamDead(Array<Entity> team, ObjectMap<String, TempStat> stats) {
-        for (Entity e : team) {
-            if (!isDead(e, stats)) return false;
-        }
-        return true;
-    }
-
-    private static String checkWinner(Array<Entity> team1, Array<Entity> team2, ObjectMap<String, TempStat> stats) {
-        if (isTeamDead(team2, stats)) return "player";
-        if (isTeamDead(team1, stats)) return "enemy";
-        return "draw";
     }
 }

@@ -1,6 +1,6 @@
 package com.game.ecs.systems;
 
-import static com.game.utils.Constants.CHARACTER_BASE;
+import static com.game.utils.Constants.CHARACTER_BASE_JSON;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -11,14 +11,13 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.ecs.component.AnimationStateComponent;
-import com.game.ecs.component.CharacterBaseDataComponent;
+import com.game.ecs.component.CharacterComponent;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.screens.main.WorldMapScreen;
-import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
 import com.game.utils.data.JsonLoader;
 
@@ -55,10 +54,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-//                    CharacterBaseData charData = CharacterLoader.getCharacterBaseData(characterId);
-                    CharacterBaseData charData = JsonLoader.getValue(CHARACTER_BASE, "characterId", characterId, CharacterBaseData.class);
-
-                    CharacterBaseDataComponent data = CharacterBaseDataComponent.from(charData);
+                    CharacterComponent data = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", characterId, CharacterComponent.class);
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());
@@ -67,7 +63,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
                     player.add(new SpriteComponent(characterId, "idle"));
                     player.add(new SizeComponent(16*SCALE, 16*SCALE));
                     player.add(new AnimationStateComponent());
-                    player.add(new BoundComponent(new Rectangle(30, 10, 16*SCALE, 16*SCALE)));
+                    player.add(new BoundComponent(new Rectangle(30, 10, 16*SCALE, 5*SCALE)));
 
                     engine.addEntity(player);
                     spawned = true;

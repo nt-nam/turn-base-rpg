@@ -1,4 +1,11 @@
-{
-  "1,1": "warrior_Knight",
-  "2,0": "assassin_Knight"
-}
+
+[
+  {
+    "grid": "1,1",
+    "characterId": "warrior_Knight"
+  },
+  {
+    "grid": "2,0",
+    "characterId": "assassin_Knight"
+  }
+]

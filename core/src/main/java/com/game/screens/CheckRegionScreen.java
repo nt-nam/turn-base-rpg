@@ -1,8 +1,6 @@
 package com.game.screens;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.SKILL_SKILL;
-import static com.game.utils.Constants.UI_ITEM;
 import static com.game.utils.Constants.UI_WOOD;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
-import com.game.managers.GAssetManager;
 
 public class CheckRegionScreen extends BaseScreen {
     private static String name = UI_WOOD;

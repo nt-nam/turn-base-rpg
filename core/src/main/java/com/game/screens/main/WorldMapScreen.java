@@ -1,11 +1,16 @@
 package com.game.screens.main;
 
-import static com.game.utils.Constants.CHARACTER;
+import static com.game.utils.Constants.CHARACTER_ATLAS;
+import static com.game.utils.Constants.ATLAS_ITEM;
+import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
+import static com.game.utils.Constants.WAREHOUSE_JSON;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,15 +19,16 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.ecs.component.TeleportTriggerComponent;
 import com.game.ecs.component.TileMapComponent;
+import com.game.ecs.component.WarehouseComponent;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.CameraClampSystem;
 import com.game.ecs.systems.CollisionSystem;
-import com.game.ecs.systems.CollisionUpdateSystem;
 import com.game.ecs.systems.DebugDrawSystem;
 import com.game.ecs.systems.EnemyCollisionSystem;
 import com.game.ecs.systems.PlayerInputSystem;
@@ -30,17 +36,22 @@ import com.game.ecs.systems.SpriteRenderSystem;
 import com.game.ecs.systems.TeleportTriggerSystem;
 import com.game.ecs.systems.TileMapPlayerSpawnSystem;
 import com.game.ecs.systems.TileMapRenderSystem;
-import com.game.ecs.systems.TriggerComponent;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
+import com.game.ui.base.UIGroup;
+import com.game.ui.base.UIImage;
+import com.game.ui.base.UITable;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.data.GameSession;
+import com.game.utils.data.JsonLoader;
+
 
 public class WorldMapScreen extends BaseScreen {
     public static final float SCALE = 6f;
     public static TiledMap map;
     private static UIButton btnNextMap;
+    private boolean isPopupInventory;
 
     public WorldMapScreen() {
         super();
@@ -49,10 +60,12 @@ public class WorldMapScreen extends BaseScreen {
 
 
     public static void loadingAsset() {
-        MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport!=null?GameSession.pendingTeleport.nextMap:GameSession.currentMapId));
+        MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
+        MainGame.getAsM().loadAtlas(ATLAS_ITEM);
     }
+
     public static void unLoadingAsset() {
-        MainGame.getAsM().unload((GameSession.pendingTeleport!=null?GameSession.pendingTeleport.nextMap:GameSession.currentMapId));
+        MainGame.getAsM().unload((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
     }
 
     @Override
@@ -102,19 +115,172 @@ public class WorldMapScreen extends BaseScreen {
         rootGroup.addActor(btnBottom);
 
         btnNextMap = new UIButton("next")
-            .size(screenWidth*0.13f,screenHeight*0.1f)
-            .pos(screenWidth*0.03f,screenHeight*0.4f)
+            .size(screenWidth * 0.13f, screenHeight * 0.1f)
+            .pos(screenWidth * 0.03f, screenHeight * 0.4f)
             .fontScale(2)
             .onClick(() -> {
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
         btnNextMap.setVisible(false);
         rootGroup.addActor(btnNextMap);
+
+        new UIButton("Skill")
+            .size(screenWidth * 0.13f, screenHeight * 0.1f)
+            .pos(screenWidth * 0.8f, screenHeight * 0.35f)
+            .fontScale(2)
+            .onClick(() -> {
+                showPopupSkill();
+                isPopupInventory = true;
+            }).parent(rootGroup);
+        createPopupSkill();
+        new UIButton("Inventory")
+            .size(screenWidth * 0.13f, screenHeight * 0.1f)
+            .pos(screenWidth * 0.8f, screenHeight * 0.2f)
+            .fontScale(2)
+            .onClick(() -> {
+                showPopupInventory();
+                isPopupInventory = true;
+            }).parent(rootGroup);
+        createPopupInventory();
     }
 
-    public static void showBtnNextMap(boolean b){
+    private void createPopupSkill() {
+
+    }
+
+    private void createPopupInventory() {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0.5f);
+        pixmap.fill();
+        Texture overlay = new Texture(pixmap);
+        pixmap.dispose();
+        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
+
+        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
+        new UIImage(profile).nine(profile, 30, 30, 30, 30)
+            .name("profile")
+            .parent(rootGroup)
+            .bounds(screenWidth * 0.01f, screenHeight * 0.05f, screenWidth * 0.38f, screenHeight * 0.9f);
+
+        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
+        new UIImage(board).nine(board, 30, 30, 30, 30)
+            .name("board")
+            .parent(rootGroup)
+            .bounds(screenWidth * 0.4f, screenHeight * 0.05f, screenWidth * 0.6f, screenHeight * 0.9f);
+
+        new UIButton(
+            MainGame.getAsM().getRegion(UI_WOOD, "x_up_037"),
+            MainGame.getAsM().getRegion(UI_WOOD, "x_down_038"))
+            .name("closeBtn")
+            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+            .pos(screenWidth * 0.9f, screenHeight * 0.75f)
+            .onClick(() -> {
+                if (!isPopupInventory) {
+                    isPopupInventory = true;
+                    showPopupInventory();
+                } else {
+                    isPopupInventory = false;
+                    hidePopupInventory();
+                }
+            })
+            .parent(rootGroup);
+
+        Array<WarehouseComponent> warehouse = JsonLoader.loadArray(WAREHOUSE_JSON, WarehouseComponent.class, false);
+        float size = screenWidth * 0.1f;
+        float margin = size * 0.2f;
+
+        UITable table = new UITable().name("table").size(size * 5, size * 3).pos(screenWidth * 0.43f, screenHeight * 0.12f);
+
+        for (int i = 0; i < 15; i++) {
+            UIGroup uiGroup;
+            if (i < warehouse.size) {
+                WarehouseComponent item = warehouse.get(i);
+                uiGroup = new UIGroup().name(item.id).child(
+                    new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
+                        .size(size, size),
+                    new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, item.id))
+                        .size(size - margin, size - margin)
+                        .pos(margin * 0.5f, margin * 0.5f)
+                ).onClick(() -> {
+                    // Logic xử lý khi click vào item
+                });
+            } else {
+                uiGroup = new UIGroup().name("empty").child(
+                    new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
+                        .size(size, size));
+            }
+
+
+            table.add(uiGroup).size(size, size);
+
+            if ((i + 1) % 5 == 0) {
+                table.row();
+            }
+        }
+        rootGroup.addActor(table);
+
+//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "menu"))
+//            .name("menu")
+//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+//            .pos(screenWidth * 0.3f, screenHeight * 0.18f)
+//            .onClick(() -> {
+//
+//            })
+//            .parent(rootGroup);
+//
+//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "home"))
+//            .name("home")
+//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+//            .pos(screenWidth * 0.45f, screenHeight * 0.18f)
+//            .onClick(() -> {
+//                isPopupInventory = false;
+//                hidePopupInventory();
+//            })
+//            .parent(rootGroup);
+//
+//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "setting"))
+//            .name("setting")
+//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+//            .pos(screenWidth * 0.6f, screenHeight * 0.18f)
+//            .onClick(() -> {
+//
+//            })
+//            .parent(rootGroup);
+
+        hidePopupInventory();
+    }
+
+    private void hidePopupInventory() {
+        rootGroup.findActor("closeBtn").setVisible(false);
+        rootGroup.findActor("overlay").setVisible(false);
+        rootGroup.findActor("board").setVisible(false);
+        rootGroup.findActor("profile").setVisible(false);
+        rootGroup.findActor("table").setVisible(false);
+//        rootGroup.findActor("home").setVisible(false);
+//        rootGroup.findActor("menu").setVisible(false);
+//        rootGroup.findActor("setting").setVisible(false);
+    }
+
+    private void showPopupInventory() {
+        rootGroup.findActor("closeBtn").setVisible(true);
+        rootGroup.findActor("overlay").setVisible(true);
+        rootGroup.findActor("board").setVisible(true);
+        rootGroup.findActor("profile").setVisible(true);
+        rootGroup.findActor("table").setVisible(true);
+//        rootGroup.findActor("home").setVisible(true);
+//        rootGroup.findActor("menu").setVisible(true);
+//        rootGroup.findActor("setting").setVisible(true);
+    }
+
+
+    private void hidePopupSkill() {
+    }
+    private void showPopupSkill() {
+    }
+
+    public static void showBtnNextMap(boolean b) {
         btnNextMap.setVisible(b);
-        if(b) btnNextMap.setText(GameSession.pendingTeleport.name);
+        if (b) btnNextMap.setText(GameSession.pendingTeleport.name);
     }
 
     private void loadAllAnimations(String characterId, String atlasPath) {
@@ -142,7 +308,7 @@ public class WorldMapScreen extends BaseScreen {
                     int nextSpawn = obj.getProperties().containsKey("spawn") ? ((Number) obj.getProperties().get("spawn")).intValue() : 0;
                     String name = obj.getProperties().containsKey("name") ? (String) obj.getProperties().get("name") : "";
                     Entity teleportTrigger = new Entity();
-                    teleportTrigger.add(new TeleportTriggerComponent(nextMap, nextSpawn,name));
+                    teleportTrigger.add(new TeleportTriggerComponent(nextMap, nextSpawn, name));
                     teleportTrigger.add(new BoundComponent(rect));
                     engine.addEntity(teleportTrigger);
                 }
@@ -169,15 +335,13 @@ public class WorldMapScreen extends BaseScreen {
                     int level = obj.getProperties().containsKey("level") ? ((Number) obj.getProperties().get("level")).intValue() : 1;
 
                     Entity enemyTrigger = engine.createEntity();
-                    enemyTrigger.add(new EnemyTriggerComponent( name, level));
+                    enemyTrigger.add(new EnemyTriggerComponent(name, level));
                     enemyTrigger.add(new BoundComponent(rect));
                     engine.addEntity(enemyTrigger);
                 }
             }
         }
     }
-
-
 
 
     @Override
@@ -196,7 +360,7 @@ public class WorldMapScreen extends BaseScreen {
 //        Animation<TextureRegion> idleAnim = new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP);
 //        AnimationCache.put(characterId, "idle", idleAnim);
 
-        loadAllAnimations(GameSession.selectedCharacterId, CHARACTER + GameSession.selectedCharacterId + ".atlas");
+        loadAllAnimations(GameSession.selectedCharacterId, CHARACTER_ATLAS + GameSession.selectedCharacterId + ".atlas");
 
         // 3. Tạo entity và add TileMapComponent
         Entity mapEntity = engine.createEntity();

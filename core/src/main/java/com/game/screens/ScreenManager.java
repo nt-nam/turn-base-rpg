@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.game.MainGame;
 import com.game.screens.battle.BattleResultScreen;
 import com.game.screens.battle.BattleScreen;
-import com.game.screens.main.GameScreen;
 import com.game.screens.main.WorldMapScreen;
 import com.game.screens.service.CharacterScreen;
 import com.game.screens.service.InventoryScreen;
@@ -81,8 +80,6 @@ public class ScreenManager implements Disposable {
                 return new MapScreen();
             case PAUSE:
                 return new PauseScreen();
-            case MAIN_GAME:
-                return new GameScreen();
             default:
                 return null;
         }

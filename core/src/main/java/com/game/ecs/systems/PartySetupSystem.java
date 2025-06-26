@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.game.MainGame;
 import com.game.ecs.component.*;
-import com.game.utils.data.CharacterBaseData;
 
 public class PartySetupSystem extends EntitySystem {
     private final Engine engine;
@@ -76,7 +75,7 @@ public class PartySetupSystem extends EntitySystem {
             }
 
             // Deserialize JSON thành CharacterBaseData
-            CharacterBaseData baseData = json.fromJson(CharacterBaseData.class, charInfo.toJson(JsonWriter.OutputType.json));
+            CharacterComponent baseData = json.fromJson(CharacterComponent.class, charInfo.toJson(JsonWriter.OutputType.json));
 
             int gridX = entry.getInt("gridX");
             int gridY = entry.getInt("gridY");
@@ -136,7 +135,7 @@ public class PartySetupSystem extends EntitySystem {
                 entity.add(new BattleCharacterComponent(isPlayer, baseData.skills));
 
                 // CharacterBaseDataComponent
-                entity.add(CharacterBaseDataComponent.from(baseData));
+                entity.add(baseData);
 
                 // AnimationStateComponent
                 entity.add(new AnimationStateComponent());

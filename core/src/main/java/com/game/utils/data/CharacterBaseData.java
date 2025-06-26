@@ -4,8 +4,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class CharacterBaseData {
     public String characterId;
-    public String classType; // Warrior, Assassin, Mage, Ranger, Support, Tank
-    public String role; // Fighter, DPS, Caster, Healer, Tank
+    public String classType;
+    public String role;
     public String name;
     public String desc;
 

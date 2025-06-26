@@ -13,25 +13,30 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
+import com.game.core.BattleConfig;
+import com.game.core.BattleLogger;
 import com.game.core.BattleSimulationResult;
 import com.game.core.BattleSimulator;
-import com.game.core.TurnResult;
+import com.game.core.Mappers;
 import com.game.ecs.component.AnimationStateComponent;
 import com.game.ecs.component.BattleCharacterComponent;
 import com.game.ecs.component.BoundComponent;
-import com.game.ecs.component.CharacterBaseDataComponent;
+import com.game.ecs.component.CharacterComponent;
+import com.game.ecs.component.EnemyComponent;
 import com.game.ecs.component.GridComponent;
+import com.game.ecs.component.ListSkillComponent;
 import com.game.ecs.component.MoveToComponent;
+import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SizeComponent;
+import com.game.ecs.component.SkillComponent;
 import com.game.ecs.component.SkillStateComponent;
 import com.game.ecs.component.SpriteComponent;
-import com.game.ecs.component.SpriteDebugComponent;
 import com.game.ecs.component.StatComponent;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.SkillStateSystem;
-import com.game.ecs.systems.SkillSystem;
 import com.game.ecs.systems.SpriteDebugRenderSystem;
 import com.game.ecs.systems.SpriteRenderSystem;
 import com.game.screens.BaseScreen;
@@ -40,8 +45,8 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UIProgressBar;
 import com.game.utils.data.AnimationCache;
-import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.GameSession;
+import com.game.utils.data.GridData;
 import com.game.utils.data.JsonLoader;
 
 public class BattleScreen extends BaseScreen {
@@ -77,6 +82,7 @@ public class BattleScreen extends BaseScreen {
     @Override
     protected void createScreen() {
         isPause = false;
+        BattleConfig.load();
         createUI();
         createProgressBar();
         createPopup();
@@ -95,24 +101,7 @@ public class BattleScreen extends BaseScreen {
         float enemyX = screenWidth * 0.7f;
         float enemyY = screenHeight * 0.5f;
 
-
-        String enemiesId = "assassin_Knight";
-        loadAllAnimations(enemiesId, CHARACTER + enemiesId + ".atlas");
-        loadAllAnimations(GameSession.selectedCharacterId, CHARACTER + GameSession.selectedCharacterId + ".atlas");
         loadAllAnimationsSkill(GameSession.skillCharacter, SKILL_SKILL);
-
-
-        // Enemy entity
-        CharacterBaseData dataEnemies = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemiesId, CharacterBaseData.class);
-        enemy = engine.createEntity();
-        enemy.add(new PositionComponent(enemyX, enemyY));
-        enemy.add(new SpriteComponent(enemiesId, "idle", true)); // true = flip, hướng qua trái
-        enemy.add(new StatComponent(150, 150, 14, 8, 30, 30));
-        enemy.add(new BattleCharacterComponent(false, Array.with("fireball", "taunt")));
-        enemy.add(CharacterBaseDataComponent.from(dataEnemies));
-        enemy.add(new AnimationStateComponent());
-        enemy.add(new SpriteDebugComponent());
-        engine.addEntity(enemy);
 
         //Skill entity
         skill = engine.createEntity();
@@ -128,11 +117,10 @@ public class BattleScreen extends BaseScreen {
         engine.addSystem(new SpriteRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new SkillStateSystem(engine));
-        engine.addSystem(new SkillSystem(engine));
-        engine.addSystem(new SpriteDebugRenderSystem(engine,(OrthographicCamera) stage.getCamera()));
+        engine.addSystem(new SpriteDebugRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
 
 
-        resultBattle();
+//        resultBattle();
     }
 
     private void resultBattle() {
@@ -142,64 +130,43 @@ public class BattleScreen extends BaseScreen {
         Entity entity = engine.createEntity();
         String enemyId1 = "warrior_Knight";
         entity.add(new StatComponent(150, 100, 18, 6, 40, 10));
-        CharacterBaseData dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemyId1, CharacterBaseData.class);
-        entity.add(CharacterBaseDataComponent.from(dataEntity));
+        CharacterComponent dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId1, CharacterComponent.class);
+        entity.add(dataEntity);
         entity.add(new GridComponent(1, 1));
         playerTeam.add(entity);
 
         Entity entity2 = engine.createEntity();
         String enemyId2 = "support_Knight";
         entity2.add(new StatComponent(120, 180, 22, 4, 35, 25));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemyId2, CharacterBaseData.class);
-        entity2.add(CharacterBaseDataComponent.from(dataEntity));
+        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId2, CharacterComponent.class);
+        entity2.add(dataEntity);
         entity.add(new GridComponent(0, 1));
         playerTeam.add(entity2);
 
         Entity entity3 = engine.createEntity();
         String enemyId3 = "assassin_Knight";
         entity3.add(new StatComponent(200, 80, 12, 15, 28, 5));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemyId3, CharacterBaseData.class);
-        entity3.add(CharacterBaseDataComponent.from(dataEntity));
+        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId3, CharacterComponent.class);
+        entity3.add(dataEntity);
         entity.add(new GridComponent(2, 1));
         playerTeam.add(entity3);
 
         Entity entity4 = engine.createEntity();
         String enemyId4 = "mage_Knight";
         entity4.add(new StatComponent(170, 130, 20, 8, 33, 15));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemyId4, CharacterBaseData.class);
-        entity4.add(CharacterBaseDataComponent.from(dataEntity));
+        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId4, CharacterComponent.class);
+        entity4.add(dataEntity);
         entity.add(new GridComponent(1, 1));
         enemyTeam.add(entity4);
 
         Entity entity5 = engine.createEntity();
         String enemyId5 = "ranger_Knight";
         entity5.add(new StatComponent(140, 160, 16, 10, 38, 20));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", enemyId5, CharacterBaseData.class);
-        entity5.add(CharacterBaseDataComponent.from(dataEntity));
+        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId5, CharacterComponent.class);
+        entity5.add(dataEntity);
         entity.add(new GridComponent(6, 1));
         enemyTeam.add(entity5);
-
-//        playerTeam.add(player);
-//        enemyTeam.add(enemy);
-
         // Chạy mô phỏng kết quả trận đấu
-        BattleSimulationResult result = BattleSimulator.run(playerTeam, enemyTeam);
-
-        // Log ra từng lượt đánh
-        int round = 0;
-        for (TurnResult turn : result.turns) {
-            System.out.println(
-                "Battle" + ++round + ": " + turn.actorId +
-                    " X " + turn.targetId +
-                    " :: " + turn.damage +
-                    " damage :: " + turn.tempStat.hp + " hp :: " + turn.tempStat.mp + " mp" +
-                    (turn.isCritical ? " [CRIT]" : "") +
-                    (turn.targetDead ? " -> Doi phuong chet!" : "")
-            );
-        }
-
-        // Log ra đội thắng
-        System.out.println("Doi thang: " + result.winner);
     }
 
     private void loadAllAnimations(String characterId, String atlasPath) {
@@ -240,33 +207,104 @@ public class BattleScreen extends BaseScreen {
         rootGroup.addActor(new UIImage(MainGame.getAsM().getTexture(bg)).bounds(0, 0, screenWidth, screenHeight));
         Array<Entity> playerTeam = new Array<>();
         Array<Entity> enemyTeam = new Array<>();
-        createGridUI(screenWidth * 0.1f, screenHeight * 0.2f,playerTeam);
-        createGridUI(screenWidth * 0.65f, screenHeight * 0.2f,enemyTeam);
-//createBtn();
+
+        createGridUI(screenWidth * 0.1f, screenHeight * 0.2f, playerTeam, PARTY_ATTACK);
+        createGridUI(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, PARTY_ATTACK_ENEMY);
+
+        if (playerTeam.isEmpty() || enemyTeam.isEmpty()) {
+            Gdx.app.error("createUI", "Teams are empty: player=" + playerTeam.size + ", enemy=" + enemyTeam.size);
+            return;
+        }
+
+        Gdx.app.log("createUI", "Starting battle with " + playerTeam.size + " players and " + enemyTeam.size + " enemies");
+        BattleSimulationResult result = new BattleSimulator().run(playerTeam, enemyTeam);
+        BattleLogger.logBattleResult(result, playerTeam, enemyTeam);
     }
 
-    private void createGridUI(float x, float y, Array<Entity> team) {
+    private void createGridUI(float x, float y, Array<Entity> team, String path) {
+        if (rootGroup == null || engine == null) {
+            Gdx.app.error("createGridUI", "rootGroup or engine is null");
+            return;
+        }
+
         float tileSize = screenHeight * 0.15f;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                float posX=x + i * tileSize * 1.1f;
-                float posY= y + j * tileSize * 1.1f;
-                new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX,posY,tileSize,tileSize);//ô grid
-                if(true){
-//                    CharacterBaseData dataEntity = CharacterLoader.getCharacterBaseData(GameSession.selectedCharacterId);
-                    CharacterBaseData dataEntity = JsonLoader.getValue(CHARACTER_BASE, "characterId", GameSession.selectedCharacterId, CharacterBaseData.class);
-                    Entity entity = engine.createEntity();
-                    entity.add(new PositionComponent(posX, posY+tileSize*0.3f));
-                    entity.add(new SpriteComponent(GameSession.selectedCharacterId, "idle", false));
-                    entity.add(new SizeComponent(tileSize, tileSize));
-                    entity.add(new StatComponent(120, 120, 18, 12, 40, 40));
-                    entity.add(new BattleCharacterComponent(true, Array.with("slash", "shield_bash")));
-                    entity.add(CharacterBaseDataComponent.from(dataEntity));
-                    entity.add(new AnimationStateComponent());
-                    entity.add(new SpriteDebugComponent());
-                    team.add(entity);
-                    engine.addEntity(entity);
+                float posX = x + i * tileSize * 1.1f;
+                float posY = y + j * tileSize * 1.1f;
+                new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
+                if (path == null) continue;
+
+                GridData gridData = JsonLoader.getValue(path, "grid", i + "," + j, GridData.class);
+                if (gridData == null || gridData.characterId == null) {
+//                    Gdx.app.log("createGridUI", "No grid data for position (" + i + "," + j + ")");
+                    continue;
                 }
+
+                CharacterComponent dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", gridData.characterId, CharacterComponent.class);
+                if (dataEntity == null || dataEntity.name == null) {
+                    Gdx.app.error("createGridUI", "Character data not found for ID: " + gridData.characterId);
+                    continue;
+                }
+
+                JsonValue fullSkillJson = JsonLoader.getJsonValue(SKILL_JSON, false);
+                if (fullSkillJson == null) {
+                    Gdx.app.error("createGridUI", "Failed to load skills JSON for " + gridData.characterId);
+                    continue;
+                }
+
+                JsonValue skillSet = fullSkillJson.get(dataEntity.name.toLowerCase());
+                if (skillSet == null) {
+                    Gdx.app.error("createGridUI", "Skill set not found for " + dataEntity.name);
+                    continue;
+                }
+
+                boolean isEnemy = path.equals(PARTY_ATTACK_ENEMY);
+                loadAllAnimations(gridData.characterId, CHARACTER_ATLAS + gridData.characterId + ".atlas");
+                Entity entity = engine.createEntity();
+
+                // Add components
+                entity.add(new PositionComponent(posX, posY + tileSize * 0.3f));
+                entity.add(new GridComponent(i, j));
+                entity.add(new SpriteComponent(gridData.characterId, "idle", isEnemy));
+                entity.add(isEnemy ? new EnemyComponent() : new PlayerComponent());
+                entity.add(new SizeComponent(tileSize, tileSize));
+
+                // Initialize stats with defaults if JSON data is missing
+                entity.add(new StatComponent(
+                    dataEntity.hp > 0 ? dataEntity.hp : 100,
+                    dataEntity.mp > 0 ? dataEntity.mp : 50,
+                    dataEntity.atk > 0 ? dataEntity.atk : 20,
+                    dataEntity.def > 0 ? dataEntity.def : 10,
+                    dataEntity.agi > 0 ? dataEntity.agi : 30,
+                    dataEntity.crit > 0 ? dataEntity.crit : 10
+                ));
+
+                // Initialize skills
+                ListSkillComponent listSkill = new ListSkillComponent();
+                // Ensure basic attack is always available
+                listSkill.skills.add(new SkillComponent(1, "Basic Attack", "Deals basic damage", null));
+                for (JsonValue skill = skillSet.child(); skill != null; skill = skill.next()) {
+                    String skillId = skill.name;
+                    String name = skill.getString("name", "Unknown Skill");
+                    String description = skill.getString("description", "");
+                    JsonValue effect = skill.get("effect");
+                    int id = Integer.parseInt(skillId);
+                    if (id > 1) { // Skip overriding basic attack
+                        listSkill.skills.add(new SkillComponent(id, name, description, effect));
+                    }
+                }
+                entity.add(listSkill);
+
+                // Add character data
+                dataEntity.characterId = gridData.characterId; // Ensure characterId is set
+                entity.add(dataEntity);
+                entity.add(new AnimationStateComponent());
+
+                team.add(entity);
+                engine.addEntity(entity);
+                Gdx.app.log("createGridUI", "Created entity " + dataEntity.characterId + " at grid (" + i + "," + j + ")" +
+                    " with HP=" + Mappers.stat.get(entity).hp + ", skills=" + listSkill.skills.size);
             }
         }
     }

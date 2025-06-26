@@ -1,0 +1,8 @@
+{
+  "maxRounds": 100,
+  "mpBasicAttackGain": 10,
+  "mpTakenDamageLoss": 5,
+  "mpSkill2Cost": 20,
+  "mpSkill3Cost": 35,
+  "counterMultiplier": 1.25
+}

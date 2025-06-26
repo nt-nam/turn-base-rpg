@@ -1,6 +1,18 @@
-{
-  "2,1": "warrior_Knight",
-  "2,0": "ranger_Knight",
-  "2,2": "assassin_Knight",
-  "1,0": "mage_Knight"
-}
+[
+  {
+    "grid": "2,1",
+    "characterId": "support_Knight"
+  },
+  {
+    "grid": "2,0",
+    "characterId": "ranger_Knight"
+  },
+  {
+    "grid": "2,2",
+    "characterId": "assassin_Knight"
+  },
+  {
+    "grid": "1,0",
+    "characterId": "mage_Knight"
+  }
+]
