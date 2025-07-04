@@ -4,6 +4,7 @@ import static com.game.utils.Constants.*;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -11,31 +12,39 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.core.BattleConfig;
 import com.game.core.BattleLogger;
 import com.game.core.BattleSimulationResult;
+import com.game.core.BattleSimulationResultSaver;
 import com.game.core.BattleSimulator;
-import com.game.core.Mappers;
+import com.game.ecs.TurnProcessor;
+import com.game.ecs.component.ActionQueueComponent;
 import com.game.ecs.component.AnimationStateComponent;
-import com.game.ecs.component.BattleCharacterComponent;
-import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.CharacterComponent;
 import com.game.ecs.component.EnemyComponent;
 import com.game.ecs.component.GridComponent;
+import com.game.ecs.component.InfoComponent;
+import com.game.ecs.component.LabelComponent;
 import com.game.ecs.component.ListSkillComponent;
 import com.game.ecs.component.MoveToComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
+import com.game.ecs.component.ProgressBarComponent;
+import com.game.ecs.component.Scene2dComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SkillComponent;
 import com.game.ecs.component.SkillStateComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ecs.component.StatComponent;
 import com.game.ecs.systems.AnimationStateSystem;
+import com.game.ecs.systems.Scene2dRenderSystem;
+import com.game.ecs.systems.TurnActionSystem;
 import com.game.ecs.systems.SkillStateSystem;
 import com.game.ecs.systems.SpriteDebugRenderSystem;
 import com.game.ecs.systems.SpriteRenderSystem;
@@ -43,6 +52,7 @@ import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
+import com.game.ui.base.UILabel;
 import com.game.ui.base.UIProgressBar;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.data.GameSession;
@@ -51,12 +61,14 @@ import com.game.utils.data.JsonLoader;
 
 public class BattleScreen extends BaseScreen {
     private static final String bg = "texture/battle/summer.png";
-    private static Entity player;
-    private static Entity enemy;
     private static Entity skill;
-    private AnimationStateComponent state;
-    private SkillStateComponent stateSkill;
     private boolean isPause;
+    private static Entity target;
+    private UILabel label;
+
+    public static void setTarget(Entity target1) {
+        target = target1;
+    }
 
     public BattleScreen() {
         super();
@@ -64,8 +76,6 @@ public class BattleScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-
-        MainGame.getAsM().loadAtlas("atlas/characters/02Knight.atlas");
         MainGame.getAsM().loadAtlas(SKILL_SKILL);
         MainGame.getAsM().loadAtlas(UI_WOOD);
         MainGame.getAsM().loadAtlas(UI_POPUP);
@@ -83,90 +93,26 @@ public class BattleScreen extends BaseScreen {
     protected void createScreen() {
         isPause = false;
         BattleConfig.load();
-        createUI();
-        createProgressBar();
         createPopup();
     }
 
     @Override
     public void show() {
         super.show();
-
+        createBG();
+        createLabel();
+        createBattleGridUI();
         System.out.println("BattleScreen.show");
-
-        // --- TẠO ECS ENTITY ---
-        float playerX = screenWidth * 0.1f;
-        float playerY = screenHeight * 0.25f;
-
-        float enemyX = screenWidth * 0.7f;
-        float enemyY = screenHeight * 0.5f;
-
-        loadAllAnimationsSkill(GameSession.skillCharacter, SKILL_SKILL);
-
-        //Skill entity
-        skill = engine.createEntity();
-        skill.add(new PositionComponent(0, 0));
-        skill.add(new SpriteComponent(GameSession.skillCharacter, "_hide", true));
-        skill.add(new BoundComponent(new Rectangle(0, 0, 100, 100)));
-        skill.add(new SkillStateComponent());
-        skill.add(new MoveToComponent(playerX, playerY, enemyX, enemyY, 1));
-        engine.addEntity(skill);
-
 
         // System vẽ entity (dùng batch, KHÔNG liên quan Scene2D)
         engine.addSystem(new SpriteRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new SkillStateSystem(engine));
         engine.addSystem(new SpriteDebugRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
-
-
-//        resultBattle();
-    }
-
-    private void resultBattle() {
-        Array<Entity> playerTeam = new Array<>();
-        Array<Entity> enemyTeam = new Array<>();
-
-        Entity entity = engine.createEntity();
-        String enemyId1 = "warrior_Knight";
-        entity.add(new StatComponent(150, 100, 18, 6, 40, 10));
-        CharacterComponent dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId1, CharacterComponent.class);
-        entity.add(dataEntity);
-        entity.add(new GridComponent(1, 1));
-        playerTeam.add(entity);
-
-        Entity entity2 = engine.createEntity();
-        String enemyId2 = "support_Knight";
-        entity2.add(new StatComponent(120, 180, 22, 4, 35, 25));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId2, CharacterComponent.class);
-        entity2.add(dataEntity);
-        entity.add(new GridComponent(0, 1));
-        playerTeam.add(entity2);
-
-        Entity entity3 = engine.createEntity();
-        String enemyId3 = "assassin_Knight";
-        entity3.add(new StatComponent(200, 80, 12, 15, 28, 5));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId3, CharacterComponent.class);
-        entity3.add(dataEntity);
-        entity.add(new GridComponent(2, 1));
-        playerTeam.add(entity3);
-
-        Entity entity4 = engine.createEntity();
-        String enemyId4 = "mage_Knight";
-        entity4.add(new StatComponent(170, 130, 20, 8, 33, 15));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId4, CharacterComponent.class);
-        entity4.add(dataEntity);
-        entity.add(new GridComponent(1, 1));
-        enemyTeam.add(entity4);
-
-        Entity entity5 = engine.createEntity();
-        String enemyId5 = "ranger_Knight";
-        entity5.add(new StatComponent(140, 160, 16, 10, 38, 20));
-        dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", enemyId5, CharacterComponent.class);
-        entity5.add(dataEntity);
-        entity.add(new GridComponent(6, 1));
-        enemyTeam.add(entity5);
-        // Chạy mô phỏng kết quả trận đấu
+        engine.addSystem(new TurnActionSystem());
+        engine.addSystem(new Scene2dRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
+//        engine.addSystem(new ActionQueueSystem());
+        System.out.println(rootGroup.findActor("label") != null ? "co" : "khong");
     }
 
     private void loadAllAnimations(String characterId, String atlasPath) {
@@ -183,28 +129,25 @@ public class BattleScreen extends BaseScreen {
         TextureAtlas atlas = MainGame.getAsM().getAtlas(atlasPath);
         AnimationCache.put(nameSkill, nameSkill + "_attack", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_attack"), Animation.PlayMode.LOOP));
         AnimationCache.put(nameSkill, nameSkill + "_attack_big", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_attack_big"), Animation.PlayMode.LOOP));
-        AnimationCache.put(nameSkill, nameSkill + "_explode", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_explode"), Animation.PlayMode.NORMAL));
-        AnimationCache.put(nameSkill, nameSkill + "_heal", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_heal"), Animation.PlayMode.NORMAL));
-        AnimationCache.put(nameSkill, nameSkill + "_ultimate", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_ultimate"), Animation.PlayMode.NORMAL));
+        AnimationCache.put(nameSkill, nameSkill + "_explode", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_explode"), Animation.PlayMode.LOOP));
+        AnimationCache.put(nameSkill, nameSkill + "_heal", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_heal"), Animation.PlayMode.LOOP));
+        AnimationCache.put(nameSkill, nameSkill + "_ultimate", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_ultimate"), Animation.PlayMode.LOOP));
         AnimationCache.put(nameSkill, nameSkill + "_hide", new Animation<>(0.1f, atlas.findRegions(nameSkill + "_hide"), Animation.PlayMode.LOOP));
     }
 
-    private void createProgressBar() {
-        new UIProgressBar(0, 100, 1, false, "line_red")
-            .name("progressBarPlayer")
-            .bounds(screenWidth * 0.1f, screenHeight * 0.8f, screenWidth * 0.3f, screenHeight * 0.05f)
-            .value(100).visible(false)
-            .parent(rootGroup);
-
-        new UIProgressBar(0, 100, 1, false, "line_red")
-            .name("progressBarEnemies")
-            .bounds(screenWidth * 0.6f, screenHeight * 0.3f, screenWidth * 0.3f, screenHeight * 0.05f)
-            .value(100).visible(false)
+    private UIProgressBar createProgressBar(String name, int max, float x, float y, float w, float h) {
+        return new UIProgressBar(0, max, 1, false, "linered2")
+            .name("proB:" + name)
+            .bounds(x, y, w, h)
+            .value(max).visible(true)
             .parent(rootGroup);
     }
 
-    private void createUI() {
+    private void createBG() {
         rootGroup.addActor(new UIImage(MainGame.getAsM().getTexture(bg)).bounds(0, 0, screenWidth, screenHeight));
+    }
+
+    private void createBattleGridUI() {
         Array<Entity> playerTeam = new Array<>();
         Array<Entity> enemyTeam = new Array<>();
 
@@ -217,8 +160,60 @@ public class BattleScreen extends BaseScreen {
         }
 
         Gdx.app.log("createUI", "Starting battle with " + playerTeam.size + " players and " + enemyTeam.size + " enemies");
-        BattleSimulationResult result = new BattleSimulator().run(playerTeam, enemyTeam);
-        BattleLogger.logBattleResult(result, playerTeam, enemyTeam);
+
+        Array<Entity> playerTeamCR = new Array<>(playerTeam);
+        Array<Entity> enemyTeamCR = new Array<>(enemyTeam);
+
+        BattleSimulationResult listResult = new BattleSimulator().run(playerTeamCR, enemyTeamCR);
+        BattleLogger.logBattleResult(listResult, playerTeamCR, enemyTeamCR);
+
+//        BattleSimulationResultSaver.saveBattleSimulationResult(listResult, "assets/data/battleresult/battle_result.json");
+
+        loadAllAnimationsSkill(GameSession.skillCharacter, SKILL_SKILL);
+        skill = engine.createEntity();
+        skill.add(new PositionComponent(0, 0));
+        skill.add(new SpriteComponent(GameSession.skillCharacter, "_hide", true));
+        skill.add(new SizeComponent(screenHeight * .15f, screenHeight * .18f));
+        skill.add(new ActionQueueComponent());
+        skill.add(new SkillStateComponent());
+        skill.add(new MoveToComponent());
+        engine.addEntity(skill);
+        loadStat(playerTeam);
+        loadStat(enemyTeam);
+        TurnProcessor turnProcessor = new TurnProcessor();
+        turnProcessor.processTurns(skill, listResult);
+    }
+
+    private void loadStat(Array<Entity> playerTeam) {
+        for (Entity entity : playerTeam) {
+            CharacterComponent dataEntity = entity.getComponent(CharacterComponent.class);
+            InfoComponent infoComponent = entity.getComponent(InfoComponent.class);
+            entity.add(new StatComponent(
+                dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoComponent.level)) : 100,
+                dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoComponent.level)) : 50,
+                dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoComponent.level)) : 20,
+                dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoComponent.level)) : 10,
+                dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoComponent.level)) : 30,
+                dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoComponent.level)) : 10
+            ));
+        }
+    }
+
+
+    private void createLabel() {
+        Entity labelEntity = engine.createEntity();
+        label = new UILabel("Critical").pos(-100, -100).name("label");
+        label.setFontScale(3.5f);
+        label.setAlignment(Align.center);
+        label.setColor(Color.RED);
+        label.setVisible(false);
+        label.setText("Critical");
+        label.name("label");
+        label.setZIndex(Integer.MAX_VALUE);
+        labelEntity.add(new LabelComponent(label));
+        labelEntity.add(new Scene2dComponent());
+        rootGroup.addActor(label);
+        engine.addEntity(labelEntity);
     }
 
     private void createGridUI(float x, float y, Array<Entity> team, String path) {
@@ -235,13 +230,26 @@ public class BattleScreen extends BaseScreen {
                 new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
                 if (path == null) continue;
 
-                GridData gridData = JsonLoader.getValue(path, "grid", i + "," + j, GridData.class);
+                GridData gridData = JsonLoader.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
                 if (gridData == null || gridData.characterId == null) {
-//                    Gdx.app.log("createGridUI", "No grid data for position (" + i + "," + j + ")");
                     continue;
                 }
 
-                CharacterComponent dataEntity = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", gridData.characterId, CharacterComponent.class);
+//                JsonValue jsonValue = new JsonValue(JsonValue.ValueType.object);
+//                // Thêm các khóa và giá trị vào đối tượng JSON
+//                jsonValue.addChild("name", new JsonValue("John"));
+//                jsonValue.addChild("state", new JsonValue(JsonValue.ValueType.object));
+//                JsonValue state = jsonValue.get("state");
+//                state.addChild("hp", new JsonValue(100));
+//                state.addChild("mp", new JsonValue(50));
+
+
+                JsonLoader.loadArray(PARTY_FULL, InfoComponent.class, false);
+                System.out.println(gridData.characterId);
+                InfoComponent infoCharacter = JsonLoader.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
+
+                System.out.println(infoCharacter.characterBaseId);
+                CharacterComponent dataEntity = JsonLoader.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
                 if (dataEntity == null || dataEntity.name == null) {
                     Gdx.app.error("createGridUI", "Character data not found for ID: " + gridData.characterId);
                     continue;
@@ -260,26 +268,29 @@ public class BattleScreen extends BaseScreen {
                 }
 
                 boolean isEnemy = path.equals(PARTY_ATTACK_ENEMY);
-                loadAllAnimations(gridData.characterId, CHARACTER_ATLAS + gridData.characterId + ".atlas");
+                loadAllAnimations(dataEntity.characterBaseId, CHARACTER_ATLAS + dataEntity.characterBaseId + ".atlas");
                 Entity entity = engine.createEntity();
 
                 // Add components
                 entity.add(new PositionComponent(posX, posY + tileSize * 0.3f));
                 entity.add(new GridComponent(i, j));
-                entity.add(new SpriteComponent(gridData.characterId, "idle", isEnemy));
+                entity.add(new SpriteComponent(dataEntity.characterBaseId, "idle", isEnemy));
                 entity.add(isEnemy ? new EnemyComponent() : new PlayerComponent());
                 entity.add(new SizeComponent(tileSize, tileSize));
+                entity.add(infoCharacter);
 
-                // Initialize stats with defaults if JSON data is missing
-                entity.add(new StatComponent(
-                    dataEntity.hp > 0 ? dataEntity.hp : 100,
-                    dataEntity.mp > 0 ? dataEntity.mp : 50,
-                    dataEntity.atk > 0 ? dataEntity.atk : 20,
-                    dataEntity.def > 0 ? dataEntity.def : 10,
-                    dataEntity.agi > 0 ? dataEntity.agi : 30,
-                    dataEntity.crit > 0 ? dataEntity.crit : 10
-                ));
-
+                StatComponent stat = new StatComponent(
+                    dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 100,
+                    dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 50,
+                    dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 20,
+                    dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10,
+                    dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 30,
+                    dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10
+                );
+                entity.add(stat);
+                System.out.println(entity.getComponent(StatComponent.class).hp);
+                System.out.println(dataEntity.hp * Math.pow(1.1f, infoCharacter.level));
+                System.out.println(infoCharacter.level);
                 // Initialize skills
                 ListSkillComponent listSkill = new ListSkillComponent();
                 // Ensure basic attack is always available
@@ -297,126 +308,18 @@ public class BattleScreen extends BaseScreen {
                 entity.add(listSkill);
 
                 // Add character data
-                dataEntity.characterId = gridData.characterId; // Ensure characterId is set
+//                dataEntity.characterBaseId = gridData.characterId; // Ensure characterId is set
                 entity.add(dataEntity);
                 entity.add(new AnimationStateComponent());
 
+                UIProgressBar a = createProgressBar(i + "," + j, stat.hp, posX, posY, tileSize * 1f, tileSize * 0.1f);
+                entity.add(new ProgressBarComponent(a));
+                entity.add(new LabelComponent(label));
                 team.add(entity);
                 engine.addEntity(entity);
-                Gdx.app.log("createGridUI", "Created entity " + dataEntity.characterId + " at grid (" + i + "," + j + ")" +
-                    " with HP=" + Mappers.stat.get(entity).hp + ", skills=" + listSkill.skills.size);
             }
         }
     }
-
-    private void createBtn() {
-
-        TextureRegion up = MainGame.getAsM().getRegion(UI_WOOD, "btn_up");
-        TextureRegion down = MainGame.getAsM().getRegion(UI_WOOD, "btn_down");
-        TextureRegion skill1 = MainGame.getAsM().getRegion(SKILL_SKILL, GameSession.skillCharacter + "_attack");
-        UIButton btnSkill1 = new UIButton(skill1, up, down)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.05f, screenHeight * 0.05f)
-            .onClick(() -> {
-//                state = player.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.ATTACK;
-//                state = enemy.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.HURT;
-//                stateSkill = skill.getComponent(SkillStateComponent.class);
-//                stateSkill.current = SkillStateComponent.State.ATTACK;
-                battle(player, enemy, SkillStateComponent.State.ATTACK, -10);
-            });
-        rootGroup.addActor(btnSkill1);
-
-        TextureRegion upLeft = new TextureRegion(up);
-        TextureRegion downLeft = new TextureRegion(down);
-        TextureRegion skill2 = MainGame.getAsM().getRegion(SKILL_SKILL, GameSession.skillCharacter + "_attack_big");
-        UIButton btnSkill2 = new UIButton(skill2, upLeft, downLeft)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.15f, screenHeight * 0.05f)
-            .onClick(() -> {
-                battle(player, enemy, SkillStateComponent.State.ATTACK_BIG, -20);
-            });
-        rootGroup.addActor(btnSkill2);
-
-        TextureRegion upTop = new TextureRegion(up);
-        TextureRegion downTop = new TextureRegion(down);
-        TextureRegion skill3 = MainGame.getAsM().getRegion(SKILL_SKILL, GameSession.skillCharacter + "_heal");
-        UIButton btnSkill3 = new UIButton(skill3, upTop, downTop)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.25f, screenHeight * 0.05f)
-            .onClick(() -> {
-//                state = player.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.ATTACK;
-//                state = enemy.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.IDLE;
-//                stateSkill = skill.getComponent(SkillStateComponent.class);
-//                stateSkill.current = SkillStateComponent.State.HEAL;
-                battle(player, enemy, SkillStateComponent.State.HEAL, 10);
-            });
-        rootGroup.addActor(btnSkill3);
-
-        TextureRegion upBottom = new TextureRegion(up);
-        TextureRegion downBottom = new TextureRegion(down);
-        TextureRegion skill4 = MainGame.getAsM().getRegion(SKILL_SKILL, GameSession.skillCharacter + "_ultimate");
-        UIButton btnSkill4 = new UIButton(skill4, upBottom, downBottom)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.35f, screenHeight * 0.05f)
-            .onClick(() -> {
-//                state = player.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.ATTACK;
-//                state = enemy.getComponent(AnimationStateComponent.class);
-//                state.current = AnimationStateComponent.State.DIE;
-//                stateSkill = skill.getComponent(SkillStateComponent.class);
-//                stateSkill.current = SkillStateComponent.State.ULTIMATE;
-                battle(player, enemy, SkillStateComponent.State.ATTACK_BIG, -50);
-            });
-        rootGroup.addActor(btnSkill4);
-
-    }
-
-    private void battle(Entity offensive, Entity defensive, SkillStateComponent.State type, int hp) {
-        switch (type) {
-            case ATTACK:
-                state = offensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.ATTACK;
-                state = defensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.HURT;
-                stateSkill = skill.getComponent(SkillStateComponent.class);
-                stateSkill.current = SkillStateComponent.State.ATTACK;
-                ((UIProgressBar) rootGroup.findActor("progressBarEnemies")).update(hp);
-                break;
-            case ATTACK_BIG:
-                state = offensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.ATTACK;
-                state = defensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.HURT;
-                stateSkill = skill.getComponent(SkillStateComponent.class);
-                stateSkill.current = SkillStateComponent.State.ATTACK_BIG;
-                ((UIProgressBar) rootGroup.findActor("progressBarEnemies")).update(hp);
-                break;
-            case HEAL:
-                state = offensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.JUMP;
-                state = defensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.HURT;
-                stateSkill = skill.getComponent(SkillStateComponent.class);
-                stateSkill.current = SkillStateComponent.State.HEAL;
-                ((UIProgressBar) rootGroup.findActor("progressBarPlayer")).update(hp);
-                break;
-            case ULTIMATE:
-                state = offensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.ATTACK;
-                state = defensive.getComponent(AnimationStateComponent.class);
-                state.current = AnimationStateComponent.State.HURT;
-                stateSkill = skill.getComponent(SkillStateComponent.class);
-                stateSkill.current = SkillStateComponent.State.ULTIMATE;
-                ((UIProgressBar) rootGroup.findActor("progressBarEnemies")).update(hp);
-                break;
-
-        }
-    }
-
 
     private void createPopup() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -486,8 +389,6 @@ public class BattleScreen extends BaseScreen {
         rootGroup.findActor("home").setVisible(true);
         rootGroup.findActor("menu").setVisible(true);
         rootGroup.findActor("setting").setVisible(true);
-//        rootGroup.findActor("progressBarPlayer").setVisible(false);
-//        rootGroup.findActor("progressBarEnemies").setVisible(false);
     }
 
     private void hidePopupPause() {
@@ -496,10 +397,22 @@ public class BattleScreen extends BaseScreen {
         rootGroup.findActor("home").setVisible(false);
         rootGroup.findActor("menu").setVisible(false);
         rootGroup.findActor("setting").setVisible(false);
-//        rootGroup.findActor("progressBarPlayer").setVisible(true);
-//        rootGroup.findActor("progressBarEnemies").setVisible(true);
     }
 
+    @Override
+    protected void updateLogic(float delta) {
+    }
+
+    private Entity checkMiss() {
+        if (target == null) return null;
+        return target;
+    }
+
+    private Entity checkCritical() {
+        if (skill == null) return null;
+
+        return null;
+    }
 
     @Override
     public void render(float delta) {
@@ -514,7 +427,6 @@ public class BattleScreen extends BaseScreen {
         if (!isPause) {
             engine.update(delta);
         }
-
 
         updateUI(delta);
     }
@@ -538,8 +450,6 @@ public class BattleScreen extends BaseScreen {
     public void hide() {
         engine.removeAllSystems();
         engine.removeAllEntities();
-        ((UIProgressBar) rootGroup.findActor("progressBarPlayer")).value(100);
-        ((UIProgressBar) rootGroup.findActor("progressBarEnemies")).value(100);
     }
 
     @Override

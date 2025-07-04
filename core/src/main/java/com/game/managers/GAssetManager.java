@@ -1,5 +1,6 @@
 package com.game.managers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.utils.JsonValue;
 
 public class GAssetManager {
     private final AssetManager am;
+    private
     String currentMapName = null;
 
     public GAssetManager() {
@@ -79,6 +81,12 @@ public class GAssetManager {
 
     public TextureRegion getRegion(String atlasPath, String regionName) {
         TextureAtlas atlas = getAtlas(atlasPath);
+        if (atlas == null) {
+            Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
+        }
+        if (atlas.findRegion(regionName)==null) {
+            Gdx.app.error("AssetManager", "Region not found: " + regionName+"---"+atlasPath);
+        }
         return atlas.findRegion(regionName);
     }
 

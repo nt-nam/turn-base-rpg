@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -17,16 +20,18 @@ import com.game.ecs.component.PlayerSelectedComponent;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
+import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
+import com.game.ui.hud.NotificationPP;
 import com.game.utils.data.CharacterBaseData;
 import com.game.utils.data.JsonLoader;
 import com.game.utils.data.GameSession;
 
 public class NewPlayerScreen extends BaseScreen {
     private int currentKnightIndex = 0;
-    private Array<CharacterBaseData> characterBaseDataList; // Lưu trữ danh sách character từ JSON
+    private Array<CharacterBaseData> characterBaseDataList;
 
     private Image knightAnimImage;
     private UILabel knightStatsLabel;
@@ -45,7 +50,7 @@ public class NewPlayerScreen extends BaseScreen {
     public static void loadingAsset() {
         Array<CharacterBaseData> baseDataArray = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
         for (CharacterBaseData baseData : baseDataArray) {
-            MainGame.getAsM().load(CHARACTER_ATLAS +baseData.characterId+ ".atlas", TextureAtlas.class);
+            MainGame.getAsM().load(CHARACTER_ATLAS +baseData.characterBaseId+ ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
         MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
@@ -89,10 +94,10 @@ public class NewPlayerScreen extends BaseScreen {
             .parent(rootGroup);
 
         // Thông số knight
-        knightStatsLabel = new UILabel(getCurrentKnightStats());
+        knightStatsLabel = new UILabel(getCurrentKnightStats(), MainGame.getAsM().getFont(BMF));
         knightStatsLabel.setSize(rightWidth * 0.5f, screenHeight * 0.5f);
         knightStatsLabel.setWrap(true);
-        knightStatsLabel.setFontScale(1.5f);
+        knightStatsLabel.setFontScale(1f);
         knightStatsLabel.setAlignment(Align.topLeft);
         knightStatsLabel.setPosition(leftWidth, screenHeight * 0.2f);
         rootGroup.addActor(knightStatsLabel);
@@ -103,12 +108,20 @@ public class NewPlayerScreen extends BaseScreen {
         UIButton btnSelect = new UIButton("Select", upSelect, downSelect)
             .size(screenWidth * 0.2f, 70)
             .fontScale(2)
-            .pos(screenWidth * 0.4f, screenHeight * 0.13f)
+            .pos(screenWidth * 0.27f, screenHeight * 0.13f)
             .onClick(() -> {
                 String nameInput = playerNameField.getText().trim();
                 if (nameInput.isEmpty()) {
                     playerNameField.setText("");
                     playerNameField.setMessageText("Please enter your name!");
+                    UIGroup notificationGroup = rootGroup.findActor("notification");
+                    UILabel label = notificationGroup.findActor("label");
+                    label.setText("Please enter your name!");
+                    notificationGroup.addAction(Actions.sequence(
+                            Actions.moveBy(0,-notificationGroup.getHeight(), 0.5f),
+                            Actions.delay(3f),
+                            Actions.moveBy(0,notificationGroup.getHeight(), 0.5f)
+                        ));
                     return;
                 }
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
@@ -147,10 +160,15 @@ public class NewPlayerScreen extends BaseScreen {
 
         // Nút Close
         createCloseButton(ScreenType.MENU_GAME);
+
+
+        UIGroup notificationGroup = NotificationPP.pp(screenWidth,screenHeight,"").name("notification");
+        rootGroup.addActor(notificationGroup);
+
     }
 
     private String getCurrentKnightId() {
-        return characterBaseDataList.get(currentKnightIndex).characterId;
+        return characterBaseDataList.get(currentKnightIndex).characterBaseId;
     }
 
     private String getCurrentKnightStats() {
@@ -240,6 +258,5 @@ public class NewPlayerScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        title.remove();
     }
 }

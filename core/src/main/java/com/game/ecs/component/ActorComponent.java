@@ -1,6 +1,6 @@
 package com.game.ecs.component;
 import com.badlogic.ashley.core.Component;
 
-public class BattleActorComponent implements Component {
+public class ActorComponent implements Component {
     public String id;
 }

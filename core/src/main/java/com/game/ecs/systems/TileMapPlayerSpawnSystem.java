@@ -54,7 +54,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-                    CharacterComponent data = JsonLoader.getValue(CHARACTER_BASE_JSON, "characterId", characterId, CharacterComponent.class);
+                    CharacterComponent data = JsonLoader.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", characterId, CharacterComponent.class);
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());

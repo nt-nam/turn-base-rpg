@@ -1,5 +1,7 @@
 package com.game;
 
+import static com.game.utils.Constants.BMF;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

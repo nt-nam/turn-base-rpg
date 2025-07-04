@@ -1,5 +1,6 @@
 package com.game.screens.main;
 
+import static com.game.utils.Constants.ATLAS_ICON;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.UI_POPUP;
@@ -39,29 +40,94 @@ import com.game.ecs.systems.TileMapRenderSystem;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
-import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
-import com.game.ui.base.UITable;
+import com.game.ui.base.UIJoystick;
+import com.game.ui.widget.BagPP;
+import com.game.ui.widget.CheckinPP;
+import com.game.ui.widget.HerosPP;
+import com.game.ui.widget.RolePP;
+import com.game.ui.widget.ShopPP;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.data.GameSession;
-import com.game.utils.data.JsonLoader;
 
 
 public class WorldMapScreen extends BaseScreen {
     public static final float SCALE = 6f;
     public static TiledMap map;
     private static UIButton btnNextMap;
-    private boolean isPopupInventory;
-
+    private boolean optionBattle;
+    private UIJoystick joystick;
     public WorldMapScreen() {
         super();
-        createControl();
+//        createControl();
+        createJoystick();
+        createPopupFF();
+    }
+
+    private void createJoystick() {
+        joystick = new UIJoystick(100, 100);
+        joystick.debug();
+        rootGroup.addActor(joystick);
+    }
+
+    private void createPopupFF() {
+        btnNextMap = new UIButton("next")
+            .size(screenWidth * 0.13f, screenHeight * 0.1f)
+            .pos(screenWidth * 0.03f, screenHeight * 0.4f)
+            .fontScale(2)
+            .visible(false)
+            .parent(rootGroup)
+            .onClick(() -> {
+                MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
+            });
+
+//        new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "top_title0", 20))
+//            .size(screenWidth * 0.55f, screenHeight * 0.23f)
+//            .pos(screenWidth * 0.45f, -10)
+//            .parent(rootGroup);
+
+        float y = screenHeight * 0.03f;
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "bag"))
+            .pos(screenWidth * 0.9f, y)
+            .fontScale(2)
+            .onClick(this::showPopupInventory)
+            .parent(rootGroup);
+
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "heros"))
+            .pos(screenWidth * 0.8f, y)
+            .onClick(this::showPopupHero)
+            .parent(rootGroup);
+
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "role"))
+            .pos(screenWidth * 0.7f, y)
+            .onClick(this::showPopupRole)
+            .parent(rootGroup);
+
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "checkin"))
+            .pos(screenWidth * 0.6f, y)
+            .onClick(this::showPopupCheckin)
+            .parent(rootGroup);
+
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "shop"))
+            .pos(screenWidth * 0.5f, y)
+            .onClick(this::showPopupShop)
+            .parent(rootGroup);
+
+        createOverLay();
+        createPopupInventory();
+        createPopupHero();
+        createPopupRole();
+        createPopupCheckin();
+        createPopupShop();
+        createBtnClose();
+        hidePopoupGen();
     }
 
 
     public static void loadingAsset() {
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
+        MainGame.getAsM().loadAtlas(ATLAS_ICON);
     }
 
     public static void unLoadingAsset() {
@@ -70,7 +136,6 @@ public class WorldMapScreen extends BaseScreen {
 
     @Override
     protected void createScreen() {
-        createControl();
     }
 
     private void createControl() {
@@ -114,60 +179,9 @@ public class WorldMapScreen extends BaseScreen {
             .onTouchUp(() -> GameSession.moveDown = false);
         rootGroup.addActor(btnBottom);
 
-        btnNextMap = new UIButton("next")
-            .size(screenWidth * 0.13f, screenHeight * 0.1f)
-            .pos(screenWidth * 0.03f, screenHeight * 0.4f)
-            .fontScale(2)
-            .onClick(() -> {
-                MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
-            });
-        btnNextMap.setVisible(false);
-        rootGroup.addActor(btnNextMap);
-
-        new UIButton("Skill")
-            .size(screenWidth * 0.13f, screenHeight * 0.1f)
-            .pos(screenWidth * 0.8f, screenHeight * 0.35f)
-            .fontScale(2)
-            .onClick(() -> {
-                showPopupSkill();
-                isPopupInventory = true;
-            }).parent(rootGroup);
-        createPopupSkill();
-        new UIButton("Inventory")
-            .size(screenWidth * 0.13f, screenHeight * 0.1f)
-            .pos(screenWidth * 0.8f, screenHeight * 0.2f)
-            .fontScale(2)
-            .onClick(() -> {
-                showPopupInventory();
-                isPopupInventory = true;
-            }).parent(rootGroup);
-        createPopupInventory();
     }
 
-    private void createPopupSkill() {
-
-    }
-
-    private void createPopupInventory() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 0.5f);
-        pixmap.fill();
-        Texture overlay = new Texture(pixmap);
-        pixmap.dispose();
-        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
-
-        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
-        new UIImage(profile).nine(profile, 30, 30, 30, 30)
-            .name("profile")
-            .parent(rootGroup)
-            .bounds(screenWidth * 0.01f, screenHeight * 0.05f, screenWidth * 0.38f, screenHeight * 0.9f);
-
-        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
-        new UIImage(board).nine(board, 30, 30, 30, 30)
-            .name("board")
-            .parent(rootGroup)
-            .bounds(screenWidth * 0.4f, screenHeight * 0.05f, screenWidth * 0.6f, screenHeight * 0.9f);
-
+    private void createBtnClose() {
         new UIButton(
             MainGame.getAsM().getRegion(UI_WOOD, "x_up_037"),
             MainGame.getAsM().getRegion(UI_WOOD, "x_down_038"))
@@ -175,106 +189,129 @@ public class WorldMapScreen extends BaseScreen {
             .size(screenWidth * 0.1f, screenWidth * 0.1f)
             .pos(screenWidth * 0.9f, screenHeight * 0.75f)
             .onClick(() -> {
-                if (!isPopupInventory) {
-                    isPopupInventory = true;
-                    showPopupInventory();
-                } else {
-                    isPopupInventory = false;
-                    hidePopupInventory();
-                }
+                hidePopupInventory();
+                hidePopupRole();
+                hidePopupShop();
+                hidePopupCheckin();
+                hidePopupHero();
+                hidePopoupGen();
+
             })
             .parent(rootGroup);
-
-        Array<WarehouseComponent> warehouse = JsonLoader.loadArray(WAREHOUSE_JSON, WarehouseComponent.class, false);
-        float size = screenWidth * 0.1f;
-        float margin = size * 0.2f;
-
-        UITable table = new UITable().name("table").size(size * 5, size * 3).pos(screenWidth * 0.43f, screenHeight * 0.12f);
-
-        for (int i = 0; i < 15; i++) {
-            UIGroup uiGroup;
-            if (i < warehouse.size) {
-                WarehouseComponent item = warehouse.get(i);
-                uiGroup = new UIGroup().name(item.id).child(
-                    new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
-                        .size(size, size),
-                    new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, item.id))
-                        .size(size - margin, size - margin)
-                        .pos(margin * 0.5f, margin * 0.5f)
-                ).onClick(() -> {
-                    // Logic xử lý khi click vào item
-                });
-            } else {
-                uiGroup = new UIGroup().name("empty").child(
-                    new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
-                        .size(size, size));
-            }
-
-
-            table.add(uiGroup).size(size, size);
-
-            if ((i + 1) % 5 == 0) {
-                table.row();
-            }
-        }
-        rootGroup.addActor(table);
-
-//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "menu"))
-//            .name("menu")
-//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-//            .pos(screenWidth * 0.3f, screenHeight * 0.18f)
-//            .onClick(() -> {
-//
-//            })
-//            .parent(rootGroup);
-//
-//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "home"))
-//            .name("home")
-//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-//            .pos(screenWidth * 0.45f, screenHeight * 0.18f)
-//            .onClick(() -> {
-//                isPopupInventory = false;
-//                hidePopupInventory();
-//            })
-//            .parent(rootGroup);
-//
-//        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "setting"))
-//            .name("setting")
-//            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-//            .pos(screenWidth * 0.6f, screenHeight * 0.18f)
-//            .onClick(() -> {
-//
-//            })
-//            .parent(rootGroup);
-
-        hidePopupInventory();
     }
 
-    private void hidePopupInventory() {
-        rootGroup.findActor("closeBtn").setVisible(false);
-        rootGroup.findActor("overlay").setVisible(false);
-        rootGroup.findActor("board").setVisible(false);
-        rootGroup.findActor("profile").setVisible(false);
-        rootGroup.findActor("table").setVisible(false);
-//        rootGroup.findActor("home").setVisible(false);
-//        rootGroup.findActor("menu").setVisible(false);
-//        rootGroup.findActor("setting").setVisible(false);
+    private void createPopupShop() {
+        rootGroup.addActor(ShopPP.pp(screenWidth,screenHeight));
+        hidePopupShop();
+    }
+
+    private void createPopupCheckin() {
+        rootGroup.addActor(CheckinPP.pp(screenWidth,screenHeight));
+        hidePopupCheckin();
+    }
+
+
+    private void createPopupRole() {
+        rootGroup.addActor(RolePP.pp(screenWidth,screenHeight));
+        hidePopupRole();
+    }
+
+    private void createPopupHero() {
+        rootGroup.addActor(HerosPP.pp(screenWidth,screenHeight));
+        hidePopupHero();
+    }
+
+
+    private void createOverLay() {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0.5f);
+        pixmap.fill();
+        Texture overlay = new Texture(pixmap);
+        pixmap.dispose();
+        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
+
     }
 
     private void showPopupInventory() {
-        rootGroup.findActor("closeBtn").setVisible(true);
+        rootGroup.findActor("inventory").setVisible(true);
+        showPopoupGen();
+    }
+
+    private void showPopupShop() {
+        rootGroup.findActor("shop").setVisible(true);
+        showPopoupGen();
+    }
+
+    private void showPopupCheckin() {
+        rootGroup.findActor("checkin").setVisible(true);
+        showPopoupGen();
+    }
+
+    private void showPopupRole() {
+        rootGroup.findActor("role").setVisible(true);
+        showPopoupGen();
+    }
+
+    private void showPopupHero() {
+        rootGroup.findActor("hero").setVisible(true);
+        showPopoupGen();
+    }
+    private void showPopoupGen(){
         rootGroup.findActor("overlay").setVisible(true);
-        rootGroup.findActor("board").setVisible(true);
-        rootGroup.findActor("profile").setVisible(true);
-        rootGroup.findActor("table").setVisible(true);
-//        rootGroup.findActor("home").setVisible(true);
-//        rootGroup.findActor("menu").setVisible(true);
-//        rootGroup.findActor("setting").setVisible(true);
+        rootGroup.findActor("closeBtn").setVisible(true);
+    }
+    private void hidePopoupGen(){
+        rootGroup.findActor("overlay").setVisible(false);
+        if(rootGroup.findActor("closeBtn")!=null){
+            rootGroup.findActor("closeBtn").setVisible(false);
+        }
+    }
+
+    private void hidePopupInventory() {
+        rootGroup.findActor("inventory").setVisible(false);
+        hidePopoupGen();
+    }
+
+    private void hidePopupShop() {
+        rootGroup.findActor("shop").setVisible(false);
+        hidePopoupGen();
+
+    }
+
+    private void hidePopupCheckin() {
+        rootGroup.findActor("checkin").setVisible(false);
+        hidePopoupGen();
+    }
+
+    private void hidePopupRole() {
+        rootGroup.findActor("role").setVisible(false);
+        hidePopoupGen();
+    }
+
+    private void hidePopupHero() {
+        rootGroup.findActor("hero").setVisible(false);
+        hidePopoupGen();
+    }
+
+
+    private void createPopupInventory() {
+        rootGroup.addActor(BagPP.pp(screenWidth,screenHeight));
+        hidePopupInventory();
+    }
+
+    private void createPopupOptionBattle() {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0.5f);
+        pixmap.fill();
+        Texture overlay = new Texture(pixmap);
+        pixmap.dispose();
+        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
     }
 
 
     private void hidePopupSkill() {
     }
+
     private void showPopupSkill() {
     }
 
@@ -283,10 +320,10 @@ public class WorldMapScreen extends BaseScreen {
         if (b) btnNextMap.setText(GameSession.pendingTeleport.name);
     }
 
-    private void loadAllAnimations(String characterId, String atlasPath) {
+    private void loadAllAnimations(String characterBaseId, String atlasPath) {
         TextureAtlas atlas = MainGame.getAsM().get(atlasPath, TextureAtlas.class);
-        AnimationCache.put(characterId, "idle", new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP));
-        AnimationCache.put(characterId, "run", new Animation<>(0.1f, atlas.findRegions("run"), Animation.PlayMode.LOOP));
+        AnimationCache.put(characterBaseId, "idle", new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP));
+        AnimationCache.put(characterBaseId, "run", new Animation<>(0.1f, atlas.findRegions("run"), Animation.PlayMode.LOOP));
     }
 
     public void setupTeleportTriggers(Engine engine, TiledMap tiledMap, float SCALE) {
@@ -373,7 +410,7 @@ public class WorldMapScreen extends BaseScreen {
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));
-        engine.addSystem(new PlayerInputSystem(engine));
+        engine.addSystem(new PlayerInputSystem(engine,joystick));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new CollisionSystem(engine, map, SCALE));
 //        engine.addSystem(new CollisionUpdateSystem());

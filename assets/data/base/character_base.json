@@ -1,6 +1,6 @@
 [
   {
-    "characterId": "warrior_Knight",
+    "characterBaseId": "warrior_Knight",
     "classType": "Warrior",
     "name": "Warrior",
     "desc": "Chiến binh cân bằng, giao tranh trực diện.",
@@ -12,11 +12,10 @@
     "crit": 2,
     "skills": ["Slash", "Shield Bash"],
     "counters": ["Assassin", "Mage"],
-    "weakAgainst": ["Ranger"],
-    "role": "Fighter"
+    "weakAgainst": ["Ranger"]
   },
   {
-    "characterId": "assassin_Knight",
+    "characterBaseId": "assassin_Knight",
     "classType": "Assassin",
     "name": "Assassin",
     "desc": "Sát thủ tốc độ, đánh sau, dame lớn thủ yếu.",
@@ -28,11 +27,10 @@
     "crit": 8,
     "skills": ["Backstab", "Shadowstep"],
     "counters": ["Ranger", "Support"],
-    "weakAgainst": ["Warrior", "Mage"],
-    "role": "DPS"
+    "weakAgainst": ["Warrior", "Mage"]
   },
   {
-    "characterId": "mage_Knight",
+    "characterBaseId": "mage_Knight",
     "classType": "Mage",
     "name": "Mage",
     "desc": "Phép AoE, dame lớn, máu trung bình.",
@@ -44,11 +42,10 @@
     "crit": 3,
     "skills": ["Fireball", "Arcane Storm"],
     "counters": ["Ranger", "Assassin"],
-    "weakAgainst": ["Warrior", "Tank"],
-    "role": "Caster"
+    "weakAgainst": ["Warrior", "Tank"]
   },
   {
-    "characterId": "ranger_Knight",
+    "characterBaseId": "ranger_Knight",
     "classType": "Ranger",
     "name": "Ranger",
     "desc": "Cung thủ tầm xa, xuyên giáp, dame cao.",
@@ -60,11 +57,10 @@
     "crit": 6,
     "skills": ["Piercing Arrow", "Multi Shot"],
     "counters": ["Warrior", "Tank"],
-    "weakAgainst": ["Assassin", "Mage"],
-    "role": "DPS"
+    "weakAgainst": ["Assassin", "Mage"]
   },
   {
-    "characterId": "support_Knight",
+    "characterBaseId": "support_Knight",
     "classType": "Support",
     "name": "Support",
     "desc": "Hồi máu, buff, ít tốn MP.",
@@ -76,11 +72,10 @@
     "crit": 1,
     "skills": ["Heal", "Speed Boost"],
     "counters": [],
-    "weakAgainst": ["Assassin"],
-    "role": "Healer"
+    "weakAgainst": ["Assassin"]
   },
   {
-    "characterId": "tank_Knight",
+    "characterBaseId": "tank_Knight",
     "classType": "Tank",
     "name": "Tank",
     "desc": "Thủ cực cao, dame thấp.",
@@ -92,8 +87,7 @@
     "crit": 1,
     "skills": ["Taunt", "Iron Wall"],
     "counters": [],
-    "weakAgainst": ["Ranger"],
-    "role": "Tank"
+    "weakAgainst": ["Ranger"]
   }
 ]
 

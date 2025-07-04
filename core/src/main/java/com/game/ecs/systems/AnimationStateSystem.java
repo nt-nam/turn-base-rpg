@@ -32,7 +32,7 @@ public class AnimationStateSystem extends EntitySystem {
             AnimationStateComponent state = stateM.get(entity);
 
             // 1. Đồng bộ state sang animationName nếu state thay đổi
-            String targetAnim = state.current.name().toLowerCase();
+            String targetAnim = state.requested.name().toLowerCase();
             if (!spr.animationName.equals(targetAnim)) {
                 spr.animationName = targetAnim;
                 spr.stateTime = 0f;
@@ -45,16 +45,12 @@ public class AnimationStateSystem extends EntitySystem {
             // 3. Nếu animation chỉ chạy 1 lần (NORMAL/REVERSED) và đã hết thì chuyển lại trạng thái phù hợp
             if ((anim.getPlayMode() == Animation.PlayMode.NORMAL || anim.getPlayMode() == Animation.PlayMode.REVERSED)
                 && anim.isAnimationFinished(spr.stateTime)) {
-                switch (state.current) {
-                    case ATTACK:
-                    case RUN:
-                    case HURT:
-                        state.current = AnimationStateComponent.State.IDLE;
-                        break;
+                switch (state.requested) {
                     case DIE:
                         break;
                     default:
-                        state.current = AnimationStateComponent.State.IDLE;
+//                        state.current = AnimationStateComponent.State.IDLE;
+                        state.requested =state.current;
                         break;
                 }
                 // Khi đổi state sẽ tự đồng bộ sang animationName lần sau

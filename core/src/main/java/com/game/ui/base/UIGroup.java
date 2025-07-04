@@ -66,8 +66,13 @@ public class UIGroup extends Group {
         return this;
     }
 
+    public UIGroup debug(boolean b) {
+        setDebug(b);
+        return this;
+    }
+
     public UIGroup onClick(Runnable runnable) {
-        this.addListener(new ClickListener(){
+        this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);

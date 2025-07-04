@@ -25,16 +25,18 @@ public class SelectPlayerScreen extends BaseScreen {
         createBackground();
         createCloseButton(ScreenType.MENU_GAME);
     }
+
     private void createBackground() {
         String namePopup = "popup_000";
         TextureRegion skill = MainGame.getAsM().getRegion(UI_WOOD, "popup_000");
-        UIImage popup = new UIImage(skill).name(namePopup).parent(rootGroup).bounds(0, 0, screenWidth, screenHeight).debug(false);
+        UIImage popup = new UIImage(skill).name(namePopup).bounds(0, 0, screenWidth, screenHeight).debug(true).parent(rootGroup);
     }
 
     @Override
     public void show() {
-        super.show();
         Gdx.app.log("SelectPlayerScreen", "show() called");
+        super.show();
+        createBackground();
         createTitle("Select Player Screen", rootGroup);
     }
 

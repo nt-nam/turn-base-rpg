@@ -11,8 +11,9 @@ import java.util.Set;
 public class GameSession {
     // User/account
     public static String playerName = "";
+    public static String mainInfo ="";
     public static String playerId = "";
-    public static int selectedSlot = 0; // Save slot
+    public static int selectedSlot = 0;
 
     // Character selection
     public static String selectedCharacterId = "";

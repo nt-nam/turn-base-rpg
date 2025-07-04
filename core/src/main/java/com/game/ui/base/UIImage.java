@@ -19,6 +19,10 @@ public class UIImage extends Image {
         super(region);
     }
 
+    public UIImage(NinePatch ninePatch) {
+        super(ninePatch);
+    }
+
     public UIImage(Texture texture) {
         super(texture);
     }

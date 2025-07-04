@@ -5,7 +5,9 @@ import static com.game.utils.Constants.UI_WOOD;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -21,13 +23,17 @@ public abstract class BaseScreen implements Screen {
     protected Group rootGroup;
     protected Label title;
 
+    private ShapeRenderer shapeRenderer;
+
     public BaseScreen() {
         stage = MainGame.getStage();
         engine = MainGame.getEngine();
         screenWidth = stage.getWidth();
         screenHeight = stage.getHeight();
         rootGroup = new Group();
+        rootGroup.setName("rootGroup");
         rootGroup.setSize(stage.getWidth(), stage.getHeight());
+        shapeRenderer = new ShapeRenderer();
     }
 
     protected void createScreen() {
@@ -51,6 +57,7 @@ public abstract class BaseScreen implements Screen {
         stage.draw();
 
         updateUI(delta);
+//        debugGrid();
     }
 
     protected void updateLogic(float delta) {
@@ -101,5 +108,24 @@ public abstract class BaseScreen implements Screen {
         ResourceUtils.disposeGroup(rootGroup);
         rootGroup.clear();
         stage.clear();
+    }
+
+    protected void debugGrid(){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.RED);  // Màu đỏ cho các đường thẳng
+
+        // Vẽ 10 đường ngang
+        for (int i = 0; i < 10; i++) {
+            float y = screenHeight * i / 15f;  // Tính vị trí y cho mỗi đường ngang
+            shapeRenderer.line(0, y, screenWidth, y);  // Vẽ đường ngang từ trái sang phải
+        }
+
+        // Vẽ 10 đường dọc
+        for (int i = 0; i < 10; i++) {
+            float x = screenWidth * i / 15f;  // Tính vị trí x cho mỗi đường dọc
+            shapeRenderer.line(x, 0, x, screenHeight);  // Vẽ đường dọc từ trên xuống dưới
+        }
+
+        shapeRenderer.end();
     }
 }

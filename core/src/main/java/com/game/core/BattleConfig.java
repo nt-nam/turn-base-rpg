@@ -9,7 +9,7 @@ public class BattleConfig {
     private static JsonValue config;
 
     public static void load() {
-        config = jsonReader.parse(Gdx.files.internal("data/base/battle_config.json"));
+        config = jsonReader.parse(Gdx.files.internal("data/config/battle_config.json"));
     }
 
     public static int getMaxRounds() {

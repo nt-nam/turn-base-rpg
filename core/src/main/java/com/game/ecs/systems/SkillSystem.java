@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.game.core.BattleConfig;
+import com.game.core.BattleSimulationResult;
 import com.game.core.Mappers;
 import com.game.core.TurnResult;
 import com.game.core.TurnResultPool;
@@ -12,7 +13,7 @@ import com.game.ecs.component.SkillComponent;
 import com.game.ecs.component.StatComponent;
 
 public class SkillSystem {
-    public TurnResult applySkill(Entity actor, Entity target, SkillComponent skill, Array<Entity> playerTeam, Array<Entity> enemyTeam) {
+    public TurnResult applySkill(Entity actor, Entity target, SkillComponent skill) {
         TurnResult result = TurnResultPool.getInstance().obtain();
         StatComponent actorStats = Mappers.stat.get(actor);
         StatComponent targetStats = Mappers.stat.get(target);
@@ -38,8 +39,8 @@ public class SkillSystem {
         }
 
         TurnResult result = TurnResultPool.getInstance().obtain();
-        result.actorId = ca.characterId;
-        result.targetId = ct.characterId;
+        result.actorId = ca.characterBaseId;
+        result.targetId = ct.characterBaseId;
         result.skillUsed = skill.name;
         result.targetEntity = target;
 
@@ -103,7 +104,7 @@ public class SkillSystem {
                     if (targetStat != null) {
                         targetStat.hp = (int) Math.min(targetStat.hp + healAmount, getMaxHp(healTarget));
                         if (healTarget == target) {
-                            result.targetId = Mappers.base.get(healTarget).characterId;
+                            result.targetId = Mappers.base.get(healTarget).characterBaseId;
                             result.damage = -healAmount; // Âm để biểu thị heal
                         }
                     }

@@ -27,6 +27,9 @@ public class UIButton extends TextButton {
         super(text, createStyle(up, down));
         tu();
     }
+    public UIButton(String text, TextureRegion up, TextureRegion down,boolean b) {
+        super(text, createStyle(up, down));
+    }
 
     public UIButton(String text, NinePatch up, NinePatch down) {
         super(text, createStyle(up, down));
@@ -97,6 +100,11 @@ public class UIButton extends TextButton {
 
     public UIButton size(float w, float h) {
         this.setSize(w, h);
+        return this;
+    }
+
+    public UIButton font(String path){
+        this.getSkin().add("default-font", MainGame.getAsM().getFont(path));
         return this;
     }
 
@@ -193,6 +201,25 @@ public class UIButton extends TextButton {
 
     public UIButton debug(boolean b) {
         this.setDebug(b);
+        return this;
+    }
+    public UIButton visible(boolean b) {
+        this.setVisible(b);
+        return this;
+    }
+
+    public UIButton check(Runnable action) {
+        this.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                action.run();
+            }
+        });
+        return this;
+    }
+    public UIButton check(boolean b) {
+        setChecked(b);
         return this;
     }
 }

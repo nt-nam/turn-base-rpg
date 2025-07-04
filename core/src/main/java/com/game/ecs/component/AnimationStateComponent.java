@@ -8,5 +8,5 @@ public class AnimationStateComponent implements Component {
     }
 
     public State current = State.IDLE;
-    public State requested = null;
+    public State requested = current;
 }

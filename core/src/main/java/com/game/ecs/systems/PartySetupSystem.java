@@ -91,7 +91,7 @@ public class PartySetupSystem extends EntitySystem {
                 entity.add(new PositionComponent(worldX, worldY));
 
                 // SpriteComponent
-                String spriteId = baseData.characterId; // Giả sử characterId là spriteId
+                String spriteId = baseData.characterBaseId; // Giả sử characterId là spriteId
                 entity.add(new SpriteComponent(spriteId, "idle", !isPlayer));
 
                 // SizeComponent

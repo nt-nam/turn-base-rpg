@@ -24,14 +24,14 @@ public class UIProgressBar extends ProgressBar {
 
     public UIProgressBar(float min, float max, float stepSize, boolean vertical, String type) {
         super(min, max, stepSize, vertical, MainGame.getAsM().getSkin());
-        TextureRegion barOut = MainGame.getAsM().getRegion(UI_POPUP, type);
-        TextureRegion barIn = MainGame.getAsM().getRegion(UI_POPUP, "line_empty");
+        TextureRegion barOut = MainGame.getAsM().getRegion(UI_POPUP, "lineempty");
+        TextureRegion barIn = MainGame.getAsM().getRegion(UI_POPUP, type);
 
 //        NinePatchDrawable bgDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,type,3));
 //        NinePatchDrawable fillDrawable = new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP,"line_empty",15));
 
-        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, type));
-        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, "line_empty"));
+        TextureRegionDrawable bgDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, "lineempty"));
+        TextureRegionDrawable fillDrawable = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, type));
 
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = bgDrawable;

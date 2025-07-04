@@ -1,16 +1,14 @@
-package com.game.ecs.systems;
+package com.game.core;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.utils.Array;
-import com.game.core.Mappers;
 import com.game.ecs.component.CharacterComponent;
 import com.game.ecs.component.StatComponent;
 
-public class BattleStateSystem extends EntitySystem {
+public class BattleState {
     public boolean isDead(Entity entity) {
-        CharacterComponent c = Mappers.base.get(entity);
-        StatComponent s = Mappers.stat.get(entity);
+        CharacterComponent c = entity.getComponent(CharacterComponent.class);
+        StatComponent s = entity.getComponent(StatComponent.class);
         return c == null || s == null || s.hp <= 0;
     }
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class CharacterBaseData {
     public String characterId;
+    public String characterBaseId;
     public String classType;
     public String role;
     public String name;

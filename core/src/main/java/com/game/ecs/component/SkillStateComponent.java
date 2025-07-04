@@ -13,5 +13,5 @@ public class SkillStateComponent implements Component {
     }
 
     public State current = State.HIDE;
-    public State requested = null;
+    public State requested = current;
 }

@@ -1,18 +1,22 @@
 [
   {
     "grid": "2,1",
-    "characterId": "support_Knight"
+    "characterId": "character3"
   },
   {
     "grid": "2,0",
-    "characterId": "ranger_Knight"
+    "characterId": "character3"
   },
   {
     "grid": "2,2",
-    "characterId": "assassin_Knight"
+    "characterId": "character3"
   },
   {
     "grid": "1,0",
-    "characterId": "mage_Knight"
+    "characterId": "character3"
+  },
+  {
+    "grid": "1,2",
+    "characterId": "character3"
   }
 ]

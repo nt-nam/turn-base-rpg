@@ -1,7 +1,9 @@
 [
   {
-    "characterId": "warrior_Knight",
-    "level": 1,
+    "characterId": "character1",
+    "characterBaseId": "warrior_Knight",
+    "star": 0,
+    "level": 50,
     "equip": {
       "weapon": "empty",
       "armor": "empty",
@@ -10,8 +12,10 @@
     }
   },
   {
-    "characterId": "02Knight",
-    "level": 2,
+    "characterId": "character2",
+    "characterBaseId": "support_Knight",
+    "star": 0,
+    "level": 40,
     "equip": {
       "weapon": "empty",
       "armor": "empty",
@@ -20,8 +24,10 @@
     }
   },
   {
-    "characterId": "assassin_Knight",
-    "level": 1,
+    "characterId": "character3",
+    "characterBaseId": "assassin_Knight",
+    "star": 0,
+    "level": 30,
     "equip": {
       "weapon": "empty",
       "armor": "empty",

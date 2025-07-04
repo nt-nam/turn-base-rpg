@@ -22,5 +22,12 @@ public class MoveToComponent implements Component {
         this.duration = duration;
         this.elapsed = 0;
     }
+    public MoveToComponent() {
+        this.startX = 0;
+        this.startY = 0;
+        this.endX = 0;
+        this.endY = 0;
+        this.duration = 0;
+    }
 }
 

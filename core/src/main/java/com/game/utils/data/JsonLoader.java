@@ -59,7 +59,7 @@ public class JsonLoader {
         }
     }
 
-    public static <T> T getValue(String filePath, String key, String name, Class<T> type) {
+    public static <T> T getValueClassByKey(String filePath, String key, String name, Class<T> type) {
         Array<T> dataArray = loadArray(filePath, type, false);
         for (T a : dataArray) {
             try {
@@ -73,6 +73,42 @@ public class JsonLoader {
         }
         return null;
     }
+
+    public static JsonValue getJsonValueByKey(String filePath, String key, String name) {
+        String jsonString = Gdx.files.internal(filePath).readString();
+        JsonReader jsonReader = new JsonReader();
+        JsonValue jsonData = jsonReader.parse(jsonString);
+        JsonValue jsonArray = jsonData.get(key); // Assuming data is within the key provided
+
+        // Loop over the JsonValue to find the correct match based on 'name'
+        if (jsonArray != null) {
+            for (JsonValue item : jsonArray) {
+                if (item.getString(key).equals(name)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static JsonValue getJsonValueByKey2(String filePath, String key, String name) {
+        String jsonString = Gdx.files.internal(filePath).readString();
+        JsonReader jsonReader = new JsonReader();
+        JsonValue jsonData = jsonReader.parse(jsonString);
+
+        // Mảng JSON (tất cả các phần tử đều chứa thông tin cần tìm)
+        if (jsonData != null && jsonData.isArray()) {
+            // Duyệt qua từng phần tử trong mảng JSON
+            for (JsonValue item : jsonData) {
+                // Kiểm tra nếu trường `key` có trong đối tượng này
+                if (item.has(key) && item.getString(key).equals(name)) {
+                    return item;  // Trả về phần tử khớp
+                }
+            }
+        }
+        return null;  // Nếu không tìm thấy phần tử nào khớp
+    }
+
 
     public static <T> T getObject(String filePath, String key, Class<T> type, boolean forceReload) {
         JsonValue jsonValue = loadJsonValue(filePath, forceReload);
@@ -150,6 +186,21 @@ public class JsonLoader {
     public static JsonValue getJsonValue(String filePath, boolean forceReload) {
         return loadJsonValue(filePath, forceReload);
     }
+
+    // Phương thức mới: Ghi JsonValue vào tệp JSON
+    public static void saveJsonValue(String filePath, JsonValue jsonValue) {
+        try {
+            // Chuyển JsonValue thành chuỗi JSON
+            String jsonString = json.toJson(jsonValue);
+
+            // Ghi lại chuỗi JSON vào tệp
+            Gdx.files.local(filePath).writeString(jsonString, false); // Ghi đè vào tệp (false)
+            Gdx.app.log("JsonLoader", "JSON saved to " + filePath);
+        } catch (Exception e) {
+            Gdx.app.error("JsonLoader", "Failed to save JSON to " + filePath, e);
+        }
+    }
+
     public static JsonValue getJsonValue(JsonValue jsonValue, String path) {
         String[] keys = path.split("\\.");
         JsonValue result = jsonValue;
