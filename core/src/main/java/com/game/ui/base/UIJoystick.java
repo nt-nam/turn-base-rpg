@@ -36,7 +36,6 @@ public class UIJoystick extends Group {
         // Tạo touchpad (joystick) với style từ skin
         touchpad = new Touchpad(10, touchpadStyle);
         touchpad.setPosition(x, y);
-        touchpad.setSize(150, 150);  // Điều chỉnh kích thước joystick mặc định
 
         // Thêm touchpad vào group, giúp quản lý joystick cùng các phần tử khác trong UI
         this.addActor(touchpad);

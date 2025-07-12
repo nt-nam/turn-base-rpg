@@ -1,5 +1,6 @@
 package com.game.ui.base;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -47,6 +48,11 @@ public class UILabel extends Label {
 
     public UILabel align(int align) {
         this.setAlignment(align);
+        return this;
+    }
+
+    public UILabel color(String color) {
+        this.setColor(Color.valueOf(color));
         return this;
     }
 

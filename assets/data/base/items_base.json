@@ -1,262 +1,314 @@
 [
   {
-    "id": "arrowbox_293",
-    "name": "arrowbox",
-    "level": 1
-  },
-  {
     "id": "cup_323",
-    "name": "cup",
-    "level": 1
+    "name": "Cúp",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "cup_324",
-    "name": "cup",
-    "level": 2
+    "name": "Cúp",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "cup_325",
-    "name": "cup",
-    "level": 3
+    "name": "Cúp",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "cup_326",
-    "name": "cup",
-    "level": 4
+    "name": "Cúp",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "shovel_338",
-    "name": "shovel",
-    "level": 1
+    "name": "Xẻng",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "shovel_339",
-    "name": "shovel",
-    "level": 2
+    "name": "Xẻng",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "shovel_340",
-    "name": "shovel",
-    "level": 3
+    "name": "Xẻng",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "shovel_341",
-    "name": "shovel",
-    "level": 4
+    "name": "Xẻng",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "food_315",
-    "name": "food",
-    "level": 1
+    "name": "Thức ăn",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "food_316",
-    "name": "food",
-    "level": 2
+    "name": "Thức ăn",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "food_317",
-    "name": "food",
-    "level": 3
+    "name": "Thức ăn",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "food_318",
-    "name": "food",
-    "level": 4
+    "name": "Thức ăn",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "food_319",
-    "name": "food",
-    "level": 5
+    "name": "Thức ăn",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "food_320",
-    "name": "food",
-    "level": 6
+    "name": "Thức ăn",
+    "level": 6,
+    "price": 100
   },
   {
     "id": "food_321",
-    "name": "food",
-    "level": 7
+    "name": "Thức ăn",
+    "level": 7,
+    "price": 100
   },
   {
     "id": "metal_330",
-    "name": "metal",
-    "level": 1
+    "name": "Kim loại",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "metal_331",
-    "name": "metal",
-    "level": 2
+    "name": "Kim loại",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "metal_332",
-    "name": "metal",
-    "level": 3
+    "name": "Kim loại",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "metal_333",
-    "name": "metal",
-    "level": 4
+    "name": "Kim loại",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "metal_334",
-    "name": "metal",
-    "level": 5
+    "name": "Kim loại",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "metal_335",
-    "name": "metal",
-    "level": 6
+    "name": "Kim loại",
+    "level": 6,
+    "price": 100
   },
   {
     "id": "water_345",
-    "name": "water",
-    "level": 1
+    "name": "Thuốc",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "water_346",
-    "name": "water",
-    "level": 2
+    "name": "Thuốc",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "water_347",
-    "name": "water",
-    "level": 3
+    "name": "Thuốc",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "water_348",
-    "name": "water",
-    "level": 4
+    "name": "Thuốc",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "water_349",
-    "name": "water",
-    "level": 5
+    "name": "Thuốc",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "water_350",
-    "name": "water",
-    "level": 6
+    "name": "Thuốc",
+    "level": 6,
+    "price": 100
   },
   {
     "id": "diamond_360",
-    "name": "diamond",
-    "level": 1
+    "name": "Kim cương",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "diamond_361",
-    "name": "diamond",
-    "level": 2
+    "name": "Kim cương",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "diamond_362",
-    "name": "diamond",
-    "level": 3
+    "name": "Kim cương",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "diamond_363",
-    "name": "diamond",
-    "level": 4
+    "name": "Kim cương",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "diamond_364",
-    "name": "diamond",
-    "level": 5
+    "name": "Kim cương",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "gemstore_375",
-    "name": "gemstore",
-    "level": 1
+    "name": "Ngọc",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "gemstore_376",
-    "name": "gemstore",
-    "level": 2
+    "name": "Ngọc",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "gemstore_377",
-    "name": "gemstore",
-    "level": 3
+    "name": "Ngọc",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "gemstore_378",
-    "name": "gemstore",
-    "level": 4
+    "name": "Ngọc",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "gemstore_379",
-    "name": "gemstore",
-    "level": 5
+    "name": "Ngọc",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "gem_390",
-    "name": "gem",
-    "level": 1
+    "name": "Đá quý",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "gem_391",
-    "name": "gem",
-    "level": 2
+    "name": "Đá quý",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "gem_392",
-    "name": "gem",
-    "level": 3
+    "name": "Đá quý",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "gem_393",
-    "name": "gem",
-    "level": 4
+    "name": "Đá quý",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "gem_394",
-    "name": "gem",
-    "level": 5
+    "name": "Đá quý",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "flour_405",
-    "name": "powder",
-    "level": 1
+    "name": "Bột phép",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "flour_406",
-    "name": "powder",
-    "level": 2
+    "name": "Bột phép",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "flour_407",
-    "name": "powder",
-    "level": 3
+    "name": "Bột phép",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "flour_408",
-    "name": "powder",
-    "level": 4
+    "name": "Bột phép",
+    "level": 4,
+    "price": 100
   },
   {
     "id": "flour_409",
-    "name": "powder",
-    "level": 5
+    "name": "Bột phép",
+    "level": 5,
+    "price": 100
   },
   {
     "id": "key_420",
-    "name": "key",
-    "level": 1
+    "name": "Chìa khóa",
+    "level": 1,
+    "price": 100
   },
   {
     "id": "key_421",
-    "name": "key",
-    "level": 2
+    "name": "Chìa khóa",
+    "level": 2,
+    "price": 100
   },
   {
     "id": "key_422",
-    "name": "key",
-    "level": 3
+    "name": "Chìa khóa",
+    "level": 3,
+    "price": 100
   },
   {
     "id": "egg_423",
-    "name": "egg",
-    "level": 1
+    "name": "Trứng",
+    "level": 1,
+    "price": 100
+  },
+  {
+    "id": "arrowbox_293",
+    "name": "Hộp mũi tên",
+    "level": 1,
+    "price": 0
   }
 ]

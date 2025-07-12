@@ -1,7 +1,5 @@
 package com.game;
 
-import static com.game.utils.Constants.BMF;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -21,13 +19,13 @@ import com.game.screens.ScreenManager;
 import com.game.ui.UIManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
-import com.game.utils.data.GameSession;
-import com.game.utils.data.JsonLoader;
+import com.game.utils.GameSession;
+import com.game.utils.JsonValueHelper;
 
 public class MainGame extends Game {
     private static AudioManager audioManager;
     private static CharacterTilemapManager characterTilemapManager;
-    private static JsonLoader jsonLoader;
+    private static JsonValueHelper jsonValueHelper;
     private static GAssetManager assetManager;
     private static EventManager eventManager;
     private static MapManager mpm;

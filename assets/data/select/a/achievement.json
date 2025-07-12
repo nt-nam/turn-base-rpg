@@ -1,0 +1,11 @@
+[
+  { "name": "Recruited","dec": "", "number": 0 },
+  { "name": "Kill","dec": "", "number": 0 },
+  { "name": "LevelTeam","dec": "", "number": 0 },
+  { "name": "Level","dec": "", "number": 0 },
+  { "name": "Win","dec": "", "number": 0 },
+  { "name": "CoinSum","dec": "", "number": 0 },
+  { "name": "GemPay","dec": "", "number": 0 },
+  { "name": "Equip","dec": "", "number": 0 }
+]
+

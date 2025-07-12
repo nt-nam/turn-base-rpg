@@ -1,7 +1,9 @@
-package com.game.utils.data;
+package com.game.utils;
 
 import com.game.ecs.component.EnemyTriggerComponent;
-import com.game.ecs.systems.TriggerComponent;
+import com.game.utils.json.GridData;
+import com.game.utils.data.PendingTeleport;
+import com.game.utils.json.DailyReward;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ public class GameSession {
     public static String mainInfo ="";
     public static String playerId = "";
     public static int selectedSlot = 0;
+    public static int sizeTeam =5;
 
     // Character selection
     public static String selectedCharacterId = "";

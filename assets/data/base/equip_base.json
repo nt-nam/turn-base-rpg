@@ -1,1573 +1,1736 @@
-{
-  "items": [
-    {
-      "id": "sword_000",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 10,
-        "crit": 5
-      }
-    },
-    {
-      "id": "sword_001",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 12,
-        "crit": 6
-      }
-    },
-    {
-      "id": "sword_002",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 14,
-        "crit": 7,
-        "agi": 3
-      }
-    },
-    {
-      "id": "sword_003",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 16,
-        "crit": 8
-      }
-    },
-    {
-      "id": "sword_015",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 20,
-        "crit": 10,
-        "agi": 5
-      }
-    },
-    {
-      "id": "sword_016",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 22,
-        "crit": 11
-      }
-    },
-    {
-      "id": "sword_017",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 24,
-        "crit": 12,
-        "hp": 10
-      }
-    },
-    {
-      "id": "sword_018",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 26,
-        "crit": 13
-      }
-    },
-    {
-      "id": "sword_030",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 30,
-        "crit": 15,
-        "agi": 8
-      }
-    },
-    {
-      "id": "sword_031",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 32,
-        "crit": 16
-      }
-    },
-    {
-      "id": "sword_032",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 34,
-        "crit": 17,
-        "hp": 15
-      }
-    },
-    {
-      "id": "sword_033",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 36,
-        "crit": 18
-      }
-    },
-    {
-      "id": "sword_045",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 40,
-        "crit": 20,
-        "agi": 10
-      }
-    },
-    {
-      "id": "sword_046",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 42,
-        "crit": 21
-      }
-    },
-    {
-      "id": "sword_047",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 44,
-        "crit": 22,
-        "hp": 20
-      }
-    },
-    {
-      "id": "sword_048",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 46,
-        "crit": 23
-      }
-    },
-    {
-      "id": "sword_060",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 50,
-        "crit": 25,
-        "agi": 12
-      }
-    },
-    {
-      "id": "sword_061",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 52,
-        "crit": 26
-      }
-    },
-    {
-      "id": "sword_062",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 54,
-        "crit": 27,
-        "hp": 25
-      }
-    },
-    {
-      "id": "sword_063",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 56,
-        "crit": 28
-      }
-    },
-    {
-      "id": "sword_064",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 58,
-        "crit": 29,
-        "agi": 15
-      }
-    },
-    {
-      "id": "sword_065",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 60,
-        "crit": 30
-      }
-    },
-    {
-      "id": "sword_075",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 65,
-        "crit": 32,
-        "hp": 30
-      }
-    },
-    {
-      "id": "sword_076",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 67,
-        "crit": 33
-      }
-    },
-    {
-      "id": "sword_077",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 69,
-        "crit": 34,
-        "agi": 18
-      }
-    },
-    {
-      "id": "sword_078",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 71,
-        "crit": 35
-      }
-    },
-    {
-      "id": "sword_079",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 73,
-        "crit": 36,
-        "hp": 35
-      }
-    },
-    {
-      "id": "sword_080",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 75,
-        "crit": 37
-      }
-    },
-    {
-      "id": "sword_081",
-      "name": "sword",
-      "category": "weapon",
-      "stats": {
-        "atk": 77,
-        "crit": 38,
-        "agi": 20
-      }
-    },
-    {
-      "id": "armor_008",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 20,
-        "def": 15
-      }
-    },
-    {
-      "id": "armor_009",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 22,
-        "def": 16
-      }
-    },
-    {
-      "id": "armor_010",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 24,
-        "def": 17,
-        "agi": -5
-      }
-    },
-    {
-      "id": "armor_011",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 26,
-        "def": 18
-      }
-    },
-    {
-      "id": "armor_012",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 28,
-        "def": 19
-      }
-    },
-    {
-      "id": "armor_013",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 30,
-        "def": 20,
-        "agi": -6
-      }
-    },
-    {
-      "id": "armor_014",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 32,
-        "def": 21
-      }
-    },
-    {
-      "id": "armor_023",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 35,
-        "def": 22
-      }
-    },
-    {
-      "id": "armor_024",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 37,
-        "def": 23,
-        "agi": -7
-      }
-    },
-    {
-      "id": "armor_025",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 39,
-        "def": 24
-      }
-    },
-    {
-      "id": "armor_026",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 41,
-        "def": 25
-      }
-    },
-    {
-      "id": "armor_038",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 45,
-        "def": 27,
-        "agi": -8
-      }
-    },
-    {
-      "id": "armor_039",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 47,
-        "def": 28
-      }
-    },
-    {
-      "id": "armor_040",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 49,
-        "def": 29
-      }
-    },
-    {
-      "id": "armor_041",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 51,
-        "def": 30,
-        "agi": -9
-      }
-    },
-    {
-      "id": "armor_042",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 53,
-        "def": 31
-      }
-    },
-    {
-      "id": "armor_043",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 55,
-        "def": 32
-      }
-    },
-    {
-      "id": "armor_044",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 57,
-        "def": 33,
-        "agi": -10
-      }
-    },
-    {
-      "id": "armor_053",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 60,
-        "def": 35
-      }
-    },
-    {
-      "id": "armor_054",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 62,
-        "def": 36
-      }
-    },
-    {
-      "id": "armor_055",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 64,
-        "def": 37,
-        "agi": -11
-      }
-    },
-    {
-      "id": "armor_068",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 70,
-        "def": 40
-      }
-    },
-    {
-      "id": "armor_069",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 72,
-        "def": 41
-      }
-    },
-    {
-      "id": "armor_070",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 74,
-        "def": 42,
-        "agi": -12
-      }
-    },
-    {
-      "id": "armor_071",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 76,
-        "def": 43
-      }
-    },
-    {
-      "id": "armor_072",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 78,
-        "def": 44
-      }
-    },
-    {
-      "id": "armor_073",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 80,
-        "def": 45,
-        "agi": -13
-      }
-    },
-    {
-      "id": "armor_083",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 85,
-        "def": 47
-      }
-    },
-    {
-      "id": "armor_084",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 87,
-        "def": 48
-      }
-    },
-    {
-      "id": "armor_085",
-      "name": "armor",
-      "category": "armor",
-      "stats": {
-        "hp": 89,
-        "def": 49,
-        "agi": -14
-      }
-    },
-    {
-      "id": "spear_105",
-      "name": "spear",
-      "category": "weapon",
-      "stats": {
-        "atk": 50,
-        "crit": 20,
-        "agi": 10
-      }
-    },
-    {
-      "id": "spear_106",
-      "name": "spear",
-      "category": "weapon",
-      "stats": {
-        "atk": 52,
-        "crit": 21
-      }
-    },
-    {
-      "id": "spear_107",
-      "name": "spear",
-      "category": "weapon",
-      "stats": {
-        "atk": 54,
-        "crit": 22,
-        "hp": 15
-      }
-    },
-    {
-      "id": "spear_108",
-      "name": "spear",
-      "category": "weapon",
-      "stats": {
-        "atk": 56,
-        "crit": 23
-      }
-    },
-    {
-      "id": "ring_113",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 15,
-        "crit": 10
-      }
-    },
-    {
-      "id": "ring_114",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 16,
-        "crit": 11
-      }
-    },
-    {
-      "id": "ring_115",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 17,
-        "crit": 12,
-        "mp": 10
-      }
-    },
-    {
-      "id": "ring_116",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 18,
-        "crit": 13
-      }
-    },
-    {
-      "id": "ring_117",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 19,
-        "crit": 14
-      }
-    },
-    {
-      "id": "ring_118",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 20,
-        "crit": 15,
-        "mp": 12
-      }
-    },
-    {
-      "id": "ring_119",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 21,
-        "crit": 16
-      }
-    },
-    {
-      "id": "ring_158",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 25,
-        "crit": 20,
-        "mp": 15
-      }
-    },
-    {
-      "id": "ring_159",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 26,
-        "crit": 21
-      }
-    },
-    {
-      "id": "ring_160",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 27,
-        "crit": 22,
-        "mp": 17
-      }
-    },
-    {
-      "id": "ring_161",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 28,
-        "crit": 23
-      }
-    },
-    {
-      "id": "ring_162",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 29,
-        "crit": 24
-      }
-    },
-    {
-      "id": "ring_163",
-      "name": "ring",
-      "category": "jewelry",
-      "stats": {
-        "agi": 30,
-        "crit": 25,
-        "mp": 20
-      }
-    },
-    {
-      "id": "trident_120",
-      "name": "trident",
-      "category": "weapon",
-      "stats": {
-        "atk": 60,
-        "crit": 25,
-        "agi": 12
-      }
-    },
-    {
-      "id": "trident_121",
-      "name": "trident",
-      "category": "weapon",
-      "stats": {
-        "atk": 62,
-        "crit": 26
-      }
-    },
-    {
-      "id": "trident_122",
-      "name": "trident",
-      "category": "weapon",
-      "stats": {
-        "atk": 64,
-        "crit": 27,
-        "hp": 20
-      }
-    },
-    {
-      "id": "trident_150",
-      "name": "trident",
-      "category": "weapon",
-      "stats": {
-        "atk": 70,
-        "crit": 30,
-        "agi": 15
-      }
-    },
-    {
-      "id": "necklace_128",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 30,
-        "mp": 20
-      }
-    },
-    {
-      "id": "necklace_129",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 32,
-        "mp": 21
-      }
-    },
-    {
-      "id": "necklace_130",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 34,
-        "mp": 22,
-        "agi": 10
-      }
-    },
-    {
-      "id": "necklace_131",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 36,
-        "mp": 23
-      }
-    },
-    {
-      "id": "necklace_132",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 38,
-        "mp": 24
-      }
-    },
-    {
-      "id": "necklace_133",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 40,
-        "mp": 25,
-        "agi": 12
-      }
-    },
-    {
-      "id": "necklace_173",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 45,
-        "mp": 30,
-        "agi": 15
-      }
-    },
-    {
-      "id": "necklace_174",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 47,
-        "mp": 31
-      }
-    },
-    {
-      "id": "necklace_175",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 49,
-        "mp": 32,
-        "agi": 17
-      }
-    },
-    {
-      "id": "necklace_176",
-      "name": "necklace",
-      "category": "jewelry",
-      "stats": {
-        "hp": 51,
-        "mp": 33
-      }
-    },
-    {
-      "id": "knife_135",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 40,
-        "crit": 30,
-        "agi": 15
-      }
-    },
-    {
-      "id": "knife_136",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 42,
-        "crit": 31
-      }
-    },
-    {
-      "id": "knife_137",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 44,
-        "crit": 32,
-        "agi": 17
-      }
-    },
-    {
-      "id": "knife_138",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 46,
-        "crit": 33
-      }
-    },
-    {
-      "id": "knife_139",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 48,
-        "crit": 34,
-        "agi": 18
-      }
-    },
-    {
-      "id": "knife_140",
-      "name": "knife",
-      "category": "weapon",
-      "stats": {
-        "atk": 50,
-        "crit": 35
-      }
-    },
-    {
-      "id": "scarf_143",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 20,
-        "hp": 15
-      }
-    },
-    {
-      "id": "scarf_144",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 21,
-        "hp": 16
-      }
-    },
-    {
-      "id": "scarf_145",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 22,
-        "hp": 17,
-        "def": 10
-      }
-    },
-    {
-      "id": "scarf_146",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 23,
-        "hp": 18
-      }
-    },
-    {
-      "id": "scarf_147",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 24,
-        "hp": 19
-      }
-    },
-    {
-      "id": "scarf_148",
-      "name": "scarf",
-      "category": "jewelry",
-      "stats": {
-        "agi": 25,
-        "hp": 20,
-        "def": 12
-      }
-    },
-    {
-      "id": "sickle_151",
-      "name": "sickle",
-      "category": "weapon",
-      "stats": {
-        "atk": 45,
-        "crit": 25,
-        "agi": 12
-      }
-    },
-    {
-      "id": "sickle_152",
-      "name": "sickle",
-      "category": "weapon",
-      "stats": {
-        "atk": 47,
-        "crit": 26
-      }
-    },
-    {
-      "id": "axe_180",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 60,
-        "crit": 20,
-        "hp": 20
-      }
-    },
-    {
-      "id": "axe_181",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 62,
-        "crit": 21
-      }
-    },
-    {
-      "id": "axe_182",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 64,
-        "crit": 22,
-        "hp": 22
-      }
-    },
-    {
-      "id": "axe_183",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 66,
-        "crit": 23
-      }
-    },
-    {
-      "id": "axe_184",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 68,
-        "crit": 24,
-        "hp": 24
-      }
-    },
-    {
-      "id": "axe_195",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 70,
-        "crit": 25,
-        "hp": 25
-      }
-    },
-    {
-      "id": "axe_196",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 72,
-        "crit": 26
-      }
-    },
-    {
-      "id": "axe_197",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 74,
-        "crit": 27,
-        "hp": 27
-      }
-    },
-    {
-      "id": "axe_198",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 76,
-        "crit": 28
-      }
-    },
-    {
-      "id": "axe_199",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 78,
-        "crit": 29,
-        "hp": 29
-      }
-    },
-    {
-      "id": "axe_210",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 80,
-        "crit": 30,
-        "hp": 30
-      }
-    },
-    {
-      "id": "axe_211",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 82,
-        "crit": 31
-      }
-    },
-    {
-      "id": "axe_212",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 84,
-        "crit": 32,
-        "hp": 32
-      }
-    },
-    {
-      "id": "axe_213",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 86,
-        "crit": 33
-      }
-    },
-    {
-      "id": "axe_214",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 88,
-        "crit": 34,
-        "hp": 34
-      }
-    },
-    {
-      "id": "axe_215",
-      "name": "axe",
-      "category": "weapon",
-      "stats": {
-        "atk": 90,
-        "crit": 35
-      }
-    },
-    {
-      "id": "shield_218",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 40,
-        "hp": 30
-      }
-    },
-    {
-      "id": "shield_219",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 41,
-        "hp": 31
-      }
-    },
-    {
-      "id": "shield_220",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 42,
-        "hp": 32,
-        "agi": -10
-      }
-    },
-    {
-      "id": "shield_221",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 43,
-        "hp": 33
-      }
-    },
-    {
-      "id": "shield_222",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 44,
-        "hp": 34
-      }
-    },
-    {
-      "id": "shield_223",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 45,
-        "hp": 35,
-        "agi": -11
-      }
-    },
-    {
-      "id": "shield_233",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 47,
-        "hp": 37
-      }
-    },
-    {
-      "id": "shield_234",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 48,
-        "hp": 38
-      }
-    },
-    {
-      "id": "shield_235",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 49,
-        "hp": 39,
-        "agi": -12
-      }
-    },
-    {
-      "id": "shield_236",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 50,
-        "hp": 40
-      }
-    },
-    {
-      "id": "shield_237",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 51,
-        "hp": 41
-      }
-    },
-    {
-      "id": "shield_238",
-      "name": "shield",
-      "category": "support",
-      "stats": {
-        "def": 52,
-        "hp": 42,
-        "agi": -13
-      }
-    },
-    {
-      "id": "bow_240",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 50,
-        "crit": 30,
-        "agi": 15
-      }
-    },
-    {
-      "id": "bow_241",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 52,
-        "crit": 31
-      }
-    },
-    {
-      "id": "bow_242",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 54,
-        "crit": 32,
-        "agi": 17
-      }
-    },
-    {
-      "id": "bow_243",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 56,
-        "crit": 33
-      }
-    },
-    {
-      "id": "bow_244",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 58,
-        "crit": 34,
-        "agi": 18
-      }
-    },
-    {
-      "id": "bow_245",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 60,
-        "crit": 35
-      }
-    },
-    {
-      "id": "bow_246",
-      "name": "bow",
-      "category": "weapon",
-      "stats": {
-        "atk": 62,
-        "crit": 36,
-        "agi": 20
-      }
-    },
-    {
-      "id": "scepter_270",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 40,
-        "atk": 30,
-        "crit": 15
-      }
-    },
-    {
-      "id": "scepter_271",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 41,
-        "atk": 31
-      }
-    },
-    {
-      "id": "scepter_272",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 42,
-        "atk": 32,
-        "crit": 16
-      }
-    },
-    {
-      "id": "scepter_273",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 43,
-        "atk": 33
-      }
-    },
-    {
-      "id": "scepter_285",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 45,
-        "atk": 35,
-        "crit": 17
-      }
-    },
-    {
-      "id": "scepter_286",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 46,
-        "atk": 36
-      }
-    },
-    {
-      "id": "scepter_287",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 47,
-        "atk": 37,
-        "crit": 18
-      }
-    },
-    {
-      "id": "scepter_288",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 48,
-        "atk": 38
-      }
-    },
-    {
-      "id": "scepter_289",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 49,
-        "atk": 39,
-        "crit": 19
-      }
-    },
-    {
-      "id": "scepter_290",
-      "name": "scepter",
-      "category": "weapon",
-      "stats": {
-        "mp": 50,
-        "atk": 40
-      }
-    },
-    {
-      "id": "cloak_278",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 25,
-        "def": 15,
-        "hp": 20
-      }
-    },
-    {
-      "id": "cloak_279",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 26,
-        "def": 16
-      }
-    },
-    {
-      "id": "cloak_280",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 27,
-        "def": 17,
-        "hp": 22
-      }
-    },
-    {
-      "id": "cloak_281",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 28,
-        "def": 18
-      }
-    },
-    {
-      "id": "cloak_282",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 29,
-        "def": 19,
-        "hp": 24
-      }
-    },
-    {
-      "id": "cloak_283",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 30,
-        "def": 20
-      }
-    },
-    {
-      "id": "cloak_284",
-      "name": "cloak",
-      "category": "support",
-      "stats": {
-        "agi": 31,
-        "def": 21,
-        "hp": 26
-      }
-    },
-
-    {
-      "id": "book_248",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 30,
-        "atk": 20
-      }
-    },
-    {
-      "id": "book_249",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 31,
-        "atk": 21
-      }
-    },
-    {
-      "id": "book_250",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 32,
-        "atk": 22,
-        "crit": 10
-      }
-    },
-    {
-      "id": "book_251",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 33,
-        "atk": 23
-      }
-    },
-    {
-      "id": "book_252",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 34,
-        "atk": 24
-      }
-    },
-    {
-      "id": "book_263",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 35,
-        "atk": 25,
-        "crit": 12
-      }
-    },
-    {
-      "id": "book_264",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 36,
-        "atk": 26
-      }
-    },
-    {
-      "id": "book_265",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 37,
-        "atk": 27,
-        "crit": 13
-      }
-    },
-    {
-      "id": "book_266",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 38,
-        "atk": 28
-      }
-    },
-    {
-      "id": "book_267",
-      "name": "book",
-      "category": "support",
-      "stats": {
-        "mp": 39,
-        "atk": 29,
-        "crit": 14
-      }
+[
+  {
+    "id": "sword_000",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 10,
+      "crit": 5
     }
-  ]
-}
+  },
+  {
+    "id": "sword_001",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 12,
+      "crit": 6
+    }
+  },
+  {
+    "id": "sword_002",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 14,
+      "crit": 7,
+      "agi": 3
+    }
+  },
+  {
+    "id": "sword_003",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 16,
+      "crit": 8
+    }
+  },
+  {
+    "id": "sword_015",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 20,
+      "crit": 10,
+      "agi": 5
+    }
+  },
+  {
+    "id": "sword_016",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 22,
+      "crit": 11
+    }
+  },
+  {
+    "id": "sword_017",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 24,
+      "crit": 12,
+      "hp": 10
+    }
+  },
+  {
+    "id": "sword_018",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 26,
+      "crit": 13
+    }
+  },
+  {
+    "id": "sword_030",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 30,
+      "crit": 15,
+      "agi": 8
+    }
+  },
+  {
+    "id": "sword_031",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 32,
+      "crit": 16
+    }
+  },
+  {
+    "id": "sword_032",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 34,
+      "crit": 17,
+      "hp": 15
+    }
+  },
+  {
+    "id": "sword_033",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 36,
+      "crit": 18
+    }
+  },
+  {
+    "id": "sword_045",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 40,
+      "crit": 20,
+      "agi": 10
+    }
+  },
+  {
+    "id": "sword_046",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 42,
+      "crit": 21
+    }
+  },
+  {
+    "id": "sword_047",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 44,
+      "crit": 22,
+      "hp": 20
+    }
+  },
+  {
+    "id": "sword_048",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 46,
+      "crit": 23
+    }
+  },
+  {
+    "id": "sword_060",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 50,
+      "crit": 25,
+      "agi": 12
+    }
+  },
+  {
+    "id": "sword_061",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 52,
+      "crit": 26
+    }
+  },
+  {
+    "id": "sword_062",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 54,
+      "crit": 27,
+      "hp": 25
+    }
+  },
+  {
+    "id": "sword_063",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 56,
+      "crit": 28
+    }
+  },
+  {
+    "id": "sword_064",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 58,
+      "crit": 29,
+      "agi": 15
+    }
+  },
+  {
+    "id": "sword_065",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 60,
+      "crit": 30
+    }
+  },
+  {
+    "id": "sword_075",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 65,
+      "crit": 32,
+      "hp": 30
+    }
+  },
+  {
+    "id": "sword_076",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 67,
+      "crit": 33
+    }
+  },
+  {
+    "id": "sword_077",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 69,
+      "crit": 34,
+      "agi": 18
+    }
+  },
+  {
+    "id": "sword_078",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 71,
+      "crit": 35
+    }
+  },
+  {
+    "id": "sword_079",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 73,
+      "crit": 36,
+      "hp": 35
+    }
+  },
+  {
+    "id": "sword_080",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 75,
+      "crit": 37
+    }
+  },
+  {
+    "id": "sword_081",
+    "name": "Kiếm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 77,
+      "crit": 38,
+      "agi": 20
+    }
+  },
+  {
+    "id": "armor_008",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 20,
+      "def": 15
+    }
+  },
+  {
+    "id": "armor_009",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 22,
+      "def": 16
+    }
+  },
+  {
+    "id": "armor_010",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 24,
+      "def": 17,
+      "agi": -5
+    }
+  },
+  {
+    "id": "armor_011",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 26,
+      "def": 18
+    }
+  },
+  {
+    "id": "armor_012",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 28,
+      "def": 19
+    }
+  },
+  {
+    "id": "armor_013",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 30,
+      "def": 20,
+      "agi": -6
+    }
+  },
+  {
+    "id": "armor_014",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 32,
+      "def": 21
+    }
+  },
+  {
+    "id": "armor_023",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 35,
+      "def": 22
+    }
+  },
+  {
+    "id": "armor_024",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 37,
+      "def": 23,
+      "agi": -7
+    }
+  },
+  {
+    "id": "armor_025",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 39,
+      "def": 24
+    }
+  },
+  {
+    "id": "armor_026",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 41,
+      "def": 25
+    }
+  },
+  {
+    "id": "armor_038",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 45,
+      "def": 27,
+      "agi": -8
+    }
+  },
+  {
+    "id": "armor_039",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 47,
+      "def": 28
+    }
+  },
+  {
+    "id": "armor_040",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 49,
+      "def": 29
+    }
+  },
+  {
+    "id": "armor_041",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 51,
+      "def": 30,
+      "agi": -9
+    }
+  },
+  {
+    "id": "armor_042",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 53,
+      "def": 31
+    }
+  },
+  {
+    "id": "armor_043",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 55,
+      "def": 32
+    }
+  },
+  {
+    "id": "armor_044",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 57,
+      "def": 33,
+      "agi": -10
+    }
+  },
+  {
+    "id": "armor_053",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 60,
+      "def": 35
+    }
+  },
+  {
+    "id": "armor_054",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 62,
+      "def": 36
+    }
+  },
+  {
+    "id": "armor_055",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 64,
+      "def": 37,
+      "agi": -11
+    }
+  },
+  {
+    "id": "armor_068",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 70,
+      "def": 40
+    }
+  },
+  {
+    "id": "armor_069",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 72,
+      "def": 41
+    }
+  },
+  {
+    "id": "armor_070",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 74,
+      "def": 42,
+      "agi": -12
+    }
+  },
+  {
+    "id": "armor_071",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 76,
+      "def": 43
+    }
+  },
+  {
+    "id": "armor_072",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 78,
+      "def": 44
+    }
+  },
+  {
+    "id": "armor_073",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 80,
+      "def": 45,
+      "agi": -13
+    }
+  },
+  {
+    "id": "armor_083",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 85,
+      "def": 47
+    }
+  },
+  {
+    "id": "armor_084",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 87,
+      "def": 48
+    }
+  },
+  {
+    "id": "armor_085",
+    "name": "Áo giáp",
+    "category": "armor",
+    "price": 100,
+    "stats": {
+      "hp": 89,
+      "def": 49,
+      "agi": -14
+    }
+  },
+  {
+    "id": "spear_105",
+    "name": "Thương",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 50,
+      "crit": 20,
+      "agi": 10
+    }
+  },
+  {
+    "id": "spear_106",
+    "name": "Thương",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 52,
+      "crit": 21
+    }
+  },
+  {
+    "id": "spear_107",
+    "name": "Thương",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 54,
+      "crit": 22,
+      "hp": 15
+    }
+  },
+  {
+    "id": "spear_108",
+    "name": "Thương",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 56,
+      "crit": 23
+    }
+  },
+  {
+    "id": "ring_113",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 15,
+      "crit": 10
+    }
+  },
+  {
+    "id": "ring_114",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 16,
+      "crit": 11
+    }
+  },
+  {
+    "id": "ring_115",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 17,
+      "crit": 12,
+      "mp": 10
+    }
+  },
+  {
+    "id": "ring_116",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 18,
+      "crit": 13
+    }
+  },
+  {
+    "id": "ring_117",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 19,
+      "crit": 14
+    }
+  },
+  {
+    "id": "ring_118",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 20,
+      "crit": 15,
+      "mp": 12
+    }
+  },
+  {
+    "id": "ring_119",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 21,
+      "crit": 16
+    }
+  },
+  {
+    "id": "ring_158",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 25,
+      "crit": 20,
+      "mp": 15
+    }
+  },
+  {
+    "id": "ring_159",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 26,
+      "crit": 21
+    }
+  },
+  {
+    "id": "ring_160",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 27,
+      "crit": 22,
+      "mp": 17
+    }
+  },
+  {
+    "id": "ring_161",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 28,
+      "crit": 23
+    }
+  },
+  {
+    "id": "ring_162",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 29,
+      "crit": 24
+    }
+  },
+  {
+    "id": "ring_163",
+    "name": "Nhẫn",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 30,
+      "crit": 25,
+      "mp": 20
+    }
+  },
+  {
+    "id": "trident_120",
+    "name": "Đinh ba",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 60,
+      "crit": 25,
+      "agi": 12
+    }
+  },
+  {
+    "id": "trident_121",
+    "name": "Đinh ba",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 62,
+      "crit": 26
+    }
+  },
+  {
+    "id": "trident_122",
+    "name": "Đinh ba",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 64,
+      "crit": 27,
+      "hp": 20
+    }
+  },
+  {
+    "id": "trident_150",
+    "name": "Đinh ba",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 70,
+      "crit": 30,
+      "agi": 15
+    }
+  },
+  {
+    "id": "necklace_128",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 30,
+      "mp": 20
+    }
+  },
+  {
+    "id": "necklace_129",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 32,
+      "mp": 21
+    }
+  },
+  {
+    "id": "necklace_130",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 34,
+      "mp": 22,
+      "agi": 10
+    }
+  },
+  {
+    "id": "necklace_131",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 36,
+      "mp": 23
+    }
+  },
+  {
+    "id": "necklace_132",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 38,
+      "mp": 24
+    }
+  },
+  {
+    "id": "necklace_133",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 40,
+      "mp": 25,
+      "agi": 12
+    }
+  },
+  {
+    "id": "necklace_173",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 45,
+      "mp": 30,
+      "agi": 15
+    }
+  },
+  {
+    "id": "necklace_174",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 47,
+      "mp": 31
+    }
+  },
+  {
+    "id": "necklace_175",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 49,
+      "mp": 32,
+      "agi": 17
+    }
+  },
+  {
+    "id": "necklace_176",
+    "name": "Vòng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "hp": 51,
+      "mp": 33
+    }
+  },
+  {
+    "id": "knife_135",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 40,
+      "crit": 30,
+      "agi": 15
+    }
+  },
+  {
+    "id": "knife_136",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 42,
+      "crit": 31
+    }
+  },
+  {
+    "id": "knife_137",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 44,
+      "crit": 32,
+      "agi": 17
+    }
+  },
+  {
+    "id": "knife_138",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 46,
+      "crit": 33
+    }
+  },
+  {
+    "id": "knife_139",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 48,
+      "crit": 34,
+      "agi": 18
+    }
+  },
+  {
+    "id": "knife_140",
+    "name": "Đao",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 50,
+      "crit": 35
+    }
+  },
+  {
+    "id": "scarf_143",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 20,
+      "hp": 15
+    }
+  },
+  {
+    "id": "scarf_144",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 21,
+      "hp": 16
+    }
+  },
+  {
+    "id": "scarf_145",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 22,
+      "hp": 17,
+      "def": 10
+    }
+  },
+  {
+    "id": "scarf_146",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 23,
+      "hp": 18
+    }
+  },
+  {
+    "id": "scarf_147",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 24,
+      "hp": 19
+    }
+  },
+  {
+    "id": "scarf_148",
+    "name": "Khăn quàng cổ",
+    "category": "jewelry",
+    "price": 100,
+    "stats": {
+      "agi": 25,
+      "hp": 20,
+      "def": 12
+    }
+  },
+  {
+    "id": "sickle_151",
+    "name": "Liềm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 45,
+      "crit": 25,
+      "agi": 12
+    }
+  },
+  {
+    "id": "sickle_152",
+    "name": "Liềm",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 47,
+      "crit": 26
+    }
+  },
+  {
+    "id": "axe_180",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 60,
+      "crit": 20,
+      "hp": 20
+    }
+  },
+  {
+    "id": "axe_181",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 62,
+      "crit": 21
+    }
+  },
+  {
+    "id": "axe_182",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 64,
+      "crit": 22,
+      "hp": 22
+    }
+  },
+  {
+    "id": "axe_183",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 66,
+      "crit": 23
+    }
+  },
+  {
+    "id": "axe_184",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 68,
+      "crit": 24,
+      "hp": 24
+    }
+  },
+  {
+    "id": "axe_195",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 70,
+      "crit": 25,
+      "hp": 25
+    }
+  },
+  {
+    "id": "axe_196",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 72,
+      "crit": 26
+    }
+  },
+  {
+    "id": "axe_197",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 74,
+      "crit": 27,
+      "hp": 27
+    }
+  },
+  {
+    "id": "axe_198",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 76,
+      "crit": 28
+    }
+  },
+  {
+    "id": "axe_199",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 78,
+      "crit": 29,
+      "hp": 29
+    }
+  },
+  {
+    "id": "axe_210",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 80,
+      "crit": 30,
+      "hp": 30
+    }
+  },
+  {
+    "id": "axe_211",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 82,
+      "crit": 31
+    }
+  },
+  {
+    "id": "axe_212",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 84,
+      "crit": 32,
+      "hp": 32
+    }
+  },
+  {
+    "id": "axe_213",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 86,
+      "crit": 33
+    }
+  },
+  {
+    "id": "axe_214",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 88,
+      "crit": 34,
+      "hp": 34
+    }
+  },
+  {
+    "id": "axe_215",
+    "name": "Rìu",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 90,
+      "crit": 35
+    }
+  },
+  {
+    "id": "shield_218",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 40,
+      "hp": 30
+    }
+  },
+  {
+    "id": "shield_219",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 41,
+      "hp": 31
+    }
+  },
+  {
+    "id": "shield_220",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 42,
+      "hp": 32,
+      "agi": -10
+    }
+  },
+  {
+    "id": "shield_221",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 43,
+      "hp": 33
+    }
+  },
+  {
+    "id": "shield_222",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 44,
+      "hp": 34
+    }
+  },
+  {
+    "id": "shield_223",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 45,
+      "hp": 35,
+      "agi": -11
+    }
+  },
+  {
+    "id": "shield_233",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 47,
+      "hp": 37
+    }
+  },
+  {
+    "id": "shield_234",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 48,
+      "hp": 38
+    }
+  },
+  {
+    "id": "shield_235",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 49,
+      "hp": 39,
+      "agi": -12
+    }
+  },
+  {
+    "id": "shield_236",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 50,
+      "hp": 40
+    }
+  },
+  {
+    "id": "shield_237",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 51,
+      "hp": 41
+    }
+  },
+  {
+    "id": "shield_238",
+    "name": "Khiên",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "def": 52,
+      "hp": 42,
+      "agi": -13
+    }
+  },
+  {
+    "id": "bow_240",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 50,
+      "crit": 30,
+      "agi": 15
+    }
+  },
+  {
+    "id": "bow_241",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 52,
+      "crit": 31
+    }
+  },
+  {
+    "id": "bow_242",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 54,
+      "crit": 32,
+      "agi": 17
+    }
+  },
+  {
+    "id": "bow_243",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 56,
+      "crit": 33
+    }
+  },
+  {
+    "id": "bow_244",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 58,
+      "crit": 34,
+      "agi": 18
+    }
+  },
+  {
+    "id": "bow_245",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 60,
+      "crit": 35
+    }
+  },
+  {
+    "id": "bow_246",
+    "name": "Cung",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "atk": 62,
+      "crit": 36,
+      "agi": 20
+    }
+  },
+  {
+    "id": "scepter_270",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 40,
+      "atk": 30,
+      "crit": 15
+    }
+  },
+  {
+    "id": "scepter_271",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 41,
+      "atk": 31
+    }
+  },
+  {
+    "id": "scepter_272",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 42,
+      "atk": 32,
+      "crit": 16
+    }
+  },
+  {
+    "id": "scepter_273",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 43,
+      "atk": 33
+    }
+  },
+  {
+    "id": "scepter_285",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 45,
+      "atk": 35,
+      "crit": 17
+    }
+  },
+  {
+    "id": "scepter_286",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 46,
+      "atk": 36
+    }
+  },
+  {
+    "id": "scepter_287",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 47,
+      "atk": 37,
+      "crit": 18
+    }
+  },
+  {
+    "id": "scepter_288",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 48,
+      "atk": 38
+    }
+  },
+  {
+    "id": "scepter_289",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 49,
+      "atk": 39,
+      "crit": 19
+    }
+  },
+  {
+    "id": "scepter_290",
+    "name": "Quyền trượng",
+    "category": "weapon",
+    "price": 100,
+    "stats": {
+      "mp": 50,
+      "atk": 40
+    }
+  },
+  {
+    "id": "cloak_278",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 25,
+      "def": 15,
+      "hp": 20
+    }
+  },
+  {
+    "id": "cloak_279",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 26,
+      "def": 16
+    }
+  },
+  {
+    "id": "cloak_280",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 27,
+      "def": 17,
+      "hp": 22
+    }
+  },
+  {
+    "id": "cloak_281",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 28,
+      "def": 18
+    }
+  },
+  {
+    "id": "cloak_282",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 29,
+      "def": 19,
+      "hp": 24
+    }
+  },
+  {
+    "id": "cloak_283",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 30,
+      "def": 20
+    }
+  },
+  {
+    "id": "cloak_284",
+    "name": "Áo choàng",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "agi": 31,
+      "def": 21,
+      "hp": 26
+    }
+  },
+  {
+    "id": "book_248",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 30,
+      "atk": 20
+    }
+  },
+  {
+    "id": "book_249",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 31,
+      "atk": 21
+    }
+  },
+  {
+    "id": "book_250",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 32,
+      "atk": 22,
+      "crit": 10
+    }
+  },
+  {
+    "id": "book_251",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 33,
+      "atk": 23
+    }
+  },
+  {
+    "id": "book_252",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 34,
+      "atk": 24
+    }
+  },
+  {
+    "id": "book_263",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 35,
+      "atk": 25,
+      "crit": 12
+    }
+  },
+  {
+    "id": "book_264",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 36,
+      "atk": 26
+    }
+  },
+  {
+    "id": "book_265",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 37,
+      "atk": 27,
+      "crit": 13
+    }
+  },
+  {
+    "id": "book_266",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 38,
+      "atk": 28
+    }
+  },
+  {
+    "id": "book_267",
+    "name": "Sách",
+    "category": "support",
+    "price": 100,
+    "stats": {
+      "mp": 39,
+      "atk": 29,
+      "crit": 14
+    }
+  }
+]

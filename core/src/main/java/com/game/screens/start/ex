@@ -1,0 +1,28 @@
+
+private void createBtnNextPage() {
+        float size = screenWidth * 0.1f;
+        float w = screenWidth;
+        float h = screenHeight;
+        Group popup = rootGroup;
+
+
+        new UIButton(MainGame.getAsM().getRegion(UI_POPUP,"btn_up"))
+            .size(size,size)
+            .pos(w*0.93f,h*0.63f)
+            .onClick(()->{
+                page = page != 0? page-1:0;
+                updatePage(popup, w, h);
+            })
+            .parent(popup);
+
+        new UIButton(MainGame.getAsM().getRegion(UI_POPUP,"btn_down"))
+            .size(size,size)
+            .pos(w*0.93f,h*0.09f)
+            .onClick(()->{
+                if(account.get((page+1)*21)!= null){
+                    page++;
+                    updatePage(popup, w, h);
+                }
+            })
+            .parent(popup);
+    }

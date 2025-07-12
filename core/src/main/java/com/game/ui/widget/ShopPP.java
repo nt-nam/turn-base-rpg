@@ -13,17 +13,23 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UITable;
-import com.game.utils.data.JsonLoader;
+import com.game.utils.JsonHelper;
+import com.game.utils.JsonValueHelper;
+import com.game.utils.json.EquipBase;
+import com.game.utils.json.ItemBase;
+
+import java.util.List;
 
 public class ShopPP {
-    public static JsonValue useFor = null;
+//    public static JsonValue useFor = null;
+    public static List<?> useFor = null;
     private static int page = 0;
 
     public static Group pp(float w, float h) {
-        //data
-        JsonValue items = JsonLoader.getJsonValue(ITEM_JSON, false);
-        JsonValue equips = JsonLoader.getJsonValue(EQUIP_JSON, false).get("items");
-        useFor = items;
+
+        useFor = JsonHelper.loadItems(ITEM_JSON, true);
+//        JsonHelper.loadEquips(EQUIP_JSON, true);
+
         float size = h * 0.1f;
 
         UIGroup popup = new UIGroup().name("shop").size(w, h);
@@ -34,6 +40,42 @@ public class ShopPP {
             .parent(popup)
             .bounds(w * 0.08f, h * 0.08f, w * 0.84f, h * 0.84f);
 
+        btnRedirect(popup, w, h, size);
+
+        TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");
+        TextureRegion gray = MainGame.getAsM().getRegion(UI_POPUP, "btn_gray");
+        UIButton btnItem = new UIButton("Vật phẩm", gray, green)
+            .bounds((int) (w * 0.1f), (int) (h * 0.75f), w * 0.12f, h * 0.12f)
+            .name("btnItem")
+            .check(() -> {
+                ((UIButton) popup.findActor("btnEquip")).setChecked(false);
+                ((UIButton) popup.findActor("btnItem")).setChecked(true);
+                useFor = JsonHelper.loadItems(ITEM_JSON, true);
+                page = 0;
+                updateGrid(popup, w, h);
+            })
+            .check(true)
+            .fontScale(1.2f).parent(popup);
+
+        UIButton btnEquip = new UIButton("Trang bị", gray, green)
+            .bounds((int) (w * 0.25f), (int) (h * 0.75f), w * 0.12f, h * 0.12f)
+            .name("btnEquip")
+            .check(() -> {
+                ((UIButton) popup.findActor("btnEquip")).setChecked(true);
+                ((UIButton) popup.findActor("btnItem")).setChecked(false);
+                useFor = JsonHelper.loadEquips(EQUIP_JSON, true);
+                page = 0;
+                updateGrid(popup, w, h);
+            })
+            .check(false)
+            .fontScale(1.2f).parent(popup);
+
+        updateGrid(popup, w, h);
+
+        return popup;
+    }
+
+    private static void btnRedirect(UIGroup popup, float w, float h,float size){
         new UIButton(MainGame.getAsM().getRegion(UI_POPUP,"btn_up"))
             .size(size,size)
             .pos(w*0.84f,h*0.62f)
@@ -47,44 +89,12 @@ public class ShopPP {
             .size(size,size)
             .pos(w*0.84f,h*0.12f)
             .onClick(()->{
-                if(useFor.get((page+1)*21)!= null){
+                if((page+1)*21< useFor.size()){
                     page++;
                     updateGrid(popup, w, h);
                 }
             })
             .parent(popup);
-
-        TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");
-        TextureRegion gray = MainGame.getAsM().getRegion(UI_POPUP, "btn_gray");
-        UIButton btnItem = new UIButton("Item", gray, green)
-            .bounds((int) (w * 0.1f), (int) (h * 0.75f), w * 0.12f, h * 0.12f)
-            .name("btnItem")
-            .check(() -> {
-                ((UIButton) popup.findActor("btnEquip")).setChecked(false);
-                ((UIButton) popup.findActor("btnItem")).setChecked(true);
-                useFor = items;
-                page = 0;
-                updateGrid(popup, w, h);
-            })
-            .check(true)
-            .fontScale(2).parent(popup);
-
-        UIButton btnEquip = new UIButton("Equip", gray, green)
-            .bounds((int) (w * 0.25f), (int) (h * 0.75f), w * 0.12f, h * 0.12f)
-            .name("btnEquip")
-            .check(() -> {
-                ((UIButton) popup.findActor("btnEquip")).setChecked(true);
-                ((UIButton) popup.findActor("btnItem")).setChecked(false);
-                useFor = equips;
-                page = 0;
-                updateGrid(popup, w, h);
-            })
-            .check(false)
-            .fontScale(2).parent(popup);
-
-        updateGrid(popup, w, h);
-
-        return popup;
     }
 
     private static void updateGrid(UIGroup popup, float w, float h) {
@@ -96,12 +106,21 @@ public class ShopPP {
         for (int i = 0; i < 21; i++) {
             int id = page * 21 + i;
             UIGroup uiGroup;
-            if (id < useFor.size) {
-                JsonValue item = useFor.get(id);
-                uiGroup = new UIGroup().name(item.get("id").asString()).child(
+            if (id < useFor.size()) {
+
+                Object obj = useFor.get(id);
+                String idString = "";
+                if (obj instanceof ItemBase) {
+                    idString = ((ItemBase) obj).id;
+                } else if (obj instanceof EquipBase) {
+                    idString = ((EquipBase) obj).id;
+                }
+
+
+                uiGroup = new UIGroup().name(idString).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .size(size, size),
-                    new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, item.get("id").asString()))
+                    new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, idString))
                         .size(size - margin, size - margin)
                         .pos(margin * 0.5f, margin * 0.5f)
                 ).onClick(() -> {

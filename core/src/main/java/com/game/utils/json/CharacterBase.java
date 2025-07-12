@@ -1,8 +1,8 @@
-package com.game.utils.data;
+package com.game.utils.json;
 
 import com.badlogic.gdx.utils.Array;
 
-public class CharacterBaseData {
+public class CharacterBase {
     public String characterId;
     public String characterBaseId;
     public String classType;

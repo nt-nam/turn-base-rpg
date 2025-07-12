@@ -1,15 +1,71 @@
-package com.game.utils.data;
+package com.game.utils;
+
+import static com.game.utils.Constants.CHARACTER_BASE_JSON;
+import static com.game.utils.Constants.EQUIP_JSON;
+import static com.game.utils.Constants.ITEM_JSON;
+import static com.game.utils.Constants.SKILL_JSON;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.DailyReward;
+import com.game.utils.json.GridData;
+import com.game.utils.json.Mission;
 
-public class JsonLoader {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class JsonValueHelper {
     private static final Json json = new Json();
     private static final ObjectMap<String, Array<?>> dataMap = new ObjectMap<>();
+
+    public static List<GridData> listGrid = new ArrayList<>();//mainInfo
+
+    public static List<DailyReward> daily_rewards = new ArrayList<>();//daily_rewards
+    public static List<GridData> info = new ArrayList<>();//info
+
+    public static List<Mission> missions = new ArrayList<>();//mission_base
+    public static List<CharacterBase> character_base = new ArrayList<>();//character_base
+
+    public static List<Mission> loadMissions(String filePath,boolean b) {
+        if(b || missions.isEmpty()){
+            FileHandle fileHandle = new FileHandle(filePath);
+            missions = json.fromJson(ArrayList.class, Mission.class, fileHandle);
+        }
+        return missions;
+    }
+
+    public static List<CharacterBase> loadCharacterBase(String filePath,boolean b) {
+        if(b || character_base.isEmpty()){
+            FileHandle fileHandle = new FileHandle(filePath);
+            character_base = json.fromJson(ArrayList.class, CharacterBase.class, fileHandle);
+        }
+        return character_base;
+    }
+
+    public static List<DailyReward> loadDailyRewards(String filePath,boolean b) {
+        if(b || daily_rewards.isEmpty()){
+            FileHandle fileHandle = new FileHandle(filePath);
+            daily_rewards = json.fromJson(ArrayList.class, DailyReward.class, fileHandle);
+        }
+        return daily_rewards;
+    }
+
+//    public static DailyRewardsData loadDailyRewards(String filePath) {
+//        FileHandle fileHandle = new FileHandle(filePath);
+//
+//        // Chuyển đổi dữ liệu JSON thành đối tượng DailyRewardsData
+//        DailyRewardsData dailyRewardsData = json.fromJson(DailyRewardsData.class, fileHandle);
+//        return dailyRewardsData;
+//    }
+
 
     // Tải JSON và lưu trữ JsonValue
     private static synchronized JsonValue loadJsonValue(String filePath, boolean forceReload) {
@@ -78,23 +134,6 @@ public class JsonLoader {
         String jsonString = Gdx.files.internal(filePath).readString();
         JsonReader jsonReader = new JsonReader();
         JsonValue jsonData = jsonReader.parse(jsonString);
-        JsonValue jsonArray = jsonData.get(key); // Assuming data is within the key provided
-
-        // Loop over the JsonValue to find the correct match based on 'name'
-        if (jsonArray != null) {
-            for (JsonValue item : jsonArray) {
-                if (item.getString(key).equals(name)) {
-                    return item;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static JsonValue getJsonValueByKey2(String filePath, String key, String name) {
-        String jsonString = Gdx.files.internal(filePath).readString();
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonData = jsonReader.parse(jsonString);
 
         // Mảng JSON (tất cả các phần tử đều chứa thông tin cần tìm)
         if (jsonData != null && jsonData.isArray()) {
@@ -107,6 +146,126 @@ public class JsonLoader {
             }
         }
         return null;  // Nếu không tìm thấy phần tử nào khớp
+    }
+
+    public static JsonValue getJsonValueByKey(JsonValue jsonData, String key, String name) {
+        if (jsonData != null && jsonData.isArray()) {
+            for (JsonValue item : jsonData) {
+                // Kiểm tra nếu trường `key` có trong đối tượng này
+                if (item.has(key) && item.getString(key).equals(name)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /// Quantity of each type <--> Số lượng từng loại
+    public static int checkQuantity(JsonValue jsonData, String key, String name) {
+        int number = 0;
+        if (jsonData != null && jsonData.isArray()) {
+            for (JsonValue item : jsonData) {
+                if (item.has(key) && item.getString(key).equals(name)) {
+                    number++;
+                }
+            }
+        }
+        return number;
+    }
+
+    public static boolean removeChild(JsonValue jsonData, String key, String value) {
+        JsonValue previous = null;
+        for (JsonValue currentItem = jsonData.child; currentItem != null; currentItem = currentItem.next) {
+            if (value.equals(currentItem.getString(key, ""))) {
+                if (previous == null) {
+                    jsonData.child = currentItem.next;
+                } else {
+                    previous.next = currentItem.next;
+                }
+                return true;
+            }
+            previous = currentItem;
+        }
+        return false;
+    }
+
+    public static boolean removeChilds(JsonValue jsonData, String key, String value) {
+        boolean removed = false;
+        JsonValue previous = null;
+
+        for (JsonValue currentItem = jsonData.child; currentItem != null; currentItem = currentItem.next) {
+            if (value.equals(currentItem.getString(key, ""))) {
+                if (previous == null) {
+                    jsonData.child = currentItem.next;
+                } else {
+                    previous.next = currentItem.next;
+                }
+                removed = true;
+            } else {
+                previous = currentItem;
+            }
+        }
+        return removed;
+    }
+
+
+
+    public static JsonValue sortJsonByKey(JsonValue jsonData,String key) {
+        //sử dụng để sort level
+        List<JsonValue> jsonList = new ArrayList<>();
+
+        for (JsonValue value : jsonData) {
+            jsonList.add(value);
+        }
+
+        // Sắp xếp danh sách theo trường 'level' giảm dần
+        Collections.sort(jsonList, new Comparator<JsonValue>() {
+            @Override
+            public int compare(JsonValue json1, JsonValue json2) {
+                int level1 = json1.getInt(key);
+                int level2 = json2.getInt(key);
+                return Integer.compare(level2, level1); // Giảm dần
+            }
+        });
+
+        JsonValue sortedJsonData = new JsonValue(JsonValue.ValueType.array);
+        for (JsonValue value : jsonList) {
+            sortedJsonData.addChild(value);
+        }
+
+        return sortedJsonData;
+    }
+
+    // Hàm sắp xếp JsonValue (chứa một mảng JSON) theo grid
+    public static JsonValue sortJsonByGrid(JsonValue jsonData,String key, String empty) {
+        List<JsonValue> jsonList = new ArrayList<>();
+
+        for (JsonValue value : jsonData) {
+            jsonList.add(value);
+        }
+
+        Collections.sort(jsonList, new Comparator<JsonValue>() {
+            @Override
+            public int compare(JsonValue json1, JsonValue json2) {
+                String grid1 = json1.getString(key, empty);
+                String grid2 = json2.getString(key, empty);
+
+                if (!grid1.equals(empty) && grid2.equals(empty)) {
+                    return -1; // json1 lên trước
+                } else if (grid1.equals(empty) && !grid2.equals(empty)) {
+                    return 1; // json2 lên trước
+                }
+
+                return 0;
+            }
+        });
+
+        JsonValue sortedJsonData = new JsonValue(JsonValue.ValueType.array);
+        for (JsonValue value : jsonList) {
+            sortedJsonData.addChild(value);
+        }
+
+        return sortedJsonData;
     }
 
 
@@ -204,7 +363,7 @@ public class JsonLoader {
     public static JsonValue getJsonValue(JsonValue jsonValue, String path) {
         String[] keys = path.split("\\.");
         JsonValue result = jsonValue;
-        for (String k:keys) {
+        for (String k : keys) {
             result = result.get(k);
         }
         return result;
@@ -291,6 +450,13 @@ public class JsonLoader {
             dataMap.remove(key);
         }
     }
+
+    public static void loadFullDataAccount() {
+        loadJsonValue(EQUIP_JSON, true);
+        loadJsonValue(ITEM_JSON, true);
+        loadJsonValue(CHARACTER_BASE_JSON, true);
+        loadJsonValue(SKILL_JSON, true);
+    }
 }
 
 ///    -----------------------------------------
@@ -308,7 +474,6 @@ public class JsonLoader {
 ///    }
 ///    SkillSet warrior = JsonLoader.getObject("skills.json", "warrior", SkillSet.class, false);
 ///    System.out.println(warrior.skills.get("1").name); // In: Basic Attack
-///
 // Lấy nested value
 ///    String skillName = JsonLoader.getNestedValue("skills.json", "warrior.1.name", String.class, false);
 ///    System.out.println(skillName); // In: Basic Attack

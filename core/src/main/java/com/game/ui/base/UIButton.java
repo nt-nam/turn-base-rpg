@@ -1,5 +1,7 @@
 package com.game.ui.base;
 
+import static com.game.utils.Constants.BMF;
+
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -41,6 +43,28 @@ public class UIButton extends TextButton {
         tu();
     }
 
+    public UIButton(String text ,TextureRegion region) {
+        super(text, createStyle(region, region));
+        tu();
+
+        this.setTransform(true); // Cho phép scale/rotate actor
+
+        this.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                UIButton.this.setOrigin(getWidth() / 2, getHeight() / 2); // Tâm scale
+                UIButton.this.setScale(0.9f); // Nhỏ lại khi nhấn
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                UIButton.this.setScale(1f); // Trả về như cũ
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+    }
+
     public UIButton(TextureRegion region) {
         super("", createStyle(region, region));
         tu();
@@ -74,7 +98,8 @@ public class UIButton extends TextButton {
         style.down = new TextureRegionDrawable(down);
         style.checked = style.down;
         // Không cần set font nếu không có text, nhưng LibGDX yêu cầu không null, nên cứ để default:
-        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+//        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+        style.font = MainGame.getAsM().getFont(BMF);
         return style;
     }
 
@@ -84,7 +109,8 @@ public class UIButton extends TextButton {
         style.down = new NinePatchDrawable(down);
         style.checked = style.down;
         // Không cần set font nếu không có text, nhưng LibGDX yêu cầu không null, nên cứ để default:
-        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+//        style.font = MainGame.getAsM().getSkin().getFont("default-font");
+        style.font = MainGame.getAsM().getFont(BMF);
         return style;
     }
 

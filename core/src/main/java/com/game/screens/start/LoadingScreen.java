@@ -25,6 +25,7 @@ public class LoadingScreen extends BaseScreen {
         Gdx.app.log("LoadingScreen", "show() called");
         stage.addActor(table);
         progressLabel.setText("Loading: 0%");
+        progressLabel.setFontScale(3f);
         loadingStarted = true;
 
     }

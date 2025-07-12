@@ -9,7 +9,7 @@ import com.game.ecs.component.PositionComponent;
 import com.game.screens.ScreenType;
 import com.game.MainGame;
 import com.game.utils.CollisionUtils;
-import com.game.utils.data.GameSession;
+import com.game.utils.GameSession;
 
 public class EnemyCollisionSystem extends EntitySystem {
     private ImmutableArray<Entity> playerEntities;

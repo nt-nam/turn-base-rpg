@@ -1,18 +1,21 @@
 package com.game.screens.main;
 
 import static com.game.utils.Constants.ATLAS_ICON;
+import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
+import static com.game.utils.Constants.CHARACTER_BASE_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
-import static com.game.utils.Constants.WAREHOUSE_JSON;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -20,13 +23,13 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.ecs.component.TeleportTriggerComponent;
 import com.game.ecs.component.TileMapComponent;
-import com.game.ecs.component.WarehouseComponent;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.CameraClampSystem;
 import com.game.ecs.systems.CollisionSystem;
@@ -40,15 +43,21 @@ import com.game.ecs.systems.TileMapRenderSystem;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
+import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UIJoystick;
+import com.game.ui.base.UILabel;
 import com.game.ui.widget.BagPP;
-import com.game.ui.widget.CheckinPP;
+import com.game.ui.widget.DailyPP;
 import com.game.ui.widget.HerosPP;
+import com.game.ui.widget.RecruitPP;
 import com.game.ui.widget.RolePP;
+import com.game.ui.widget.SettingPP;
 import com.game.ui.widget.ShopPP;
+import com.game.utils.Color;
 import com.game.utils.data.AnimationCache;
-import com.game.utils.data.GameSession;
+import com.game.utils.GameSession;
+import com.game.utils.JsonValueHelper;
 
 
 public class WorldMapScreen extends BaseScreen {
@@ -57,11 +66,26 @@ public class WorldMapScreen extends BaseScreen {
     private static UIButton btnNextMap;
     private boolean optionBattle;
     private UIJoystick joystick;
+
     public WorldMapScreen() {
         super();
-//        createControl();
         createJoystick();
         createPopupFF();
+        createHUD();
+    }
+
+    private void createHUD() {
+        new UIGroup().name("coin").pos(screenWidth*0.025f,screenHeight*0.85f).size(screenWidth*0.15f,screenHeight*0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(screenWidth*0.15f,screenHeight*0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"coin")).pos(screenHeight*0.01f,screenHeight*0.01f).size(screenHeight*0.1f,screenHeight*0.1f),
+            new UILabel("100",BMF).pos(screenHeight*0.15f,0).size(screenWidth*0.15f,screenHeight*0.12f)
+        ).parent(rootGroup);
+        new UIGroup().name("gem").pos(screenWidth*0.2f,screenHeight*0.85f).size(screenWidth*0.15f,screenHeight*0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(screenWidth*0.15f,screenHeight*0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"gem_pink")).pos(screenHeight*0.01f,screenHeight*0.01f).size(screenHeight*0.1f,screenHeight*0.10f),
+            new UILabel("100",BMF).pos(screenHeight*0.15f,0).size(screenWidth*0.15f,screenHeight*0.12f)
+        ).parent(rootGroup);
+
     }
 
     private void createJoystick() {
@@ -81,50 +105,80 @@ public class WorldMapScreen extends BaseScreen {
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
 
-//        new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "top_title0", 20))
-//            .size(screenWidth * 0.55f, screenHeight * 0.23f)
-//            .pos(screenWidth * 0.45f, -10)
-//            .parent(rootGroup);
 
-        float y = screenHeight * 0.03f;
-        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "bag"))
-            .pos(screenWidth * 0.9f, y)
-            .fontScale(2)
-            .onClick(this::showPopupInventory)
-            .parent(rootGroup);
+        float y = screenHeight * 0.08f;
 
-        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "heros"))
-            .pos(screenWidth * 0.8f, y)
-            .onClick(this::showPopupHero)
-            .parent(rootGroup);
+        createButton("bag", "bag", "Túi đồ", screenWidth * 0.9f, y);
+        createButton("heros", "hero", "Đội hình", screenWidth * 0.8f, y);
+        createButton("role", "role", "Nhân vật", screenWidth * 0.7f, y);
+        createButton("checkin", "checkin", "Hằng ngày", screenWidth * 0.6f, y);
+        createButton("shop", "shop", "Cửa hàng", screenWidth * 0.5f, y);
+        createButton("setting", "setting", "Cài đặt", screenWidth * 0.9f, screenHeight * 0.8f);
+        createButton("support", "recruit", "Chiêu mộ", screenWidth * 0.9f, screenHeight * 0.35f);
 
-        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "role"))
-            .pos(screenWidth * 0.7f, y)
-            .onClick(this::showPopupRole)
-            .parent(rootGroup);
-
-        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "checkin"))
-            .pos(screenWidth * 0.6f, y)
-            .onClick(this::showPopupCheckin)
-            .parent(rootGroup);
-
-        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, "shop"))
-            .pos(screenWidth * 0.5f, y)
-            .onClick(this::showPopupShop)
-            .parent(rootGroup);
 
         createOverLay();
-        createPopupInventory();
-        createPopupHero();
-        createPopupRole();
-        createPopupCheckin();
-        createPopupShop();
+        rootGroup.addActor(SettingPP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(BagPP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(RolePP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(HerosPP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(DailyPP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(ShopPP.pp(screenWidth, screenHeight));
+        rootGroup.addActor(RecruitPP.pp(screenWidth, screenHeight));
         createBtnClose();
+        hidePopup();
+    }
+
+    private void createButton(String regionName, String popupName, String text, float x, float y) {
+        if (text != "") {
+//            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"origin"))
+//                .pos(x, y - screenWidth * 0.03f)
+//                .size(screenWidth * 0.08f, screenWidth * 0.03f)
+//                .align(Align.center)
+//                .scale(1.2f)
+//                .parent(rootGroup);
+//            new UILabel(text, BMF).pos(x, y - screenWidth * 0.03f)
+//                .size(screenWidth * 0.08f, screenWidth * 0.03f)
+//                .align(Align.center)
+//                .color(Color.white)
+//                .parent(rootGroup);
+            new UIButton(text,MainGame.getAsM().getRegion(UI_POPUP,"origin"))
+                .pos(x, y - screenWidth * 0.03f)
+                .size(screenWidth * 0.08f, screenWidth * 0.03f)
+                .onClick(() -> showPopup(popupName))
+                .fontScale(0.7f)
+                .parent(rootGroup)
+                .scale(1.2f)
+                .setOrigin(Align.center);
+        }
+        new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, regionName))
+            .size(screenWidth * 0.08f, screenWidth * 0.08f)
+            .pos(x, y)
+            .fontScale(2)
+            .onClick(() -> showPopup(popupName))
+            .parent(rootGroup);
+    }
+
+
+    private void hidePopup() {
+        hidePopup("setting");
+        hidePopup("bag");
+        hidePopup("hero");
+        hidePopup("role");
+        hidePopup("checkin");
+        hidePopup("shop");
+        hidePopup("recruit");
         hidePopoupGen();
     }
 
 
     public static void loadingAsset() {
+        JsonValueHelper.loadFullDataAccount();
+        JsonValue characterBase = JsonValueHelper.getJsonValue(CHARACTER_BASE_JSON, false);
+        for (JsonValue character : characterBase) {
+            String characterId = character.getString("characterBaseId");
+            MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + characterId + ".atlas");
+        }
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
@@ -189,42 +243,15 @@ public class WorldMapScreen extends BaseScreen {
             .size(screenWidth * 0.1f, screenWidth * 0.1f)
             .pos(screenWidth * 0.9f, screenHeight * 0.75f)
             .onClick(() -> {
-                hidePopupInventory();
-                hidePopupRole();
-                hidePopupShop();
-                hidePopupCheckin();
-                hidePopupHero();
-                hidePopoupGen();
-
+                hidePopup();
             })
             .parent(rootGroup);
-    }
-
-    private void createPopupShop() {
-        rootGroup.addActor(ShopPP.pp(screenWidth,screenHeight));
-        hidePopupShop();
-    }
-
-    private void createPopupCheckin() {
-        rootGroup.addActor(CheckinPP.pp(screenWidth,screenHeight));
-        hidePopupCheckin();
-    }
-
-
-    private void createPopupRole() {
-        rootGroup.addActor(RolePP.pp(screenWidth,screenHeight));
-        hidePopupRole();
-    }
-
-    private void createPopupHero() {
-        rootGroup.addActor(HerosPP.pp(screenWidth,screenHeight));
-        hidePopupHero();
     }
 
 
     private void createOverLay() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 0.5f);
+        pixmap.setColor(0, 0, 0, 0.8f);
         pixmap.fill();
         Texture overlay = new Texture(pixmap);
         pixmap.dispose();
@@ -232,71 +259,35 @@ public class WorldMapScreen extends BaseScreen {
 
     }
 
-    private void showPopupInventory() {
-        rootGroup.findActor("inventory").setVisible(true);
+    private void showPopup(String a) {
+        if (rootGroup.findActor(a) == null) {
+            Gdx.app.error("WorldMapScreen", "Actor with name '" + a + "' not found");
+            return;
+        }
+        rootGroup.findActor(a).setVisible(true);
         showPopoupGen();
     }
 
-    private void showPopupShop() {
-        rootGroup.findActor("shop").setVisible(true);
-        showPopoupGen();
-    }
-
-    private void showPopupCheckin() {
-        rootGroup.findActor("checkin").setVisible(true);
-        showPopoupGen();
-    }
-
-    private void showPopupRole() {
-        rootGroup.findActor("role").setVisible(true);
-        showPopoupGen();
-    }
-
-    private void showPopupHero() {
-        rootGroup.findActor("hero").setVisible(true);
-        showPopoupGen();
-    }
-    private void showPopoupGen(){
+    private void showPopoupGen() {
         rootGroup.findActor("overlay").setVisible(true);
         rootGroup.findActor("closeBtn").setVisible(true);
     }
-    private void hidePopoupGen(){
+
+    private void hidePopoupGen() {
         rootGroup.findActor("overlay").setVisible(false);
-        if(rootGroup.findActor("closeBtn")!=null){
+        if (rootGroup.findActor("closeBtn") != null) {
             rootGroup.findActor("closeBtn").setVisible(false);
         }
     }
 
-    private void hidePopupInventory() {
-        rootGroup.findActor("inventory").setVisible(false);
-        hidePopoupGen();
-    }
-
-    private void hidePopupShop() {
-        rootGroup.findActor("shop").setVisible(false);
-        hidePopoupGen();
-
-    }
-
-    private void hidePopupCheckin() {
-        rootGroup.findActor("checkin").setVisible(false);
-        hidePopoupGen();
-    }
-
-    private void hidePopupRole() {
-        rootGroup.findActor("role").setVisible(false);
-        hidePopoupGen();
-    }
-
-    private void hidePopupHero() {
-        rootGroup.findActor("hero").setVisible(false);
+    private void hidePopup(String nameActor) {
+        rootGroup.findActor(nameActor).setVisible(false);
         hidePopoupGen();
     }
 
 
     private void createPopupInventory() {
-        rootGroup.addActor(BagPP.pp(screenWidth,screenHeight));
-        hidePopupInventory();
+
     }
 
     private void createPopupOptionBattle() {
@@ -392,11 +383,6 @@ public class WorldMapScreen extends BaseScreen {
         map = MainGame.getAsM().getTiledMap(GameSession.currentMapId);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map, SCALE);
 
-//        String characterId = GameSession.selectedCharacterId;
-//        TextureAtlas atlas = MainGame.getAsM().get(CHARACTER + characterId + ".atlas", TextureAtlas.class);
-//        Animation<TextureRegion> idleAnim = new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP);
-//        AnimationCache.put(characterId, "idle", idleAnim);
-
         loadAllAnimations(GameSession.selectedCharacterId, CHARACTER_ATLAS + GameSession.selectedCharacterId + ".atlas");
 
         // 3. Tạo entity và add TileMapComponent
@@ -410,7 +396,7 @@ public class WorldMapScreen extends BaseScreen {
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));
-        engine.addSystem(new PlayerInputSystem(engine,joystick));
+        engine.addSystem(new PlayerInputSystem(engine, joystick));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new CollisionSystem(engine, map, SCALE));
 //        engine.addSystem(new CollisionUpdateSystem());

@@ -10,8 +10,7 @@ import com.game.MainGame;
 import com.game.ecs.component.AnimationStateComponent;
 import com.game.ecs.component.SkillStateComponent;
 import com.game.ui.base.UIButton;
-import com.game.ui.base.UIProgressBar;
-import com.game.utils.data.GameSession;
+import com.game.utils.GameSession;
 
 public class BattleButtonInput {
     private Entity player;

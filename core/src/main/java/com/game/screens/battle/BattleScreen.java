@@ -12,8 +12,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
@@ -21,7 +19,6 @@ import com.game.MainGame;
 import com.game.core.BattleConfig;
 import com.game.core.BattleLogger;
 import com.game.core.BattleSimulationResult;
-import com.game.core.BattleSimulationResultSaver;
 import com.game.core.BattleSimulator;
 import com.game.ecs.TurnProcessor;
 import com.game.ecs.component.ActionQueueComponent;
@@ -55,9 +52,9 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UIProgressBar;
 import com.game.utils.data.AnimationCache;
-import com.game.utils.data.GameSession;
-import com.game.utils.data.GridData;
-import com.game.utils.data.JsonLoader;
+import com.game.utils.GameSession;
+import com.game.utils.json.GridData;
+import com.game.utils.JsonValueHelper;
 
 public class BattleScreen extends BaseScreen {
     private static final String bg = "texture/battle/summer.png";
@@ -93,7 +90,6 @@ public class BattleScreen extends BaseScreen {
     protected void createScreen() {
         isPause = false;
         BattleConfig.load();
-        createPopup();
     }
 
     @Override
@@ -102,7 +98,7 @@ public class BattleScreen extends BaseScreen {
         createBG();
         createLabel();
         createBattleGridUI();
-        System.out.println("BattleScreen.show");
+        createPopup();
 
         // System vẽ entity (dùng batch, KHÔNG liên quan Scene2D)
         engine.addSystem(new SpriteRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
@@ -112,7 +108,6 @@ public class BattleScreen extends BaseScreen {
         engine.addSystem(new TurnActionSystem());
         engine.addSystem(new Scene2dRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
 //        engine.addSystem(new ActionQueueSystem());
-        System.out.println(rootGroup.findActor("label") != null ? "co" : "khong");
     }
 
     private void loadAllAnimations(String characterId, String atlasPath) {
@@ -230,32 +225,23 @@ public class BattleScreen extends BaseScreen {
                 new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
                 if (path == null) continue;
 
-                GridData gridData = JsonLoader.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
+                GridData gridData = JsonValueHelper.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
                 if (gridData == null || gridData.characterId == null) {
                     continue;
                 }
 
-//                JsonValue jsonValue = new JsonValue(JsonValue.ValueType.object);
-//                // Thêm các khóa và giá trị vào đối tượng JSON
-//                jsonValue.addChild("name", new JsonValue("John"));
-//                jsonValue.addChild("state", new JsonValue(JsonValue.ValueType.object));
-//                JsonValue state = jsonValue.get("state");
-//                state.addChild("hp", new JsonValue(100));
-//                state.addChild("mp", new JsonValue(50));
-
-
-                JsonLoader.loadArray(PARTY_FULL, InfoComponent.class, false);
+                JsonValueHelper.loadArray(PARTY_FULL, InfoComponent.class, false);
                 System.out.println(gridData.characterId);
-                InfoComponent infoCharacter = JsonLoader.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
+                InfoComponent infoCharacter = JsonValueHelper.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
 
                 System.out.println(infoCharacter.characterBaseId);
-                CharacterComponent dataEntity = JsonLoader.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
+                CharacterComponent dataEntity = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
                 if (dataEntity == null || dataEntity.name == null) {
                     Gdx.app.error("createGridUI", "Character data not found for ID: " + gridData.characterId);
                     continue;
                 }
 
-                JsonValue fullSkillJson = JsonLoader.getJsonValue(SKILL_JSON, false);
+                JsonValue fullSkillJson = JsonValueHelper.getJsonValue(SKILL_JSON, false);
                 if (fullSkillJson == null) {
                     Gdx.app.error("createGridUI", "Failed to load skills JSON for " + gridData.characterId);
                     continue;

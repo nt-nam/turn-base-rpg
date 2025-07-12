@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.game.utils.Constants;
 
 public class GAssetManager {
     private final AssetManager am;
@@ -81,6 +81,17 @@ public class GAssetManager {
 
     public TextureRegion getRegion(String atlasPath, String regionName) {
         TextureAtlas atlas = getAtlas(atlasPath);
+        if (atlas == null) {
+            Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
+        }
+        if (atlas.findRegion(regionName)==null) {
+            Gdx.app.error("AssetManager", "Region not found: " + regionName+"---"+atlasPath);
+        }
+        return atlas.findRegion(regionName);
+    }
+
+    public TextureRegion getRegionCharacter(String atlasPath, String regionName) {
+        TextureAtlas atlas = getAtlas(Constants.CHARACTER_ATLAS+atlasPath+".atlas");
         if (atlas == null) {
             Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
         }

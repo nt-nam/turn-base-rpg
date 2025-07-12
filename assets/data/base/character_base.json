@@ -2,7 +2,7 @@
   {
     "characterBaseId": "warrior_Knight",
     "classType": "Warrior",
-    "name": "Warrior",
+    "name": "Chiến binh",
     "desc": "Chiến binh cân bằng, giao tranh trực diện.",
     "hp": 100,
     "mp": 10,
@@ -10,14 +10,14 @@
     "def": 12,
     "agi": 8,
     "crit": 2,
-    "skills": ["Slash", "Shield Bash"],
+    "skills": ["Chém", "Đánh Lá Chắn"],
     "counters": ["Assassin", "Mage"],
-    "weakAgainst": ["Ranger"]
+    "weakAgainst": ["Archer"]
   },
   {
     "characterBaseId": "assassin_Knight",
     "classType": "Assassin",
-    "name": "Assassin",
+    "name": "Sát thủ",
     "desc": "Sát thủ tốc độ, đánh sau, dame lớn thủ yếu.",
     "hp": 60,
     "mp": 12,
@@ -25,14 +25,14 @@
     "def": 5,
     "agi": 16,
     "crit": 8,
-    "skills": ["Backstab", "Shadowstep"],
-    "counters": ["Ranger", "Support"],
+    "skills": ["Đâm sau lưng", "Bước chân bóng tối"],
+    "counters": ["Archer", "Support"],
     "weakAgainst": ["Warrior", "Mage"]
   },
   {
     "characterBaseId": "mage_Knight",
     "classType": "Mage",
-    "name": "Mage",
+    "name": "Pháp sư",
     "desc": "Phép AoE, dame lớn, máu trung bình.",
     "hp": 70,
     "mp": 20,
@@ -40,14 +40,14 @@
     "def": 6,
     "agi": 9,
     "crit": 3,
-    "skills": ["Fireball", "Arcane Storm"],
-    "counters": ["Ranger", "Assassin"],
+    "skills": ["Quả cầu lửa", "Cơn bão bí ẩn"],
+    "counters": ["Archer", "Assassin"],
     "weakAgainst": ["Warrior", "Tank"]
   },
   {
     "characterBaseId": "ranger_Knight",
-    "classType": "Ranger",
-    "name": "Ranger",
+    "classType": "Archer",
+    "name": "Cung thủ",
     "desc": "Cung thủ tầm xa, xuyên giáp, dame cao.",
     "hp": 65,
     "mp": 8,
@@ -55,14 +55,14 @@
     "def": 4,
     "agi": 14,
     "crit": 6,
-    "skills": ["Piercing Arrow", "Multi Shot"],
+    "skills": ["Mũi tên xuyên thấu", "Bắn nhiều phát"],
     "counters": ["Warrior", "Tank"],
     "weakAgainst": ["Assassin", "Mage"]
   },
   {
     "characterBaseId": "support_Knight",
     "classType": "Support",
-    "name": "Support",
+    "name": "Hỗ trợ",
     "desc": "Hồi máu, buff, ít tốn MP.",
     "hp": 75,
     "mp": 18,
@@ -70,14 +70,14 @@
     "def": 6,
     "agi": 10,
     "crit": 1,
-    "skills": ["Heal", "Speed Boost"],
+    "skills": ["Chữa lành", "Tăng tốc độ"],
     "counters": [],
     "weakAgainst": ["Assassin"]
   },
   {
     "characterBaseId": "tank_Knight",
     "classType": "Tank",
-    "name": "Tank",
+    "name": "Đỡ đòn",
     "desc": "Thủ cực cao, dame thấp.",
     "hp": 120,
     "mp": 6,
@@ -85,9 +85,9 @@
     "def": 20,
     "agi": 5,
     "crit": 1,
-    "skills": ["Taunt", "Iron Wall"],
+    "skills": ["Khiêu khích", "Bức tường sắt"],
     "counters": [],
-    "weakAgainst": ["Ranger"]
+    "weakAgainst": ["Archer"]
   }
 ]
 

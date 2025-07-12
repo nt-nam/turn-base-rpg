@@ -8,30 +8,27 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ecs.component.PlayerSelectedComponent;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
-import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.data.CharacterBaseData;
-import com.game.utils.data.JsonLoader;
-import com.game.utils.data.GameSession;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.JsonValueHelper;
+import com.game.utils.GameSession;
 
 public class NewPlayerScreen extends BaseScreen {
     private int currentKnightIndex = 0;
-    private Array<CharacterBaseData> characterBaseDataList;
+    private Array<CharacterBase> characterBaseDataList;
 
     private Image knightAnimImage;
     private UILabel knightStatsLabel;
@@ -48,8 +45,8 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        Array<CharacterBaseData> baseDataArray = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
-        for (CharacterBaseData baseData : baseDataArray) {
+        Array<CharacterBase> baseDataArray = JsonValueHelper.loadArray("data/base/character_base.json", CharacterBase.class, false);
+        for (CharacterBase baseData : baseDataArray) {
             MainGame.getAsM().load(CHARACTER_ATLAS +baseData.characterBaseId+ ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
@@ -62,7 +59,8 @@ public class NewPlayerScreen extends BaseScreen {
         createBackground();
 
         // Lấy danh sách knight từ JSON
-        characterBaseDataList = JsonLoader.loadArray("data/base/character_base.json", CharacterBaseData.class, false);
+        characterBaseDataList = JsonValueHelper.loadArray("data/base/character_base.json", CharacterBase.class, false);
+        JsonValue account = JsonValueHelper.getJsonValue(MAININFO_JSON, false);
         if (characterBaseDataList.size == 0) {
             throw new RuntimeException("No knights found!");
         }
@@ -113,15 +111,14 @@ public class NewPlayerScreen extends BaseScreen {
                 String nameInput = playerNameField.getText().trim();
                 if (nameInput.isEmpty()) {
                     playerNameField.setText("");
-                    playerNameField.setMessageText("Please enter your name!");
-                    UIGroup notificationGroup = rootGroup.findActor("notification");
-                    UILabel label = notificationGroup.findActor("label");
-                    label.setText("Please enter your name!");
-                    notificationGroup.addAction(Actions.sequence(
-                            Actions.moveBy(0,-notificationGroup.getHeight(), 0.5f),
-                            Actions.delay(3f),
-                            Actions.moveBy(0,notificationGroup.getHeight(), 0.5f)
-                        ));
+                    playerNameField.setMessageText("Please add name here!");
+                    rootGroup.addActor(NotificationPP.ppr(screenWidth,screenHeight,"Please enter your name!"));
+                    return;
+                }
+                if(account.get(nameInput)!=null){
+                    playerNameField.getStage().setKeyboardFocus(null);
+                    playerNameField.setMessageText("Please add name here!");
+                    rootGroup.addActor(NotificationPP.ppr(screenWidth,screenHeight,"This player already exists, please enter another name!!"));
                     return;
                 }
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
@@ -162,8 +159,6 @@ public class NewPlayerScreen extends BaseScreen {
         createCloseButton(ScreenType.MENU_GAME);
 
 
-        UIGroup notificationGroup = NotificationPP.pp(screenWidth,screenHeight,"").name("notification");
-        rootGroup.addActor(notificationGroup);
 
     }
 
@@ -172,7 +167,7 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     private String getCurrentKnightStats() {
-        CharacterBaseData data = characterBaseDataList.get(currentKnightIndex);
+        CharacterBase data = characterBaseDataList.get(currentKnightIndex);
         return "Name:        " + data.name +
             "\nHP:              " + data.hp +
             "\nMP:              " + data.mp +

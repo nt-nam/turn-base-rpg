@@ -1,16 +1,18 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
+import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
+import com.game.ui.base.UIImage;
 import com.game.ui.base.UITable;
 
 public class MenuScreen extends BaseScreen {
@@ -23,30 +25,21 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void createScreen() {
-        Gdx.app.log("MenuScreen", "create() called");
+        new UIImage(MainGame.getAsM().getTexture("texture/default.png")).size(screenWidth*0.5f, screenHeight).parent(rootGroup);
 
-        Image bg = new Image(MainGame.getAsM().getTexture("texture/default.png"));
-        bg.setSize(screenWidth*0.4f, screenHeight*0.8f);
-        rootGroup.addActor(bg);
-        bg.setPosition(screenWidth *0.0f, screenHeight*0.1f);
-
-        Image bg2 = new Image(MainGame.getAsM().getTexture("texture/default2.png"));
-        bg2.setSize(screenWidth*0.4f, screenHeight*0.7f);
-        rootGroup.addActor(bg2);
-        bg2.setPosition(screenWidth *0.6f, screenHeight*0.15f);
-
-//        createTitle("Menu Screen", rootGroup);
+        TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");
 
         UITable table1 = new UITable()
             .name("tbMenu")
-            .fillParent()
+            .size(screenWidth*0.3f, screenHeight)
+            .pos(screenWidth*0.55f, 0)
             .al(Align.center)
             .child(
-                new UIButton("New Game").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
-                new UIButton("Load Game").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
-                new UIButton("Setting").fontScale(2).onClick(() -> MainGame.getScM().showScreen(ScreenType.MAIN_SETTING))
+                new UIButton("Chơi mới",green).fontScale(1.5f).onClick(() -> MainGame.getScM().showScreen(ScreenType.NEW_PLAYER)),
+                new UIButton("Chơi tiếp",green).fontScale(1.5f).onClick(() -> MainGame.getScM().showScreen(ScreenType.SELECT_PLAYER)),
+                new UIButton("Thoát game",green).fontScale(1.5f).onClick(() -> Gdx.app.exit())
             ).padChildren(20)
-            .sizeChildren(screenWidth*0.2f,screenHeight*0.1f);
+            .sizeChildren(screenWidth*0.3f,screenHeight*0.2f);
 
         rootGroup.addActor(table1);
     }
@@ -58,8 +51,6 @@ public class MenuScreen extends BaseScreen {
         super.show();
         Gdx.app.log("MenuScreen", "show() called");
         stage.addActor(rootGroup);
-//        engine.addEntity();
-//        engine.addSystem();
     }
 
     @Override
@@ -95,6 +86,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
+        MainGame.getAsM().loadAtlas(UI_POPUP);
         MainGame.getAsM().load("texture/default.png", Texture.class);
         MainGame.getAsM().load("texture/default2.png", Texture.class);
         MainGame.getAsM().load("music/music_demo.mp3", Music.class);

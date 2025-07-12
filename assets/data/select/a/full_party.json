@@ -2,37 +2,157 @@
   {
     "characterId": "character1",
     "characterBaseId": "warrior_Knight",
+    "grid": "2,0",
     "star": 0,
     "level": 50,
     "equip": {
-      "weapon": "empty",
-      "armor": "empty",
-      "jewelry": "empty",
-      "support": "empty"
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
     }
   },
   {
     "characterId": "character2",
     "characterBaseId": "support_Knight",
+    "grid": "1,2",
     "star": 0,
-    "level": 40,
+    "level": 25,
     "equip": {
-      "weapon": "empty",
-      "armor": "empty",
-      "jewelry": "empty",
-      "support": "empty"
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
     }
   },
   {
     "characterId": "character3",
     "characterBaseId": "assassin_Knight",
+    "grid": "1,1",
     "star": 0,
     "level": 30,
     "equip": {
-      "weapon": "empty",
-      "armor": "empty",
-      "jewelry": "empty",
-      "support": "empty"
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character4",
+    "characterBaseId": "warrior_Knight",
+    "grid": "2,2",
+    "star": 0,
+    "level": 34,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character5",
+    "characterBaseId": "mage_Knight",
+    "grid": "1,0",
+    "star": 0,
+    "level": 15,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character6",
+    "characterBaseId": "assassin_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 30,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character7",
+    "characterBaseId": "warrior_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 22,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character8",
+    "characterBaseId": "support_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 40,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character9",
+    "characterBaseId": "assassin_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 30,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character10",
+    "characterBaseId": "warrior_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 18,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character11",
+    "characterBaseId": "support_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 45,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  },
+  {
+    "characterId": "character12",
+    "characterBaseId": "assassin_Knight",
+    "grid": "empty",
+    "star": 0,
+    "level": 30,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
     }
   }
 ]

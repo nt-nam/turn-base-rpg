@@ -1,0 +1,22 @@
+[
+  {
+    "grid": "1,1",
+    "characterId": "character1"
+  },
+  {
+    "grid": "2,0",
+    "characterId": "character2"
+  },
+  {
+    "grid": "1,2",
+    "characterId": "character2"
+  },
+  {
+    "grid": "1,0",
+    "characterId": "character3"
+  },
+  {
+    "grid": "2,2",
+    "characterId": "character3"
+  }
+]

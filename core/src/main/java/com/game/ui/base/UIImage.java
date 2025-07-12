@@ -3,6 +3,7 @@ package com.game.ui.base;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -115,6 +116,11 @@ public class UIImage extends Image {
     public UIImage pos(float x, float y, int align) {
         this.origin(align);
         this.setPosition(x, y);
+        return this;
+    }
+
+    public UIImage visible(boolean b) {
+        this.setVisible(b);
         return this;
     }
 }

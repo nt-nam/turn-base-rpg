@@ -1,0 +1,250 @@
+package com.game.utils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+import com.game.utils.json.Achievement;
+import com.game.utils.json.Bag;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.EquipBase;
+import com.game.utils.json.Hero;
+import com.game.utils.json.ItemBase;
+import com.game.utils.json.Lineup;
+import com.game.utils.json.MainInfo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class JsonHelper {
+    public static List<MainInfo> mainInfo = new ArrayList<>();
+    public static List<ItemBase> items = new ArrayList<>();
+    public static List<EquipBase> equips = new ArrayList<>();
+    public static List<Bag> bags = new ArrayList<>();
+    public static List<Lineup> lineups = new ArrayList<>();
+    public static List<Hero> fullHero = new ArrayList<>();
+    public static List<CharacterBase> baseHero = new ArrayList<>();
+    public static List<Achievement> achievementList= new ArrayList<>();
+
+    public static List<Achievement> loadAchievements(String filePath, boolean b) {
+        if (b || achievementList.isEmpty()) {
+            achievementList.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue lineup : root) {
+                Achievement newChild = new Achievement();
+                newChild.name = lineup.getString("name","empty");
+                newChild.number = lineup.getInt("number", 0);
+                achievementList.add(newChild);
+            }
+        }
+        return achievementList;
+    }
+
+    public static List<MainInfo> loadMaiInfo(String filePath, boolean b) {
+        if (b || mainInfo.isEmpty()) {
+            mainInfo.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue item : root) {
+                MainInfo newItem = new MainInfo();
+                newItem.id = item.name;
+                newItem.level = item.getInt("level");
+                newItem.characterSelect = item.getString("characterSelect",null);
+
+                mainInfo.add(newItem);
+            }
+        }
+        return mainInfo;
+    }
+
+    public static List<CharacterBase> loadHeroBase(String filePath, boolean b) {
+        if (b || baseHero.isEmpty()) {
+            baseHero.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue item : root) {
+                CharacterBase newItem = new CharacterBase();
+
+                // Đọc các trường cơ bản
+                newItem.characterId = item.getString("id", "");
+                newItem.characterBaseId = item.getString("characterBaseId", "");
+                newItem.classType = item.getString("classType", "");
+                newItem.role = item.getString("role", "");
+                newItem.name = item.getString("name", "");
+                newItem.desc = item.getString("desc", "");
+
+                // Đọc các thuộc tính số
+                newItem.hp = item.getInt("hp", 0);
+                newItem.mp = item.getInt("mp", 0);
+                newItem.atk = item.getInt("atk", 0);
+                newItem.def = item.getInt("def", 0);
+                newItem.agi = item.getInt("agi", 0);
+                newItem.crit = item.getInt("crit", 0);
+
+                // Xử lý các trường Array (skills, counters, weakAgainst)
+                newItem.skills = new Array<>();
+                if (item.has("skills")) {
+                    for (JsonValue skill : item.get("skills")) {
+                        newItem.skills.add(skill.asString());
+                    }
+                }
+
+                newItem.counters = new Array<>();
+                if (item.has("counters")) {
+                    for (JsonValue counter : item.get("counters")) {
+                        newItem.counters.add(counter.asString());
+                    }
+                }
+
+                newItem.weakAgainst = new Array<>();
+                if (item.has("weakAgainst")) {
+                    for (JsonValue weak : item.get("weakAgainst")) {
+                        newItem.weakAgainst.add(weak.asString());
+                    }
+                }
+
+                // Thêm đối tượng vào danh sách BaseHero
+                baseHero.add(newItem);
+            }
+        }
+        return baseHero;
+    }
+
+    public static List<ItemBase> loadItems(String filePath, boolean b) {
+        if (b || items.isEmpty()) {
+            items.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue item : root) {
+                ItemBase newItem = new ItemBase();
+                newItem.id = item.getString("id");
+                newItem.name = item.getString("name");
+                newItem.level = item.getInt("level");
+                newItem.price = item.getInt("price");
+
+                items.add(newItem);
+            }
+        }
+        return items;
+    }
+
+    public static List<EquipBase> loadEquips(String filePath, boolean b) {
+        if (b || equips.isEmpty()) {
+            equips.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue equip : root) {
+                EquipBase newEquip = new EquipBase();
+                newEquip.id = equip.getString("id");
+                newEquip.name = equip.getString("name");
+                newEquip.category = equip.getString("category", "default");
+                newEquip.price = equip.getInt("price", -1);
+
+                JsonValue stats = equip.get("stats");
+                newEquip.stats = new HashMap<>();
+                if (stats != null) {
+                    for (JsonValue stat : stats) {
+                        newEquip.stats.put(stat.name(), stat.asInt());
+                    }
+                }else{
+                    System.out.println(" stats null");
+                }
+
+                equips.add(newEquip);
+            }
+        }
+        return equips;
+    }
+
+    public static List<Bag> loadBags(String filePath, boolean b) {
+        if (b || bags.isEmpty()) {
+            bags.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue equip : root) {
+                Bag newBag = new Bag();
+                newBag.id = equip.getString("id");
+                newBag.type = equip.getString("type");
+                newBag.index = equip.getInt("index", 1);
+                bags.add(newBag);
+            }
+        }
+        return bags;
+    }
+
+    public static Bag getBag(String keyId, boolean b) {
+        if (bags != null && !bags.isEmpty()) {
+            for (Bag item : bags) {
+                if (item.id.equals(keyId)) {
+                    return item;
+                }
+            }
+        }
+        return null;  // Trả về null nếu không tìm thấy
+    }
+
+
+    public static List<Lineup> loadLineups(String filePath, boolean b) {
+        if (b || lineups.isEmpty()) {
+            lineups.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue lineup : root) {
+                Lineup newLineup = new Lineup();
+                newLineup.grid = lineup.getString("grid","empty");
+                newLineup.hero.characterId = lineup.getString("characterId");
+//                newLineup.hero.characterBase = lineup.getString("characterBaseId");
+                lineups.add(newLineup);
+            }
+        }
+        return lineups;
+    }
+
+//
+//
+//    public static List<Hero> loadFullHero(String filePath, boolean b) {
+//        if (b || fullHero.isEmpty()) {
+//            fullHero.clear();
+//            FileHandle fileHandle = Gdx.files.internal(filePath);
+//            JsonReader reader = new JsonReader();
+//            JsonValue root = reader.parse(fileHandle);
+//
+//            for (JsonValue hero : root) {
+//                Hero newHero = new Hero();
+//                newHero.characterId = hero.getString("characterId");
+//                newHero.characterBaseId = hero.getString("characterBaseId");
+//                newHero.grid = hero.getString("grid","empty");
+//                newHero.star = hero.getInt("star",0);
+//                newHero.level = hero.getInt("level",1);
+//
+//                JsonValue equip = hero.get("equip");
+//                newHero.equip = new HashMap<>();
+//                if (equip != null) {
+//                    for (JsonValue equipItem : equip) {
+//                        newHero.equip.put(equipItem.name(), equipItem.asInt());
+//                    }
+//                }
+//
+//                fullHero.add(newHero);
+//            }
+//        }
+//        return fullHero;
+//    }
+}

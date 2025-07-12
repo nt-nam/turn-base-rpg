@@ -9,7 +9,7 @@ import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ui.base.UIJoystick;
-import com.game.utils.data.GameSession;
+import com.game.utils.GameSession;
 
 public class PlayerInputSystem extends EntitySystem {
     private final ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);

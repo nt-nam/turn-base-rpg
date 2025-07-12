@@ -112,18 +112,18 @@ public abstract class BaseScreen implements Screen {
 
     protected void debugGrid(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.RED);  // Màu đỏ cho các đường thẳng
-
+        shapeRenderer.setColor(Color.RED);
+int number = 10;
         // Vẽ 10 đường ngang
         for (int i = 0; i < 10; i++) {
-            float y = screenHeight * i / 15f;  // Tính vị trí y cho mỗi đường ngang
-            shapeRenderer.line(0, y, screenWidth, y);  // Vẽ đường ngang từ trái sang phải
+            float y = (Gdx.graphics.getHeight() /number)*i;
+            shapeRenderer.line(0, y, Gdx.graphics.getWidth(), y);
         }
 
         // Vẽ 10 đường dọc
         for (int i = 0; i < 10; i++) {
-            float x = screenWidth * i / 15f;  // Tính vị trí x cho mỗi đường dọc
-            shapeRenderer.line(x, 0, x, screenHeight);  // Vẽ đường dọc từ trên xuống dưới
+            float x = Gdx.graphics.getWidth() * i / number;
+            shapeRenderer.line(x, 0, x, Gdx.graphics.getHeight());
         }
 
         shapeRenderer.end();

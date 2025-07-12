@@ -12,11 +12,15 @@ import com.game.ecs.component.WarehouseComponent;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UITable;
-import com.game.utils.data.JsonLoader;
+import com.game.utils.JsonHelper;
+import com.game.utils.JsonValueHelper;
+import com.game.utils.json.Bag;
+
+import java.util.List;
 
 public class BagPP {
     public static Group pp(float w, float h){
-        UIGroup popup = new UIGroup().name("inventory").size(w,h);
+        UIGroup popup = new UIGroup().name("bag").size(w,h);
 
         TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
         new UIImage(profile).nine(profile, 30, 30, 30, 30)
@@ -30,7 +34,8 @@ public class BagPP {
             .parent(popup)
             .bounds(w * 0.4f, h * 0.05f, w * 0.6f, h * 0.9f);
 
-        Array<WarehouseComponent> warehouse = JsonLoader.loadArray(WAREHOUSE_JSON, WarehouseComponent.class, false);
+//        Array<WarehouseComponent> warehouse = JsonValueHelper.loadArray(WAREHOUSE_JSON, WarehouseComponent.class, false);
+        List<Bag> bags = JsonHelper.loadBags(WAREHOUSE_JSON,true);
         float size = w * 0.1f;
         float margin = size * 0.2f;
 
@@ -38,8 +43,8 @@ public class BagPP {
 
         for (int i = 0; i < 15; i++) {
             UIGroup uiGroup;
-            if (i < warehouse.size) {
-                WarehouseComponent item = warehouse.get(i);
+            if (i < bags.size()) {
+                Bag item = bags.get(i);
                 uiGroup = new UIGroup().name(item.id).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .size(size, size),

@@ -5,7 +5,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.game.ecs.component.*;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.CollisionUtils;
-import com.game.utils.data.GameSession;
+import com.game.utils.GameSession;
 import com.game.utils.data.PendingTeleport;
 
 public class TeleportTriggerSystem extends EntitySystem {

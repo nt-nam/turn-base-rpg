@@ -18,8 +18,8 @@ import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.screens.main.WorldMapScreen;
-import com.game.utils.data.GameSession;
-import com.game.utils.data.JsonLoader;
+import com.game.utils.GameSession;
+import com.game.utils.JsonValueHelper;
 
 public class TileMapPlayerSpawnSystem extends EntitySystem {
     private final Engine engine;
@@ -54,7 +54,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-                    CharacterComponent data = JsonLoader.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", characterId, CharacterComponent.class);
+                    CharacterComponent data = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", characterId, CharacterComponent.class);
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());
