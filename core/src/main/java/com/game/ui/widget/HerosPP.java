@@ -41,7 +41,7 @@ public class HerosPP {
     private static JsonValue select;
 
     public static Group pp(float w, float h) {
-        size = w * 0.1f;
+        size = h*0.2f;
         margin = size * 0.2f;
         select = new JsonValue(JsonValue.ValueType.object);
         select.addChild("grid", new JsonValue(JsonValue.ValueType.stringValue));

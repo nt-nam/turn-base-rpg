@@ -26,7 +26,7 @@ public class DailyPP {
 
         JsonValue dailyRewards = JsonValueHelper.getJsonValue(DAILY_REWARD_JSON, false).get("daily_rewards");
 
-        float size = w * 0.08f;
+        float size = h/6.2f;
         float margin = size * 0.3f;
 
         UITable table = new UITable().name("table").size(size * 7, size * 5).pos(w * 0.2f, h * 0.1f);
@@ -44,10 +44,8 @@ public class DailyPP {
                     new UILabel(item.get("number").asString())
                         .pos(margin * 0.4f, margin * 0.2f)
                 ).onClick(() -> {
-                    // Logic xử lý khi click vào item
                     popup.addActor(NotificationPP.ppr(w,h,"You get "+item.get("number").asString()+" "+item.get("typereward").asString()));
                     item.get("confirm").set(true);
-//                    JsonLoader.saveJsonValue(DAILY_REWARD_JSON, dailyRewards);
                 });
             } else {
                 uiGroup = new UIGroup().name("empty").child(

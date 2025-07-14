@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="348">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="363">
  <tileset firstgid="1" source="fullmap.tsx"/>
  <layer id="1" name="Map_Layer" width="14" height="12">
   <data encoding="csv">
@@ -18,9 +18,9 @@
 </data>
  </layer>
  <objectgroup color="#000000" id="7" name="wall">
-  <object id="283" x="289" y="102.667" width="16.6667" height="72.6667"/>
+  <object id="283" x="289" y="102.667" width="16.6667" height="80.1667"/>
   <object id="284" x="262" y="58.6667" width="37.6667" height="130.667"/>
-  <object id="285" x="247.667" y="95.3333" width="43.3333" height="34.6667"/>
+  <object id="285" x="247.667" y="95.3333" width="43.3333" height="32.9167"/>
   <object id="286" x="161" y="2.66667" width="130.333" height="32"/>
   <object id="287" x="-5" y="-3.66667" width="166.333" height="85"/>
   <object id="288" x="75" y="76" width="53.3333" height="20"/>
@@ -31,17 +31,15 @@
   <object id="298" x="385" y="211.667" width="15" height="39"/>
   <object id="299" x="442.667" y="219.333" width="6" height="30"/>
   <object id="300" x="400.667" y="244.333" width="47" height="13"/>
-  <object id="303" x="13.0909" y="180.364" width="95.2727" height="24.9091"/>
-  <object id="305" x="64.0682" y="165.455" width="34.6591" height="14.1818"/>
+  <object id="303" x="32.4659" y="180.364" width="67.9886" height="24.9091"/>
+  <object id="305" x="83.9432" y="165.455" width="14.7841" height="14.1818"/>
   <object id="322" x="25.125" y="134.875" width="39.5" height="6.875"/>
-  <object id="323" x="0.375" y="141.75" width="63.625" height="38.75"/>
+  <object id="323" x="0.375" y="141.75" width="62.25" height="19.875"/>
   <object id="339" x="-4.90909" y="77.6364" width="4.90909" height="82.3636"/>
   <object id="340" x="180.5" y="384" width="107.5" height="7.5"/>
+  <object id="362" x="-0.25" y="160.125" width="33.75" height="32.625"/>
  </objectgroup>
  <objectgroup id="13" name="line">
-  <object id="274" x="106.273" y="180.409">
-   <polygon points="0,0 23,-20 87,40.5"/>
-  </object>
   <object id="276" x="192.5" y="226">
    <polygon points="0,0 -2,19.5 -59.5,50"/>
   </object>
@@ -60,14 +58,41 @@
   <object id="342" x="200.364" y="382.909">
    <polygon points="0,0 2.36364,-15.0909 -23.2727,-44.1818 -49.6364,0"/>
   </object>
-  <object id="343" x="133.273" y="275.455">
-   <polygon points="0,0 15.2727,12 28.3636,9.63636 31.2727,27.8182 44.3636,38.3636 44.5455,64"/>
-  </object>
-  <object id="344" x="349.25" y="323.25">
-   <polygon points="0,0 -76.5,-44.75 -75.75,-57.25 -39.5,-78.5 -28,-79 -17.75,-96.5 3.75,-111.25 21.25,-101.5 66.25,-53"/>
-  </object>
   <object id="346" x="357" y="317.5">
    <polygon points="0,0 -33.75,23 -33,64.5 0.25,66.25"/>
+  </object>
+  <object id="348" x="321.75" y="245">
+   <polygon points="0,0 -14.5,0 -47.25,21 -47.25,31.75 28.75,77"/>
+  </object>
+  <object id="349" x="321.75" y="246.5">
+   <polygon points="0,0 9.75,-20 31,-34.75 47,-26.5 72.5,5.5 8.75,21"/>
+  </object>
+  <object id="351" x="99.6364" y="188.909">
+   <polygon points="0,0 16.9091,-18.3636 29.2727,-23.8182 40,-20.9091 54.7273,-6.54545 57.8182,-2.54545 63.6364,9.81818"/>
+  </object>
+  <object id="352" x="157.455" y="186.545">
+   <polygon points="0,0 4,-0.363636 4.18182,9.27273"/>
+  </object>
+  <object id="354" x="192.909" y="226.727">
+   <polygon points="0,0 -3.09091,-9.09091 -12.7273,-16.3636 -24.1818,-22 -22.9091,2"/>
+  </object>
+  <object id="355" x="169.636" y="204.545">
+   <polygon points="0,0 -7.81818,-7.45455 -15.8182,3.45455"/>
+  </object>
+  <object id="356" x="132.182" y="275.273">
+   <polygon points="0,0 33.8182,28.3636 2.90909,48.9091"/>
+  </object>
+  <object id="357" x="147.636" y="287.455">
+   <polygon points="0,0 13.6364,-2.90909 17.6364,14.7273"/>
+  </object>
+  <object id="358" x="177.455" y="313.273">
+   <polygon points="0,0 -35.4545,17.2727 -33.0909,26.7273 1.27273,12.1818"/>
+  </object>
+  <object id="360" x="178.983" y="324.926">
+   <polygon points="0,0 -2.54545,20.5455 -35.8182,14"/>
+  </object>
+  <object id="361" x="164.364" y="302.182">
+   <polygon points="0,0 13.8182,9.09091 11.6364,19.6364"/>
   </object>
  </objectgroup>
  <objectgroup color="#0055ff" id="9" name="teleport">
@@ -75,15 +100,15 @@
    <properties>
     <property name="block" type="bool" value="true"/>
     <property name="map" value="Backyard_1"/>
-    <property name="name" value="Backyard 1"/>
-    <property name="spawn" type="int" value="1"/>
+    <property name="name" value="Sân sau"/>
+    <property name="spawn" type="int" value="0"/>
    </properties>
   </object>
   <object id="307" x="0.483074" y="79.8809" width="9.45455" height="61.4545">
    <properties>
     <property name="index" type="int" value="5"/>
-    <property name="map" value="Topple_Road_1"/>
-    <property name="name" value="Topple Road"/>
+    <property name="map" value="wasteland1"/>
+    <property name="name" value="Đất hoang"/>
     <property name="spawn" type="int" value="0"/>
    </properties>
   </object>
@@ -129,7 +154,7 @@
    </properties>
    <point/>
   </object>
-  <object id="330" name="npc" x="244.333" y="158.667">
+  <object id="330" name="npc" x="233.242" y="159.758">
    <properties>
     <property name="index" type="int" value="0"/>
     <property name="name" value="village chief"/>
@@ -163,15 +188,15 @@
  </objectgroup>
  <objectgroup color="#ff55ff" id="12" name="object"/>
  <objectgroup color="#ff0000" id="11" name="enemies">
-  <object id="347" x="154.098" y="327.927" width="28.9865" height="20.9739">
+  <object id="347" x="408.75" y="211.25" width="36.2365" height="33.7239">
    <properties>
-    <property name="0,0" value="warrior_Knight,3"/>
-    <property name="name" value="warrior_Knight"/>
+    <property name="Description" value="Tìm thấy sát thủ lẻn vảo làng"/>
+    <property name="id" value="0"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#00ff00" id="8" name="player">
-  <object id="320" name="spawn" x="234.5" y="363.5">
+  <object id="320" name="spawn" x="224.5" y="342.5">
    <properties>
     <property name="index" type="int" value="0"/>
    </properties>

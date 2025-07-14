@@ -47,7 +47,7 @@ public class NewPlayerScreen extends BaseScreen {
     public static void loadingAsset() {
         Array<CharacterBase> baseDataArray = JsonValueHelper.loadArray("data/base/character_base.json", CharacterBase.class, false);
         for (CharacterBase baseData : baseDataArray) {
-            MainGame.getAsM().load(CHARACTER_ATLAS +baseData.characterBaseId+ ".atlas", TextureAtlas.class);
+            MainGame.getAsM().load(CHARACTER_ATLAS + baseData.characterBaseId + ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
         MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
@@ -82,12 +82,12 @@ public class NewPlayerScreen extends BaseScreen {
             .onEnter(() -> {
                 String input = playerNameField.getText().trim();
                 if (input.isEmpty()) {
-                    playerNameField.setMessageText("Please enter your name!");
+                    playerNameField.setMessageText("'............'");
                     return;
                 }
                 playerNameField.getStage().setKeyboardFocus(null);
             })
-            .message("Enter your name...")
+            .message("'............'")
             .maxLength(15)
             .parent(rootGroup);
 
@@ -103,7 +103,7 @@ public class NewPlayerScreen extends BaseScreen {
         // Nút chọn knight
         NinePatch upSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_up"), 6, 6, 0, 0);
         NinePatch downSelect = new NinePatch(MainGame.getAsM().getRegion(UI_WOOD, "btn_down"), 6, 6, 0, 0);
-        UIButton btnSelect = new UIButton("Select", upSelect, downSelect)
+        UIButton btnSelect = new UIButton("Tạo", upSelect, downSelect)
             .size(screenWidth * 0.2f, 70)
             .fontScale(2)
             .pos(screenWidth * 0.27f, screenHeight * 0.13f)
@@ -111,14 +111,14 @@ public class NewPlayerScreen extends BaseScreen {
                 String nameInput = playerNameField.getText().trim();
                 if (nameInput.isEmpty()) {
                     playerNameField.setText("");
-                    playerNameField.setMessageText("Please add name here!");
-                    rootGroup.addActor(NotificationPP.ppr(screenWidth,screenHeight,"Please enter your name!"));
+                    playerNameField.setMessageText("'............'");
+                    rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Vui lòng nhập tên!"));
                     return;
                 }
-                if(account.get(nameInput)!=null){
+                if (account.get(nameInput) != null) {
                     playerNameField.getStage().setKeyboardFocus(null);
-                    playerNameField.setMessageText("Please add name here!");
-                    rootGroup.addActor(NotificationPP.ppr(screenWidth,screenHeight,"This player already exists, please enter another name!!"));
+                    playerNameField.setMessageText("'............'");
+                    rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Người chơi này đã tồn tại, vui lòng nhập tên khác!!"));
                     return;
                 }
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
@@ -159,7 +159,6 @@ public class NewPlayerScreen extends BaseScreen {
         createCloseButton(ScreenType.MENU_GAME);
 
 
-
     }
 
     private String getCurrentKnightId() {
@@ -168,13 +167,13 @@ public class NewPlayerScreen extends BaseScreen {
 
     private String getCurrentKnightStats() {
         CharacterBase data = characterBaseDataList.get(currentKnightIndex);
-        return "Name:        " + data.name +
-            "\nHP:              " + data.hp +
-            "\nMP:              " + data.mp +
-            "\nAttack:        " + data.atk +
-            "\nDefense:     " + data.def +
-            "\nAgility:         " + data.agi +
-            "\nCrit:              " + data.crit +
+        return "Tên:               " + data.name +
+            "\nHP:                          " + data.hp +
+            "\nMP:                          " + data.mp +
+            "\nCông:                     " + data.atk +
+            "\nThủ:                         " + data.def +
+            "\nNhanh nhẹn:         " + data.agi +
+            "\nChí mạng:              " + data.crit +
             "\n      " + data.desc;
     }
 

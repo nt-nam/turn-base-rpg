@@ -12,21 +12,77 @@ import com.game.utils.json.EquipBase;
 import com.game.utils.json.Hero;
 import com.game.utils.json.ItemBase;
 import com.game.utils.json.Lineup;
-import com.game.utils.json.MainInfo;
+import com.game.utils.json.Account;
+import com.game.utils.json.Mission;
+import com.game.utils.json.Reward;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class JsonHelper {
-    public static List<MainInfo> mainInfo = new ArrayList<>();
+    public static List<Account> listAccount = new ArrayList<>();
     public static List<ItemBase> items = new ArrayList<>();
     public static List<EquipBase> equips = new ArrayList<>();
     public static List<Bag> bags = new ArrayList<>();
     public static List<Lineup> lineups = new ArrayList<>();
     public static List<Hero> fullHero = new ArrayList<>();
     public static List<CharacterBase> baseHero = new ArrayList<>();
-    public static List<Achievement> achievementList= new ArrayList<>();
+    public static List<Achievement> achievementList = new ArrayList<>();
+    public static List<Mission> missions = new ArrayList<>();
+
+    public static List<Mission> loadProfile(String filePath, boolean b) {
+        if (b || missions.isEmpty()) {
+            missions.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+            for (JsonValue child : root) {
+                Mission newChild = new Mission();
+                newChild.missionId = child.getString("missionId");
+                newChild.title = child.getString("title");
+                newChild.description = child.getString("description");
+                newChild.progress = child.getInt("progress");
+                newChild.targetAmount = child.getInt("targetAmount");
+                for (JsonValue a : child.get("rewards")) {
+                    Reward reward = new Reward();
+                    reward.id = a.getString("id");
+                    reward.type = a.getString("type");
+                    reward.quantity = a.getInt("quantity");
+                    newChild.rewards.add(reward);
+                }
+                missions.add(newChild);
+            }
+        }
+        return missions;
+    }
+
+    public static List<Mission> loadMissions(String filePath, boolean b) {
+        if (b || missions.isEmpty()) {
+            missions.clear();
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue child : root) {
+                Mission newChild = new Mission();
+                newChild.missionId = child.getString("missionId");
+                newChild.title = child.getString("title");
+                newChild.description = child.getString("description");
+                newChild.progress = child.getInt("progress");
+                newChild.targetAmount = child.getInt("targetAmount");
+                for (JsonValue a : child.get("rewards")) {
+                    Reward reward = new Reward();
+                    reward.id = a.getString("id");
+                    reward.type = a.getString("type");
+                    reward.quantity = a.getInt("quantity");
+                    newChild.rewards.add(reward);
+                }
+                missions.add(newChild);
+            }
+        }
+        return missions;
+    }
 
     public static List<Achievement> loadAchievements(String filePath, boolean b) {
         if (b || achievementList.isEmpty()) {
@@ -37,7 +93,8 @@ public class JsonHelper {
 
             for (JsonValue lineup : root) {
                 Achievement newChild = new Achievement();
-                newChild.name = lineup.getString("name","empty");
+                newChild.name = lineup.getString("name", "empty");
+                newChild.dec = lineup.getString("dec", "");
                 newChild.number = lineup.getInt("number", 0);
                 achievementList.add(newChild);
             }
@@ -45,23 +102,23 @@ public class JsonHelper {
         return achievementList;
     }
 
-    public static List<MainInfo> loadMaiInfo(String filePath, boolean b) {
-        if (b || mainInfo.isEmpty()) {
-            mainInfo.clear();
+    public static List<Account> loadMaiInfo(String filePath, boolean b) {
+        if (b || listAccount.isEmpty()) {
+            listAccount.clear();
             FileHandle fileHandle = Gdx.files.internal(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
             for (JsonValue item : root) {
-                MainInfo newItem = new MainInfo();
+                Account newItem = new Account();
                 newItem.id = item.name;
                 newItem.level = item.getInt("level");
-                newItem.characterSelect = item.getString("characterSelect",null);
+                newItem.characterSelect = item.getString("characterSelect", null);
 
-                mainInfo.add(newItem);
+                listAccount.add(newItem);
             }
         }
-        return mainInfo;
+        return listAccount;
     }
 
     public static List<CharacterBase> loadHeroBase(String filePath, boolean b) {
@@ -159,7 +216,7 @@ public class JsonHelper {
                     for (JsonValue stat : stats) {
                         newEquip.stats.put(stat.name(), stat.asInt());
                     }
-                }else{
+                } else {
                     System.out.println(" stats null");
                 }
 
@@ -208,7 +265,7 @@ public class JsonHelper {
 
             for (JsonValue lineup : root) {
                 Lineup newLineup = new Lineup();
-                newLineup.grid = lineup.getString("grid","empty");
+                newLineup.grid = lineup.getString("grid", "empty");
                 newLineup.hero.characterId = lineup.getString("characterId");
 //                newLineup.hero.characterBase = lineup.getString("characterBaseId");
                 lineups.add(newLineup);

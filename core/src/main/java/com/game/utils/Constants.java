@@ -23,10 +23,13 @@ public class Constants {
 
     //JSON
     public static final String MAININFO_JSON      = "data/maininfo.json";
+    public static final String INFO_JSON          = "data/select/"+ GameSession.playerName +"/info.json";
     public static final String PARTY_FULL         = "data/select/"+ GameSession.playerName +"/full_party.json";
     public static final String PARTY_ATTACK       = "data/select/"+ GameSession.playerName +"/attack_party.json";
     public static final String WAREHOUSE_JSON     = "data/select/"+ GameSession.playerName +"/warehouse.json";
     public static final String DAILY_REWARD_JSON  = "data/select/"+ GameSession.playerName +"/daily_rewards.json";
+    public static final String ACHIEVEMENT_JSON   = "data/select/"+ GameSession.playerName +"/achievement.json";
+    public static final String MISSION_JSON       = "data/select/"+ GameSession.playerName +"/mission.json";
     public static final String PARTY_ATTACK_ENEMY = "data/attack_party_enemy.json";
     //JSON BASE
     public static final String EQUIP_JSON         = "data/base/equip_base.json";

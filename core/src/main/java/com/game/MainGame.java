@@ -1,5 +1,7 @@
 package com.game;
 
+import static com.game.utils.Constants.BMF;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -117,10 +119,10 @@ public class MainGame extends Game {
 
         assetManager.loadSkin("ui/uiskin.json");
         assetManager.loadFont("ui/default.fnt");
+        assetManager.loadFont(BMF);
         assetManager.finishLoading();
-//        Gdx.input.setInputProcessor(stage);
+
         multiplexer.addProcessor(stage); // nếu có stage
-//        multiplexer.addProcessor(new ClickLoggerInputProcessor(camera));
         Gdx.input.setInputProcessor(multiplexer);
         getScM().showScreen(ScreenType.MENU_GAME);
     }

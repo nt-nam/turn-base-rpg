@@ -34,29 +34,26 @@ public class GameSession {
     public static boolean moveDown = false;
 
     // Stats/resources
-    public static int gold = 0;
+    public static int coin = 0;
+    public static int gem = 15;
     public static int exp = 0;
     public static int level = 1;
     public static int currentHP = 100;
     public static int currentMP = 20;
 
-    // Inventory/skills
-//    public static List<ItemData> inventory = new ArrayList<>();
-//    public static List<SkillData> skills = new ArrayList<>();
     public static List<String> partyMembers = new ArrayList<>();
 
     public static EnemyTriggerComponent currentEnemy = null;
 
 
     // Quests/progress
-//    public static Map<String, QuestState> questStates = new HashMap<>();
     public static Set<String> unlockedAreas = new HashSet<>();
     public static Set<String> achievements = new HashSet<>();
 
     // Settings
     public static float musicVolume = 1.0f;
     public static float sfxVolume = 1.0f;
-    public static String language = "en";
+    public static String language = "vn";
     public static boolean autoSave = true;
 
     // Misc
@@ -67,6 +64,14 @@ public class GameSession {
 
     // --- Tiện ích reset (new game)
     public static void reset() {
+    }
+
+    public static boolean isRecruit() {
+        if(gem >= 5 ){
+            gem -=5;
+            return true;
+        }
+        return false;
     }
 }
 

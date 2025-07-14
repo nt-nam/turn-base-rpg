@@ -1,34 +1,33 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.ATLAS_ITEM;
+import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.EQUIP_JSON;
 import static com.game.utils.Constants.ITEM_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
+import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.JsonHelper;
-import com.game.utils.JsonValueHelper;
 import com.game.utils.json.EquipBase;
 import com.game.utils.json.ItemBase;
 
 import java.util.List;
 
 public class ShopPP {
-//    public static JsonValue useFor = null;
     public static List<?> useFor = null;
     private static int page = 0;
 
     public static Group pp(float w, float h) {
 
         useFor = JsonHelper.loadItems(ITEM_JSON, true);
-//        JsonHelper.loadEquips(EQUIP_JSON, true);
 
         float size = h * 0.1f;
 
@@ -70,6 +69,18 @@ public class ShopPP {
             .check(false)
             .fontScale(1.2f).parent(popup);
 
+        new UIGroup().name("coin").pos(w*0.6f,h*0.75f).size(w*0.15f,h*0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(w*0.15f,h*0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"coin")).pos(h*0.01f,h*0.01f).size(h*0.1f,h*0.1f),
+            new UILabel("100",BMF).pos(h*0.15f,0).size(w*0.15f,h*0.12f)
+        ).parent(popup);
+
+        new UIGroup().name("gem").pos(w*0.75f,h*0.75f).size(w*0.15f,h*0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(w*0.15f,h*0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"gem_pink")).pos(h*0.01f,h*0.01f).size(h*0.1f,h*0.10f),
+            new UILabel("100",BMF).pos(h*0.15f,0).size(w*0.15f,h*0.12f)
+        ).parent(popup);
+
         updateGrid(popup, w, h);
 
         return popup;
@@ -98,7 +109,7 @@ public class ShopPP {
     }
 
     private static void updateGrid(UIGroup popup, float w, float h) {
-        float size = w * 0.1f;
+        float size = h * 0.2f;
         float margin = size * 0.2f;
 
         UITable table = new UITable().name("table").size(size * 7, size * 3).pos(w * 0.12f, h * 0.12f);
@@ -124,14 +135,12 @@ public class ShopPP {
                         .size(size - margin, size - margin)
                         .pos(margin * 0.5f, margin * 0.5f)
                 ).onClick(() -> {
-                    // Logic xử lý khi click vào item
                 });
             } else {
                 uiGroup = new UIGroup().name("empty").child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .size(size, size));
             }
-
 
             table.add(uiGroup).size(size, size);
 

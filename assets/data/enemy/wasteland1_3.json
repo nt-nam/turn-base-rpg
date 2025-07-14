@@ -1,0 +1,51 @@
+{
+  "grid": [
+    {
+      "grid": "2,1",
+      "characterId": "character3",
+      "star": 0,
+      "level": 1
+    },
+    {
+      "grid": "2,0",
+      "characterId": "character3",
+      "star": 0,
+      "level": 1
+    },
+    {
+      "grid": "2,2",
+      "characterId": "character3",
+      "star": 0,
+      "level": 1
+    },
+    {
+      "grid": "1,0",
+      "characterId": "character3",
+      "star": 0,
+      "level": 1
+    },
+    {
+      "grid": "1,2",
+      "characterId": "character3",
+      "star": 0,
+      "level": 1
+    }
+  ],
+  "reward": [
+    {
+      "type": "coin",
+      "id": "coin",
+      "index": 30
+    },
+    {
+      "type": "gem",
+      "id": "gem_pink",
+      "index": 3
+    },
+    {
+      "type": "",
+      "id": "",
+      "index": 0
+    }
+  ]
+}

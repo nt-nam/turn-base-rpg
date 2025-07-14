@@ -1,0 +1,40 @@
+[
+  {
+    "missionId": "mission_001",
+    "title": "Tìm viên đá ma thuật",
+    "description": "Khám phá khu rừng và tìm viên đá ma thuật ẩn giấu.",
+    "progress": 0,
+    "targetAmount": 5,
+    "rewards": [
+      {
+        "id": "reward_001",
+        "type": "item",
+        "quantity": 1
+      },
+      {
+        "id": "reward_002",
+        "type": "currency",
+        "quantity": 100
+      }
+    ]
+  },
+  {
+    "missionId": "mission_001",
+    "title": "Find the Magic Stone",
+    "description": "Explore the forest and find the hidden magic stone.",
+    "progress": 0,
+    "targetAmount": 1,
+    "rewards": [
+      {
+        "id": "reward_001",
+        "type": "item",
+        "quantity": 1
+      },
+      {
+        "id": "reward_002",
+        "type": "currency",
+        "quantity": 100
+      }
+    ]
+  }
+]

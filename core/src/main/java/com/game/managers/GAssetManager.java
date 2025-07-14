@@ -1,5 +1,7 @@
 package com.game.managers;
 
+import static com.game.utils.Constants.UI_POPUP;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -104,6 +106,10 @@ public class GAssetManager {
     public NinePatch getRegion9patch(String atlasPath, String regionName, int padding) {
         TextureAtlas atlas = getAtlas(atlasPath);
         return new NinePatch(atlas.findRegion(regionName),padding,padding,padding,padding);
+    }
+
+    public NinePatch get9p() {
+        return getRegion9patch(UI_POPUP, "origin", 20);
     }
 
     public void loadTexture(String path) {

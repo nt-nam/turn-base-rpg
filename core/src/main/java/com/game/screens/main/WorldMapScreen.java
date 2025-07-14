@@ -64,14 +64,13 @@ public class WorldMapScreen extends BaseScreen {
     public static final float SCALE = 6f;
     public static TiledMap map;
     private static UIButton btnNextMap;
-    private boolean optionBattle;
     private UIJoystick joystick;
 
     public WorldMapScreen() {
         super();
         createJoystick();
-        createPopupFF();
         createHUD();
+        createPopupFF();
     }
 
     private void createHUD() {
@@ -85,7 +84,6 @@ public class WorldMapScreen extends BaseScreen {
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"gem_pink")).pos(screenHeight*0.01f,screenHeight*0.01f).size(screenHeight*0.1f,screenHeight*0.10f),
             new UILabel("100",BMF).pos(screenHeight*0.15f,0).size(screenWidth*0.15f,screenHeight*0.12f)
         ).parent(rootGroup);
-
     }
 
     private void createJoystick() {
@@ -95,7 +93,7 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createPopupFF() {
-        btnNextMap = new UIButton("next")
+        btnNextMap = new UIButton("")
             .size(screenWidth * 0.13f, screenHeight * 0.1f)
             .pos(screenWidth * 0.03f, screenHeight * 0.4f)
             .fontScale(2)
@@ -104,7 +102,6 @@ public class WorldMapScreen extends BaseScreen {
             .onClick(() -> {
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
-
 
         float y = screenHeight * 0.08f;
 
@@ -131,17 +128,6 @@ public class WorldMapScreen extends BaseScreen {
 
     private void createButton(String regionName, String popupName, String text, float x, float y) {
         if (text != "") {
-//            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"origin"))
-//                .pos(x, y - screenWidth * 0.03f)
-//                .size(screenWidth * 0.08f, screenWidth * 0.03f)
-//                .align(Align.center)
-//                .scale(1.2f)
-//                .parent(rootGroup);
-//            new UILabel(text, BMF).pos(x, y - screenWidth * 0.03f)
-//                .size(screenWidth * 0.08f, screenWidth * 0.03f)
-//                .align(Align.center)
-//                .color(Color.white)
-//                .parent(rootGroup);
             new UIButton(text,MainGame.getAsM().getRegion(UI_POPUP,"origin"))
                 .pos(x, y - screenWidth * 0.03f)
                 .size(screenWidth * 0.08f, screenWidth * 0.03f)
@@ -161,6 +147,8 @@ public class WorldMapScreen extends BaseScreen {
 
 
     private void hidePopup() {
+        rootGroup.findActor("coin").setVisible(true);
+        rootGroup.findActor("gem").setVisible(true);
         hidePopup("setting");
         hidePopup("bag");
         hidePopup("hero");
@@ -182,57 +170,6 @@ public class WorldMapScreen extends BaseScreen {
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
-    }
-
-    public static void unLoadingAsset() {
-        MainGame.getAsM().unload((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
-    }
-
-    @Override
-    protected void createScreen() {
-    }
-
-    private void createControl() {
-        TextureRegion upRight = MainGame.getAsM().getRegion(UI_WOOD, "nextb_up_009");
-        TextureRegion downRight = MainGame.getAsM().getRegion(UI_WOOD, "nextb_down_010");
-        UIButton btnRight = new UIButton(upRight, downRight)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.3f, screenHeight * 0.2f)
-            .onTouchDown(() -> GameSession.moveRight = true)
-            .onTouchUp(() -> GameSession.moveRight = false);
-        rootGroup.addActor(btnRight);
-
-        TextureRegion upLeft = new TextureRegion(upRight);
-        TextureRegion downLeft = new TextureRegion(downRight);
-        upLeft.flip(true, false);
-        downLeft.flip(true, false);
-        UIButton btnLeft = new UIButton(upLeft, downLeft)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.1f, screenHeight * 0.2f)
-            .onTouchDown(() -> GameSession.moveLeft = true)
-            .onTouchUp(() -> GameSession.moveLeft = false);
-        rootGroup.addActor(btnLeft);
-
-        TextureRegion upTop = new TextureRegion(upRight);
-        TextureRegion downTop = new TextureRegion(downRight);
-        UIButton btnTop = new UIButton(upTop, downTop)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.2f, screenHeight * 0.3f)
-            .onTouchDown(() -> GameSession.moveUp = true)
-            .onTouchUp(() -> GameSession.moveUp = false);
-        rootGroup.addActor(btnTop);
-
-        TextureRegion upBottom = new TextureRegion(upRight);
-        TextureRegion downBottom = new TextureRegion(downRight);
-        upBottom.flip(true, false);
-        downBottom.flip(true, false);
-        UIButton btnBottom = new UIButton(upBottom, downBottom)
-            .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.2f, screenHeight * 0.1f)
-            .onTouchDown(() -> GameSession.moveDown = true)
-            .onTouchUp(() -> GameSession.moveDown = false);
-        rootGroup.addActor(btnBottom);
-
     }
 
     private void createBtnClose() {
@@ -264,7 +201,10 @@ public class WorldMapScreen extends BaseScreen {
             Gdx.app.error("WorldMapScreen", "Actor with name '" + a + "' not found");
             return;
         }
+        rootGroup.findActor("coin").setVisible(false);
+        rootGroup.findActor("gem").setVisible(false);
         rootGroup.findActor(a).setVisible(true);
+        ((UIGroup)rootGroup.findActor(a)).run();
         showPopoupGen();
     }
 
@@ -283,27 +223,6 @@ public class WorldMapScreen extends BaseScreen {
     private void hidePopup(String nameActor) {
         rootGroup.findActor(nameActor).setVisible(false);
         hidePopoupGen();
-    }
-
-
-    private void createPopupInventory() {
-
-    }
-
-    private void createPopupOptionBattle() {
-        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
-        pixmap.setColor(0, 0, 0, 0.5f);
-        pixmap.fill();
-        Texture overlay = new Texture(pixmap);
-        pixmap.dispose();
-        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
-    }
-
-
-    private void hidePopupSkill() {
-    }
-
-    private void showPopupSkill() {
     }
 
     public static void showBtnNextMap(boolean b) {
@@ -375,31 +294,26 @@ public class WorldMapScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        // 1. Khởi tạo camera
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
 
-        // 2. Load tiled map
         map = MainGame.getAsM().getTiledMap(GameSession.currentMapId);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map, SCALE);
 
         loadAllAnimations(GameSession.selectedCharacterId, CHARACTER_ATLAS + GameSession.selectedCharacterId + ".atlas");
 
-        // 3. Tạo entity và add TileMapComponent
         Entity mapEntity = engine.createEntity();
         mapEntity.add(new TileMapComponent(map, renderer));
         engine.addEntity(mapEntity);
 
-        // 4. Add TileMapRenderSystem vào engine
         engine.addSystem(new TileMapRenderSystem(camera));
-        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
+//        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));
         engine.addSystem(new PlayerInputSystem(engine, joystick));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new CollisionSystem(engine, map, SCALE));
-//        engine.addSystem(new CollisionUpdateSystem());
         engine.addSystem(new TeleportTriggerSystem());
         setupTeleportTriggers(engine, map, SCALE);
         engine.addSystem(new EnemyCollisionSystem());

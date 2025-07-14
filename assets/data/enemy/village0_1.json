@@ -1,0 +1,27 @@
+{
+  "grid": [
+    {
+      "grid": "2,1",
+      "characterBaseId": "assassin_Knight",
+      "star": 0,
+      "level": 1
+    }
+  ],
+  "reward": [
+    {
+      "type": "coin",
+      "id": "coin",
+      "index": 10
+    },
+    {
+      "type": "gem",
+      "id": "gem_pink",
+      "index": 10
+    },
+    {
+      "type": "",
+      "id": "",
+      "index": 0
+    }
+  ]
+}

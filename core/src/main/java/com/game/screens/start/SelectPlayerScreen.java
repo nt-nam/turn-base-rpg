@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ecs.component.PlayerSelectedComponent;
 import com.game.screens.BaseScreen;
@@ -26,14 +25,13 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.utils.GameSession;
 import com.game.utils.JsonHelper;
-import com.game.utils.JsonValueHelper;
-import com.game.utils.json.MainInfo;
+import com.game.utils.json.Account;
 
 import java.util.List;
 
 public class SelectPlayerScreen extends BaseScreen {
     private Table table;
-    private static List<MainInfo> mainInfos;
+    private static List<Account> accounts;
 
     public SelectPlayerScreen() {
         super();
@@ -41,9 +39,9 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        mainInfos = JsonHelper.loadMaiInfo(MAININFO_JSON,true);
-        if(mainInfos!=null){
-            for (MainInfo element:mainInfos) {
+        accounts = JsonHelper.loadMaiInfo(MAININFO_JSON,true);
+        if(accounts !=null){
+            for (Account element: accounts) {
                 MainGame.getAsM().load("atlas/characters/" + element.characterSelect + ".atlas", TextureAtlas.class);
             }
         }
@@ -54,19 +52,19 @@ public class SelectPlayerScreen extends BaseScreen {
     private void createBackground() {
         new UIImage(new Texture(Gdx.files.internal("texture/battle/summer.png"))).size(screenWidth,screenHeight).parent(rootGroup);
         UIGroup uiGroup;
-        if (mainInfos != null) {
+        if (accounts != null) {
             table = new Table();
             table.top();
             NinePatch ninePatch = MainGame.getAsM().getRegion9patch(UI_POPUP, "origin", 20);
             int i = 0;
-            for (MainInfo element:mainInfos) {
+            for (Account element: accounts) {
                 uiGroup = new UIGroup().size(screenWidth * 0.2f, screenHeight * 0.6f)
                     .pos(screenWidth * 0.2f, screenHeight * 0.1f * i)
                     .child(
                         new UIImage(ninePatch).size(screenWidth * 0.2f, screenHeight * 0.6f),
                         new UIImage(MainGame.getAsM().getRegion("atlas/characters/" + element.characterSelect + ".atlas", "idle")).pos(0, screenHeight * 0.11f).size(screenWidth * 0.2f, screenHeight * 0.4f),
-                        new UILabel("Name: " + element.id, BMF).size(screenWidth * 0.2f, screenHeight * 0.15f).pos(0, screenHeight * 0.43f).fontScale(1.5f).align(Align.center).warp(true).debug(false),
-                        new UILabel("Level: " + element.level, BMF).pos(80, screenHeight * 0.05f).fontScale(1.5f).align(Align.center).debug(false)
+                        new UILabel( element.id, BMF).size(screenWidth * 0.2f, screenHeight * 0.15f).pos(0, screenHeight * 0.43f).fontScale(1.5f).align(Align.center).warp(true).debug(false),
+                        new UILabel("Cấp độ: " + element.level, BMF).pos(80, screenHeight * 0.05f).fontScale(1.5f).align(Align.center).debug(false)
 //                        new UILabel(acc.getString("characterSelect"), BMF).pos(50, screenHeight*0.2f).fontScale(1f)
                     )
                     .onClick(()->{

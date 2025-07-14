@@ -22,6 +22,7 @@ public class NotificationPP {
                 Actions.moveBy(0,-h * 0.2f, 0.5f),
                 Actions.delay(3f),
                 Actions.moveBy(0,h * 0.2f, 0.5f),
+                Actions.run(()->{((UIGroup)popup.getParent()).finishAction();}),
                 Actions.removeActor()
             ));
         }
