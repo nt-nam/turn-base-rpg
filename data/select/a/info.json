@@ -1,0 +1,13 @@
+{
+  "name": "a",
+  "CharacterSelect": "character1",
+  "Area": "",
+  "pos": "0,0",
+  "sizeTeam": 5,
+  "exp": 0,
+  "coin": 0,
+  "gem": 15,
+  "NumberOfTeammatesRecruited" : 0,
+  "NumberOfEnemies": 0,
+  "Unlocked Area": []
+}

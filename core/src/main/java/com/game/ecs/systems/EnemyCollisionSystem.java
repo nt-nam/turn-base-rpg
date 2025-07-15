@@ -2,12 +2,13 @@ package com.game.ecs.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.game.MainGame;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.screens.ScreenType;
-import com.game.MainGame;
+import com.game.screens.main.WorldMapScreen;
 import com.game.utils.CollisionUtils;
 import com.game.utils.GameSession;
 
@@ -60,12 +61,15 @@ public class EnemyCollisionSystem extends EntitySystem {
                 collided = true;
                 if (GameSession.currentEnemy == null) {
                     GameSession.currentEnemy = triggerComponent;
-                    System.out.println("Chạm enemy: " + triggerComponent.characterId + " - level " + triggerComponent.level);
+                    System.out.println("Chạm enemy: " + triggerComponent.mapEnemy + " - id " + triggerComponent.id + " - level " + triggerComponent.level);
                     GameSession.playerX = playerPos.x;
                     GameSession.playerY = playerPos.y;
-                    MainGame.getScM().showScreen(ScreenType.BATTLE);
+                    GameSession.enemyMapId = triggerComponent.id+"";
+                    WorldMapScreen.showBtnAttackBattle(true);
+
+//                    MainGame.getScM().showScreen(ScreenType.BATTLE);
                     // Nếu muốn xoá trigger entity sau va chạm, bật dòng này:
-                    // getEngine().removeEntity(enemy);
+//                     getEngine().removeEntity(enemy);
                 }
                 return; // chỉ xử lý 1 enemy 1 lần
             }
@@ -75,6 +79,7 @@ public class EnemyCollisionSystem extends EntitySystem {
         if (!collided && GameSession.currentEnemy != null) {
             System.out.println("Player đã rời vùng enemy.");
             GameSession.currentEnemy = null;
+            WorldMapScreen.showBtnAttackBattle(false);
         }
     }
 }

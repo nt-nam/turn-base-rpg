@@ -1,6 +1,12 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
+import static com.game.utils.Constants.CHARACTER_BASE_JSON;
+import static com.game.utils.Constants.EQUIP_JSON;
+import static com.game.utils.Constants.ITEM_JSON;
+import static com.game.utils.Constants.LINEUP_ATTACK;
+import static com.game.utils.Constants.PARTY_FULL;
+import static com.game.utils.Constants.SKILL_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.Gdx;
@@ -14,6 +20,15 @@ import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UITable;
+import com.game.utils.JsonHelper;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.EquipBase;
+import com.game.utils.json.Hero;
+import com.game.utils.json.ItemBase;
+import com.game.utils.json.Lineup;
+import com.game.utils.json.skill.SkillBase;
+
+import java.util.List;
 
 public class MenuScreen extends BaseScreen {
 
@@ -25,6 +40,15 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void createScreen() {
+        List<CharacterBase> characterBaseList = JsonHelper.loadHeroBase(CHARACTER_BASE_JSON, true);
+        List<ItemBase> items = JsonHelper.loadItems(ITEM_JSON, true);
+        List<EquipBase> equips = JsonHelper.loadEquips(EQUIP_JSON, true);
+        List<SkillBase> skillBase = JsonHelper.loadSkillBase(SKILL_JSON,true);
+        System.out.println(skillBase.toString());
+
+//        List<Lineup> lineups = JsonHelper.loadLineups(LINEUP_ATTACK, true);
+//        List<Hero> heroes = JsonHelper.loadFullHero(PARTY_FULL, true);
+
         new UIImage(MainGame.getAsM().getTexture("texture/default.png")).size(screenWidth*0.5f, screenHeight).parent(rootGroup);
 
         TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");

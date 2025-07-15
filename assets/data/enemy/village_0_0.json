@@ -3,33 +3,26 @@
     {
       "grid": "2,1",
       "characterId": "enemy",
-      "characterBaseId": "mage_Knight",
+      "characterBaseId": "assassin_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "2,0",
       "characterId": "enemy",
-      "characterBaseId": "warrior_Knight",
+      "characterBaseId": "assassin_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "2,2",
       "characterId": "enemy",
-      "characterBaseId": "tank_Knight",
+      "characterBaseId": "assassin_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "1,0",
-      "characterId": "enemy",
-      "characterBaseId": "warrior_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "1,2",
       "characterId": "enemy",
       "characterBaseId": "assassin_Knight",
       "star": 0,
@@ -40,12 +33,12 @@
     {
       "type": "coin",
       "id": "coin",
-      "index": 50
+      "index": 100
     },
     {
       "type": "gem",
       "id": "gem_pink",
-      "index": 1
+      "index": 5
     }
   ]
 }

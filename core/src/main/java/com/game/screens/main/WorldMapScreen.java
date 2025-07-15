@@ -5,6 +5,11 @@ import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
+import static com.game.utils.Constants.EQUIP_JSON;
+import static com.game.utils.Constants.ITEM_JSON;
+import static com.game.utils.Constants.LINEUP_ATTACK;
+import static com.game.utils.Constants.PARTY_FULL;
+import static com.game.utils.Constants.SKILL_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -55,15 +60,25 @@ import com.game.ui.widget.RolePP;
 import com.game.ui.widget.SettingPP;
 import com.game.ui.widget.ShopPP;
 import com.game.utils.Color;
+import com.game.utils.JsonHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
 import com.game.utils.JsonValueHelper;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.EquipBase;
+import com.game.utils.json.Hero;
+import com.game.utils.json.ItemBase;
+import com.game.utils.json.Lineup;
+import com.game.utils.json.skill.SkillBase;
+
+import java.util.List;
 
 
 public class WorldMapScreen extends BaseScreen {
     public static final float SCALE = 6f;
     public static TiledMap map;
     private static UIButton btnNextMap;
+    private static UIButton btnAttackBattle;
     private UIJoystick joystick;
 
     public WorldMapScreen() {
@@ -74,15 +89,15 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createHUD() {
-        new UIGroup().name("coin").pos(screenWidth*0.025f,screenHeight*0.85f).size(screenWidth*0.15f,screenHeight*0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(screenWidth*0.15f,screenHeight*0.12f),
-            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"coin")).pos(screenHeight*0.01f,screenHeight*0.01f).size(screenHeight*0.1f,screenHeight*0.1f),
-            new UILabel("100",BMF).pos(screenHeight*0.15f,0).size(screenWidth*0.15f,screenHeight*0.12f)
+        new UIGroup().name("coin").pos(screenWidth * 0.025f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
+            new UILabel("100", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f)
         ).parent(rootGroup);
-        new UIGroup().name("gem").pos(screenWidth*0.2f,screenHeight*0.85f).size(screenWidth*0.15f,screenHeight*0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(screenWidth*0.15f,screenHeight*0.12f),
-            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"gem_pink")).pos(screenHeight*0.01f,screenHeight*0.01f).size(screenHeight*0.1f,screenHeight*0.10f),
-            new UILabel("100",BMF).pos(screenHeight*0.15f,0).size(screenWidth*0.15f,screenHeight*0.12f)
+        new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
+            new UILabel("100", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f)
         ).parent(rootGroup);
     }
 
@@ -93,14 +108,21 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createPopupFF() {
-        btnNextMap = new UIButton("")
+        btnNextMap = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "origin"))
             .size(screenWidth * 0.13f, screenHeight * 0.1f)
-            .pos(screenWidth * 0.03f, screenHeight * 0.4f)
-            .fontScale(2)
+            .pos(screenWidth * 0.3f, screenHeight * 0.1f)
             .visible(false)
             .parent(rootGroup)
             .onClick(() -> {
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
+            });
+        btnAttackBattle = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "origin"))
+            .size(screenWidth * 0.13f, screenHeight * 0.1f)
+            .pos(screenWidth * 0.3f, screenHeight * 0.1f)
+            .visible(false)
+            .parent(rootGroup)
+            .onClick(() -> {
+                MainGame.getScM().showScreen(ScreenType.BATTLE);
             });
 
         float y = screenHeight * 0.08f;
@@ -128,7 +150,7 @@ public class WorldMapScreen extends BaseScreen {
 
     private void createButton(String regionName, String popupName, String text, float x, float y) {
         if (text != "") {
-            new UIButton(text,MainGame.getAsM().getRegion(UI_POPUP,"origin"))
+            new UIButton(text, MainGame.getAsM().getRegion(UI_POPUP, "origin"))
                 .pos(x, y - screenWidth * 0.03f)
                 .size(screenWidth * 0.08f, screenWidth * 0.03f)
                 .onClick(() -> showPopup(popupName))
@@ -204,7 +226,7 @@ public class WorldMapScreen extends BaseScreen {
         rootGroup.findActor("coin").setVisible(false);
         rootGroup.findActor("gem").setVisible(false);
         rootGroup.findActor(a).setVisible(true);
-        ((UIGroup)rootGroup.findActor(a)).run();
+        ((UIGroup) rootGroup.findActor(a)).run();
         showPopoupGen();
     }
 
@@ -228,6 +250,11 @@ public class WorldMapScreen extends BaseScreen {
     public static void showBtnNextMap(boolean b) {
         btnNextMap.setVisible(b);
         if (b) btnNextMap.setText(GameSession.pendingTeleport.name);
+    }
+
+    public static void showBtnAttackBattle(boolean b) {
+        btnAttackBattle.setVisible(b);
+        if (b) btnAttackBattle.setText("Tấn công");
     }
 
     private void loadAllAnimations(String characterBaseId, String atlasPath) {
@@ -278,11 +305,12 @@ public class WorldMapScreen extends BaseScreen {
                         ((Number) w).floatValue() * SCALE,
                         ((Number) h).floatValue() * SCALE
                     );
+                    int id = obj.getProperties().containsKey("id") ? ((Number) obj.getProperties().get("id")).intValue() : 1;
                     String name = obj.getProperties().containsKey("name") ? (String) obj.getProperties().get("name") : "";
                     int level = obj.getProperties().containsKey("level") ? ((Number) obj.getProperties().get("level")).intValue() : 1;
 
                     Entity enemyTrigger = engine.createEntity();
-                    enemyTrigger.add(new EnemyTriggerComponent(name, level));
+                    enemyTrigger.add(new EnemyTriggerComponent(id, name, level));
                     enemyTrigger.add(new BoundComponent(rect));
                     engine.addEntity(enemyTrigger);
                 }
@@ -318,6 +346,7 @@ public class WorldMapScreen extends BaseScreen {
         setupTeleportTriggers(engine, map, SCALE);
         engine.addSystem(new EnemyCollisionSystem());
         setupEnemies(engine, map, SCALE);
+        hidePopup();
     }
 
     @Override

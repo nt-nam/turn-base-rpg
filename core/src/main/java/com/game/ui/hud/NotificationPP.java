@@ -22,6 +22,18 @@ public class NotificationPP {
                 Actions.moveBy(0,-h * 0.2f, 0.5f),
                 Actions.delay(3f),
                 Actions.moveBy(0,h * 0.2f, 0.5f),
+                Actions.removeActor()
+            ));
+        }
+        return popup;
+    }
+    public static UIGroup pprRecruit(float w, float h, String text) {
+        UIGroup popup = TagPP.pp(w * 0.1f, h,w * 0.8f, h * 0.2f,text);
+        if(!text.isEmpty()) {
+            popup.addAction(Actions.sequence(
+                Actions.moveBy(0,-h * 0.2f, 0.5f),
+                Actions.delay(3f),
+                Actions.moveBy(0,h * 0.2f, 0.5f),
                 Actions.run(()->{((UIGroup)popup.getParent()).finishAction();}),
                 Actions.removeActor()
             ));

@@ -45,7 +45,7 @@ public class BagPP {
 
         for (int i = 0; i < 15; i++) {
             UIGroup uiGroup;
-            if (i < bags.size()) {
+            if (bags != null && i < bags.size()) {
                 Bag item = bags.get(i);
                 uiGroup = new UIGroup().name(item.id).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))

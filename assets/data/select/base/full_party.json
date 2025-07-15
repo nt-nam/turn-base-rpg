@@ -1,0 +1,15 @@
+[
+  {
+    "characterId": "character1",
+    "characterBaseId": "warrior_Knight",
+    "grid": "2,0",
+    "star": 0,
+    "level": 50,
+    "equip": {
+      "weapon": 0,
+      "armor": 0,
+      "jewelry": 0,
+      "support": 0
+    }
+  }
+]

@@ -27,23 +27,24 @@ public class InfoComponent implements Component {
 
     // Lớp lồng để lưu trữ dữ liệu trang bị
     public static class Equipment {
-        public String weapon;
-        public String armor;
-        public String jewelry;
-        public String support;
+        public EquipComponent weapon;
+        public EquipComponent armor;
+        public EquipComponent jewelry;
+        public EquipComponent support;
 
         public Equipment() {
-            this.weapon = "empty";
-            this.armor = "empty";
-            this.jewelry = "empty";
-            this.support = "empty";
+            this.weapon = new EquipComponent();
+            this.armor = new EquipComponent();
+            this.jewelry = new EquipComponent();
+            this.support = new EquipComponent();
         }
 
         public Equipment(JsonValue json) {
-            this.weapon = json.getString("weapon", "empty");
-            this.armor = json.getString("armor", "empty");
-            this.jewelry = json.getString("jewelry", "empty");
-            this.support = json.getString("support", "empty");
+            this.weapon = new EquipComponent(json.get("weapon"));
+            this.armor = new EquipComponent(json.get("armor"));
+            this.jewelry = new EquipComponent(json.get("jewelry"));
+            this.support = new EquipComponent(json.get("support"));
         }
     }
+
 }

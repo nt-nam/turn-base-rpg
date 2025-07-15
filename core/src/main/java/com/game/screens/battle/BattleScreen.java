@@ -51,13 +51,21 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UIProgressBar;
+import com.game.utils.JsonHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
+import com.game.utils.json.CharacterBase;
 import com.game.utils.json.GridData;
 import com.game.utils.JsonValueHelper;
+import com.game.utils.json.Hero;
+import com.game.utils.json.Lineup;
+import com.game.utils.json.skill.SkillBase;
+
+import java.util.List;
 
 public class BattleScreen extends BaseScreen {
     private static final String bg = "texture/battle/summer.png";
+    private static String ENEMY_TEAM;
     private static Entity skill;
     private boolean isPause;
     private static Entity target;
@@ -94,6 +102,7 @@ public class BattleScreen extends BaseScreen {
 
     @Override
     public void show() {
+        ENEMY_TEAM = "data/enemy/"+GameSession.currentMapId+"_"+GameSession.enemyMapId +".json";
         super.show();
         createBG();
         createLabel();
@@ -109,6 +118,8 @@ public class BattleScreen extends BaseScreen {
         engine.addSystem(new Scene2dRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
 //        engine.addSystem(new ActionQueueSystem());
     }
+
+
 
     private void loadAllAnimations(String characterId, String atlasPath) {
         TextureAtlas atlas = MainGame.getAsM().get(atlasPath, TextureAtlas.class);
@@ -147,7 +158,8 @@ public class BattleScreen extends BaseScreen {
         Array<Entity> enemyTeam = new Array<>();
 
         createGridUI(screenWidth * 0.1f, screenHeight * 0.2f, playerTeam, PARTY_ATTACK);
-        createGridUI(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, PARTY_ATTACK_ENEMY);
+//        createGridUI(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, ENEMY_TEAM);
+        createGridUIEnemy(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, ENEMY_TEAM);
 
         if (playerTeam.isEmpty() || enemyTeam.isEmpty()) {
             Gdx.app.error("createUI", "Teams are empty: player=" + playerTeam.size + ", enemy=" + enemyTeam.size);
@@ -216,6 +228,9 @@ public class BattleScreen extends BaseScreen {
             Gdx.app.error("createGridUI", "rootGroup or engine is null");
             return;
         }
+        List<GridData> gridDataList = JsonHelper.loadGrids(path, true);
+        List<Hero> fullHero = JsonHelper.loadFullHero(PARTY_FULL, true);
+        List<SkillBase> skillBaseList = JsonHelper.loadSkillBase(SKILL_JSON, true);
 
         float tileSize = screenHeight * 0.15f;
         for (int i = 0; i < 3; i++) {
@@ -225,35 +240,32 @@ public class BattleScreen extends BaseScreen {
                 new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
                 if (path == null) continue;
 
-                GridData gridData = JsonValueHelper.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
+//                GridData gridData = JsonValueHelper.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
+                GridData gridData = JsonHelper.get(gridDataList, "grid", i + "," + j);
+
                 if (gridData == null || gridData.characterId == null) {
                     continue;
                 }
 
-                JsonValueHelper.loadArray(PARTY_FULL, InfoComponent.class, false);
-                System.out.println(gridData.characterId);
-                InfoComponent infoCharacter = JsonValueHelper.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
+//                JsonValueHelper.loadArray(PARTY_FULL, InfoComponent.class, false);
 
-                System.out.println(infoCharacter.characterBaseId);
-                CharacterComponent dataEntity = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
-                if (dataEntity == null || dataEntity.name == null) {
-                    Gdx.app.error("createGridUI", "Character data not found for ID: " + gridData.characterId);
-                    continue;
-                }
+                Hero hero = JsonHelper.get(fullHero, "characterId", gridData.characterId);
+//                InfoComponent infoCharacter = JsonValueHelper.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
+                InfoComponent infoCharacter = new InfoComponent();
+                infoCharacter.characterId = gridData.characterId;
+                infoCharacter.characterBaseId = gridData.getCharacterId;
+                infoCharacter.level = hero.level;
+                infoCharacter.star = hero.star;
+                infoCharacter.equip = new InfoComponent.Equipment();
+
+//                CharacterComponent dataEntity = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
+                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(JsonHelper.baseHero, "characterBaseId", infoCharacter.characterBaseId));
 
                 JsonValue fullSkillJson = JsonValueHelper.getJsonValue(SKILL_JSON, false);
-                if (fullSkillJson == null) {
-                    Gdx.app.error("createGridUI", "Failed to load skills JSON for " + gridData.characterId);
-                    continue;
-                }
 
                 JsonValue skillSet = fullSkillJson.get(dataEntity.name.toLowerCase());
-                if (skillSet == null) {
-                    Gdx.app.error("createGridUI", "Skill set not found for " + dataEntity.name);
-                    continue;
-                }
 
-                boolean isEnemy = path.equals(PARTY_ATTACK_ENEMY);
+                boolean isEnemy = false;
                 loadAllAnimations(dataEntity.characterBaseId, CHARACTER_ATLAS + dataEntity.characterBaseId + ".atlas");
                 Entity entity = engine.createEntity();
 
@@ -274,23 +286,24 @@ public class BattleScreen extends BaseScreen {
                     dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10
                 );
                 entity.add(stat);
-                System.out.println(entity.getComponent(StatComponent.class).hp);
-                System.out.println(dataEntity.hp * Math.pow(1.1f, infoCharacter.level));
-                System.out.println(infoCharacter.level);
+//                System.out.println(entity.getComponent(StatComponent.class).hp);
+//                System.out.println(dataEntity.hp * Math.pow(1.1f, infoCharacter.level));
+//                System.out.println(infoCharacter.level);
+
                 // Initialize skills
-                ListSkillComponent listSkill = new ListSkillComponent();
+                ListSkillComponent listSkill = new ListSkillComponent(JsonHelper.get(skillBaseList, "name", dataEntity.classType.toLowerCase()));
                 // Ensure basic attack is always available
-                listSkill.skills.add(new SkillComponent(1, "Basic Attack", "Deals basic damage", null));
-                for (JsonValue skill = skillSet.child(); skill != null; skill = skill.next()) {
-                    String skillId = skill.name;
-                    String name = skill.getString("name", "Unknown Skill");
-                    String description = skill.getString("description", "");
-                    JsonValue effect = skill.get("effect");
-                    int id = Integer.parseInt(skillId);
-                    if (id > 1) { // Skip overriding basic attack
-                        listSkill.skills.add(new SkillComponent(id, name, description, effect));
-                    }
-                }
+//                listSkill.skills.add(new SkillComponent(1, "Basic Attack", "Deals basic damage", null));
+//                for (JsonValue skill = skillSet.child(); skill != null; skill = skill.next()) {
+//                    String skillId = skill.name;
+//                    String name = skill.getString("name", "Unknown Skill");
+//                    String description = skill.getString("description", "");
+//                    JsonValue effect = skill.get("effect");
+//                    int id = Integer.parseInt(skillId);
+//                    if (id > 1) { // Skip overriding basic attack
+//                        listSkill.skills.add(new SkillComponent(id, name, description, effect));
+//                    }
+//                }
                 entity.add(listSkill);
 
                 // Add character data
@@ -305,6 +318,118 @@ public class BattleScreen extends BaseScreen {
                 engine.addEntity(entity);
             }
         }
+    }
+
+    private void createGridUIEnemy(float x, float y, Array<Entity> team, String path) {
+        List<GridData> gridDataList = JsonHelper.loadGrids(path, true);
+        System.out.println("gridDataList:"+gridDataList.toString());
+//        List<Hero> fullHero = JsonHelper.loadFullHero(PARTY_FULL, true);
+        List<Hero> heroes = JsonHelper.loadFullHero(CHARACTER_BASE_JSON, true);
+        List<SkillBase> skillBaseList = JsonHelper.loadSkillBase(SKILL_JSON, true);
+
+        float tileSize = screenHeight * 0.15f;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                float posX = x + i * tileSize * 1.1f;
+                float posY = y + j * tileSize * 1.1f;
+                new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
+                if (path == null) continue;
+
+                GridData gridData = JsonHelper.get(gridDataList, "grid", i + "," + j);
+
+                if (gridData == null || gridData.characterId == null) {
+                    continue;
+                }
+
+                Hero hero = JsonHelper.get(heroes, "characterBaseId", gridData.getCharacterId);
+                InfoComponent infoCharacter = new InfoComponent();
+                infoCharacter.characterId = hero.characterId;
+                infoCharacter.characterBaseId = hero.characterBaseId;
+                infoCharacter.level = hero.level;
+                infoCharacter.star = hero.star;
+                infoCharacter.equip = new InfoComponent.Equipment();
+
+                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(JsonHelper.baseHero, "characterBaseId", infoCharacter.characterBaseId));
+
+                boolean isEnemy = true;
+                loadAllAnimations(dataEntity.characterBaseId, CHARACTER_ATLAS + dataEntity.characterBaseId + ".atlas");
+                Entity entity = engine.createEntity();
+
+                // Add components
+                entity.add(new PositionComponent(posX, posY + tileSize * 0.3f));
+                entity.add(new GridComponent(i, j));
+                entity.add(new SpriteComponent(dataEntity.characterBaseId, "idle", isEnemy));
+                entity.add(isEnemy ? new EnemyComponent() : new PlayerComponent());
+                entity.add(new SizeComponent(tileSize, tileSize));
+                entity.add(infoCharacter);
+
+                StatComponent stat = new StatComponent(
+                    dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 100,
+                    dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 50,
+                    dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 20,
+                    dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10,
+                    dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 30,
+                    dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10
+                );
+                entity.add(stat);
+
+                // Initialize skills
+                ListSkillComponent listSkill = new ListSkillComponent(JsonHelper.get(skillBaseList, "name", dataEntity.classType.toLowerCase()));
+                entity.add(listSkill);
+
+                // Add character data
+                entity.add(dataEntity);
+                entity.add(new AnimationStateComponent());
+
+                UIProgressBar a = createProgressBar(i + "," + j, stat.hp, posX, posY, tileSize * 1f, tileSize * 0.1f);
+                entity.add(new ProgressBarComponent(a));
+                entity.add(new LabelComponent(label));
+                team.add(entity);
+                engine.addEntity(entity);
+            }
+        }
+    }
+
+    public void showResultPP() {
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(0, 0, 0, 0.5f);
+        pixmap.fill();
+        Texture overlay = new Texture(pixmap);
+        pixmap.dispose();
+        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
+
+        new UIButton(
+            MainGame.getAsM().getRegion(UI_WOOD, "resume_up_007"),
+            MainGame.getAsM().getRegion(UI_WOOD, "resume_down_008"))
+            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+            .pos(screenWidth * 0.9f, screenHeight * 0.8f)
+            .onClick(() -> {
+                if (!isPause) {
+                    isPause = true;
+                    showPopupPause();
+                } else {
+                    isPause = false;
+                    hidePopupPause();
+                }
+            })
+            .parent(rootGroup);
+
+        TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        new UIImage(origin).nine(origin, 30, 30, 30, 30)
+            .name("board")
+            .parent(rootGroup)
+            .bounds(screenWidth * 0.2f, screenHeight * 0.1f, screenWidth * 0.6f, screenHeight * 0.8f);
+
+        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "home"))
+            .name("home")
+            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+            .pos(screenWidth * 0.45f, screenHeight * 0.18f)
+            .onClick(() -> {
+                isPause = false;
+                hidePopupPause();
+                MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
+            })
+            .parent(rootGroup);
     }
 
     private void createPopup() {
@@ -436,6 +561,7 @@ public class BattleScreen extends BaseScreen {
     public void hide() {
         engine.removeAllSystems();
         engine.removeAllEntities();
+        MainGame.getScM().removeScreen(ScreenType.BATTLE);
     }
 
     @Override

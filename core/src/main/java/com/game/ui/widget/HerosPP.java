@@ -41,7 +41,7 @@ public class HerosPP {
     private static JsonValue select;
 
     public static Group pp(float w, float h) {
-        size = h*0.2f;
+        size = h * 0.2f;
         margin = size * 0.2f;
         select = new JsonValue(JsonValue.ValueType.object);
         select.addChild("grid", new JsonValue(JsonValue.ValueType.stringValue));
@@ -99,8 +99,12 @@ public class HerosPP {
         createTable(w, h, size, margin);
         createGrid(xRootGrid, yRootGrid);
         createDetail();
-
+//        popup.run(() -> updateHero());
         return popup;
+    }
+
+    private static void updateHero() {
+
     }
 
     private static void createTable(float w, float h, float size, float margin) {
@@ -169,7 +173,7 @@ public class HerosPP {
                 if (grid.findActor(i + "," + j) == null) {
                     item = new UIGroup()
                         .name(i + "," + j)
-                        .pos( size * i, size * j)
+                        .pos(size * i, size * j)
                         .size(size, size).child(
                             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                                 .size(size, size),

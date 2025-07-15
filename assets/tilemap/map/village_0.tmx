@@ -116,7 +116,7 @@
    <properties>
     <property name="block" type="bool" value="false"/>
     <property name="map" value="village_4"/>
-    <property name="name" value="Home"/>
+    <property name="name" value="Nhà Riêng"/>
     <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
@@ -124,7 +124,7 @@
    <properties>
     <property name="block" type="bool" value="false"/>
     <property name="map" value="village_1"/>
-    <property name="name" value="Main House"/>
+    <property name="name" value="Nhà chính"/>
     <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
@@ -132,7 +132,7 @@
    <properties>
     <property name="block" type="bool" value="false"/>
     <property name="map" value="village_2"/>
-    <property name="name" value="Forge House"/>
+    <property name="name" value="Lò rèn"/>
     <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
@@ -140,7 +140,7 @@
    <properties>
     <property name="block" type="bool" value="false"/>
     <property name="map" value="village_3"/>
-    <property name="name" value="Shop"/>
+    <property name="name" value="Cửa hàng"/>
     <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
@@ -188,10 +188,10 @@
  </objectgroup>
  <objectgroup color="#ff55ff" id="12" name="object"/>
  <objectgroup color="#ff0000" id="11" name="enemies">
-  <object id="347" x="408.75" y="211.25" width="36.2365" height="33.7239">
+  <object id="347" x="154.75" y="311.917" width="36.2365" height="33.7239">
    <properties>
     <property name="Description" value="Tìm thấy sát thủ lẻn vảo làng"/>
-    <property name="id" value="0"/>
+    <property name="id" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>

@@ -3,6 +3,7 @@ package com.game.ecs.component;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
+import com.game.utils.json.CharacterBase;
 
 /**
  * CharacterComponent chứa các thông tin cơ bản của nhân vật trong toàn bộ game được load từ file Json: character_base.json
@@ -22,10 +23,33 @@ public class CharacterComponent implements Component {
     public Array<String> weakAgainst;
 
 
-    public CharacterComponent(){
+    public CharacterComponent() {
         skills = new Array<>();
         counters = new Array<>();
         weakAgainst = new Array<>();
+    }
+
+    public CharacterComponent(CharacterBase characterBase) {
+        new CharacterComponent();
+        if (characterBase != null) {
+            characterBaseId = characterBase.characterBaseId;
+            classType = characterBase.classType;
+            role = characterBase.role;
+            name = characterBase.name;
+            desc = characterBase.desc;
+
+            hp = characterBase.hp;
+            mp = characterBase.mp;
+            atk = characterBase.atk;
+            def = characterBase.def;
+            agi = characterBase.agi;
+            crit = characterBase.crit;
+
+            skills = characterBase.skills;
+            counters = characterBase.counters;
+            weakAgainst = characterBase.weakAgainst;
+
+        }
     }
 
     public CharacterComponent fromJson(JsonValue json) {

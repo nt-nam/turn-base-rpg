@@ -2,31 +2,36 @@
   "grid": [
     {
       "grid": "2,1",
-      "characterId": "character3",
+      "characterId": "enemy",
+      "characterBaseId": "assassin_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "2,0",
-      "characterId": "character3",
+      "characterId": "enemy",
+      "characterBaseId": "mage_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "2,2",
-      "characterId": "character3",
+      "characterId": "enemy",
+      "characterBaseId": "warrior_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "1,0",
-      "characterId": "character3",
+      "characterId": "enemy",
+      "characterBaseId": "tank_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "1,2",
-      "characterId": "character3",
+      "characterId": "enemy",
+      "characterBaseId": "assassin_Knight",
       "star": 0,
       "level": 1
     }
@@ -41,11 +46,6 @@
       "type": "gem",
       "id": "gem_pink",
       "index": 1
-    },
-    {
-      "type": "",
-      "id": "",
-      "index": 0
     }
   ]
 }

@@ -4,6 +4,7 @@ import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.utils.json.GridData;
 import com.game.utils.data.PendingTeleport;
 import com.game.utils.json.DailyReward;
+import com.game.utils.json.Info;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ public class GameSession {
     public static String playerId = "";
     public static int selectedSlot = 0;
     public static int sizeTeam =5;
+    public static Info playerInfo = new Info();
 
     // Character selection
     public static String selectedCharacterId = "";
@@ -25,6 +27,7 @@ public class GameSession {
 
     // Position/state
     public static String currentMapId = "village_0";
+    public static String enemyMapId = "";
     public static float playerX = 0, playerY = 0;
     public static String playerDirection = "down";
     public static PendingTeleport pendingTeleport = null;

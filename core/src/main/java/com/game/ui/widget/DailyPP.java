@@ -33,7 +33,7 @@ public class DailyPP {
 
         for (int i = 0; i < 30; i++) {
             UIGroup uiGroup;
-            if (i < dailyRewards.size) {
+            if (dailyRewards != null && i < dailyRewards.size) {
                 JsonValue item = dailyRewards.get(i);
                 uiGroup = new UIGroup().name(item.get("id").asString()).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))

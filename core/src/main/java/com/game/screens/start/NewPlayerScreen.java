@@ -4,10 +4,12 @@ import static com.game.utils.Constants.*;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -22,9 +24,16 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
 import com.game.ui.hud.NotificationPP;
+import com.game.utils.JsonHelper;
+import com.game.utils.JsonSaver;
+import com.game.utils.json.Account;
 import com.game.utils.json.CharacterBase;
 import com.game.utils.JsonValueHelper;
 import com.game.utils.GameSession;
+import com.game.utils.json.Info;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NewPlayerScreen extends BaseScreen {
     private int currentKnightIndex = 0;
@@ -60,7 +69,8 @@ public class NewPlayerScreen extends BaseScreen {
 
         // Lấy danh sách knight từ JSON
         characterBaseDataList = JsonValueHelper.loadArray("data/base/character_base.json", CharacterBase.class, false);
-        JsonValue account = JsonValueHelper.getJsonValue(MAININFO_JSON, false);
+//        JsonValue account = JsonValueHelper.getJsonValue(MAININFO_JSON, false);
+        List<Account> account = JsonHelper.loadMaiInfo(MAININFO_JSON, true);
         if (characterBaseDataList.size == 0) {
             throw new RuntimeException("No knights found!");
         }
@@ -115,12 +125,15 @@ public class NewPlayerScreen extends BaseScreen {
                     rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Vui lòng nhập tên!"));
                     return;
                 }
-                if (account.get(nameInput) != null) {
-                    playerNameField.getStage().setKeyboardFocus(null);
-                    playerNameField.setMessageText("'............'");
-                    rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Người chơi này đã tồn tại, vui lòng nhập tên khác!!"));
-                    return;
+                if (account != null) {
+                    if (JsonHelper.get(account, "id", nameInput) != null) {
+                        playerNameField.getStage().setKeyboardFocus(null);
+                        playerNameField.setMessageText("'............'");
+                        rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Người chơi này đã tồn tại, vui lòng nhập tên khác!!"));
+                        return;
+                    }
                 }
+
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
                 Entity eventEntity = engine.createEntity();
                 PlayerSelectedComponent comp = engine.createComponent(PlayerSelectedComponent.class);
@@ -132,7 +145,35 @@ public class NewPlayerScreen extends BaseScreen {
                 playerNameField.getStage().setKeyboardFocus(null);
                 GameSession.playerName = nameInput;
                 GameSession.selectedCharacterId = getCurrentKnightId();
-                MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
+                Info info = new Info();
+                info.name = nameInput;
+                info.level = 1;
+                info.characterSelect = getCurrentKnightId();
+                info.area = "village_0";
+                info.pos = new Vector2(0, 0);
+                info.sizeTeam = 1;
+                info.exp = -1;
+                info.numberOfTeammatesRecruited = -1;
+                info.numberOfEnemies = -1;
+                info.unlocked = new ArrayList<>();
+                GameSession.playerInfo = info;
+//                copyBaseFilesToLocal(nameInput);
+                List<Account> accounts = JsonHelper.loadMaiInfo(MAININFO_JSON, true);
+                if (accounts == null) {
+                    accounts = new ArrayList<>();
+                }
+                Account a = new Account();
+                a.id = nameInput;
+                a.level = 1;
+                a.characterSelect = getCurrentKnightId();
+                accounts.add(a);
+                JsonSaver.saveObject(MAININFO_JSON, accounts);
+                if (JsonSaver.saveObject("data/select/" + nameInput + "/info.json", info)) {
+                    JsonSaver.createAccount();
+                    MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
+                } else {
+                    rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Lỗi lưu thông tin!"));
+                }
             });
         rootGroup.addActor(btnSelect);
 
