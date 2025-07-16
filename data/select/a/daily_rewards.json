@@ -1,5 +1,4 @@
-{
-  "daily_rewards": [
+[
     {
       "id": 1,
       "typereward": "coin",
@@ -181,4 +180,3 @@
       "confirm": false
     }
   ]
-}

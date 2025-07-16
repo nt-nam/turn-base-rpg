@@ -1,10 +1,20 @@
 package com.game.utils;
 
 import com.game.ecs.component.EnemyTriggerComponent;
-import com.game.utils.json.GridData;
+import com.game.ecs.component.InfoComponent;
+import com.game.utils.json.Account;
+import com.game.utils.json.Achievement;
+import com.game.utils.json.Bag;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.EquipBase;
+import com.game.utils.json.Lineup;
 import com.game.utils.data.PendingTeleport;
 import com.game.utils.json.DailyReward;
-import com.game.utils.json.Info;
+import com.game.utils.json.Hero;
+import com.game.utils.json.Profile;
+import com.game.utils.json.ItemBase;
+import com.game.utils.json.Mission;
+import com.game.utils.json.skill.SkillBase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +28,7 @@ public class GameSession {
     public static String playerId = "";
     public static int selectedSlot = 0;
     public static int sizeTeam =5;
-    public static Info playerInfo = new Info();
+    public static Profile profile = new Profile();
 
     // Character selection
     public static String selectedCharacterId = "";
@@ -35,6 +45,20 @@ public class GameSession {
     public static boolean moveRight = false;
     public static boolean moveUp = false;
     public static boolean moveDown = false;
+
+    public static List<Account> accountList = new ArrayList<>();
+    public static List<ItemBase> itemBaseList = new ArrayList<>();
+    public static List<EquipBase> equipBaseList = new ArrayList<>();
+    public static List<CharacterBase> characterBaseList = new ArrayList<>();
+    public static List<SkillBase> skillBaseList = new ArrayList<>();
+
+    public static List<Bag> bagList = new ArrayList<>();
+    public static List<Lineup> lineupList = new ArrayList<>();
+    public static List<Hero> heroList = new ArrayList<>();
+    public static List<Achievement> achievementList = new ArrayList<>();
+    public static List<Mission> missionList = new ArrayList<>();
+    public static List<DailyReward> dailyRewardList = new ArrayList<>();
+    public static List<InfoComponent> infoComponentList = new ArrayList<>();
 
     // Stats/resources
     public static int coin = 0;

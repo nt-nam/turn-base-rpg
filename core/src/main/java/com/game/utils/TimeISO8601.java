@@ -7,34 +7,27 @@ public class TimeISO8601 {
         return System.currentTimeMillis();
     }
     public static String getISO8601String() {
-        // Lấy thời gian hiện tại tính bằng mili giây từ mốc Unix (1970-01-01)
         long currentTimeMillis = TimeUtils.millis();
 
-        // Chuyển mili giây thành giây
         long currentTimeSeconds = currentTimeMillis / 1000;
 
-        // Tính toán các thành phần ngày tháng năm từ giây
         int days = (int)(currentTimeSeconds / (60 * 60 * 24));
         int years = days / 365;
         int months = (days % 365) / 30;
         int dayOfMonth = (days % 365) % 30;
 
-        // Tính thời gian theo giờ, phút và giây
         int hours = (int)((currentTimeSeconds % (60 * 60 * 24)) / 3600);
         int minutes = (int)((currentTimeSeconds % 3600) / 60);
         int seconds = (int)(currentTimeSeconds % 60);
 
-        // Tạo chuỗi ngày theo chuẩn ISO 8601
         String isoDate = (1970 + years) + "-" + (months + 1) + "-" + dayOfMonth + "T" +
             hours + ":" + minutes + ":" + seconds + "Z";
 
-        // In ra kết quả
         System.out.println(isoDate); // Ví dụ: 2025-07-04T12:45:30Z
         return isoDate;
     }
     public static double  parseDay(long currentTimeMillis){
         long currentTimeSeconds = currentTimeMillis / 1000;
-        // Tính toán các thành phần ngày tháng năm từ giây
         return (double) (currentTimeSeconds / (60 * 60 * 24));
     }
 

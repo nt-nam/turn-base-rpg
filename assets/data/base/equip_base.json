@@ -1,8 +1,9 @@
 [
   {
-    "id": "sword_000",
+    "idBase": "sword_000",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 10,
@@ -10,9 +11,10 @@
     }
   },
   {
-    "id": "sword_001",
+    "idBase": "sword_001",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 12,
@@ -20,9 +22,10 @@
     }
   },
   {
-    "id": "sword_002",
+    "idBase": "sword_002",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 14,
@@ -31,9 +34,10 @@
     }
   },
   {
-    "id": "sword_003",
+    "idBase": "sword_003",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 16,
@@ -41,9 +45,10 @@
     }
   },
   {
-    "id": "sword_015",
+    "idBase": "sword_015",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 20,
@@ -52,9 +57,10 @@
     }
   },
   {
-    "id": "sword_016",
+    "idBase": "sword_016",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 22,
@@ -62,9 +68,10 @@
     }
   },
   {
-    "id": "sword_017",
+    "idBase": "sword_017",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 24,
@@ -73,9 +80,10 @@
     }
   },
   {
-    "id": "sword_018",
+    "idBase": "sword_018",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 26,
@@ -83,9 +91,10 @@
     }
   },
   {
-    "id": "sword_030",
+    "idBase": "sword_030",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 30,
@@ -94,9 +103,10 @@
     }
   },
   {
-    "id": "sword_031",
+    "idBase": "sword_031",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 32,
@@ -104,9 +114,10 @@
     }
   },
   {
-    "id": "sword_032",
+    "idBase": "sword_032",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 34,
@@ -115,9 +126,10 @@
     }
   },
   {
-    "id": "sword_033",
+    "idBase": "sword_033",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 36,
@@ -125,9 +137,10 @@
     }
   },
   {
-    "id": "sword_045",
+    "idBase": "sword_045",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 40,
@@ -136,9 +149,10 @@
     }
   },
   {
-    "id": "sword_046",
+    "idBase": "sword_046",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 42,
@@ -146,9 +160,10 @@
     }
   },
   {
-    "id": "sword_047",
+    "idBase": "sword_047",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 44,
@@ -157,9 +172,10 @@
     }
   },
   {
-    "id": "sword_048",
+    "idBase": "sword_048",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 46,
@@ -167,9 +183,10 @@
     }
   },
   {
-    "id": "sword_060",
+    "idBase": "sword_060",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 50,
@@ -178,9 +195,10 @@
     }
   },
   {
-    "id": "sword_061",
+    "idBase": "sword_061",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 52,
@@ -188,9 +206,10 @@
     }
   },
   {
-    "id": "sword_062",
+    "idBase": "sword_062",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 54,
@@ -199,9 +218,10 @@
     }
   },
   {
-    "id": "sword_063",
+    "idBase": "sword_063",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 56,
@@ -209,9 +229,10 @@
     }
   },
   {
-    "id": "sword_064",
+    "idBase": "sword_064",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 58,
@@ -220,9 +241,10 @@
     }
   },
   {
-    "id": "sword_065",
+    "idBase": "sword_065",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 60,
@@ -230,9 +252,10 @@
     }
   },
   {
-    "id": "sword_075",
+    "idBase": "sword_075",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 65,
@@ -241,9 +264,10 @@
     }
   },
   {
-    "id": "sword_076",
+    "idBase": "sword_076",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 67,
@@ -251,9 +275,10 @@
     }
   },
   {
-    "id": "sword_077",
+    "idBase": "sword_077",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 69,
@@ -262,9 +287,10 @@
     }
   },
   {
-    "id": "sword_078",
+    "idBase": "sword_078",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 71,
@@ -272,9 +298,10 @@
     }
   },
   {
-    "id": "sword_079",
+    "idBase": "sword_079",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 73,
@@ -283,9 +310,10 @@
     }
   },
   {
-    "id": "sword_080",
+    "idBase": "sword_080",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 75,
@@ -293,9 +321,10 @@
     }
   },
   {
-    "id": "sword_081",
+    "idBase": "sword_081",
     "name": "Kiếm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 77,
@@ -304,9 +333,10 @@
     }
   },
   {
-    "id": "armor_008",
+    "idBase": "armor_008",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 20,
@@ -314,9 +344,10 @@
     }
   },
   {
-    "id": "armor_009",
+    "idBase": "armor_009",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 22,
@@ -324,9 +355,10 @@
     }
   },
   {
-    "id": "armor_010",
+    "idBase": "armor_010",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 24,
@@ -335,9 +367,10 @@
     }
   },
   {
-    "id": "armor_011",
+    "idBase": "armor_011",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 26,
@@ -345,9 +378,10 @@
     }
   },
   {
-    "id": "armor_012",
+    "idBase": "armor_012",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 28,
@@ -355,9 +389,10 @@
     }
   },
   {
-    "id": "armor_013",
+    "idBase": "armor_013",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 30,
@@ -366,9 +401,10 @@
     }
   },
   {
-    "id": "armor_014",
+    "idBase": "armor_014",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 32,
@@ -376,9 +412,10 @@
     }
   },
   {
-    "id": "armor_023",
+    "idBase": "armor_023",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 35,
@@ -386,9 +423,10 @@
     }
   },
   {
-    "id": "armor_024",
+    "idBase": "armor_024",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 37,
@@ -397,9 +435,10 @@
     }
   },
   {
-    "id": "armor_025",
+    "idBase": "armor_025",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 39,
@@ -407,9 +446,10 @@
     }
   },
   {
-    "id": "armor_026",
+    "idBase": "armor_026",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 41,
@@ -417,9 +457,10 @@
     }
   },
   {
-    "id": "armor_038",
+    "idBase": "armor_038",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 45,
@@ -428,9 +469,10 @@
     }
   },
   {
-    "id": "armor_039",
+    "idBase": "armor_039",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 47,
@@ -438,9 +480,10 @@
     }
   },
   {
-    "id": "armor_040",
+    "idBase": "armor_040",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 49,
@@ -448,9 +491,10 @@
     }
   },
   {
-    "id": "armor_041",
+    "idBase": "armor_041",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 51,
@@ -459,9 +503,10 @@
     }
   },
   {
-    "id": "armor_042",
+    "idBase": "armor_042",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 53,
@@ -469,9 +514,10 @@
     }
   },
   {
-    "id": "armor_043",
+    "idBase": "armor_043",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 55,
@@ -479,9 +525,10 @@
     }
   },
   {
-    "id": "armor_044",
+    "idBase": "armor_044",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 57,
@@ -490,9 +537,10 @@
     }
   },
   {
-    "id": "armor_053",
+    "idBase": "armor_053",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 60,
@@ -500,9 +548,10 @@
     }
   },
   {
-    "id": "armor_054",
+    "idBase": "armor_054",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 62,
@@ -510,9 +559,10 @@
     }
   },
   {
-    "id": "armor_055",
+    "idBase": "armor_055",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 64,
@@ -521,9 +571,10 @@
     }
   },
   {
-    "id": "armor_068",
+    "idBase": "armor_068",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 70,
@@ -531,9 +582,10 @@
     }
   },
   {
-    "id": "armor_069",
+    "idBase": "armor_069",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 72,
@@ -541,9 +593,10 @@
     }
   },
   {
-    "id": "armor_070",
+    "idBase": "armor_070",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 74,
@@ -552,9 +605,10 @@
     }
   },
   {
-    "id": "armor_071",
+    "idBase": "armor_071",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 76,
@@ -562,9 +616,10 @@
     }
   },
   {
-    "id": "armor_072",
+    "idBase": "armor_072",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 78,
@@ -572,9 +627,10 @@
     }
   },
   {
-    "id": "armor_073",
+    "idBase": "armor_073",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 80,
@@ -583,9 +639,10 @@
     }
   },
   {
-    "id": "armor_083",
+    "idBase": "armor_083",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 85,
@@ -593,9 +650,10 @@
     }
   },
   {
-    "id": "armor_084",
+    "idBase": "armor_084",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 87,
@@ -603,9 +661,10 @@
     }
   },
   {
-    "id": "armor_085",
+    "idBase": "armor_085",
     "name": "Áo giáp",
     "category": "armor",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 89,
@@ -614,9 +673,10 @@
     }
   },
   {
-    "id": "spear_105",
+    "idBase": "spear_105",
     "name": "Thương",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 50,
@@ -625,9 +685,10 @@
     }
   },
   {
-    "id": "spear_106",
+    "idBase": "spear_106",
     "name": "Thương",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 52,
@@ -635,9 +696,10 @@
     }
   },
   {
-    "id": "spear_107",
+    "idBase": "spear_107",
     "name": "Thương",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 54,
@@ -646,9 +708,10 @@
     }
   },
   {
-    "id": "spear_108",
+    "idBase": "spear_108",
     "name": "Thương",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 56,
@@ -656,9 +719,10 @@
     }
   },
   {
-    "id": "ring_113",
+    "idBase": "ring_113",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 15,
@@ -666,9 +730,10 @@
     }
   },
   {
-    "id": "ring_114",
+    "idBase": "ring_114",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 16,
@@ -676,9 +741,10 @@
     }
   },
   {
-    "id": "ring_115",
+    "idBase": "ring_115",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 17,
@@ -687,9 +753,10 @@
     }
   },
   {
-    "id": "ring_116",
+    "idBase": "ring_116",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 18,
@@ -697,9 +764,10 @@
     }
   },
   {
-    "id": "ring_117",
+    "idBase": "ring_117",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 19,
@@ -707,9 +775,10 @@
     }
   },
   {
-    "id": "ring_118",
+    "idBase": "ring_118",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 20,
@@ -718,9 +787,10 @@
     }
   },
   {
-    "id": "ring_119",
+    "idBase": "ring_119",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 21,
@@ -728,9 +798,10 @@
     }
   },
   {
-    "id": "ring_158",
+    "idBase": "ring_158",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 25,
@@ -739,9 +810,10 @@
     }
   },
   {
-    "id": "ring_159",
+    "idBase": "ring_159",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 26,
@@ -749,9 +821,10 @@
     }
   },
   {
-    "id": "ring_160",
+    "idBase": "ring_160",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 27,
@@ -760,9 +833,10 @@
     }
   },
   {
-    "id": "ring_161",
+    "idBase": "ring_161",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 28,
@@ -770,9 +844,10 @@
     }
   },
   {
-    "id": "ring_162",
+    "idBase": "ring_162",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 29,
@@ -780,9 +855,10 @@
     }
   },
   {
-    "id": "ring_163",
+    "idBase": "ring_163",
     "name": "Nhẫn",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 30,
@@ -791,9 +867,10 @@
     }
   },
   {
-    "id": "trident_120",
+    "idBase": "trident_120",
     "name": "Đinh ba",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 60,
@@ -802,9 +879,10 @@
     }
   },
   {
-    "id": "trident_121",
+    "idBase": "trident_121",
     "name": "Đinh ba",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 62,
@@ -812,9 +890,10 @@
     }
   },
   {
-    "id": "trident_122",
+    "idBase": "trident_122",
     "name": "Đinh ba",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 64,
@@ -823,9 +902,10 @@
     }
   },
   {
-    "id": "trident_150",
+    "idBase": "trident_150",
     "name": "Đinh ba",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 70,
@@ -834,9 +914,10 @@
     }
   },
   {
-    "id": "necklace_128",
+    "idBase": "necklace_128",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 30,
@@ -844,9 +925,10 @@
     }
   },
   {
-    "id": "necklace_129",
+    "idBase": "necklace_129",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 32,
@@ -854,9 +936,10 @@
     }
   },
   {
-    "id": "necklace_130",
+    "idBase": "necklace_130",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 34,
@@ -865,9 +948,10 @@
     }
   },
   {
-    "id": "necklace_131",
+    "idBase": "necklace_131",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 36,
@@ -875,9 +959,10 @@
     }
   },
   {
-    "id": "necklace_132",
+    "idBase": "necklace_132",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 38,
@@ -885,9 +970,10 @@
     }
   },
   {
-    "id": "necklace_133",
+    "idBase": "necklace_133",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 40,
@@ -896,9 +982,10 @@
     }
   },
   {
-    "id": "necklace_173",
+    "idBase": "necklace_173",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 45,
@@ -907,9 +994,10 @@
     }
   },
   {
-    "id": "necklace_174",
+    "idBase": "necklace_174",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 47,
@@ -917,9 +1005,10 @@
     }
   },
   {
-    "id": "necklace_175",
+    "idBase": "necklace_175",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 49,
@@ -928,9 +1017,10 @@
     }
   },
   {
-    "id": "necklace_176",
+    "idBase": "necklace_176",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "hp": 51,
@@ -938,9 +1028,10 @@
     }
   },
   {
-    "id": "knife_135",
+    "idBase": "knife_135",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 40,
@@ -949,9 +1040,10 @@
     }
   },
   {
-    "id": "knife_136",
+    "idBase": "knife_136",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 42,
@@ -959,9 +1051,10 @@
     }
   },
   {
-    "id": "knife_137",
+    "idBase": "knife_137",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 44,
@@ -970,9 +1063,10 @@
     }
   },
   {
-    "id": "knife_138",
+    "idBase": "knife_138",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 46,
@@ -980,9 +1074,10 @@
     }
   },
   {
-    "id": "knife_139",
+    "idBase": "knife_139",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 48,
@@ -991,9 +1086,10 @@
     }
   },
   {
-    "id": "knife_140",
+    "idBase": "knife_140",
     "name": "Đao",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 50,
@@ -1001,9 +1097,10 @@
     }
   },
   {
-    "id": "scarf_143",
+    "idBase": "scarf_143",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 20,
@@ -1011,9 +1108,10 @@
     }
   },
   {
-    "id": "scarf_144",
+    "idBase": "scarf_144",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 21,
@@ -1021,9 +1119,10 @@
     }
   },
   {
-    "id": "scarf_145",
+    "idBase": "scarf_145",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 22,
@@ -1032,9 +1131,10 @@
     }
   },
   {
-    "id": "scarf_146",
+    "idBase": "scarf_146",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 23,
@@ -1042,9 +1142,10 @@
     }
   },
   {
-    "id": "scarf_147",
+    "idBase": "scarf_147",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 24,
@@ -1052,9 +1153,10 @@
     }
   },
   {
-    "id": "scarf_148",
+    "idBase": "scarf_148",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 25,
@@ -1063,9 +1165,10 @@
     }
   },
   {
-    "id": "sickle_151",
+    "idBase": "sickle_151",
     "name": "Liềm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 45,
@@ -1074,9 +1177,10 @@
     }
   },
   {
-    "id": "sickle_152",
+    "idBase": "sickle_152",
     "name": "Liềm",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 47,
@@ -1084,9 +1188,10 @@
     }
   },
   {
-    "id": "axe_180",
+    "idBase": "axe_180",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 60,
@@ -1095,9 +1200,10 @@
     }
   },
   {
-    "id": "axe_181",
+    "idBase": "axe_181",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 62,
@@ -1105,9 +1211,10 @@
     }
   },
   {
-    "id": "axe_182",
+    "idBase": "axe_182",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 64,
@@ -1116,9 +1223,10 @@
     }
   },
   {
-    "id": "axe_183",
+    "idBase": "axe_183",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 66,
@@ -1126,9 +1234,10 @@
     }
   },
   {
-    "id": "axe_184",
+    "idBase": "axe_184",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 68,
@@ -1137,9 +1246,10 @@
     }
   },
   {
-    "id": "axe_195",
+    "idBase": "axe_195",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 70,
@@ -1148,9 +1258,10 @@
     }
   },
   {
-    "id": "axe_196",
+    "idBase": "axe_196",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 72,
@@ -1158,9 +1269,10 @@
     }
   },
   {
-    "id": "axe_197",
+    "idBase": "axe_197",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 74,
@@ -1169,9 +1281,10 @@
     }
   },
   {
-    "id": "axe_198",
+    "idBase": "axe_198",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 76,
@@ -1179,9 +1292,10 @@
     }
   },
   {
-    "id": "axe_199",
+    "idBase": "axe_199",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 78,
@@ -1190,9 +1304,10 @@
     }
   },
   {
-    "id": "axe_210",
+    "idBase": "axe_210",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 80,
@@ -1201,9 +1316,10 @@
     }
   },
   {
-    "id": "axe_211",
+    "idBase": "axe_211",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 82,
@@ -1211,9 +1327,10 @@
     }
   },
   {
-    "id": "axe_212",
+    "idBase": "axe_212",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 84,
@@ -1222,9 +1339,10 @@
     }
   },
   {
-    "id": "axe_213",
+    "idBase": "axe_213",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 86,
@@ -1232,9 +1350,10 @@
     }
   },
   {
-    "id": "axe_214",
+    "idBase": "axe_214",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 88,
@@ -1243,9 +1362,10 @@
     }
   },
   {
-    "id": "axe_215",
+    "idBase": "axe_215",
     "name": "Rìu",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 90,
@@ -1253,9 +1373,10 @@
     }
   },
   {
-    "id": "shield_218",
+    "idBase": "shield_218",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 40,
@@ -1263,9 +1384,10 @@
     }
   },
   {
-    "id": "shield_219",
+    "idBase": "shield_219",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 41,
@@ -1273,9 +1395,10 @@
     }
   },
   {
-    "id": "shield_220",
+    "idBase": "shield_220",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 42,
@@ -1284,9 +1407,10 @@
     }
   },
   {
-    "id": "shield_221",
+    "idBase": "shield_221",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 43,
@@ -1294,9 +1418,10 @@
     }
   },
   {
-    "id": "shield_222",
+    "idBase": "shield_222",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 44,
@@ -1304,9 +1429,10 @@
     }
   },
   {
-    "id": "shield_223",
+    "idBase": "shield_223",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 45,
@@ -1315,9 +1441,10 @@
     }
   },
   {
-    "id": "shield_233",
+    "idBase": "shield_233",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 47,
@@ -1325,9 +1452,10 @@
     }
   },
   {
-    "id": "shield_234",
+    "idBase": "shield_234",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 48,
@@ -1335,9 +1463,10 @@
     }
   },
   {
-    "id": "shield_235",
+    "idBase": "shield_235",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 49,
@@ -1346,9 +1475,10 @@
     }
   },
   {
-    "id": "shield_236",
+    "idBase": "shield_236",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 50,
@@ -1356,9 +1486,10 @@
     }
   },
   {
-    "id": "shield_237",
+    "idBase": "shield_237",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 51,
@@ -1366,9 +1497,10 @@
     }
   },
   {
-    "id": "shield_238",
+    "idBase": "shield_238",
     "name": "Khiên",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "def": 52,
@@ -1377,9 +1509,10 @@
     }
   },
   {
-    "id": "bow_240",
+    "idBase": "bow_240",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 50,
@@ -1388,9 +1521,10 @@
     }
   },
   {
-    "id": "bow_241",
+    "idBase": "bow_241",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 52,
@@ -1398,9 +1532,10 @@
     }
   },
   {
-    "id": "bow_242",
+    "idBase": "bow_242",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 54,
@@ -1409,9 +1544,10 @@
     }
   },
   {
-    "id": "bow_243",
+    "idBase": "bow_243",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 56,
@@ -1419,9 +1555,10 @@
     }
   },
   {
-    "id": "bow_244",
+    "idBase": "bow_244",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 58,
@@ -1430,9 +1567,10 @@
     }
   },
   {
-    "id": "bow_245",
+    "idBase": "bow_245",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 60,
@@ -1440,9 +1578,10 @@
     }
   },
   {
-    "id": "bow_246",
+    "idBase": "bow_246",
     "name": "Cung",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "atk": 62,
@@ -1451,9 +1590,10 @@
     }
   },
   {
-    "id": "scepter_270",
+    "idBase": "scepter_270",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 40,
@@ -1462,9 +1602,10 @@
     }
   },
   {
-    "id": "scepter_271",
+    "idBase": "scepter_271",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 41,
@@ -1472,9 +1613,10 @@
     }
   },
   {
-    "id": "scepter_272",
+    "idBase": "scepter_272",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 42,
@@ -1483,9 +1625,10 @@
     }
   },
   {
-    "id": "scepter_273",
+    "idBase": "scepter_273",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 43,
@@ -1493,9 +1636,10 @@
     }
   },
   {
-    "id": "scepter_285",
+    "idBase": "scepter_285",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 45,
@@ -1504,9 +1648,10 @@
     }
   },
   {
-    "id": "scepter_286",
+    "idBase": "scepter_286",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 46,
@@ -1514,9 +1659,10 @@
     }
   },
   {
-    "id": "scepter_287",
+    "idBase": "scepter_287",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 47,
@@ -1525,9 +1671,10 @@
     }
   },
   {
-    "id": "scepter_288",
+    "idBase": "scepter_288",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 48,
@@ -1535,9 +1682,10 @@
     }
   },
   {
-    "id": "scepter_289",
+    "idBase": "scepter_289",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 49,
@@ -1546,9 +1694,10 @@
     }
   },
   {
-    "id": "scepter_290",
+    "idBase": "scepter_290",
     "name": "Quyền trượng",
     "category": "weapon",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 50,
@@ -1556,9 +1705,10 @@
     }
   },
   {
-    "id": "cloak_278",
+    "idBase": "cloak_278",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 25,
@@ -1567,9 +1717,10 @@
     }
   },
   {
-    "id": "cloak_279",
+    "idBase": "cloak_279",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 26,
@@ -1577,9 +1728,10 @@
     }
   },
   {
-    "id": "cloak_280",
+    "idBase": "cloak_280",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 27,
@@ -1588,9 +1740,10 @@
     }
   },
   {
-    "id": "cloak_281",
+    "idBase": "cloak_281",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 28,
@@ -1598,9 +1751,10 @@
     }
   },
   {
-    "id": "cloak_282",
+    "idBase": "cloak_282",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 29,
@@ -1609,9 +1763,10 @@
     }
   },
   {
-    "id": "cloak_283",
+    "idBase": "cloak_283",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 30,
@@ -1619,9 +1774,10 @@
     }
   },
   {
-    "id": "cloak_284",
+    "idBase": "cloak_284",
     "name": "Áo choàng",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "agi": 31,
@@ -1630,9 +1786,10 @@
     }
   },
   {
-    "id": "book_248",
+    "idBase": "book_248",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 30,
@@ -1640,9 +1797,10 @@
     }
   },
   {
-    "id": "book_249",
+    "idBase": "book_249",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 31,
@@ -1650,9 +1808,10 @@
     }
   },
   {
-    "id": "book_250",
+    "idBase": "book_250",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 32,
@@ -1661,9 +1820,10 @@
     }
   },
   {
-    "id": "book_251",
+    "idBase": "book_251",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 33,
@@ -1671,9 +1831,10 @@
     }
   },
   {
-    "id": "book_252",
+    "idBase": "book_252",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 34,
@@ -1681,9 +1842,10 @@
     }
   },
   {
-    "id": "book_263",
+    "idBase": "book_263",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 35,
@@ -1692,9 +1854,10 @@
     }
   },
   {
-    "id": "book_264",
+    "idBase": "book_264",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 36,
@@ -1702,9 +1865,10 @@
     }
   },
   {
-    "id": "book_265",
+    "idBase": "book_265",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 37,
@@ -1713,9 +1877,10 @@
     }
   },
   {
-    "id": "book_266",
+    "idBase": "book_266",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 38,
@@ -1723,9 +1888,10 @@
     }
   },
   {
-    "id": "book_267",
+    "idBase": "book_267",
     "name": "Sách",
     "category": "support",
+    "currency": "gem",
     "price": 100,
     "stats": {
       "mp": 39,

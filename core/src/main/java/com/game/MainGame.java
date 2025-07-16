@@ -22,12 +22,10 @@ import com.game.ui.UIManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
 import com.game.utils.GameSession;
-import com.game.utils.JsonValueHelper;
 
 public class MainGame extends Game {
     private static AudioManager audioManager;
     private static CharacterTilemapManager characterTilemapManager;
-    private static JsonValueHelper jsonValueHelper;
     private static GAssetManager assetManager;
     private static EventManager eventManager;
     private static MapManager mpm;

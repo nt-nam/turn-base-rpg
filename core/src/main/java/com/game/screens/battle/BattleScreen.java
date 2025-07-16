@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.core.BattleConfig;
 import com.game.core.BattleLogger;
@@ -35,7 +34,6 @@ import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.ProgressBarComponent;
 import com.game.ecs.component.Scene2dComponent;
 import com.game.ecs.component.SizeComponent;
-import com.game.ecs.component.SkillComponent;
 import com.game.ecs.component.SkillStateComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ecs.component.StatComponent;
@@ -54,11 +52,8 @@ import com.game.ui.base.UIProgressBar;
 import com.game.utils.JsonHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.GridData;
-import com.game.utils.JsonValueHelper;
-import com.game.utils.json.Hero;
 import com.game.utils.json.Lineup;
+import com.game.utils.json.Hero;
 import com.game.utils.json.skill.SkillBase;
 
 import java.util.List;
@@ -109,14 +104,12 @@ public class BattleScreen extends BaseScreen {
         createBattleGridUI();
         createPopup();
 
-        // System vẽ entity (dùng batch, KHÔNG liên quan Scene2D)
         engine.addSystem(new SpriteRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new SkillStateSystem(engine));
         engine.addSystem(new SpriteDebugRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
         engine.addSystem(new TurnActionSystem());
         engine.addSystem(new Scene2dRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
-//        engine.addSystem(new ActionQueueSystem());
     }
 
 
@@ -157,7 +150,7 @@ public class BattleScreen extends BaseScreen {
         Array<Entity> playerTeam = new Array<>();
         Array<Entity> enemyTeam = new Array<>();
 
-        createGridUI(screenWidth * 0.1f, screenHeight * 0.2f, playerTeam, PARTY_ATTACK);
+        createGridUI(screenWidth * 0.1f, screenHeight * 0.2f, playerTeam, LINEUP_ATTACK);
 //        createGridUI(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, ENEMY_TEAM);
         createGridUIEnemy(screenWidth * 0.65f, screenHeight * 0.2f, enemyTeam, ENEMY_TEAM);
 
@@ -228,9 +221,9 @@ public class BattleScreen extends BaseScreen {
             Gdx.app.error("createGridUI", "rootGroup or engine is null");
             return;
         }
-        List<GridData> gridDataList = JsonHelper.loadGrids(path, true);
-        List<Hero> fullHero = JsonHelper.loadFullHero(PARTY_FULL, true);
-        List<SkillBase> skillBaseList = JsonHelper.loadSkillBase(SKILL_JSON, true);
+        List<Lineup> lineupList = JsonHelper.loadLineupList(path, true);
+        List<Hero> fullHero = JsonHelper.loadHeroList(PARTY_FULL, true);
+        List<SkillBase> skillBaseList = JsonHelper.loadSkillBaseList(SKILL_JSON, true);
 
         float tileSize = screenHeight * 0.15f;
         for (int i = 0; i < 3; i++) {
@@ -241,29 +234,30 @@ public class BattleScreen extends BaseScreen {
                 if (path == null) continue;
 
 //                GridData gridData = JsonValueHelper.getValueClassByKey(path, "grid", i + "," + j, GridData.class);
-                GridData gridData = JsonHelper.get(gridDataList, "grid", i + "," + j);
+                Lineup lineup = JsonHelper.get(lineupList, "grid", i + "," + j);
 
-                if (gridData == null || gridData.characterId == null) {
+                if (lineup == null || lineup.characterId == null) {
                     continue;
                 }
 
 //                JsonValueHelper.loadArray(PARTY_FULL, InfoComponent.class, false);
 
-                Hero hero = JsonHelper.get(fullHero, "characterId", gridData.characterId);
+                Hero hero = JsonHelper.get(fullHero, "characterId", lineup.characterId);
 //                InfoComponent infoCharacter = JsonValueHelper.getValueClassByKey(PARTY_FULL, "characterId", gridData.characterId, InfoComponent.class);
                 InfoComponent infoCharacter = new InfoComponent();
-                infoCharacter.characterId = gridData.characterId;
-                infoCharacter.characterBaseId = gridData.getCharacterId;
+                infoCharacter.characterId = lineup.characterId;
+                infoCharacter.characterBaseId = lineup.characterBaseId;
                 infoCharacter.level = hero.level;
                 infoCharacter.star = hero.star;
                 infoCharacter.equip = new InfoComponent.Equipment();
+                System.out.println(infoCharacter.characterBaseId);
 
 //                CharacterComponent dataEntity = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", infoCharacter.characterBaseId, CharacterComponent.class);
-                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(JsonHelper.baseHero, "characterBaseId", infoCharacter.characterBaseId));
+                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(GameSession.characterBaseList, "characterBaseId", infoCharacter.characterBaseId));
 
-                JsonValue fullSkillJson = JsonValueHelper.getJsonValue(SKILL_JSON, false);
+//                JsonValue fullSkillJson = JsonValueHelper.getJsonValue(SKILL_JSON, false);
 
-                JsonValue skillSet = fullSkillJson.get(dataEntity.name.toLowerCase());
+//                JsonValue skillSet = fullSkillJson.get(dataEntity.name.toLowerCase());
 
                 boolean isEnemy = false;
                 loadAllAnimations(dataEntity.characterBaseId, CHARACTER_ATLAS + dataEntity.characterBaseId + ".atlas");
@@ -321,11 +315,11 @@ public class BattleScreen extends BaseScreen {
     }
 
     private void createGridUIEnemy(float x, float y, Array<Entity> team, String path) {
-        List<GridData> gridDataList = JsonHelper.loadGrids(path, true);
-        System.out.println("gridDataList:"+gridDataList.toString());
+        List<Lineup> lineupList = JsonHelper.loadLineupList(path, true);
+        System.out.println("gridDataList:"+ lineupList.toString());
 //        List<Hero> fullHero = JsonHelper.loadFullHero(PARTY_FULL, true);
-        List<Hero> heroes = JsonHelper.loadFullHero(CHARACTER_BASE_JSON, true);
-        List<SkillBase> skillBaseList = JsonHelper.loadSkillBase(SKILL_JSON, true);
+        List<Hero> heroes = JsonHelper.loadHeroList(CHARACTER_BASE_JSON, true);
+        List<SkillBase> skillBaseList = JsonHelper.loadSkillBaseList(SKILL_JSON, true);
 
         float tileSize = screenHeight * 0.15f;
         for (int i = 0; i < 3; i++) {
@@ -335,13 +329,13 @@ public class BattleScreen extends BaseScreen {
                 new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
                 if (path == null) continue;
 
-                GridData gridData = JsonHelper.get(gridDataList, "grid", i + "," + j);
+                Lineup lineup = JsonHelper.get(lineupList, "grid", i + "," + j);
 
-                if (gridData == null || gridData.characterId == null) {
+                if (lineup == null || lineup.characterId == null) {
                     continue;
                 }
 
-                Hero hero = JsonHelper.get(heroes, "characterBaseId", gridData.getCharacterId);
+                Hero hero = JsonHelper.get(heroes, "characterBaseId", lineup.characterBaseId);
                 InfoComponent infoCharacter = new InfoComponent();
                 infoCharacter.characterId = hero.characterId;
                 infoCharacter.characterBaseId = hero.characterBaseId;
@@ -349,7 +343,7 @@ public class BattleScreen extends BaseScreen {
                 infoCharacter.star = hero.star;
                 infoCharacter.equip = new InfoComponent.Equipment();
 
-                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(JsonHelper.baseHero, "characterBaseId", infoCharacter.characterBaseId));
+                CharacterComponent dataEntity = new CharacterComponent(JsonHelper.get(GameSession.characterBaseList, "characterBaseId", infoCharacter.characterBaseId));
 
                 boolean isEnemy = true;
                 loadAllAnimations(dataEntity.characterBaseId, CHARACTER_ATLAS + dataEntity.characterBaseId + ".atlas");

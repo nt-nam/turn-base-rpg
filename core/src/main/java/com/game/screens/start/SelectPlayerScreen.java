@@ -1,7 +1,7 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.MAININFO_JSON;
+import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -40,7 +40,7 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        accounts = JsonHelper.loadMaiInfo(MAININFO_JSON, true);
+        accounts = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
         if (accounts != null) {
             for (Account element : accounts) {
                 MainGame.getAsM().load("atlas/characters/" + element.characterSelect + ".atlas", TextureAtlas.class);
@@ -94,7 +94,7 @@ public class SelectPlayerScreen extends BaseScreen {
     public void show() {
         Gdx.app.log("SelectPlayerScreen", "show() called");
         super.show();
-        accounts = JsonHelper.loadMaiInfo(MAININFO_JSON, true);
+        accounts = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
 
         showScrollPane();
 

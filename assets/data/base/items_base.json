@@ -1,314 +1,365 @@
 [
   {
-    "id": "cup_323",
+    "idBase": "cup_323",
     "name": "Cúp",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "cup_324",
+    "idBase": "cup_324",
     "name": "Cúp",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "cup_325",
+    "idBase": "cup_325",
     "name": "Cúp",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "cup_326",
+    "idBase": "cup_326",
     "name": "Cúp",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "shovel_338",
+    "idBase": "shovel_338",
     "name": "Xẻng",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "shovel_339",
+    "idBase": "shovel_339",
     "name": "Xẻng",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "shovel_340",
+    "idBase": "shovel_340",
     "name": "Xẻng",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "shovel_341",
+    "idBase": "shovel_341",
     "name": "Xẻng",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_315",
+    "idBase": "food_315",
     "name": "Thức ăn",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_316",
+    "idBase": "food_316",
     "name": "Thức ăn",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_317",
+    "idBase": "food_317",
     "name": "Thức ăn",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_318",
+    "idBase": "food_318",
     "name": "Thức ăn",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_319",
+    "idBase": "food_319",
     "name": "Thức ăn",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_320",
+    "idBase": "food_320",
     "name": "Thức ăn",
     "level": 6,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "food_321",
+    "idBase": "food_321",
     "name": "Thức ăn",
     "level": 7,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_330",
+    "idBase": "metal_330",
     "name": "Kim loại",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_331",
+    "idBase": "metal_331",
     "name": "Kim loại",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_332",
+    "idBase": "metal_332",
     "name": "Kim loại",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_333",
+    "idBase": "metal_333",
     "name": "Kim loại",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_334",
+    "idBase": "metal_334",
     "name": "Kim loại",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "metal_335",
+    "idBase": "metal_335",
     "name": "Kim loại",
     "level": 6,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_345",
+    "idBase": "water_345",
     "name": "Thuốc",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_346",
+    "idBase": "water_346",
     "name": "Thuốc",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_347",
+    "idBase": "water_347",
     "name": "Thuốc",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_348",
+    "idBase": "water_348",
     "name": "Thuốc",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_349",
+    "idBase": "water_349",
     "name": "Thuốc",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "water_350",
+    "idBase": "water_350",
     "name": "Thuốc",
     "level": 6,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "diamond_360",
+    "idBase": "diamond_360",
     "name": "Kim cương",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "diamond_361",
+    "idBase": "diamond_361",
     "name": "Kim cương",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "diamond_362",
+    "idBase": "diamond_362",
     "name": "Kim cương",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "diamond_363",
+    "idBase": "diamond_363",
     "name": "Kim cương",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "diamond_364",
+    "idBase": "diamond_364",
     "name": "Kim cương",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gemstore_375",
+    "idBase": "gemstore_375",
     "name": "Ngọc",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gemstore_376",
+    "idBase": "gemstore_376",
     "name": "Ngọc",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gemstore_377",
+    "idBase": "gemstore_377",
     "name": "Ngọc",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gemstore_378",
+    "idBase": "gemstore_378",
     "name": "Ngọc",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gemstore_379",
+    "idBase": "gemstore_379",
     "name": "Ngọc",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gem_390",
+    "idBase": "gem_390",
     "name": "Đá quý",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gem_391",
+    "idBase": "gem_391",
     "name": "Đá quý",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gem_392",
+    "idBase": "gem_392",
     "name": "Đá quý",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gem_393",
+    "idBase": "gem_393",
     "name": "Đá quý",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "gem_394",
+    "idBase": "gem_394",
     "name": "Đá quý",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "flour_405",
+    "idBase": "flour_405",
     "name": "Bột phép",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "flour_406",
+    "idBase": "flour_406",
     "name": "Bột phép",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "flour_407",
+    "idBase": "flour_407",
     "name": "Bột phép",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "flour_408",
+    "idBase": "flour_408",
     "name": "Bột phép",
     "level": 4,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "flour_409",
+    "idBase": "flour_409",
     "name": "Bột phép",
     "level": 5,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "key_420",
+    "idBase": "key_420",
     "name": "Chìa khóa",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "key_421",
+    "idBase": "key_421",
     "name": "Chìa khóa",
     "level": 2,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "key_422",
+    "idBase": "key_422",
     "name": "Chìa khóa",
     "level": 3,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "egg_423",
+    "idBase": "egg_423",
     "name": "Trứng",
     "level": 1,
+    "currency": "coin",
     "price": 100
   },
   {
-    "id": "arrowbox_293",
+    "idBase": "arrowbox_293",
     "name": "Hộp mũi tên",
     "level": 1,
-    "price": 0
+    "price": -1
   }
 ]

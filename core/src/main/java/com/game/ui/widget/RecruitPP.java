@@ -14,7 +14,6 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.GameSession;
-import com.game.utils.JsonHelper;
 import com.game.utils.JsonSaver;
 import com.game.utils.json.CharacterBase;
 import com.game.utils.json.Hero;
@@ -62,8 +61,8 @@ public class RecruitPP {
     }
 
     private static void addNewMenber() {
-        List<CharacterBase> baseHero = JsonHelper.baseHero;
-        List<Hero> fullHero = JsonHelper.fullHero;
+        List<CharacterBase> baseHero = GameSession.characterBaseList;
+        List<Hero> fullHero = GameSession.heroList;
         int random = MathUtils.random(baseHero.size());
         CharacterBase characterBase = baseHero.get(random);
         Hero hero = new Hero();
@@ -73,24 +72,27 @@ public class RecruitPP {
         hero.star = 0;
         hero.level = 1;
 
-        hero.characterBase = new CharacterBase();
-        hero.characterBase.characterId = characterBase.characterId;
-        hero.characterBase.characterBaseId = characterBase.characterBaseId;
-        hero.characterBase.classType = characterBase.classType;
-        hero.characterBase.role = characterBase.role;
-        hero.characterBase.name = characterBase.name;
-        hero.characterBase.desc = characterBase.desc;
-        hero.characterBase.hp = characterBase.hp;
-        hero.characterBase.mp = characterBase.mp;
-        hero.characterBase.atk = characterBase.atk;
-        hero.characterBase.def = characterBase.def;
-        hero.characterBase.agi = characterBase.agi;
-        hero.characterBase.crit = characterBase.crit;
-        hero.characterBase.skills = characterBase.skills;
-        hero.characterBase.counters = characterBase.counters;
-        hero.characterBase.weakAgainst = characterBase.weakAgainst;
+//        hero.characterBase = new CharacterBase();
+//        hero.characterBase.characterId = characterBase.characterId;
+//        hero.characterBase.characterBaseId = characterBase.characterBaseId;
+//        hero.characterBase.classType = characterBase.classType;
+//        hero.characterBase.role = characterBase.role;
+//        hero.characterBase.name = characterBase.name;
+//        hero.characterBase.desc = characterBase.desc;
+//        hero.characterBase.hp = characterBase.hp;
+//        hero.characterBase.mp = characterBase.mp;
+//        hero.characterBase.atk = characterBase.atk;
+//        hero.characterBase.def = characterBase.def;
+//        hero.characterBase.agi = characterBase.agi;
+//        hero.characterBase.crit = characterBase.crit;
+//        hero.characterBase.skills = characterBase.skills;
+//        hero.characterBase.counters = characterBase.counters;
+//        hero.characterBase.weakAgainst = characterBase.weakAgainst;
 
-        hero.equip = new HashMap<>();
+        hero.equip.weapon = "empty";
+        hero.equip.armor = "empty";
+        hero.equip.jewelry = "empty";
+        hero.equip.support = "empty";
 
         fullHero.add(hero);
         JsonSaver.saveObject(PARTY_FULL,fullHero);

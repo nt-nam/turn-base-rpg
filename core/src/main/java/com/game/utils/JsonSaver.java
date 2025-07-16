@@ -4,26 +4,17 @@ import static com.game.utils.Constants.ACHIEVEMENT_BASE_JSON;
 import static com.game.utils.Constants.ACHIEVEMENT_JSON;
 import static com.game.utils.Constants.DAILY_BASE_JSON;
 import static com.game.utils.Constants.DAILY_REWARD_JSON;
-import static com.game.utils.Constants.INFO_JSON;
-import static com.game.utils.Constants.MAININFO_JSON;
 import static com.game.utils.Constants.MISSION_BASE_JSON;
 import static com.game.utils.Constants.MISSION_JSON;
-import static com.game.utils.Constants.PARTY_ATTACK;
-import static com.game.utils.Constants.PARTY_FULL;
 import static com.game.utils.Constants.WAREHOUSE_JSON;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.game.utils.json.Account;
-import com.game.utils.json.Info;
+import com.game.utils.json.Profile;
 import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.util.List;
 
 public class JsonSaver {
 
@@ -44,17 +35,17 @@ public class JsonSaver {
         }
     }
 
-    public static boolean saveInfo(Info info) {
+    public static boolean saveInfo(Profile profile) {
         Gson json = new Gson();
 
-        String dirPath = "data/select/" + info.name;
+        String dirPath = "data/select/" + profile.name;
         FileHandle dir = Gdx.files.local(dirPath);
 
         if (!dir.exists()) {
             dir.mkdirs();
             System.out.println("Created directory: " + dirPath);
         }
-        String s = json.toJson(info);
+        String s = json.toJson(profile);
         FileHandle file = Gdx.files.local(dirPath + "/info.json");
         try {
             file.writeString(s, false);  // Ghi đè nếu tệp đã tồn tại
@@ -102,8 +93,8 @@ public class JsonSaver {
         copyFileToLocal(ACHIEVEMENT_BASE_JSON, ACHIEVEMENT_JSON);
         copyFileToLocal(MISSION_BASE_JSON, MISSION_JSON);
         copyFileToLocal(DAILY_BASE_JSON, DAILY_REWARD_JSON);
-        saveString(PARTY_ATTACK, "[]");
-        saveString(PARTY_FULL, "[]");
+//        saveString(PARTY_ATTACK, "[]");
+//        saveString(PARTY_FULL, "[]");
         return true;
     }
 

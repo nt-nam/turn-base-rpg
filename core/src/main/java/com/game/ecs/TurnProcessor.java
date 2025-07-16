@@ -80,6 +80,10 @@ public class TurnProcessor {
             ///show() popup round mới
         }
         ///end custom----------------
-
+//        queue.actions.addLast(new ActionQueueComponent.Action(
+//            null,
+//            null,
+//            1f,
+//            SkillStateComponent.State.HIDE,"finish",null));
     }
 }

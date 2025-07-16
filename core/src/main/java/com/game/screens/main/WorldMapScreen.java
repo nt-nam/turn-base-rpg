@@ -5,11 +5,6 @@ import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
-import static com.game.utils.Constants.EQUIP_JSON;
-import static com.game.utils.Constants.ITEM_JSON;
-import static com.game.utils.Constants.LINEUP_ATTACK;
-import static com.game.utils.Constants.PARTY_FULL;
-import static com.game.utils.Constants.SKILL_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -22,7 +17,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -59,19 +53,10 @@ import com.game.ui.widget.RecruitPP;
 import com.game.ui.widget.RolePP;
 import com.game.ui.widget.SettingPP;
 import com.game.ui.widget.ShopPP;
-import com.game.utils.Color;
 import com.game.utils.JsonHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
-import com.game.utils.JsonValueHelper;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.EquipBase;
-import com.game.utils.json.Hero;
-import com.game.utils.json.ItemBase;
-import com.game.utils.json.Lineup;
-import com.game.utils.json.skill.SkillBase;
-
-import java.util.List;
+//import com.game.utils.JsonValueHelper;
 
 
 public class WorldMapScreen extends BaseScreen {
@@ -183,8 +168,8 @@ public class WorldMapScreen extends BaseScreen {
 
 
     public static void loadingAsset() {
-        JsonValueHelper.loadFullDataAccount();
-        JsonValue characterBase = JsonValueHelper.getJsonValue(CHARACTER_BASE_JSON, false);
+//        JsonValueHelper.loadFullDataAccount();
+        JsonValue characterBase = JsonHelper.getJsonValue(CHARACTER_BASE_JSON);
         for (JsonValue character : characterBase) {
             String characterId = character.getString("characterBaseId");
             MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + characterId + ".atlas");
@@ -322,6 +307,7 @@ public class WorldMapScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+        Gdx.app.log("WorldMapScreen", "show() called");
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
 
@@ -335,7 +321,7 @@ public class WorldMapScreen extends BaseScreen {
         engine.addEntity(mapEntity);
 
         engine.addSystem(new TileMapRenderSystem(camera));
-//        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
+        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));

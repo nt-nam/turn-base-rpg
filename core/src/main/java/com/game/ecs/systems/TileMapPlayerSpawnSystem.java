@@ -19,7 +19,7 @@ import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.GameSession;
-import com.game.utils.JsonValueHelper;
+import com.game.utils.JsonHelper;
 
 public class TileMapPlayerSpawnSystem extends EntitySystem {
     private final Engine engine;
@@ -54,7 +54,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-                    CharacterComponent data = JsonValueHelper.getValueClassByKey(CHARACTER_BASE_JSON, "characterBaseId", characterId, CharacterComponent.class);
+                    CharacterComponent data = new CharacterComponent(JsonHelper.get(GameSession.characterBaseList, "characterId", characterId));
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());

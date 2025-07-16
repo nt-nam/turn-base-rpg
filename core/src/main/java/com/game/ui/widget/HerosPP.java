@@ -1,7 +1,7 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.PARTY_ATTACK;
+import static com.game.utils.Constants.LINEUP_ATTACK;
 import static com.game.utils.Constants.PARTY_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 
@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
@@ -18,18 +17,19 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.GameSession;
-import com.game.utils.JsonValueHelper;
+import com.game.utils.JsonHelper;
 import com.game.utils.json.Hero;
+import com.game.utils.json.Lineup;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HerosPP {
-    private static JsonValue gridFull = null;
-    private static JsonValue tableFull = null;
+    private static List<Hero> heroList = null;
+    private static List<Lineup> lineupList = null;
 
-    private static List<Hero> heroUse = null;
-    private static List<Hero> tableInUse = null;
-    private static Hero heroSelect = null;
+    private static Hero heroSelect;
 
     private static UIGroup popup;
     private static UITable table;
@@ -38,22 +38,19 @@ public class HerosPP {
     private static int page = 0;
     private static float size;
     private static float margin;
-    private static JsonValue select;
 
     public static Group pp(float w, float h) {
         size = h * 0.2f;
         margin = size * 0.2f;
-        select = new JsonValue(JsonValue.ValueType.object);
-        select.addChild("grid", new JsonValue(JsonValue.ValueType.stringValue));
-        select.addChild("characterId", new JsonValue(JsonValue.ValueType.stringValue));
-        select.addChild("characterBaseId", new JsonValue(JsonValue.ValueType.stringValue));
         popup = new UIGroup().name("hero").size(w, h);
-        gridFull = JsonValueHelper.getJsonValue(PARTY_ATTACK, true);
-        tableFull = JsonValueHelper.getJsonValue(PARTY_FULL, true);
+
+        heroList = JsonHelper.loadHeroList(PARTY_FULL, true);
+        lineupList = JsonHelper.loadLineupList(LINEUP_ATTACK, true);
+        heroSelect = new Hero();
+
         float xRootGrid = w * 0.05f;
         float yRootGrid = h * 0.12f;
-
-        sortJsonValue();
+        if (heroList.size() > 1) sortHero(heroList);
 
         TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "origin");
         new UIImage(profile).nine(profile, 30, 30, 30, 30)
@@ -99,12 +96,8 @@ public class HerosPP {
         createTable(w, h, size, margin);
         createGrid(xRootGrid, yRootGrid);
         createDetail();
-//        popup.run(() -> updateHero());
+
         return popup;
-    }
-
-    private static void updateHero() {
-
     }
 
     private static void createTable(float w, float h, float size, float margin) {
@@ -118,28 +111,25 @@ public class HerosPP {
 
         for (int i = 0; i < 15; i++) {
             UIGroup uiGroup;
-            if (i < tableFull.size) {
+            if (heroList != null && i < heroList.size()) {
                 final int index = i + i * page;
-                JsonValue tableItem = tableFull.get(index);
-                System.out.println(index);
-                uiGroup = new UIGroup().name(tableItem.get("characterId").asString()).child(
+                Hero hero = heroList.get(index);
+                uiGroup = new UIGroup().name(hero.characterId).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .name("bg")
                         .size(size, size),
                     new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "rarity0", 20))
-                        .name("border_" + tableItem.get("characterId").asString())
+                        .name("border_" + hero.characterId)
                         .size(size, size).visible(false),
-                    new UIImage(MainGame.getAsM().getRegionCharacter(tableItem.get("characterBaseId").asString(), "idle"))
+                    new UIImage(MainGame.getAsM().getRegionCharacter(hero.characterBaseId, "idle"))
                         .name("frame")
                         .size(size - margin, size - margin)
                         .pos(margin * 0.5f, margin * 0.5f),
-                    new UILabel(tableItem.get("level").asString(), BMF).pos(size * 0.1f, size * 0.1f).align(Align.center).fontScale(1.5f)
+                    new UILabel(hero.level + "", BMF).pos(size * 0.1f, size * 0.1f).align(Align.center).fontScale(1.5f)
                 );
 
-                //TODO tree -> popup/table/characterId/(UIImage)border_characterId
                 uiGroup.onClick(() -> {
-                    setCharaterIdTarget(tableItem);
-                    // Logic xử lý khi click vào item
+                    setCharaterIdTarget(hero);
                 });
             } else {
                 uiGroup = new UIGroup().name("empty").child(
@@ -190,8 +180,7 @@ public class HerosPP {
                     item = grid.findActor(i + "," + j);
                 }
 
-                gridFull = JsonValueHelper.getJsonValue(PARTY_ATTACK, true);
-                JsonValue gridChild = JsonValueHelper.getJsonValueByKey(gridFull, "grid", i + "," + j);
+                Lineup lineup = JsonHelper.get(GameSession.lineupList, "grid", i + "," + j);
                 UIImage frame = item.findActor("frame");
 
 //                    TODO tree -> grid/i,j/(UIImage)select
@@ -199,22 +188,22 @@ public class HerosPP {
                 final int m = i;
                 final int n = j;
                 item.onClick(() -> {
-                    System.out.println("Grid: " + (gridChild != null ? gridChild.get("grid").asString() : "null"));
+                    System.out.println("Grid: " + (lineup != null ? lineup.grid : "null"));
                     System.out.println(frame.getName());
 
-                    if (select.get("characterId") != null) {
-                        if (gridChild != null) {
-                            JsonValue fullParty = JsonValueHelper.getJsonValueByKey(tableFull, "characterId", select.getString("characterId"));
-                            updateJsonValue(gridFull, "grid", gridChild.get("grid").asString(), "characterId", fullParty.getString("characterId"));
-                            gridChild.get("characterBaseId").set(fullParty.get("characterBaseId").asString());
-                            frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + gridChild.get("characterBaseId").asString() + ".atlas", "idle")));
-                            System.out.println(gridFull);
+                    if (heroSelect.characterId != null) {
+                        if (lineup != null) {
+                            Hero hero = JsonHelper.get(heroList, "characterId", lineup.characterId);
+                            updateJsonValue(lineupList, lineup.grid, hero);
+                            lineup.characterBaseId = hero.characterBaseId;
+                            frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + lineup.characterBaseId + ".atlas", "idle")));
+                            System.out.println(lineupList);
                         }
-                        if (gridChild == null && gridFull.size < GameSession.sizeTeam) {
-                            gridChild.addChild("grid", new JsonValue(m + "," + n));
-                            gridChild.addChild("characterId", new JsonValue(select.getString("characterId")));
-                            gridChild.addChild("characterBaseId", new JsonValue(select.getString("characterBaseId")));
-                            gridFull.addChild(gridChild);
+                        if (lineup == null && lineupList.size() < GameSession.sizeTeam) {
+                            lineup.grid = m + "," + n;
+                            lineup.characterId = heroSelect.characterId;
+                            lineup.characterBaseId = heroSelect.characterBaseId;
+                            lineupList.add(lineup);
                         }
 
                     } else {
@@ -236,11 +225,10 @@ public class HerosPP {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 UIGroup item = grid.findActor(i + "," + j);
-                gridFull = JsonValueHelper.getJsonValue(PARTY_ATTACK, true);
-                JsonValue gridChild = JsonValueHelper.getJsonValueByKey(gridFull, "grid", i + "," + j);
+                Lineup lineup = JsonHelper.get(lineupList, "grid", i + "," + j);
                 UIImage frame = item.findActor("frame");
-                if (gridChild != null) {
-                    frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + gridChild.get("characterBaseId").asString() + ".atlas", "idle")));
+                if (lineup != null) {
+                    frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + lineup.characterBaseId + ".atlas", "idle")));
                 } else {
                     frame.setVisible(false);
                 }
@@ -249,15 +237,17 @@ public class HerosPP {
 
     }
 
-    private static void updateJsonValue(JsonValue full, String key, String value, String keyUpdate, String newValue) {
-        for (JsonValue item = full.child; item != null; item = item.next) {
-            if (value.equals(item.getString(key, ""))) {
-                item.get(keyUpdate).set(newValue);
+    private static void updateJsonValue(List<Lineup> full, String value, Hero hero) {
+        for (Lineup item : full) {
+            if (value.equals(item.grid)) {
+                item.characterId = hero.characterId;
+                item.characterBaseId = hero.characterBaseId;
+                return;
             }
         }
     }
 
-    private static void setCharaterIdTarget(JsonValue item) {
+    private static void setCharaterIdTarget(Hero item) {
         // TODO popup/table/characterId/(UIImage)border_characterId
         // TODO popup/(UIGroup)i,j/(UIImage)select
         Table tableGroup = table.findActor("table");
@@ -265,49 +255,49 @@ public class HerosPP {
             System.out.println("Table not found!");
             return;
         }
-        UIGroup uiGroup = tableGroup.findActor(item.getString("characterId"));
+        UIGroup uiGroup = tableGroup.findActor(item.characterId);
         if (uiGroup == null) {
-            System.out.println("A UIGroup with name " + item.getString("characterId") + " not found!");
+            System.out.println("A UIGroup with name " + item.characterId + " not found!");
             return;
         }
-        UIImage uiImage = uiGroup.findActor("border_" + item.getString("characterId"));
+        UIImage uiImage = uiGroup.findActor("border_" + item.characterId);
         if (uiImage == null) {
-            System.out.println("UIImage with name " + item.getString("characterId") + " not found!");
+            System.out.println("UIImage with name " + item.characterId + " not found!");
             return;
         }
         UIImage uiImage2 = null;
-        if (select.get("characterId").asString() != null) {
-            System.out.println(select.get("characterId").asString());
-            UIGroup uiGroup2 = tableGroup.findActor(select.getString("characterId"));
+        if (heroSelect.characterId != null) {
+            System.out.println(heroSelect.characterId);
+            UIGroup uiGroup2 = tableGroup.findActor(heroSelect.characterId);
             if (uiGroup2 == null) {
-                System.out.println("B UIGroup with name " + select.getString("characterId") + " not found!");
+                System.out.println("B UIGroup with name " + heroSelect.characterId + " not found!");
                 return;
             }
-            uiImage2 = uiGroup2.findActor("border_" + select.getString("characterId"));
+            uiImage2 = uiGroup2.findActor("border_" + heroSelect.characterId);
             if (uiImage == null) {
-                System.out.println("UIImage with name " + select.getString("characterId") + " not found!");
+                System.out.println("UIImage with name " + heroSelect.characterId + " not found!");
                 return;
             }
         }
 
 
-        if (select.get("characterId") == null) {
+        if (heroSelect.characterId == null) {
             uiImage.setVisible(true);
-            updateSelectGrid(item.getString("grid"), true);
-            select.get("characterId").set(item.getString("characterId"));
-            select.get("characterBaseId").set(item.getString("characterBaseId"));
+            updateSelectGrid(item.grid, true);
+            heroSelect.characterId = item.characterId;
+            heroSelect.characterBaseId = item.characterBaseId;
         } else {
-            if (select.get("characterId").asString() == item.get("characterId").asString()) {
+            if (heroSelect.characterId == item.characterId) {
                 uiImage.setVisible(false);
-                select.get("characterId").set(null);
-                select.get("characterBaseId").set(null);
-                updateSelectGrid(item.getString("grid"), false);
+                heroSelect.characterId = null;
+                heroSelect.characterBaseId = null;
+                updateSelectGrid(item.grid, false);
             } else {
                 uiImage.setVisible(true);
                 uiImage2.setVisible(false);
-                updateSelectGrid(item.getString("grid"), true);
-                select.get("characterId").set(item.getString("characterId"));
-                select.get("characterBaseId").set(item.getString("characterBaseId"));
+                updateSelectGrid(item.grid, true);
+                heroSelect.characterId = item.characterId;
+                heroSelect.characterBaseId = item.characterBaseId;
             }
         }
     }
@@ -348,12 +338,6 @@ public class HerosPP {
         return gridGroup.findActor("select");
     }
 
-
-    private static void sortJsonValue() {
-        JsonValueHelper.sortJsonByKey(tableFull, "level");
-        JsonValueHelper.sortJsonByGrid(tableFull, "grid", "empty");
-    }
-
     private static void btnRedirect(float w, float h, float size) {
         new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "btn_up"))
             .size(size, size)
@@ -367,11 +351,35 @@ public class HerosPP {
             .size(size, size)
             .pos(w * 0.93f, h * 0.09f)
             .onClick(() -> {
-                if ((page + 1) * 21 < heroUse.size()) {
+                if ((page + 1) * 21 < heroList.size()) {
                     page++;
                 }
             })
             .parent(popup);
+    }
+
+    public static List<Hero> sortHero(List<Hero> heroList) {
+        Collections.sort(heroList, new Comparator<Hero>() {
+            @Override
+            public int compare(Hero hero1, Hero hero2) {
+                return Integer.compare(hero2.level, hero1.level);
+            }
+        });
+        Collections.sort(heroList, new Comparator<Hero>() {
+            @Override
+            public int compare(Hero hero1, Hero hero2) {
+                String grid1 = hero1.grid;
+                String grid2 = hero2.grid;
+
+                if (!hero1.grid.equals("empty") && grid2.equals("empty")) {
+                    return -1;
+                } else if (grid1.equals("empty") && !grid2.equals("empty")) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        return heroList;
     }
 
 

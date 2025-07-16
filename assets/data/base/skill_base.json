@@ -1,5 +1,6 @@
-{
-  "warrior": {
+[
+  {
+    "name": "warrior",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -22,7 +23,8 @@
       }
     }
   },
-  "assassin": {
+  {
+    "name": "assassin",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -45,7 +47,8 @@
       }
     }
   },
-  "mage": {
+  {
+    "name": "mage",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -68,7 +71,8 @@
       }
     }
   },
-  "ranger": {
+  {
+    "name": "ranger",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -92,7 +96,8 @@
       }
     }
   },
-  "tank": {
+  {
+    "name": "tank",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -115,7 +120,8 @@
       }
     }
   },
-  "support": {
+  {
+    "name": "support",
     "1": {
       "name": "Basic Attack",
       "description": "Đánh thường",
@@ -139,4 +145,4 @@
       }
     }
   }
-}
+]

@@ -27,7 +27,7 @@ public class ShopPP {
 
     public static Group pp(float w, float h) {
 
-        useFor = JsonHelper.loadItems(ITEM_JSON, true);
+        useFor = JsonHelper.loadItemBaseList(ITEM_JSON, true);
 
         float size = h * 0.1f;
 
@@ -49,7 +49,7 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(false);
                 ((UIButton) popup.findActor("btnItem")).setChecked(true);
-                useFor = JsonHelper.loadItems(ITEM_JSON, true);
+                useFor = JsonHelper.loadItemBaseList(ITEM_JSON, true);
                 page = 0;
                 updateGrid(popup, w, h);
             })
@@ -62,7 +62,7 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(true);
                 ((UIButton) popup.findActor("btnItem")).setChecked(false);
-                useFor = JsonHelper.loadEquips(EQUIP_JSON, true);
+                useFor = JsonHelper.loadEquipBaseList(EQUIP_JSON, true);
                 page = 0;
                 updateGrid(popup, w, h);
             })

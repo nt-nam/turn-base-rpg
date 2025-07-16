@@ -1,11 +1,11 @@
 [
-  { "id": "Recruited",     "name": "Chiêu mộ",         "dec": "Số lượng người đã tuyển dụng",    "number": 0 },
-  { "id": "Kill",          "name": "Chiến công",       "dec": "Số lượng kẻ thù bị tiêu diệt",    "number": 0 },
-  { "id": "LevelTeam",     "name": "Cấp độ đội",       "dec": "Tổng cấp độ cao nhất của đội",    "number": 0 },
-  { "id": "Level",         "name": "Cấp độ",           "dec": "Cấp độ",                          "number": 0 },
-  { "id": "Win",           "name": "Trận thắng",       "dec": "Số trận thắng",                   "number": 0 },
-  { "id": "CoinSum",       "name": "Tổng tiền",        "dec": "Tổng số tiền xu kiếm được",       "number": 0 },
-  { "id": "GemPay",        "name": "Gem",              "dec": "Số lượng gem đã chi trả",         "number": 0 },
-  { "id": "Equip",         "name": "Trang bị",         "dec": "Số lượng trang bị đã từn sở hữu", "number": 0 }
+  { "idBase": "Recruited",     "name": "Chiêu mộ",         "dec": "Số lượng người đã tuyển dụng",    "number": 0 },
+  { "idBase": "Kill",          "name": "Chiến công",       "dec": "Số lượng kẻ thù bị tiêu diệt",    "number": 0 },
+  { "idBase": "LevelTeam",     "name": "Cấp độ đội",       "dec": "Tổng cấp độ cao nhất của đội",    "number": 0 },
+  { "idBase": "Level",         "name": "Cấp độ",           "dec": "Cấp độ",                          "number": 0 },
+  { "idBase": "Win",           "name": "Trận thắng",       "dec": "Số trận thắng",                   "number": 0 },
+  { "idBase": "CoinSum",       "name": "Tổng tiền",        "dec": "Tổng số tiền xu kiếm được",       "number": 0 },
+  { "idBase": "GemPay",        "name": "Gem",              "dec": "Số lượng gem đã chi trả",         "number": 0 },
+  { "idBase": "Equip",         "name": "Trang bị",         "dec": "Số lượng trang bị đã từn sở hữu", "number": 0 }
 ]
 

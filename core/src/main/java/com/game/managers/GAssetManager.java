@@ -98,7 +98,7 @@ public class GAssetManager {
             Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
         }
         if (atlas.findRegion(regionName)==null) {
-            Gdx.app.error("AssetManager", "Region not found: " + regionName+"---"+atlasPath);
+            Gdx.app.error("AssetManager", "RegionCharacter not found: " + regionName+"---"+atlasPath);
         }
         return atlas.findRegion(regionName);
     }

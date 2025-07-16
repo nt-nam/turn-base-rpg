@@ -12,7 +12,10 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.JsonValueHelper;
+import com.game.utils.JsonHelper;
+//import com.game.utils.JsonValueHelper;
+
+import java.util.Objects;
 
 public class DailyPP {
     public static Group pp(float w, float h) {
@@ -24,7 +27,7 @@ public class DailyPP {
             .parent(popup)
             .bounds(w * 0.15f, h * 0.05f, w * 0.7f, h * 0.9f);
 
-        JsonValue dailyRewards = JsonValueHelper.getJsonValue(DAILY_REWARD_JSON, false).get("daily_rewards");
+        JsonValue dailyRewards = JsonHelper.getJsonValue(DAILY_REWARD_JSON).get("daily_rewards");
 
         float size = h/6.2f;
         float margin = size * 0.3f;

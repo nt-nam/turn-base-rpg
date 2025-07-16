@@ -1,8 +1,9 @@
 package com.game.utils.json;
 
 public class Bag {
-    public String type;
     public String id;
+    public String type;
+    public String idBase;
     public int index;
-//    public Inventory item;
+    public String target;
 }

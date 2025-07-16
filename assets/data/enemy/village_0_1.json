@@ -11,12 +11,12 @@
   "reward": [
     {
       "type": "coin",
-      "id": "coin",
+      "idBase": "coin",
       "index": 100
     },
     {
       "type": "gem",
-      "id": "gem_pink",
+      "idBase": "gem_pink",
       "index": 5
     }
   ]

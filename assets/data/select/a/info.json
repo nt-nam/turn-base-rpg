@@ -2,7 +2,10 @@
   "name": "a",
   "CharacterSelect": "character1",
   "Area": "",
-  "pos": "0,0",
+  "pos": {
+    "x": 0.0,
+    "y": 0.0
+  },
   "sizeTeam": 5,
   "exp": 0,
   "coin": 0,

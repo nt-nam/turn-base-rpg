@@ -6,10 +6,10 @@
     "star": 0,
     "level": 50,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -19,10 +19,10 @@
     "star": 0,
     "level": 25,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -32,10 +32,10 @@
     "star": 0,
     "level": 30,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -45,10 +45,10 @@
     "star": 0,
     "level": 34,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -58,10 +58,10 @@
     "star": 0,
     "level": 15,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -71,10 +71,10 @@
     "star": 0,
     "level": 30,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -84,10 +84,10 @@
     "star": 0,
     "level": 22,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -97,10 +97,10 @@
     "star": 0,
     "level": 40,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -110,10 +110,10 @@
     "star": 0,
     "level": 30,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -123,10 +123,10 @@
     "star": 0,
     "level": 18,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -136,10 +136,10 @@
     "star": 0,
     "level": 45,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   },
   {
@@ -149,10 +149,10 @@
     "star": 0,
     "level": 30,
     "equip": {
-      "weapon": 0,
-      "armor": 0,
-      "jewelry": 0,
-      "support": 0
+      "weapon": "empty",
+      "armor": "empty",
+      "jewelry": "empty",
+      "support": "empty"
     }
   }
 ]

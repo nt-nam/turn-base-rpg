@@ -10,12 +10,10 @@ import com.game.ecs.component.InfoComponent;
 import com.game.utils.json.Achievement;
 import com.game.utils.json.Bag;
 import com.game.utils.json.CharacterBase;
-import com.game.utils.json.DailyReward;
 import com.game.utils.json.EquipBase;
-import com.game.utils.json.GridData;
+import com.game.utils.json.Lineup;
 import com.game.utils.json.Hero;
 import com.game.utils.json.ItemBase;
-import com.game.utils.json.Lineup;
 import com.game.utils.json.Account;
 import com.game.utils.json.Mission;
 import com.game.utils.json.Reward;
@@ -24,57 +22,15 @@ import com.game.utils.json.skill.Skill;
 import com.game.utils.json.skill.SkillBase;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class JsonHelper {
-    public static List<Account> listAccount = new ArrayList<>();
-    public static List<ItemBase> items = new ArrayList<>();
-    public static List<EquipBase> equips = new ArrayList<>();
-    public static List<CharacterBase> baseHero = new ArrayList<>();
-    public static List<SkillBase> skillBaseList = new ArrayList<>();
-
-    public static List<Bag> bags = new ArrayList<>();
-    public static List<InfoComponent> infoComponents = new ArrayList<>();
-    public static List<Lineup> lineups = new ArrayList<>();
-    public static List<GridData> gridDataList = new ArrayList<>();
-    public static List<Hero> fullHero = new ArrayList<>();
-    public static List<Achievement> achievementList = new ArrayList<>();
-    public static List<Mission> missions = new ArrayList<>();
-    public static List<DailyReward> dailyRewards = new ArrayList<>();
 
 
-
-    public static List<Mission> loadProfile(String filePath, boolean b) {
-        if (b || missions.isEmpty()) {
-            missions.clear();
-            FileHandle fileHandle = Gdx.files.local(filePath);
-            JsonReader reader = new JsonReader();
-            JsonValue root = reader.parse(fileHandle);
-            for (JsonValue child : root) {
-                Mission newChild = new Mission();
-                newChild.missionId = child.getString("missionId");
-                newChild.title = child.getString("title");
-                newChild.description = child.getString("description");
-                newChild.progress = child.getInt("progress");
-                newChild.targetAmount = child.getInt("targetAmount");
-                for (JsonValue a : child.get("rewards")) {
-                    Reward reward = new Reward();
-                    reward.id = a.getString("id");
-                    reward.type = a.getString("type");
-                    reward.quantity = a.getInt("quantity");
-                    newChild.rewards.add(reward);
-                }
-                missions.add(newChild);
-            }
-        }
-        return missions;
-    }
-
-    public static List<Mission> loadMissions(String filePath, boolean b) {
-        if (b || missions.isEmpty()) {
-            missions.clear();
+    public static List<Mission> loadMissionList(String filePath, boolean b) {
+        if (b || GameSession.missionList.isEmpty()) {
+            GameSession.missionList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -88,20 +44,20 @@ public class JsonHelper {
                 newChild.targetAmount = child.getInt("targetAmount");
                 for (JsonValue a : child.get("rewards")) {
                     Reward reward = new Reward();
-                    reward.id = a.getString("id");
+                    reward.id = a.getString("idBase");
                     reward.type = a.getString("type");
                     reward.quantity = a.getInt("quantity");
                     newChild.rewards.add(reward);
                 }
-                missions.add(newChild);
+                GameSession.missionList.add(newChild);
             }
         }
-        return missions;
+        return GameSession.missionList;
     }
 
-    public static List<Achievement> loadAchievements(String filePath, boolean b) {
-        if (b || achievementList.isEmpty()) {
-            achievementList.clear();
+    public static List<Achievement> loadAchievementList(String filePath, boolean b) {
+        if (b || GameSession.achievementList.isEmpty()) {
+            GameSession.achievementList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -111,15 +67,15 @@ public class JsonHelper {
                 newChild.name = lineup.getString("name", "empty");
                 newChild.dec = lineup.getString("dec", "");
                 newChild.number = lineup.getInt("number", 0);
-                achievementList.add(newChild);
+                GameSession.achievementList.add(newChild);
             }
         }
-        return achievementList;
+        return GameSession.achievementList;
     }
 
-    public static List<Account> loadMaiInfo(String filePath, boolean b) {
-        if (b || listAccount.isEmpty()) {
-            listAccount.clear();
+    public static List<Account> loadAccountList(String filePath, boolean b) {
+        if (b || GameSession.accountList.isEmpty()) {
+            GameSession.accountList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             if(!fileHandle.exists()){
                 return null;
@@ -133,15 +89,15 @@ public class JsonHelper {
                 newItem.level = item.getInt("level");
                 newItem.characterSelect = item.getString("characterSelect", null);
 
-                listAccount.add(newItem);
+                GameSession.accountList.add(newItem);
             }
         }
-        return listAccount;
+        return GameSession.accountList;
     }
 
-    public static List<CharacterBase> loadHeroBase(String filePath, boolean b) {
-        if (b || baseHero.isEmpty()) {
-            baseHero.clear();
+    public static List<CharacterBase> loadCharacterBaseList(String filePath, boolean b) {
+        if (b || GameSession.characterBaseList.isEmpty()) {
+            GameSession.characterBaseList.clear();
             FileHandle fileHandle = Gdx.files.internal(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -188,21 +144,21 @@ public class JsonHelper {
                 }
 
                 // Thêm đối tượng vào danh sách BaseHero
-                baseHero.add(newItem);
+                GameSession.characterBaseList.add(newItem);
             }
         }
-        return baseHero;
+        return GameSession.characterBaseList;
     }
-    public static List<SkillBase> loadSkillBase(String filePath, boolean b) {
-        if (b || skillBaseList.isEmpty()) {
-            skillBaseList.clear();
+    public static List<SkillBase> loadSkillBaseList(String filePath, boolean b) {
+        if (b || GameSession.skillBaseList.isEmpty()) {
+            GameSession.skillBaseList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
             for (JsonValue item : root) {
                 SkillBase newItem = new SkillBase();
-                newItem.name = item.name;
+                newItem.name = item.getString("name");
 
                 JsonValue skillJS1 = item.get("1");
                 newItem.skill1 = new Skill();
@@ -231,34 +187,34 @@ public class JsonHelper {
                 newItem.skill3.effectSkill.name = effect3.get(0).name;
                 newItem.skill3.effectSkill.value = effect3.getInt(0);
 
-                skillBaseList.add(newItem);
+                GameSession.skillBaseList.add(newItem);
             }
         }
-        return skillBaseList;
+        return GameSession.skillBaseList;
     }
-    public static List<ItemBase> loadItems(String filePath, boolean b) {
-        if (b || items.isEmpty()) {
-            items.clear();
+    public static List<ItemBase> loadItemBaseList(String filePath, boolean b) {
+        if (b || GameSession.itemBaseList.isEmpty()) {
+            GameSession.itemBaseList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
             for (JsonValue item : root) {
                 ItemBase newItem = new ItemBase();
-                newItem.id = item.getString("id");
+                newItem.id = item.getString("id","empty");
                 newItem.name = item.getString("name");
                 newItem.level = item.getInt("level");
                 newItem.price = item.getInt("price");
 
-                items.add(newItem);
+                GameSession.itemBaseList.add(newItem);
             }
         }
-        return items;
+        return GameSession.itemBaseList;
     }
 
-    public static List<EquipBase> loadEquips(String filePath, boolean b) {
-        if (b || equips.isEmpty()) {
-            equips.clear();
+    public static List<EquipBase> loadEquipBaseList(String filePath, boolean b) {
+        if (b || GameSession.equipBaseList.isEmpty()) {
+            GameSession.equipBaseList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -280,15 +236,15 @@ public class JsonHelper {
                     System.out.println(" stats null");
                 }
 
-                equips.add(newEquip);
+                GameSession.equipBaseList.add(newEquip);
             }
         }
-        return equips;
+        return GameSession.equipBaseList;
     }
 
-    public static List<Bag> loadBags(String filePath, boolean b) {
-        if (b || bags.isEmpty()) {
-            bags.clear();
+    public static List<Bag> loadBagList(String filePath, boolean b) {
+        if (b || GameSession.bagList.isEmpty()) {
+            GameSession.bagList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -299,15 +255,15 @@ public class JsonHelper {
                 newBag.id = equip.getString("id");
                 newBag.type = equip.getString("type");
                 newBag.index = equip.getInt("index", 1);
-                bags.add(newBag);
+                GameSession.bagList.add(newBag);
             }
         }
-        return bags;
+        return GameSession.bagList;
     }
 
     public static Bag getBag(String keyId, boolean b) {
-        if (bags != null && !bags.isEmpty()) {
-            for (Bag item : bags) {
+        if (GameSession.bagList != null && !GameSession.bagList.isEmpty()) {
+            for (Bag item : GameSession.bagList) {
                 if (item.id.equals(keyId)) {
                     return item;
                 }
@@ -316,36 +272,16 @@ public class JsonHelper {
         return null;
     }
 
-
-    public static List<Lineup> loadLineups(String filePath, boolean b) {
-        if (b || lineups.isEmpty()) {
-            lineups.clear();
-            FileHandle fileHandle = Gdx.files.local(filePath);
-            JsonReader reader = new JsonReader();
-            JsonValue root = reader.parse(fileHandle);
-
-            for (JsonValue lineup : root) {
-                Lineup newLineup = new Lineup();
-                newLineup.grid = lineup.getString("grid", "empty");
-                newLineup.hero = new Hero();
-                newLineup.hero.characterId = lineup.getString("characterId");
-//                newLineup.hero.characterBase = lineup.getString("characterBaseId");
-                lineups.add(newLineup);
-            }
-        }
-        return lineups;
-    }
-
-    public static List<GridData> loadGrids(String filePath, boolean b) {
-        if (b || gridDataList.isEmpty()) {
-            gridDataList.clear();
+    public static List<Lineup> loadLineupList(String filePath, boolean b) {
+        if (b || GameSession.lineupList.isEmpty()) {
+            GameSession.lineupList.clear();
             FileHandle fileHandle = Gdx.files.internal(filePath);
             if (!fileHandle.exists()) {
                 fileHandle = Gdx.files.local(filePath);
 
                 if (!fileHandle.exists()) {
                     System.err.println("File not found in both internal and local: " + filePath);
-                    return gridDataList;
+                    return GameSession.lineupList;
                 }
             }
             JsonReader reader = new JsonReader();
@@ -355,19 +291,19 @@ public class JsonHelper {
             }
 
             for (JsonValue jsv : root) {
-                GridData c = new GridData();
+                Lineup c = new Lineup();
                 c.grid = jsv.getString("grid", "empty");
                 c.characterId =jsv.getString("characterId","defaultCharacterId");
-                c.getCharacterId =jsv.getString("characterBaseId","defaultCharacterBaseId");
-                gridDataList.add(c);
+                c.characterBaseId =jsv.getString("characterBaseId","defaultCharacterBaseId");
+                GameSession.lineupList.add(c);
             }
         }
-        return gridDataList;
+        return GameSession.lineupList;
     }
 
-    public static List<Hero> loadFullHero(String filePath, boolean b) {
-        if (b || fullHero.isEmpty()) {
-            fullHero.clear();
+    public static List<Hero> loadHeroList(String filePath, boolean b) {
+        if (b || GameSession.heroList.isEmpty()) {
+            GameSession.heroList.clear();
             FileHandle fileHandle = Gdx.files.internal(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -381,22 +317,25 @@ public class JsonHelper {
                 newHero.level = hero.getInt("level",1);
 
                 JsonValue equip = hero.get("equip");
-                newHero.equip = new HashMap<>();
-                if (equip != null) {
-                    for (JsonValue equipItem : equip) {
-                        newHero.equip.put(equipItem.name(), equipItem.asInt());
-                    }
+                newHero.equip = new Hero.Equip();
+                if(equip != null){
+                    newHero.equip.weapon = equip.getString("weapon","empty");
+                    newHero.equip.armor = equip.getString("armor","empty");
+                    newHero.equip.jewelry = equip.getString("jewelry","empty");
+                    newHero.equip.support = equip.getString("support","empty");
                 }
 
-                fullHero.add(newHero);
+
+
+                GameSession.heroList.add(newHero);
             }
         }
-        return fullHero;
+        return GameSession.heroList;
     }
 
-    public static List<InfoComponent> loadInfoComponent(String filePath, boolean b) {
-        if (b || infoComponents.isEmpty()) {
-            infoComponents.clear();
+    public static List<InfoComponent> loadInfoComponentList(String filePath, boolean b) {
+        if (b || GameSession.infoComponentList.isEmpty()) {
+            GameSession.infoComponentList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
 
             if (!fileHandle.exists()) {
@@ -427,12 +366,12 @@ public class JsonHelper {
                 newBag.equip.jewelry = new EquipComponent(equipItem.get("jewelry"));
                 newBag.equip.support = new EquipComponent(equipItem.get("support"));
 
-                infoComponents.add(newBag);
+                GameSession.infoComponentList.add(newBag);
             }
         }
 
         // Trả về danh sách nếu có dữ liệu
-        return infoComponents.isEmpty() ? null : infoComponents;
+        return GameSession.infoComponentList.isEmpty() ? null : GameSession.infoComponentList;
     }
 
     public static <T> T get(List<T> list, String key, Object value) {
@@ -450,6 +389,19 @@ public class JsonHelper {
             }
         }
         return null;
+    }
+
+    public static JsonValue getJsonValue(String filePath) {
+        JsonReader reader = new JsonReader();
+
+        FileHandle fileHandle = Gdx.files.internal(filePath);
+
+        if (!fileHandle.exists()) {
+            System.err.println("[JsonHelper:JsonValue] File not found: " + filePath);
+            return null;
+        }
+
+        return reader.parse(fileHandle);
     }
 
 }

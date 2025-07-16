@@ -1,7 +1,6 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.ACHIEVEMENT_JSON;
-import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.MISSION_JSON;
 import static com.game.utils.Constants.UI_POPUP;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
@@ -72,8 +70,8 @@ public class RolePP {
         float size = h * 0.2f;
         float margin = size * 0.2f;
 
-        List<Achievement> achievements = JsonHelper.loadAchievements(ACHIEVEMENT_JSON, false);
-        List<Mission> missions = JsonHelper.loadMissions(MISSION_JSON, false);
+        List<Achievement> achievements = JsonHelper.loadAchievementList(ACHIEVEMENT_JSON, false);
+        List<Mission> missions = JsonHelper.loadMissionList(MISSION_JSON, false);
 
         createAchievement(popup, achievements, size, w,h);
         createMission(popup, missions, size, w,h);

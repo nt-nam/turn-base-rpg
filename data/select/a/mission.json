@@ -7,12 +7,12 @@
     "targetAmount": 5,
     "rewards": [
       {
-        "id": "reward_001",
+        "idBase": "reward_001",
         "type": "item",
         "quantity": 1
       },
       {
-        "id": "reward_002",
+        "idBase": "reward_002",
         "type": "currency",
         "quantity": 100
       }
@@ -26,12 +26,12 @@
     "targetAmount": 10,
     "rewards": [
       {
-        "id": "reward_003",
+        "idBase": "reward_003",
         "type": "item",
         "quantity": 2
       },
       {
-        "id": "reward_004",
+        "idBase": "reward_004",
         "type": "currency",
         "quantity": 50
       }
@@ -45,12 +45,12 @@
     "targetAmount": 15,
     "rewards": [
       {
-        "id": "reward_005",
+        "idBase": "reward_005",
         "type": "item",
         "quantity": 3
       },
       {
-        "id": "reward_006",
+        "idBase": "reward_006",
         "type": "currency",
         "quantity": 200
       }
@@ -64,12 +64,12 @@
     "targetAmount": 1,
     "rewards": [
       {
-        "id": "reward_007",
+        "idBase": "reward_007",
         "type": "item",
         "quantity": 5
       },
       {
-        "id": "reward_008",
+        "idBase": "reward_008",
         "type": "currency",
         "quantity": 150
       }
@@ -83,12 +83,12 @@
     "targetAmount": 1,
     "rewards": [
       {
-        "id": "reward_009",
+        "idBase": "reward_009",
         "type": "item",
         "quantity": 1
       },
       {
-        "id": "reward_010",
+        "idBase": "reward_010",
         "type": "currency",
         "quantity": 500
       }

@@ -1,22 +1,16 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.ATLAS_ITEM;
-import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.WAREHOUSE_JSON;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Array;
 import com.game.MainGame;
-import com.game.ecs.component.WarehouseComponent;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
-import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.JsonHelper;
-import com.game.utils.JsonValueHelper;
 import com.game.utils.json.Bag;
 
 import java.util.List;
@@ -24,7 +18,6 @@ import java.util.List;
 public class BagPP {
     public static Group pp(float w, float h){
         UIGroup popup = new UIGroup().name("bag").size(w,h);
-
         TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
         new UIImage(profile).nine(profile, 30, 30, 30, 30)
             .name("profile")
@@ -37,7 +30,7 @@ public class BagPP {
             .parent(popup)
             .bounds(w * 0.4f, h * 0.05f, w * 0.6f, h * 0.9f);
 
-        List<Bag> bags = JsonHelper.loadBags(WAREHOUSE_JSON,true);
+        List<Bag> bags = JsonHelper.loadBagList(WAREHOUSE_JSON,true);
         float size = h * 0.2f;
         float margin = size * 0.2f;
 

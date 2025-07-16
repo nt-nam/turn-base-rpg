@@ -7,12 +7,12 @@
     "targetAmount": 5,
     "rewards": [
       {
-        "id": "reward_001",
+        "idBase": "reward_001",
         "type": "item",
         "quantity": 1
       },
       {
-        "id": "reward_002",
+        "idBase": "reward_002",
         "type": "currency",
         "quantity": 100
       }
@@ -26,12 +26,12 @@
     "targetAmount": 1,
     "rewards": [
       {
-        "id": "reward_001",
+        "idBase": "reward_001",
         "type": "item",
         "quantity": 1
       },
       {
-        "id": "reward_002",
+        "idBase": "reward_002",
         "type": "currency",
         "quantity": 100
       }
