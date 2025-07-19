@@ -15,7 +15,10 @@ public class Profile {
     public String dailyCheck;
     public int sizeTeam;
     public int exp;
+    public int coin;
+    public int gem;
     public int numberOfTeammatesRecruited;
+    public int equipment;
     public int numberOfEnemies;
     public List<String> unlocked;
 
@@ -30,11 +33,15 @@ public class Profile {
         this.pos = new Vector2(0, 0);
         this.dailyCheck = LocalDate.now().minusDays(1).toString();
         this.sizeTeam = 1;
-        this.exp = -1;
-        this.numberOfTeammatesRecruited = -1;
-        this.numberOfEnemies = -1;
+        this.exp = 0;
+        this.coin = 0;
+        this.gem = 0;
+        this.numberOfTeammatesRecruited = 0;
+        this.equipment = 0;
+        this.numberOfEnemies = 0;
         this.unlocked = new ArrayList<>();
     }
+
     public LocalDate getDailyCheck() {
         return dailyCheck != null ? LocalDate.parse(dailyCheck) : LocalDate.now();
     }

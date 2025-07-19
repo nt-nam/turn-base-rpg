@@ -14,14 +14,14 @@ public class BattleLogger {
             CharacterComponent base = e.getComponent(CharacterComponent.class);
             if (base != null) {
                 e.add(new StatComponent().fromCharacter(base));
-                entityMap.put(base.characterBaseId, e);
+                entityMap.put(base.nameRegion, e);
             }
         }
         for (Entity e : enemyTeam) {
             CharacterComponent base = e.getComponent(CharacterComponent.class);
             if (base != null) {
                 e.add(new StatComponent().fromCharacter(base));
-                entityMap.put(base.characterBaseId, e);
+                entityMap.put(base.nameRegion, e);
             }
         }
 
@@ -102,7 +102,7 @@ public class BattleLogger {
         for (Entity e : team) {
             CharacterComponent base = Mappers.base.get(e);
             StatComponent stats = Mappers.stat.get(e);
-            String characterId = base != null ? base.characterBaseId : "Unknown";
+            String characterId = base != null ? base.nameRegion : "Unknown";
             int hp = stats != null ? stats.hp : 0;
             int mp = stats != null ? stats.mp : 0;
             String status = (stats != null && stats.hp > 0) ? "Alive" : "Dead";

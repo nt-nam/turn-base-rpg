@@ -1,7 +1,7 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.PARTY_FULL;
+import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -18,12 +18,13 @@ import com.game.utils.JsonSaver;
 import com.game.utils.json.CharacterBase;
 import com.game.utils.json.Hero;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class RecruitPP {
     private static UIGroup hiddenCard;
-
+    public static void show(boolean b) {
+        hiddenCard.setVisible(b);
+    }
     public static UIGroup pp(float w, float h) {
         UIGroup popup = new UIGroup().name("recruit");
         NinePatch ninePatch = MainGame.getAsM().get9p();
@@ -64,37 +65,21 @@ public class RecruitPP {
         List<CharacterBase> baseHero = GameSession.characterBaseList;
         List<Hero> fullHero = GameSession.heroList;
         int random = MathUtils.random(baseHero.size());
-        CharacterBase characterBase = baseHero.get(random);
+        CharacterBase characterBase = baseHero.get(random-1);
         Hero hero = new Hero();
         hero.characterId = characterBase.characterId;
-        hero.characterBaseId = characterBase.characterBaseId;
+        hero.nameRegion = characterBase.nameRegion;
         hero.grid = "empty";
         hero.star = 0;
         hero.level = 1;
 
-//        hero.characterBase = new CharacterBase();
-//        hero.characterBase.characterId = characterBase.characterId;
-//        hero.characterBase.characterBaseId = characterBase.characterBaseId;
-//        hero.characterBase.classType = characterBase.classType;
-//        hero.characterBase.role = characterBase.role;
-//        hero.characterBase.name = characterBase.name;
-//        hero.characterBase.desc = characterBase.desc;
-//        hero.characterBase.hp = characterBase.hp;
-//        hero.characterBase.mp = characterBase.mp;
-//        hero.characterBase.atk = characterBase.atk;
-//        hero.characterBase.def = characterBase.def;
-//        hero.characterBase.agi = characterBase.agi;
-//        hero.characterBase.crit = characterBase.crit;
-//        hero.characterBase.skills = characterBase.skills;
-//        hero.characterBase.counters = characterBase.counters;
-//        hero.characterBase.weakAgainst = characterBase.weakAgainst;
-
-        hero.equip.weapon = "empty";
-        hero.equip.armor = "empty";
-        hero.equip.jewelry = "empty";
-        hero.equip.support = "empty";
+        hero.equip = new Hero.Equip();
+        hero.equip.weapon = "0";
+        hero.equip.armor = "0";
+        hero.equip.jewelry = "0";
+        hero.equip.support = "0";
 
         fullHero.add(hero);
-        JsonSaver.saveObject(PARTY_FULL,fullHero);
+        JsonSaver.saveObject(HERO_FULL,fullHero);
     }
 }

@@ -23,7 +23,7 @@ public class TurnExecution {
 
         // Kiểm tra tính hợp lệ của các component
         if (ca == null || actorStats == null || listSkill == null) {
-            Gdx.app.error("TurnExecution", "Actor " + (ca != null ? ca.characterBaseId : "null") +
+            Gdx.app.error("TurnExecution", "Actor " + (ca != null ? ca.nameRegion : "null") +
                 " thiếu component: ca=" + (ca != null) + ", stats=" + (actorStats != null) +
                 ", skills=" + (listSkill != null));
             return null;
@@ -32,15 +32,15 @@ public class TurnExecution {
         // Chọn kỹ năng
         SkillComponent selectedSkill = selectSkill(actorStats, listSkill);
         if (selectedSkill == null) {
-            Gdx.app.error("TurnExecution", "Không tìm thấy kỹ năng hợp lệ cho actor " + ca.characterBaseId);
+            Gdx.app.error("TurnExecution", "Không tìm thấy kỹ năng hợp lệ cho actor " + ca.nameRegion);
             return null;
         }
 
         // Áp dụng kỹ năng và tạo TurnResult
         TurnResult turn = applySkill(actor, target, selectedSkill);
-        turn.actorId = ca.characterBaseId;
+        turn.actorId = ca.nameRegion;
         CharacterComponent targetChar = target.getComponent(CharacterComponent.class);
-        turn.targetId = targetChar != null ? targetChar.characterBaseId : "unknown";
+        turn.targetId = targetChar != null ? targetChar.nameRegion : "unknown";
         turn.skillUsed = selectedSkill.name;
         turn.actorEntity = actor;
         turn.targetEntity = target;
@@ -192,10 +192,10 @@ public class TurnExecution {
                             if (healStats != null && healChar != null) {
                                 healStats.hp = (int) Math.min(healStats.hp + effectValue, healStats.maxHp);
                                 if (healTarget == target || targets.size == 1) {
-                                    result.targetId = healChar.characterBaseId;
+                                    result.targetId = healChar.nameRegion;
                                     result.damage = (int) -effectValue; // Số âm cho hồi máu
                                 }
-                                effectDesc.append("Hồi " + effectValue + " HP cho " + healChar.characterBaseId + ". ");
+                                effectDesc.append("Hồi " + effectValue + " HP cho " + healChar.nameRegion + ". ");
                             }
                         }
                         break;

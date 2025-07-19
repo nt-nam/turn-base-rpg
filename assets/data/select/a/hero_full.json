@@ -1,7 +1,7 @@
 [
   {
     "characterId": "character1",
-    "characterBaseId": "warrior_Knight",
+    "nameRegion": "warrior_Knight",
     "grid": "2,0",
     "star":0,
     "level": 50,
@@ -14,7 +14,7 @@
   },
   {
     "characterId": "character2",
-    "characterBaseId": "support_Knight",
+    "nameRegion": "support_Knight",
     "grid": "1,2",
     "star":0,
     "level": 25,
@@ -27,7 +27,7 @@
   },
   {
     "characterId": "character3",
-    "characterBaseId": "assassin_Knight",
+    "nameRegion": "assassin_Knight",
     "grid": "1,1",
     "star":0,
     "level": 30,
@@ -40,7 +40,7 @@
   },
   {
     "characterId": "character4",
-    "characterBaseId": "warrior_Knight",
+    "nameRegion": "warrior_Knight",
     "grid": "2,2",
     "star":0,
     "level": 34,
@@ -53,7 +53,7 @@
   },
   {
     "characterId": "character5",
-    "characterBaseId": "mage_Knight",
+    "nameRegion": "mage_Knight",
     "grid": "1,0",
     "star":0,
     "level": 15,
@@ -66,7 +66,7 @@
   },
   {
     "characterId": "character6",
-    "characterBaseId": "assassin_Knight",
+    "nameRegion": "assassin_Knight",
     "grid": "empty",
     "star":0,
     "level": 30,
@@ -79,7 +79,7 @@
   },
   {
     "characterId": "character7",
-    "characterBaseId": "warrior_Knight",
+    "nameRegion": "warrior_Knight",
     "grid": "empty",
     "star":0,
     "level": 22,
@@ -92,7 +92,7 @@
   },
   {
     "characterId": "character8",
-    "characterBaseId": "support_Knight",
+    "nameRegion": "support_Knight",
     "grid": "empty",
     "star":0,
     "level": 40,
@@ -105,7 +105,7 @@
   },
   {
     "characterId": "character9",
-    "characterBaseId": "assassin_Knight",
+    "nameRegion": "assassin_Knight",
     "grid": "empty",
     "star":0,
     "level": 30,
@@ -118,7 +118,7 @@
   },
   {
     "characterId": "character10",
-    "characterBaseId": "warrior_Knight",
+    "nameRegion": "warrior_Knight",
     "grid": "empty",
     "star":0,
     "level": 18,
@@ -131,7 +131,7 @@
   },
   {
     "characterId": "character11",
-    "characterBaseId": "support_Knight",
+    "nameRegion": "support_Knight",
     "grid": "empty",
     "star":0,
     "level": 45,
@@ -144,7 +144,7 @@
   },
   {
     "characterId": "character12",
-    "characterBaseId": "assassin_Knight",
+    "nameRegion": "assassin_Knight",
     "grid": "empty",
     "star":0,
     "level": 30,

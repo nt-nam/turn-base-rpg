@@ -89,7 +89,7 @@ public class BattleSimulationResultSaver {
         CharacterComponent character = entity.getComponent(CharacterComponent.class);
         if (character != null) {
             JsonObject characterJson = new JsonObject();
-            characterJson.addProperty("characterId", character.characterBaseId);
+            characterJson.addProperty("characterId", character.nameRegion);
             characterJson.addProperty("name", character.name);
             json.add("character", characterJson);
         }

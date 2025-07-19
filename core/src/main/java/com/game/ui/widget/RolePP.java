@@ -24,9 +24,12 @@ import java.util.List;
 
 public class RolePP {
     private static int page = 0;
-
+    private static UIGroup popup;
+    public static void show(boolean b) {
+        popup.setVisible(b);
+    }
     public static Group pp(float w, float h) {
-        UIGroup popup = new UIGroup().name("role").size(w, h);
+        popup = new UIGroup().name("role").size(w, h);
 
         TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
         new UIImage(profile).nine(profile, 30, 30, 30, 30)
@@ -70,8 +73,8 @@ public class RolePP {
         float size = h * 0.2f;
         float margin = size * 0.2f;
 
-        List<Achievement> achievements = JsonHelper.loadAchievementList(ACHIEVEMENT_JSON, false);
-        List<Mission> missions = JsonHelper.loadMissionList(MISSION_JSON, false);
+        List<Achievement> achievements = JsonHelper.loadAchievementList( false);
+        List<Mission> missions = JsonHelper.loadMissionList( false);
 
         createAchievement(popup, achievements, size, w,h);
         createMission(popup, missions, size, w,h);
@@ -121,5 +124,8 @@ public class RolePP {
         scrollPane.setScrollingDisabled(true, false);
         scrollPane.setVisible(false);
         popup.addActor(scrollPane);
+    }
+
+    public static void update() {
     }
 }

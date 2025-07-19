@@ -2,8 +2,6 @@ package com.game.ui.widget;
 
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.EQUIP_JSON;
-import static com.game.utils.Constants.ITEM_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -22,16 +20,18 @@ import com.game.utils.json.ItemBase;
 import java.util.List;
 
 public class ShopPP {
-    public static List<?> useFor = null;
+    private static UIGroup popup;
+    private static List<?> useFor = null;
     private static int page = 0;
 
+    public static void show(boolean b) {
+        popup.setVisible(b);
+    }
+
     public static Group pp(float w, float h) {
-
-        useFor = JsonHelper.loadItemBaseList(ITEM_JSON, true);
-
         float size = h * 0.1f;
-
-        UIGroup popup = new UIGroup().name("shop").size(w, h);
+        useFor = JsonHelper.loadItemBaseList(true);
+        popup = new UIGroup().name("shop").size(w, h);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
         new UIImage(board).nine(board, 30, 30, 30, 30)
@@ -49,7 +49,7 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(false);
                 ((UIButton) popup.findActor("btnItem")).setChecked(true);
-                useFor = JsonHelper.loadItemBaseList(ITEM_JSON, true);
+                useFor = JsonHelper.loadItemBaseList(true);
                 page = 0;
                 updateGrid(popup, w, h);
             })
@@ -62,23 +62,23 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(true);
                 ((UIButton) popup.findActor("btnItem")).setChecked(false);
-                useFor = JsonHelper.loadEquipBaseList(EQUIP_JSON, true);
+                useFor = JsonHelper.loadEquipBaseList(true);
                 page = 0;
                 updateGrid(popup, w, h);
             })
             .check(false)
             .fontScale(1.2f).parent(popup);
 
-        new UIGroup().name("coin").pos(w*0.6f,h*0.75f).size(w*0.15f,h*0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(w*0.15f,h*0.12f),
-            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"coin")).pos(h*0.01f,h*0.01f).size(h*0.1f,h*0.1f),
-            new UILabel("100",BMF).pos(h*0.15f,0).size(w*0.15f,h*0.12f)
+        new UIGroup().name("coin").pos(w * 0.6f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.1f),
+            new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
-        new UIGroup().name("gem").pos(w*0.75f,h*0.75f).size(w*0.15f,h*0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,"origin"),20,20,20,20)).size(w*0.15f,h*0.12f),
-            new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"gem_pink")).pos(h*0.01f,h*0.01f).size(h*0.1f,h*0.10f),
-            new UILabel("100",BMF).pos(h*0.15f,0).size(w*0.15f,h*0.12f)
+        new UIGroup().name("gem").pos(w * 0.75f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
+            new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         updateGrid(popup, w, h);
@@ -86,21 +86,21 @@ public class ShopPP {
         return popup;
     }
 
-    private static void btnRedirect(UIGroup popup, float w, float h,float size){
-        new UIButton(MainGame.getAsM().getRegion(UI_POPUP,"btn_up"))
-            .size(size,size)
-            .pos(w*0.84f,h*0.62f)
-            .onClick(()->{
-                page = page != 0? page-1:0;
+    private static void btnRedirect(UIGroup popup, float w, float h, float size) {
+        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "btn_up"))
+            .size(size, size)
+            .pos(w * 0.84f, h * 0.62f)
+            .onClick(() -> {
+                page = page != 0 ? page - 1 : 0;
                 updateGrid(popup, w, h);
             })
             .parent(popup);
 
-        new UIButton(MainGame.getAsM().getRegion(UI_POPUP,"btn_down"))
-            .size(size,size)
-            .pos(w*0.84f,h*0.12f)
-            .onClick(()->{
-                if((page+1)*21< useFor.size()){
+        new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "btn_down"))
+            .size(size, size)
+            .pos(w * 0.84f, h * 0.12f)
+            .onClick(() -> {
+                if ((page + 1) * 21 < useFor.size()) {
                     page++;
                     updateGrid(popup, w, h);
                 }
@@ -122,19 +122,28 @@ public class ShopPP {
                 Object obj = useFor.get(id);
                 String idString = "";
                 if (obj instanceof ItemBase) {
-                    idString = ((ItemBase) obj).id;
+                    idString = ((ItemBase) obj).nameRegion;
                 } else if (obj instanceof EquipBase) {
-                    idString = ((EquipBase) obj).id;
+                    idString = ((EquipBase) obj).nameRegion;
                 }
 
 
                 uiGroup = new UIGroup().name(idString).child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .size(size, size),
+                    new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "select")).visible(false).name("select")
+                        .size(size, size),
                     new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, idString))
                         .size(size - margin, size - margin)
                         .pos(margin * 0.5f, margin * 0.5f)
-                ).onClick(() -> {
+                );
+
+                uiGroup.onClick(() -> {
+                    uiGroup.findActor("select").setVisible(!uiGroup.findActor("select").isVisible());
+                    if (uiGroup.findActor("select").isVisible()) {
+
+                    }
+                    showItemDetail();
                 });
             } else {
                 uiGroup = new UIGroup().name("empty").child(
@@ -151,5 +160,11 @@ public class ShopPP {
         popup.addActor(table);
     }
 
+    private static void showItemDetail() {
 
+    }
+
+
+    public static void update() {
+    }
 }

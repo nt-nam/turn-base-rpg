@@ -9,6 +9,10 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 
 public class LimitedTaskPP {
+    public  static UIGroup popup;
+    public static void show(boolean b) {
+        popup.setVisible(b);
+    }
     public static Group pp(float w, float h){
         UIGroup popup = new UIGroup().name("limitedtask").size(w,h);
 

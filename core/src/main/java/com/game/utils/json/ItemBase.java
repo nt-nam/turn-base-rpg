@@ -1,8 +1,8 @@
 package com.game.utils.json;
 
 public class ItemBase extends Inventory {
-    public String id;
+    public String nameRegion;
     public String name;
-    public int level;
+    public int tier;
     public int price;
 }

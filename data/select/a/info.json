@@ -1,5 +1,6 @@
 {
   "name": "a",
+  "level": 50,
   "CharacterSelect": "character1",
   "Area": "",
   "pos": {
@@ -10,7 +11,8 @@
   "exp": 0,
   "coin": 0,
   "gem": 15,
-  "NumberOfTeammatesRecruited" : 0,
+  "NumberOfTeammatesRecruited" : 11,
+  "equipment": 5,
   "NumberOfEnemies": 0,
   "Unlocked Area": []
 }

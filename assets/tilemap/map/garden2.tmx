@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="14" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="415">
+ <editorsettings>
+  <chunksize width="32" height="32"/>
+ </editorsettings>
+ <tileset firstgid="1" source="garden2.tsx"/>
+ <layer id="1" name="Map_Layer" width="14" height="8">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,
+15,16,17,18,19,20,21,22,23,24,25,26,27,28,
+29,30,31,32,33,34,35,36,37,38,39,40,41,42,
+43,44,45,46,47,48,49,50,51,52,53,54,55,56,
+57,58,59,60,61,62,63,64,65,66,67,68,69,70,
+71,72,73,74,75,76,77,78,79,80,81,82,83,84,
+85,86,87,88,89,90,91,92,93,94,95,96,97,98,
+99,100,101,102,103,104,105,106,107,108,109,110,111,112
+</data>
+ </layer>
+ <objectgroup color="#000000" id="7" name="wall">
+  <object id="383" x="417.5" y="0" width="30.5" height="68.5"/>
+  <object id="384" x="409.5" y="72" width="38.5" height="184"/>
+  <object id="386" x="0" y="0" width="229.5" height="69"/>
+  <object id="387" x="224" y="0" width="127.5" height="24"/>
+  <object id="388" x="176" y="68.3333" width="31.6667" height="26.3333"/>
+  <object id="389" x="96.6667" y="68.3333" width="31" height="60.6667"/>
+  <object id="390" x="0" y="64" width="37.3333" height="191.333"/>
+  <object id="391" x="1.66667" y="201" width="193" height="52.3333"/>
+  <object id="392" x="0" y="256" width="448" height="25"/>
+  <object id="414" x="320" y="-32" width="128" height="32"/>
+ </objectgroup>
+ <objectgroup id="13" name="line">
+  <object id="393" x="312.25" y="24.75">
+   <polygon points="0,0 -15.75,9.25 -37.25,8.75 -49.5,-2"/>
+  </object>
+  <object id="394" x="295.25" y="33.25">
+   <polygon points="0,0 9,10 -2.25,21 -15.5,21.5 -25,10.5 -14.75,-1.25"/>
+  </object>
+  <object id="395" x="415.75" y="66.25">
+   <polygon points="0,0 -21.5,10 -24.75,21.75 -17,33.25 -6.25,37.5"/>
+  </object>
+  <object id="396" x="255.25" y="124.75">
+   <polygon points="0,0 31.25,-33.75 44.75,-36.25 81.25,2 52.75,32 20.5,27"/>
+  </object>
+  <object id="397" x="317.25" y="107">
+   <polygon points="0,0 26.75,-16.75 45.25,-18 68.75,-0.75 74.75,15.25 43,58.25 29.75,60.5 17.5,49"/>
+  </object>
+  <object id="398" x="391.5" y="121.5">
+   <polygon points="0,0 18.25,-2.75 17.25,73.5 8.25,78.25 0.25,77 -9.5,66.75 -25.5,39"/>
+  </object>
+  <object id="399" x="374.25" y="255.75">
+   <polygon points="0,0 -0.75,-17.5 -76.25,-70.75 -95.75,-69.5 -122.75,-52.25 -127.75,-39 -128,-2"/>
+  </object>
+  <object id="400" x="246.25" y="216.25">
+   <polygon points="0,0 -30.75,-24.25 -83.5,-51 -123.25,-29 -127.5,-15.5 -0.25,21.5"/>
+  </object>
+  <object id="401" x="167.25" y="168.25">
+   <polygon points="0,0 3.25,-13 37,-30.5 50.25,-31.75 74.25,-16.25 81.75,2.5 70.75,16.5 51.75,26.25"/>
+  </object>
+  <object id="402" x="208" y="94">
+   <polygon points="0,0 -13.25,8.5 -23.75,9.25 -31.5,0.5"/>
+  </object>
+  <object id="403" x="227.25" y="69.75">
+   <polygon points="0,0 -20,9.5 -18.25,-5"/>
+  </object>
+  <object id="404" x="177" y="78.25">
+   <polygon points="0,0 -18.25,-10 3.25,-12.5"/>
+  </object>
+  <object id="405" x="148.25" y="70">
+   <polygon points="0,0 3.5,22.75 -3.5,33.75 -20.5,41.75 -19.75,-2.25"/>
+  </object>
+  <object id="406" x="126" y="128.25">
+   <polygon points="0,0 -10.75,6 -21.5,7.5 -28.25,0.25"/>
+  </object>
+  <object id="407" x="97" y="113.75">
+   <polygon points="0,0 -20,-13.75 -25.25,-24.25 -25.75,-44.25 0.75,-45.25"/>
+  </object>
+  <object id="408" x="57.75" y="69">
+   <polygon points="0,0 -5.25,30.25 -19.75,37.75 -22.75,-1.75"/>
+  </object>
+  <object id="409" x="38" y="119.5">
+   <polygon points="0,0 19.5,1.75 44.25,17 49.25,29.25 50,37.5 41.25,47.5 20,61.25 -0.75,58.75"/>
+  </object>
+  <object id="410" x="37.5" y="179.75">
+   <polygon points="0,0 22.25,1 27.5,5.75 30.5,20 1.25,20.5"/>
+  </object>
+  <object id="411" x="411.273" y="226">
+   <polygon points="0,0 -10.3636,12.3636 -3.45455,23.0909 0.727273,23.0909"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0055ff" id="9" name="teleport">
+  <object id="310" x="357.648" y="-30.3864" width="58.125" height="53.625">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="garden1"/>
+    <property name="name" value="Vườn cây 1"/>
+    <property name="spawn" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="412" x="359.604" y="228.521" width="58.125" height="53.625">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="garden3"/>
+    <property name="name" value="Vườn cây 3"/>
+    <property name="spawn" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="10" name="npc"/>
+ <objectgroup color="#ff55ff" id="12" name="object"/>
+ <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#00ff00" id="8" name="player">
+  <object id="338" name="spawn" x="383.818" y="49.6364">
+   <properties>
+    <property name="index" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="413" name="spawn" x="384" y="217.333">
+   <properties>
+    <property name="index" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

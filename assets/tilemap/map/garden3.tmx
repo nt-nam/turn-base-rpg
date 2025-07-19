@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="22" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="428">
+ <editorsettings>
+  <chunksize width="32" height="32"/>
+ </editorsettings>
+ <tileset firstgid="1" source="garden3.tsx"/>
+ <layer id="1" name="Map_Layer" width="22" height="9">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
+23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,
+45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,
+67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,
+89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,
+111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,
+133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,
+155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,
+177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198
+</data>
+ </layer>
+ <objectgroup color="#000000" id="7" name="wall">
+  <object id="400" x="0" y="0" width="32" height="96"/>
+  <object id="401" x="0" y="96" width="64" height="192"/>
+  <object id="402" x="62.5" y="216" width="95" height="76"/>
+  <object id="403" x="665" y="0" width="39" height="301"/>
+  <object id="404" x="0" y="-24" width="707" height="24"/>
+  <object id="405" x="0" y="288" width="704" height="32"/>
+ </objectgroup>
+ <objectgroup id="13" name="line">
+  <object id="406" x="590.909" y="188.182">
+   <polygon points="0,0 10.3636,10.5455 22,10.7273 34,0.909091 23.6364,-15.4545 9.27273,-15.0909"/>
+  </object>
+  <object id="407" x="567.091" y="148.545">
+   <polygon points="0,0 31.8182,-26.1818 51.0909,-27.4545 75.4545,-11.0909 80.9091,8.72727 51.4545,30.3636 24.3636,27.8182 7.63636,15.6364"/>
+  </object>
+  <object id="408" x="484" y="150.667">
+   <polygon points="0,0 60,-41.3333 79.6667,-68.3333 82,-88 52,-117.667 -100,-118.667 -92,-79 -61,-33.3333"/>
+  </object>
+  <object id="409" x="384" y="0">
+   <polygon points="0,0 4.66667,100 -22.3333,132 -39,134.667 -73.6667,87.3333 -70.3333,-0.666667"/>
+  </object>
+  <object id="411" x="310.667" y="74.3333">
+   <polygon points="0,0 -39,-2.33333 -40.6667,-75 4.33333,-75.6667"/>
+  </object>
+  <object id="412" x="115.333" y="-1.33333">
+   <polygon points="0,0 -11.3333,27.3333 -10.3333,50.3333 60,103 92,119 114.667,117.667 142.333,94.3333 152.333,69.6667 153,-1"/>
+  </object>
+  <object id="413" x="32.1818" y="14.9091">
+   <polygon points="0,0 14.7273,12.5455 13.6364,21.4545 -0.363636,32.7273"/>
+  </object>
+  <object id="414" x="32.7273" y="88.5455">
+   <polygon points="0,0 29.0909,1.27273 47.4545,20.3636 45.6364,28 30.9091,54.9091"/>
+  </object>
+  <object id="415" x="158.364" y="219.273">
+   <polygon points="0,0 40.7273,31.2727 40.5455,69.8182 -0.909091,69.4545"/>
+  </object>
+  <object id="416" x="246.182" y="202">
+   <polygon points="0,0 -14.9091,-16.7273 -11.0909,-30.9091 17.8182,-48.3636 36,-49.0909 60,-32.9091 66,-13.4545 62.7273,-5.09091"/>
+  </object>
+  <object id="417" x="199" y="287.333">
+   <polygon points="0,0 2.66667,-52.3333 40.6667,-72 243.333,-71 272,-48.3333 271,-0.333333"/>
+  </object>
+  <object id="418" x="344.364" y="214.727">
+   <polygon points="0,0 3.63636,-11.8182 31.2727,-28.9091 49.4545,-29.8182 74,-12.9091 78.7273,0"/>
+  </object>
+  <object id="419" x="327.273" y="214.545">
+   <polygon points="0,0 -3.45455,-11.4545 -18,-17.4545 -81.2727,-12.3636 -84.9091,-0.909091"/>
+  </object>
+  <object id="420" x="518.75" y="250.75">
+   <polygon points="0,0 4.5,-16 41,-35.25 79,-12.25 77.25,9.5 21.25,27.5"/>
+  </object>
+  <object id="421" x="616.75" y="287.5">
+   <polygon points="0,0 -3.25,-18.5 -20.25,-26.5 -103.75,-7 -103,-0.25"/>
+  </object>
+  <object id="422" x="470.75" y="259.5">
+   <polygon points="0,0 15.5,11.75 15.25,27.75 -0.5,28"/>
+  </object>
+  <object id="423" x="486" y="286.75">
+   <polygon points="0,0 0.75,-9.25 17.5,-24.5 35.25,-6.25"/>
+  </object>
+  <object id="424" x="666.75" y="249.25">
+   <polygon points="0,0 -58.25,38.25 -3.25,40.5"/>
+  </object>
+  <object id="425" x="658.5" y="255.5">
+   <polygon points="0,0 -28.25,-38 -23.5,-51.75 7.25,-75.25 9.25,-10"/>
+  </object>
+  <object id="426" x="664.5" y="23.25">
+   <polygon points="0,0 -16.5,16.5 -11.5,30 6,29.5"/>
+  </object>
+  <object id="427" x="582.75" y="-2.25">
+   <polygon points="0,0 9.75,13.25 -2.5,25.5 -46.75,35.25 -45,-0.5"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#0055ff" id="9" name="teleport">
+  <object id="310" x="591.375" y="-24.75" width="58.125" height="53.625">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="garden2"/>
+    <property name="name" value="Vườn cây 2"/>
+    <property name="spawn" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="311" x="43.8563" y="-3.242" width="61.7273" height="24.4205">
+   <properties>
+    <property name="index" type="int" value="5"/>
+    <property name="map" value="garden4"/>
+    <property name="name" value="Vườn cây 4"/>
+    <property name="spawn" type="int" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="10" name="npc"/>
+ <objectgroup color="#ff55ff" id="12" name="object"/>
+ <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#00ff00" id="8" name="player">
+  <object id="320" name="spawn" x="70.8182" y="59">
+   <properties>
+    <property name="index" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="338" name="spawn" x="608" y="64">
+   <properties>
+    <property name="index" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

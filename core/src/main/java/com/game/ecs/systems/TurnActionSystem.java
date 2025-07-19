@@ -40,6 +40,15 @@ public class TurnActionSystem extends IteratingSystem {
             // If movement is complete and there's a queue, start the next action
             if (queue != null && !queue.actions.isEmpty() && !queue.isProcessing) {
                 ActionQueueComponent.Action nextAction = queue.actions.removeFirst();
+
+                if(nextAction.action.equals("player")){
+                    BattleScreen.showPopupWin();
+                    return;
+                }
+                if(nextAction.action.equals("enemy")){
+                    BattleScreen.showPopupWin();
+                    return;
+                }
                 if (!queue.isProcessing) {
                     BattleScreen.setTarget(nextAction.target);
 //                    BattleScreen.skill = nextAction.actor;

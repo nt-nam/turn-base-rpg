@@ -57,7 +57,7 @@ public abstract class BaseScreen implements Screen {
         stage.draw();
 
         updateUI(delta);
-//        debugGrid();
+        debugGrid();
     }
 
     protected void updateLogic(float delta) {
@@ -78,9 +78,11 @@ public abstract class BaseScreen implements Screen {
         UIButton btnClose = new UIButton(
             MainGame.getAsM().getRegion(UI_WOOD, "x_up_037"),
             MainGame.getAsM().getRegion(UI_WOOD, "x_down_038"))
-            .size(screenWidth*0.1f, screenWidth*0.1f)
-            .pos(screenWidth*0.8f, screenHeight * 0.8f)
-            .onClick(()-> {MainGame.getScM().showScreen(prevScreen);}).debug(false);
+            .size(screenWidth * 0.1f, screenWidth * 0.1f)
+            .pos(screenWidth * 0.8f, screenHeight * 0.8f)
+            .onClick(() -> {
+                MainGame.getScM().showScreen(prevScreen);
+            }).debug(false);
         rootGroup.addActor(btnClose);
     }
 
@@ -110,22 +112,18 @@ public abstract class BaseScreen implements Screen {
         stage.clear();
     }
 
-    protected void debugGrid(){
+    protected void debugGrid() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);
-int number = 10;
-        // Vẽ 10 đường ngang
         for (int i = 0; i < 10; i++) {
-            float y = (Gdx.graphics.getHeight() /number)*i;
+            float y = Gdx.graphics.getHeight() * 0.1f * i;
             shapeRenderer.line(0, y, Gdx.graphics.getWidth(), y);
         }
 
-        // Vẽ 10 đường dọc
         for (int i = 0; i < 10; i++) {
-            float x = Gdx.graphics.getWidth() * i / number;
+            float x = Gdx.graphics.getWidth() * 0.1f * i;
             shapeRenderer.line(x, 0, x, Gdx.graphics.getHeight());
         }
-
         shapeRenderer.end();
     }
 }

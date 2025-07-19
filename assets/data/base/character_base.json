@@ -1,6 +1,6 @@
 [
   {
-    "characterBaseId": "warrior_Knight",
+    "nameRegion": "warrior_Knight",
     "classType": "Warrior",
     "name": "Chiến binh",
     "desc": "Chiến binh cân bằng, giao tranh trực diện.",
@@ -15,7 +15,7 @@
     "weakAgainst": ["Archer"]
   },
   {
-    "characterBaseId": "assassin_Knight",
+    "nameRegion": "assassin_Knight",
     "classType": "Assassin",
     "name": "Sát thủ",
     "desc": "Sát thủ tốc độ, đánh sau, dame lớn thủ yếu.",
@@ -30,7 +30,7 @@
     "weakAgainst": ["Warrior", "Mage"]
   },
   {
-    "characterBaseId": "mage_Knight",
+    "nameRegion": "mage_Knight",
     "classType": "Mage",
     "name": "Pháp sư",
     "desc": "Phép AoE, dame lớn, máu trung bình.",
@@ -45,7 +45,7 @@
     "weakAgainst": ["Warrior", "Tank"]
   },
   {
-    "characterBaseId": "ranger_Knight",
+    "nameRegion": "ranger_Knight",
     "classType": "Archer",
     "name": "Cung thủ",
     "desc": "Cung thủ tầm xa, xuyên giáp, dame cao.",
@@ -60,7 +60,7 @@
     "weakAgainst": ["Assassin", "Mage"]
   },
   {
-    "characterBaseId": "support_Knight",
+    "nameRegion": "support_Knight",
     "classType": "Support",
     "name": "Hỗ trợ",
     "desc": "Hồi máu, buff, ít tốn MP.",
@@ -75,7 +75,7 @@
     "weakAgainst": ["Assassin"]
   },
   {
-    "characterBaseId": "tank_Knight",
+    "nameRegion": "tank_Knight",
     "classType": "Tank",
     "name": "Đỡ đòn",
     "desc": "Thủ cực cao, dame thấp.",

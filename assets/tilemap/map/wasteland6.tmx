@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="399">
+ <editorsettings>
+  <chunksize width="32" height="32"/>
+ </editorsettings>
+ <tileset firstgid="1" source="wasteland6.tsx"/>
+ <layer id="1" name="Map_Layer" width="9" height="9">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,
+10,11,12,13,14,15,16,17,18,
+19,20,21,22,23,24,25,26,27,
+28,29,30,31,32,33,34,35,36,
+37,38,39,40,41,42,43,44,45,
+46,47,48,49,50,51,52,53,54,
+55,56,57,58,59,60,61,62,63,
+64,65,66,67,68,69,70,71,72,
+73,74,75,76,77,78,79,80,81
+</data>
+ </layer>
+ <objectgroup color="#000000" id="7" name="wall"/>
+ <objectgroup id="13" name="line"/>
+ <objectgroup color="#0055ff" id="9" name="teleport">
+  <object id="310" x="149.375" y="36.1288" width="35.9432" height="19.2614">
+   <properties>
+    <property name="block" type="bool" value="true"/>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="village_1"/>
+    <property name="spawn" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="311" x="-0.749731" y="230.637" width="18.3637" height="29.3296">
+   <properties>
+    <property name="index" type="int" value="5"/>
+    <property name="map" value="wasteland3"/>
+    <property name="name" value="Đất hoang 3"/>
+    <property name="spawn" type="int" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#ffff00" id="10" name="npc"/>
+ <objectgroup color="#ff55ff" id="12" name="object"/>
+ <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#00ff00" id="8" name="player">
+  <object id="320" name="spawn" x="31.6364" y="246.545">
+   <properties>
+    <property name="index" type="int" value="0"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="338" name="spawn" x="167" y="76.5">
+   <properties>
+    <property name="index" type="int" value="1"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+</map>

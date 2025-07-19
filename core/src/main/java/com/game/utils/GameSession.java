@@ -11,6 +11,7 @@ import com.game.utils.json.Lineup;
 import com.game.utils.data.PendingTeleport;
 import com.game.utils.json.DailyReward;
 import com.game.utils.json.Hero;
+import com.game.utils.json.MapBattle;
 import com.game.utils.json.Profile;
 import com.game.utils.json.ItemBase;
 import com.game.utils.json.Mission;
@@ -55,6 +56,8 @@ public class GameSession {
     public static List<Bag> bagList = new ArrayList<>();
     public static List<Lineup> lineupList = new ArrayList<>();
     public static List<Hero> heroList = new ArrayList<>();
+    public static List<Hero> heroEnemyList = new ArrayList<>();
+    public static MapBattle mapBattle = new MapBattle();
     public static List<Achievement> achievementList = new ArrayList<>();
     public static List<Mission> missionList = new ArrayList<>();
     public static List<DailyReward> dailyRewardList = new ArrayList<>();

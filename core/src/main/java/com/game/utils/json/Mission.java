@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mission {
-    public String missionId;
+    public String idBase;
     public String title;
     public String description;
     public int progress;

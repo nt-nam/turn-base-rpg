@@ -55,6 +55,10 @@ public class UILabel extends Label {
         this.setColor(Color.valueOf(color));
         return this;
     }
+    public UILabel color(Color color) {
+        this.setColor(color);
+        return this;
+    }
 
     public UILabel parent(Group parent) {
         parent.addActor(this);

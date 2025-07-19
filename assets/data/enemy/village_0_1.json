@@ -3,7 +3,7 @@
     {
       "grid": "2,1",
       "characterId": "enemy",
-      "characterBaseId": "warrior_Knight",
+      "nameRegion": "warrior_Knight",
       "star": 0,
       "level": 1
     }
@@ -11,13 +11,13 @@
   "reward": [
     {
       "type": "coin",
-      "idBase": "coin",
-      "index": 100
+      "id": "coin",
+      "quantity": 100
     },
     {
       "type": "gem",
-      "idBase": "gem_pink",
-      "index": 5
+      "id": "gem_pink",
+      "quantity": 5
     }
   ]
 }

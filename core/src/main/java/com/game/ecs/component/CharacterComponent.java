@@ -10,7 +10,7 @@ import com.game.utils.json.CharacterBase;
  * Dùng để truy cập dữ liệu cơ bản của từng nhân vật.
  */
 public class CharacterComponent implements Component {
-    public String characterBaseId;  // Cập nhật theo cấu trúc mới
+    public String nameRegion;  // Cập nhật theo cấu trúc mới
     public String classType;        // Warrior, Assassin, Mage, Ranger, Support, Tank
     public String role;
     public String name;
@@ -32,7 +32,7 @@ public class CharacterComponent implements Component {
     public CharacterComponent(CharacterBase characterBase) {
         new CharacterComponent();
         if (characterBase != null) {
-            characterBaseId = characterBase.characterBaseId;
+            nameRegion = characterBase.nameRegion;
             classType = characterBase.classType;
             role = characterBase.role;
             name = characterBase.name;
@@ -58,7 +58,7 @@ public class CharacterComponent implements Component {
         }
 
         // Đọc các trường cơ bản
-        characterBaseId = json.getString("characterBaseId", "");
+        nameRegion = json.getString("nameRegion", "");
         classType = json.getString("classType", "");
         role = json.getString("role", "");
         name = json.getString("name", "");

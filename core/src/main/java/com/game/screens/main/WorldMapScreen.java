@@ -56,7 +56,6 @@ import com.game.ui.widget.ShopPP;
 import com.game.utils.JsonHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
-//import com.game.utils.JsonValueHelper;
 
 
 public class WorldMapScreen extends BaseScreen {
@@ -168,11 +167,10 @@ public class WorldMapScreen extends BaseScreen {
 
 
     public static void loadingAsset() {
-//        JsonValueHelper.loadFullDataAccount();
         JsonValue characterBase = JsonHelper.getJsonValue(CHARACTER_BASE_JSON);
         for (JsonValue character : characterBase) {
-            String characterId = character.getString("characterBaseId");
-            MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + characterId + ".atlas");
+            String nameRegion = character.getString("nameRegion");
+            MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + nameRegion + ".atlas");
         }
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
@@ -242,10 +240,10 @@ public class WorldMapScreen extends BaseScreen {
         if (b) btnAttackBattle.setText("Tấn công");
     }
 
-    private void loadAllAnimations(String characterBaseId, String atlasPath) {
+    private void loadAllAnimations(String nameRegion, String atlasPath) {
         TextureAtlas atlas = MainGame.getAsM().get(atlasPath, TextureAtlas.class);
-        AnimationCache.put(characterBaseId, "idle", new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP));
-        AnimationCache.put(characterBaseId, "run", new Animation<>(0.1f, atlas.findRegions("run"), Animation.PlayMode.LOOP));
+        AnimationCache.put(nameRegion, "idle", new Animation<>(0.1f, atlas.findRegions("idle"), Animation.PlayMode.LOOP));
+        AnimationCache.put(nameRegion, "run", new Animation<>(0.1f, atlas.findRegions("run"), Animation.PlayMode.LOOP));
     }
 
     public void setupTeleportTriggers(Engine engine, TiledMap tiledMap, float SCALE) {
@@ -333,6 +331,15 @@ public class WorldMapScreen extends BaseScreen {
         engine.addSystem(new EnemyCollisionSystem());
         setupEnemies(engine, map, SCALE);
         hidePopup();
+        updatePopup();
+    }
+
+    private void updatePopup() {
+        BagPP.update();
+        RolePP.update();
+        HerosPP.update();
+        DailyPP.update();
+        ShopPP.update();
     }
 
     @Override

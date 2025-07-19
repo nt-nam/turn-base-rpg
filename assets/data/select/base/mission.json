@@ -1,94 +1,94 @@
 [
   {
-    "missionId": "mission_001",
+    "idBase": "mission_001",
     "title": "Tìm viên đá ma thuật",
     "description": "Khám phá khu rừng và tìm viên đá ma thuật ẩn giấu.",
     "progress": 0,
     "targetAmount": 5,
     "rewards": [
       {
-        "idBase": "reward_001",
+        "nameRegion": "reward_001",
         "type": "item",
         "quantity": 1
       },
       {
-        "idBase": "reward_002",
+        "nameRegion": "reward_002",
         "type": "currency",
         "quantity": 100
       }
     ]
   },
   {
-    "missionId": "mission_002",
+    "idBase": "mission_002",
     "title": "Thu thập nguyên liệu",
     "description": "Thu thập 10 nguyên liệu để chế tạo vũ khí.",
     "progress": 0,
     "targetAmount": 10,
     "rewards": [
       {
-        "idBase": "reward_003",
+        "nameRegion": "reward_003",
         "type": "item",
         "quantity": 2
       },
       {
-        "idBase": "reward_004",
+        "nameRegion": "reward_004",
         "type": "currency",
         "quantity": 50
       }
     ]
   },
   {
-    "missionId": "mission_003",
+    "idBase": "mission_003",
     "title": "Giết quái vật",
     "description": "Tiêu diệt 15 quái vật trong khu vực.",
     "progress": 0,
     "targetAmount": 15,
     "rewards": [
       {
-        "idBase": "reward_005",
+        "nameRegion": "reward_005",
         "type": "item",
         "quantity": 3
       },
       {
-        "idBase": "reward_006",
+        "nameRegion": "reward_006",
         "type": "currency",
         "quantity": 200
       }
     ]
   },
   {
-    "missionId": "mission_004",
+    "idBase": "mission_004",
     "title": "Bảo vệ ngôi làng",
     "description": "Bảo vệ ngôi làng khỏi đợt tấn công của quái vật.",
     "progress": 0,
     "targetAmount": 1,
     "rewards": [
       {
-        "idBase": "reward_007",
+        "nameRegion": "reward_007",
         "type": "item",
         "quantity": 5
       },
       {
-        "idBase": "reward_008",
+        "nameRegion": "reward_008",
         "type": "currency",
         "quantity": 150
       }
     ]
   },
   {
-    "missionId": "mission_005",
+    "idBase": "mission_005",
     "title": "Khám phá ngục tối",
     "description": "Khám phá ngục tối và tìm ra bí mật bên trong.",
     "progress": 0,
     "targetAmount": 1,
     "rewards": [
       {
-        "idBase": "reward_009",
+        "nameRegion": "reward_009",
         "type": "item",
         "quantity": 1
       },
       {
-        "idBase": "reward_010",
+        "nameRegion": "reward_010",
         "type": "currency",
         "quantity": 500
       }

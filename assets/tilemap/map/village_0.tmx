@@ -99,8 +99,8 @@
   <object id="306" x="199.125" y="371.122" width="67.625" height="12.6284">
    <properties>
     <property name="block" type="bool" value="true"/>
-    <property name="map" value="Backyard_1"/>
-    <property name="name" value="Sân sau"/>
+    <property name="map" value="garden1"/>
+    <property name="name" value="Vườn cây"/>
     <property name="spawn" type="int" value="0"/>
    </properties>
   </object>

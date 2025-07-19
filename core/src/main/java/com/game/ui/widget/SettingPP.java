@@ -1,7 +1,5 @@
 package com.game.ui.widget;
 
-import static com.game.utils.Constants.EQUIP_JSON;
-import static com.game.utils.Constants.ITEM_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.Gdx;
@@ -12,11 +10,16 @@ import com.game.screens.ScreenType;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
-import com.game.utils.JsonHelper;
 
 public class SettingPP {
-    public static Group pp(float w, float h){
-        UIGroup popup = new UIGroup().name("setting").size(w,h);
+    private static UIGroup popup;
+
+    public static void show(boolean b) {
+        popup.setVisible(b);
+    }
+
+    public static Group pp(float w, float h) {
+        popup = new UIGroup().name("setting").size(w, h);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "origin");
         new UIImage(board).nine(board, 30, 30, 30, 30)
@@ -33,6 +36,7 @@ public class SettingPP {
             .name("btnChangeAcc")
             .check(() -> {
                 //SaveAll();
+                MainGame.getScM().clearScreenCache();
                 MainGame.getScM().showScreen(ScreenType.MENU_GAME);
             })
             .check(true)
@@ -46,8 +50,6 @@ public class SettingPP {
             })
             .check(false)
             .fontScale(1.2f).parent(popup);
-
-
 
         return popup;
     }

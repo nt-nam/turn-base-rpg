@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -55,9 +54,9 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        List<CharacterBase> characterBaseList = JsonHelper.loadCharacterBaseList(CHARACTER_BASE_JSON, true);
+        List<CharacterBase> characterBaseList = JsonHelper.loadCharacterBaseList();
         for (CharacterBase baseData : characterBaseList) {
-            MainGame.getAsM().load(CHARACTER_ATLAS + baseData.characterBaseId + ".atlas", TextureAtlas.class);
+            MainGame.getAsM().load(CHARACTER_ATLAS + baseData.nameRegion + ".atlas", TextureAtlas.class);
         }
         MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
         MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
@@ -68,7 +67,7 @@ public class NewPlayerScreen extends BaseScreen {
     protected void createScreen() {
         createBackground();
         characterBaseDataList = GameSession.characterBaseList;
-        List<Account> account = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
+        List<Account> account = JsonHelper.loadAccountList(true);
         if (characterBaseDataList.isEmpty()) {
             throw new RuntimeException("No knights found!");
         }
@@ -144,20 +143,20 @@ public class NewPlayerScreen extends BaseScreen {
                 GameSession.playerName = nameInput;
                 GameSession.selectedCharacterId = getCurrentKnightId();
 
-                Profile profile = new Profile(nameInput,getCurrentKnightId());
+                Profile profile = new Profile(nameInput, getCurrentKnightId());
                 GameSession.profile = profile;
 
                 List<Lineup> lineups = new ArrayList<>();
                 Lineup g = new Lineup();
                 g.grid = "1,1";
                 g.characterId = "character1";
-                g.characterBaseId = getCurrentKnightId();
+                g.nameRegion = getCurrentKnightId();
                 lineups.add(g);
                 JsonSaver.saveObject(LINEUP_ATTACK, lineups);
 
                 createFullPatty();
 
-                List<Account> accounts = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
+                List<Account> accounts = JsonHelper.loadAccountList(true);
                 if (accounts == null) {
                     accounts = new ArrayList<>();
                 }
@@ -166,13 +165,12 @@ public class NewPlayerScreen extends BaseScreen {
                 a.level = 1;
                 a.characterSelect = getCurrentKnightId();
                 accounts.add(a);
+
+                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", profile);
                 JsonSaver.saveObject(MAININFO_JSON_LOCAL, accounts);
-                if (JsonSaver.saveObject("data/select/" + nameInput + "/info.json", profile)) {
-                    JsonSaver.createAccount();
-                    MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
-                } else {
-                    rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Lỗi lưu thông tin!"));
-                }
+                JsonSaver.createAccount();
+
+                MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
         rootGroup.addActor(btnSelect);
 
@@ -203,29 +201,29 @@ public class NewPlayerScreen extends BaseScreen {
 
     private void createFullPatty() {
         List<JsonObject> jsonObjectList = new ArrayList<>();
-            // Tạo đối tượng JsonObject để xây dựng cấu trúc JSON
-            JsonObject equip = new JsonObject();
-            equip.addProperty("weapon", 0);
-            equip.addProperty("armor", 0);
-            equip.addProperty("jewelry", 0);
-            equip.addProperty("support", 0);
+        // Tạo đối tượng JsonObject để xây dựng cấu trúc JSON
+        JsonObject equip = new JsonObject();
+        equip.addProperty("weapon", "empty");
+        equip.addProperty("armor", "empty");
+        equip.addProperty("jewelry", "empty");
+        equip.addProperty("support", "empty");
 
-            JsonObject character = new JsonObject();
-            character.addProperty("characterId", "character1");
-            character.addProperty("characterBaseId", getCurrentKnightId());
-            character.addProperty("grid", "1,1");
-            character.addProperty("star", 0);
-            character.addProperty("level", 1);
-            character.add("equip", equip);
+        JsonObject character = new JsonObject();
+        character.addProperty("characterId", "character1");
+        character.addProperty("nameRegion", getCurrentKnightId());
+        character.addProperty("grid", "1,1");
+        character.addProperty("star", 0);
+        character.addProperty("level", 1);
+        character.add("equip", equip);
 
         jsonObjectList.add(character);
 
-            // Chuyển đối tượng Java thành JSON string
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(jsonObjectList);
+        // Chuyển đối tượng Java thành JSON string
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(jsonObjectList);
 
-            JsonSaver.saveString(PARTY_FULL,jsonString);
-            // Lưu vào file trong bộ nhớ trong của ứng dụng
+        JsonSaver.saveString(HERO_FULL, jsonString);
+        // Lưu vào file trong bộ nhớ trong của ứng dụng
 //            FileHandle file = Gdx.files.local("data/character.json");
 //            file.writeString(jsonString, false); // false để ghi đè nếu tệp đã tồn tại
 //            System.out.println("Character JSON saved to " + file.path());
@@ -233,7 +231,7 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     private String getCurrentKnightId() {
-        return characterBaseDataList.get(currentKnightIndex).characterBaseId;
+        return characterBaseDataList.get(currentKnightIndex).nameRegion;
     }
 
     private String getCurrentKnightStats() {

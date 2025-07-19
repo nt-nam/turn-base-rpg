@@ -35,28 +35,6 @@ public class StatComponent implements Component {
         this.crit = crit;
     }
 
-    public StatComponent fromJson(JsonValue json) {
-        if (json == null) {
-            return null;
-        }
-
-        // Đọc các trường cơ bản
-        hp = json.getInt("hp", 0);
-        mp = json.getInt("mp", 0);
-        atk = json.getInt("atk", 0);
-        def = json.getInt("def", 0);
-        agi = json.getInt("agi", 0);
-        crit = json.getInt("crit", 0);
-
-        maxHp = json.getInt("maxHp", hp);
-        maxMp = json.getInt("maxMp", mp);
-
-        critRate = json.getFloat("critRate", 0f);
-        critDamage = json.getFloat("critDamage", 1f);
-
-        return this;
-    }
-
     public StatComponent fromCharacter(CharacterComponent character) {
         if (character == null) {
             return null;

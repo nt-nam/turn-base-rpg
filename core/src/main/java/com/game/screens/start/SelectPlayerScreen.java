@@ -40,7 +40,7 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        accounts = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
+        accounts = JsonHelper.loadAccountList( true);
         if (accounts != null) {
             for (Account element : accounts) {
                 MainGame.getAsM().load("atlas/characters/" + element.characterSelect + ".atlas", TextureAtlas.class);
@@ -94,7 +94,7 @@ public class SelectPlayerScreen extends BaseScreen {
     public void show() {
         Gdx.app.log("SelectPlayerScreen", "show() called");
         super.show();
-        accounts = JsonHelper.loadAccountList(MAININFO_JSON_LOCAL, true);
+        accounts = JsonHelper.loadAccountList( true);
 
         showScrollPane();
 

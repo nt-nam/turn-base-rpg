@@ -24,7 +24,7 @@ public class Constants {
     //JSON
     public static final String MAININFO_JSON_LOCAL      = "data/maininfo.json";
     public static final String INFO_JSON                = "data/select/"+ GameSession.playerName +"/info.json";
-    public static final String PARTY_FULL               = "data/select/"+ GameSession.playerName +"/hero_full.json";
+    public static final String HERO_FULL                = "data/select/"+ GameSession.playerName +"/hero_full.json";
     public static final String LINEUP_ATTACK            = "data/select/"+ GameSession.playerName +"/lineup.json";
     public static final String WAREHOUSE_JSON           = "data/select/"+ GameSession.playerName +"/warehouse.json";
     public static final String DAILY_REWARD_JSON        = "data/select/"+ GameSession.playerName +"/daily_rewards.json";

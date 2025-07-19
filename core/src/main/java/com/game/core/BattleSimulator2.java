@@ -105,7 +105,7 @@ public class BattleSimulator2 {
         CharacterComponent ca = actor.getComponent(CharacterComponent.class);
 
         if (ca == null || actorGrid == null || hp <= 0) {
-            Gdx.app.log("TargetSelection", "Invalid actor: " + (ca != null ? ca.characterBaseId : "null"));
+            Gdx.app.log("TargetSelection", "Invalid actor: " + (ca != null ? ca.nameRegion : "null"));
             return null;
         }
 
@@ -121,7 +121,7 @@ public class BattleSimulator2 {
 
         // Nếu không có mục tiêu hợp lệ, trả về null
         if (validTargets.isEmpty()) {
-            Gdx.app.error("TargetSelection", "No valid target found for actor: " + ca.characterBaseId);
+            Gdx.app.error("TargetSelection", "No valid target found for actor: " + ca.nameRegion);
             return validTargets.first();
         }
 

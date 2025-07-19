@@ -2,12 +2,12 @@ package com.game.ui.widget;
 
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.LINEUP_ATTACK;
-import static com.game.utils.Constants.PARTY_FULL;
+import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
@@ -16,10 +16,13 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
-import com.game.utils.GameSession;
+import com.game.utils.Constants;
 import com.game.utils.JsonHelper;
+import com.game.utils.json.CharacterBase;
+import com.game.utils.json.EquipBase;
 import com.game.utils.json.Hero;
 import com.game.utils.json.Lineup;
+import com.game.utils.json.Stat;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,35 +31,32 @@ import java.util.List;
 public class HerosPP {
     private static List<Hero> heroList = null;
     private static List<Lineup> lineupList = null;
+    private static List<EquipBase> equipBaseList = null;
 
     private static Hero heroSelect;
 
     private static UIGroup popup;
     private static UITable table;
-    private static UIGroup grid;
+    private static UIGroup gridLineup;
     private static UIGroup detail;
     private static int page = 0;
     private static float size;
     private static float margin;
+
+    public static void show(boolean b) {
+        popup.setVisible(b);
+    }
 
     public static Group pp(float w, float h) {
         size = h * 0.2f;
         margin = size * 0.2f;
         popup = new UIGroup().name("hero").size(w, h);
 
-        heroList = JsonHelper.loadHeroList(PARTY_FULL, true);
+        heroList = JsonHelper.loadHeroList(HERO_FULL, true);
         lineupList = JsonHelper.loadLineupList(LINEUP_ATTACK, true);
-        heroSelect = new Hero();
+        heroSelect = null;
 
-        float xRootGrid = w * 0.05f;
-        float yRootGrid = h * 0.12f;
         if (heroList.size() > 1) sortHero(heroList);
-
-        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "origin");
-        new UIImage(profile).nine(profile, 30, 30, 30, 30)
-            .name("origin")
-            .parent(popup)
-            .bounds(w * 0.01f, h * 0.05f, w * 0.38f, h * 0.9f);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
         new UIImage(board).nine(board, 30, 30, 30, 30)
@@ -72,7 +72,8 @@ public class HerosPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnDetail")).setChecked(false);
                 ((UIButton) popup.findActor("btnLineup")).setChecked(true);
-                page = 0;
+                gridLineup.setVisible(true);
+                detail.setVisible(false);
             })
             .check(true)
             .fontScale(1.2f).parent(popup);
@@ -83,32 +84,30 @@ public class HerosPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnDetail")).setChecked(true);
                 ((UIButton) popup.findActor("btnLineup")).setChecked(false);
-                page = 0;
+                gridLineup.setVisible(false);
+                detail.setVisible(true);
             })
             .check(false)
             .fontScale(1.2f).parent(popup);
 
-
-        new UILabel("Team", BMF).pos(w * 0.05f, h * 0.8f).fontScale(2.5f).parent(popup);
-
         btnRedirect(w, h, h * 0.1f);
 
         createTable(w, h, size, margin);
-        createGrid(xRootGrid, yRootGrid);
-        createDetail();
+        createGrid(w, h);
+        createDetail(w, h);
 
         return popup;
     }
 
     private static void createTable(float w, float h, float size, float margin) {
         table = new UITable().name("table").size(size * 5, size * 3).pos(w * 0.43f, h * 0.12f);
+        equipBaseList = JsonHelper.loadEquipBaseList(true);
         updateTable(size, margin);
         popup.addActor(table);
     }
 
     private static void updateTable(float size, float margin) {
         table.clearChildren();
-
         for (int i = 0; i < 15; i++) {
             UIGroup uiGroup;
             if (heroList != null && i < heroList.size()) {
@@ -118,10 +117,13 @@ public class HerosPP {
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .name("bg")
                         .size(size, size),
-                    new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "rarity0", 20))
-                        .name("border_" + hero.characterId)
+                    new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "rarity1", 20))
+                        .name("lineup")
+                        .size(size, size).visible(hero.grid.equals("empty")?false:true),
+                    new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "select", 20))
+                        .name("imageSelect")
                         .size(size, size).visible(false),
-                    new UIImage(MainGame.getAsM().getRegionCharacter(hero.characterBaseId, "idle"))
+                    new UIImage(MainGame.getAsM().getRegionCharacter(hero.nameRegion, "idle"))
                         .name("frame")
                         .size(size - margin, size - margin)
                         .pos(margin * 0.5f, margin * 0.5f),
@@ -129,16 +131,18 @@ public class HerosPP {
                 );
 
                 uiGroup.onClick(() -> {
-                    setCharaterIdTarget(hero);
+                    if (heroSelect != null) {
+                        ((UIGroup) table.findActor(heroSelect.characterId)).findActor("imageSelect").setVisible(false);
+                    }
+                    heroSelect = hero;
+                    uiGroup.findActor("imageSelect").setVisible(true);
+                    updateDetail();
                 });
             } else {
                 uiGroup = new UIGroup().name("empty").child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .name("bg")
-                        .size(size, size),
-                    new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "rarity0", 20))
-                        .name("border_empty")
-                        .size(size, size).visible(false)
+                        .size(size, size)
                 );
             }
 
@@ -150,20 +154,28 @@ public class HerosPP {
     }
 
 
-    private static void createGrid(float x, float y) {
-        grid = new UIGroup().name("grid").pos(x, y);
-        updateGrid(x, y);
-        popup.addActor(grid);
+    private static void createGrid(float w, float h) {
+        gridLineup = new UIGroup().name("grid").size(w * 0.4f, h);
+        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        new UIImage(profile).nine(profile, 30, 30, 30, 30)
+            .name("origin")
+            .parent(gridLineup)
+            .bounds(w * 0.01f, h * 0.05f, w * 0.38f, h * 0.9f);
+        new UILabel("Team", BMF).pos(w * 0.05f, h * 0.8f).fontScale(2.5f).parent(gridLineup);
+        updateGrid(w, h);
+        popup.addActor(gridLineup);
     }
 
-    private static void updateGrid(float x, float y) {
+    private static void updateGrid(float width, float height) {
+        float posOrgX = width * 0.05f;
+        float posOrgY = height * 0.15f;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 UIGroup item;
-                if (grid.findActor(i + "," + j) == null) {
+                if (gridLineup.findActor(i + "," + j) == null) {
                     item = new UIGroup()
                         .name(i + "," + j)
-                        .pos(size * i, size * j)
+                        .pos(posOrgX + size * i, posOrgY + size * j)
                         .size(size, size).child(
                             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                                 .size(size, size),
@@ -175,60 +187,30 @@ public class HerosPP {
                                 .name("frame")
                                 .size(size - margin, size - margin)
                                 .pos(margin * 0.5f, margin * 0.5f)
-                        ).parent(grid);
+                        ).parent(gridLineup);
                 } else {
-                    item = grid.findActor(i + "," + j);
+                    item = gridLineup.findActor(i + "," + j);
                 }
 
-                Lineup lineup = JsonHelper.get(GameSession.lineupList, "grid", i + "," + j);
-                UIImage frame = item.findActor("frame");
-
-//                    TODO tree -> grid/i,j/(UIImage)select
-//                    TODO tree -> grid/i,j/(UIImage)frame
-                final int m = i;
-                final int n = j;
                 item.onClick(() -> {
-                    System.out.println("Grid: " + (lineup != null ? lineup.grid : "null"));
-                    System.out.println(frame.getName());
 
-                    if (heroSelect.characterId != null) {
-                        if (lineup != null) {
-                            Hero hero = JsonHelper.get(heroList, "characterId", lineup.characterId);
-                            updateJsonValue(lineupList, lineup.grid, hero);
-                            lineup.characterBaseId = hero.characterBaseId;
-                            frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + lineup.characterBaseId + ".atlas", "idle")));
-                            System.out.println(lineupList);
-                        }
-                        if (lineup == null && lineupList.size() < GameSession.sizeTeam) {
-                            lineup.grid = m + "," + n;
-                            lineup.characterId = heroSelect.characterId;
-                            lineup.characterBaseId = heroSelect.characterBaseId;
-                            lineupList.add(lineup);
-                        }
-
-                    } else {
-                        // chọn
-                    }
                 });
-
             }
         }
         updateGridDrawable();
     }
 
-    private static void createDetail() {
-        if (detail == null) {
-        }
-    }
 
     private static void updateGridDrawable() {
+        JsonHelper.upfateLineupList(true);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                UIGroup item = grid.findActor(i + "," + j);
+                UIGroup item = gridLineup.findActor(i + "," + j);
                 Lineup lineup = JsonHelper.get(lineupList, "grid", i + "," + j);
                 UIImage frame = item.findActor("frame");
                 if (lineup != null) {
-                    frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + lineup.characterBaseId + ".atlas", "idle")));
+                    System.out.println("nameRegion: "+ lineup.nameRegion);
+                    frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion("atlas/characters/" + lineup.nameRegion + ".atlas", "idle")));
                 } else {
                     frame.setVisible(false);
                 }
@@ -241,65 +223,76 @@ public class HerosPP {
         for (Lineup item : full) {
             if (value.equals(item.grid)) {
                 item.characterId = hero.characterId;
-                item.characterBaseId = hero.characterBaseId;
+                item.nameRegion = hero.nameRegion;
                 return;
             }
         }
     }
 
-    private static void setCharaterIdTarget(Hero item) {
-        // TODO popup/table/characterId/(UIImage)border_characterId
-        // TODO popup/(UIGroup)i,j/(UIImage)select
-        Table tableGroup = table.findActor("table");
-        if (tableGroup == null) {
-            System.out.println("Table not found!");
-            return;
-        }
-        UIGroup uiGroup = tableGroup.findActor(item.characterId);
-        if (uiGroup == null) {
-            System.out.println("A UIGroup with name " + item.characterId + " not found!");
-            return;
-        }
-        UIImage uiImage = uiGroup.findActor("border_" + item.characterId);
-        if (uiImage == null) {
-            System.out.println("UIImage with name " + item.characterId + " not found!");
-            return;
-        }
-        UIImage uiImage2 = null;
-        if (heroSelect.characterId != null) {
-            System.out.println(heroSelect.characterId);
-            UIGroup uiGroup2 = tableGroup.findActor(heroSelect.characterId);
-            if (uiGroup2 == null) {
-                System.out.println("B UIGroup with name " + heroSelect.characterId + " not found!");
-                return;
-            }
-            uiImage2 = uiGroup2.findActor("border_" + heroSelect.characterId);
-            if (uiImage == null) {
-                System.out.println("UIImage with name " + heroSelect.characterId + " not found!");
-                return;
-            }
-        }
+    private static void createDetail(float w, float h) {
+        detail = new UIGroup().name("detail").size(w * 0.4f, h);
+        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "profile");
+        new UIImage(profile).nine(profile, 30, 30, 30, 30)
+            .name("profile")
+            .parent(detail)
+            .bounds(w * 0.01f, h * 0.05f, w * 0.38f, h * 0.9f);
+        new UIImage((TextureRegion) null).name("frame").bounds(w*0.05f,h*0.5f,h*0.2f,h*0.2f).parent(detail).visible(false);
+
+        new UILabel("Tên Nhân vật", BMF).name("nameLb").bounds(w * 0.05f, h * 0.84f, w * 0.3f, h * 0.1f).align(Align.center).fontScale(1.5f).parent(detail);
+        new UILabel("Cấp độ --", BMF).name("levelLb").pos(w * 0.04f, h * 0.74f).color(Color.SKY).fontScale(1.5f).parent(detail);
+        new UILabel("Trang bị", BMF).pos(w * 0.04f, h * 0.43f).color(Color.SKY).fontScale(1.5f).parent(detail);
+        new UILabel("Chỉ số", BMF).pos(w * 0.24f, h * 0.54f).color(Color.SKY).fontScale(1.5f).parent(detail);
+
+        new UILabel("Kinh nghiệm", BMF).pos(w * 0.24f, h * 0.7f).fontScale(1.2f).parent(detail);
+        new UILabel("000/000", BMF).name("expLb").pos(w * 0.255f, h * 0.63f).fontScale(1.2f).parent(detail);
+
+        new UILabel("000", BMF).name("hpLb").pos(w * 0.27f, h * 0.45f).fontScale(1.2f).parent(detail);
+        new UILabel("Sức mạnh", BMF).name("attackLb").pos(w * 0.27f, h * 0.38f).fontScale(1.2f).parent(detail);
+        new UILabel("Năng lượng", BMF).name("mpLb").pos(w * 0.27f, h * 0.31f).fontScale(1.2f).parent(detail);
+        new UILabel("Thủ", BMF).name("defLb").pos(w * 0.27f, h * 0.24f).fontScale(1.2f).parent(detail);
+        new UILabel("Chí mạng", BMF).name("criticalLb").pos(w * 0.27f, h * 0.17f).fontScale(1.2f).parent(detail);
+        new UILabel("Nhanh nhẹn", BMF).name("agilityLb").pos(w * 0.27f, h * 0.1f).fontScale(1.2f).parent(detail);
+
+        float sizeIcon = h * 0.05f;
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "iconhp")).bounds(w * 0.23f, h * 0.45f, sizeIcon, sizeIcon).parent(detail);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icondame")).bounds(w * 0.23f, h * 0.38f, sizeIcon, sizeIcon).parent(detail);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "iconn")).bounds(w * 0.23f, h * 0.31f, sizeIcon, sizeIcon).parent(detail);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icondef")).bounds(w * 0.23f, h * 0.24f, sizeIcon, sizeIcon).parent(detail);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "iconcrit")).bounds(w * 0.23f, h * 0.17f, sizeIcon, sizeIcon).parent(detail);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "iconagility")).bounds(w * 0.23f, h * 0.1f, sizeIcon, sizeIcon).parent(detail);
 
 
-        if (heroSelect.characterId == null) {
-            uiImage.setVisible(true);
-            updateSelectGrid(item.grid, true);
-            heroSelect.characterId = item.characterId;
-            heroSelect.characterBaseId = item.characterBaseId;
-        } else {
-            if (heroSelect.characterId == item.characterId) {
-                uiImage.setVisible(false);
-                heroSelect.characterId = null;
-                heroSelect.characterBaseId = null;
-                updateSelectGrid(item.grid, false);
-            } else {
-                uiImage.setVisible(true);
-                uiImage2.setVisible(false);
-                updateSelectGrid(item.grid, true);
-                heroSelect.characterId = item.characterId;
-                heroSelect.characterBaseId = item.characterBaseId;
-            }
-        }
+        float pos = h * 0.1f;
+        float tile = h * 0.15f;
+        new UIImage(MainGame.getAsM().get9p()).bounds(pos, pos, tile, tile).parent(detail);
+        new UIImage(MainGame.getAsM().get9p()).bounds(pos + tile, pos, tile, tile).parent(detail);
+        new UIImage(MainGame.getAsM().get9p()).bounds(pos, pos + tile, tile, tile).parent(detail);
+        new UIImage(MainGame.getAsM().get9p()).bounds(pos + tile, pos + tile, tile, tile).parent(detail);
+
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"shield_empty")).name("shield").bounds(pos, pos, tile, tile).parent(detail).origin(Align.center).scale(0.6f);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"necklet_empty")).name("necklet").bounds(pos + tile, pos, tile, tile).parent(detail).origin(Align.center).scale(0.6f);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"sword_empty")).name("sword").bounds(pos, pos + tile, tile, tile).parent(detail).origin(Align.center).scale(0.6f);
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP,"armor_empty")).name("armor").bounds(pos + tile, pos + tile, tile, tile).parent(detail).origin(Align.center).scale(0.6f);
+
+        detail.setVisible(false);
+        popup.addActor(detail);
+    }
+
+    private static void updateDetail() {
+        CharacterBase herobase = JsonHelper.get(JsonHelper.loadCharacterBaseList(), "nameRegion", heroSelect.nameRegion);
+        Stat stat = new Stat( heroSelect,herobase, equipBaseList);
+
+        ((UIImage) detail.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion(Constants.CHARACTER_ATLAS + herobase.nameRegion + ".atlas", "idle")));
+        ((UIImage) detail.findActor("frame")).visible(true);
+        ((UILabel) detail.findActor("nameLb")).setText(herobase.name);
+        ((UILabel) detail.findActor("levelLb")).setText("Cấp "+heroSelect.level);
+        ((UILabel) detail.findActor("expLb")).setText(heroSelect.level);
+        ((UILabel) detail.findActor("hpLb")).setText(stat.hp);
+        ((UILabel) detail.findActor("attackLb")).setText(stat.atk);
+        ((UILabel) detail.findActor("mpLb")).setText(stat.mp);
+        ((UILabel) detail.findActor("defLb")).setText(stat.def);
+        ((UILabel) detail.findActor("criticalLb")).setText(stat.crit);
+        ((UILabel) detail.findActor("agilityLb")).setText(stat.agi);
     }
 
     private static void updateSelectGrid(String grid, boolean b) {
@@ -316,16 +309,6 @@ public class HerosPP {
                 }
             }
         }
-    }
-
-    // Hàm trợ giúp để lấy UIImage theo characterId
-    static UIImage getUIImageFromTable(String id) {
-        UIGroup uiGroup = popup.findActor(id);
-        if (uiGroup == null) {
-            System.out.println("C UIGroup with name " + id + " not found!");
-            return null;
-        }
-        return uiGroup.findActor("border_" + id);
     }
 
     // Hàm trợ giúp để lấy UIImage của select trong grid
@@ -365,6 +348,7 @@ public class HerosPP {
                 return Integer.compare(hero2.level, hero1.level);
             }
         });
+
         Collections.sort(heroList, new Comparator<Hero>() {
             @Override
             public int compare(Hero hero1, Hero hero2) {
@@ -383,4 +367,6 @@ public class HerosPP {
     }
 
 
+    public static void update() {
+    }
 }

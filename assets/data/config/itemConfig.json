@@ -1,0 +1,50 @@
+[
+  {
+    "food": {
+      "tier1": 1,
+      "tier2": 2,
+      "tier3": 3,
+      "tier4": 4,
+      "tier5": 5,
+      "tier6": 6
+    },
+    "metal": {
+      "tier1": 1,
+      "tier2": 2,
+      "tier3": 3,
+      "tier4": 4,
+      "tier5": 5,
+      "tier6": 6
+    },
+    "water": {
+      "tier1": 50,
+      "tier2": 200,
+      "tier3": 800,
+      "tier4": 3200,
+      "tier5": 12800,
+      "tier6": 51200
+    },
+    "diamond": {
+      "tier1": 1,
+      "tier2": 2,
+      "tier3": 3,
+      "tier4": 4,
+      "tier5": 5,
+      "tier6": 6
+    },
+    "gemstore": {
+      "tier1": 1,
+      "tier2": 2,
+      "tier3": 3,
+      "tier4": 4,
+      "tier5": 5
+    },
+    "gem": {
+      "tier1": 1,
+      "tier2": 2,
+      "tier3": 3,
+      "tier4": 4,
+      "tier5": 5
+    }
+  }
+]

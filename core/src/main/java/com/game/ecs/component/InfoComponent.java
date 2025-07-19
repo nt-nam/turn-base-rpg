@@ -6,7 +6,7 @@ import com.badlogic.ashley.core.Component;
 // Component để lưu trữ dữ liệu nhân vật
 public class InfoComponent implements Component {
     public String characterId;
-    public String characterBaseId;
+    public String nameRegion;
     public int star;
     public int level;
     public Equipment equip;
@@ -19,7 +19,7 @@ public class InfoComponent implements Component {
     // Constructor từ JsonValue
     public InfoComponent(JsonValue json) {
         this.characterId = json.getString("characterId", "unknown");
-        this.characterBaseId = json.getString("characterBaseId", "unknown");
+        this.nameRegion = json.getString("nameRegion", "unknown");
         this.star = json.getInt("star", 0);
         this.level = json.getInt("level", 1);
         this.equip = new Equipment(json.get("equip"));

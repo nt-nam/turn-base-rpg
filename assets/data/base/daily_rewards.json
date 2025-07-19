@@ -1,180 +1,180 @@
 [
   {
-    "idBase": 1,
+    "id": 1,
     "typereward": "coin",
     "number": 100,
     "confirm": false
   },
   {
-    "idBase": 2,
+    "id": 2,
     "typereward": "gem_pink",
     "number": 10,
     "confirm": false
   },
   {
-    "idBase": 3,
+    "id": 3,
     "typereward": "coin",
     "number": 500,
     "confirm": false
   },
   {
-    "idBase": 4,
+    "id": 4,
     "typereward": "coin",
     "number": 150,
     "confirm": false
   },
   {
-    "idBase": 5,
+    "id": 5,
     "typereward": "gem_pink",
     "number": 20,
     "confirm": false
   },
   {
-    "idBase": 6,
+    "id": 6,
     "typereward": "coin",
     "number": 700,
     "confirm": false
   },
   {
-    "idBase": 7,
+    "id": 7,
     "typereward": "coin",
     "number": 200,
     "confirm": false
   },
   {
-    "idBase": 8,
+    "id": 8,
     "typereward": "gem_pink",
     "number": 25,
     "confirm": false
   },
   {
-    "idBase": 9,
+    "id": 9,
     "typereward": "coin",
     "number": 800,
     "confirm": false
   },
   {
-    "idBase": 10,
+    "id": 10,
     "typereward": "coin",
     "number": 250,
     "confirm": false
   },
   {
-    "idBase": 11,
+    "id": 11,
     "typereward": "gem_pink",
     "number": 30,
     "confirm": false
   },
   {
-    "idBase": 12,
+    "id": 12,
     "typereward": "coin",
     "number": 1000,
     "confirm": false
   },
   {
-    "idBase": 13,
+    "id": 13,
     "typereward": "coin",
     "number": 300,
     "confirm": false
   },
   {
-    "idBase": 14,
+    "id": 14,
     "typereward": "gem_pink",
     "number": 35,
     "confirm": false
   },
   {
-    "idBase": 15,
+    "id": 15,
     "typereward": "coin",
     "number": 1200,
     "confirm": false
   },
   {
-    "idBase": 16,
+    "id": 16,
     "typereward": "coin",
     "number": 350,
     "confirm": false
   },
   {
-    "idBase": 17,
+    "id": 17,
     "typereward": "gem_pink",
     "number": 40,
     "confirm": false
   },
   {
-    "idBase": 18,
+    "id": 18,
     "typereward": "coin",
     "number": 1500,
     "confirm": false
   },
   {
-    "idBase": 19,
+    "id": 19,
     "typereward": "coin",
     "number": 400,
     "confirm": false
   },
   {
-    "idBase": 20,
+    "id": 20,
     "typereward": "gem_pink",
     "number": 50,
     "confirm": false
   },
   {
-    "idBase": 21,
+    "id": 21,
     "typereward": "coin",
     "number": 1800,
     "confirm": false
   },
   {
-    "idBase": 22,
+    "id": 22,
     "typereward": "coin",
     "number": 450,
     "confirm": false
   },
   {
-    "idBase": 23,
+    "id": 23,
     "typereward": "gem_pink",
     "number": 60,
     "confirm": false
   },
   {
-    "idBase": 24,
+    "id": 24,
     "typereward": "coin",
     "number": 2000,
     "confirm": false
   },
   {
-    "idBase": 25,
+    "id": 25,
     "typereward": "coin",
     "number": 500,
     "confirm": false
   },
   {
-    "idBase": 26,
+    "id": 26,
     "typereward": "gem_pink",
     "number": 70,
     "confirm": false
   },
   {
-    "idBase": 27,
+    "id": 27,
     "typereward": "coin",
     "number": 2200,
     "confirm": false
   },
   {
-    "idBase": 28,
+    "id": 28,
     "typereward": "coin",
     "number": 550,
     "confirm": false
   },
   {
-    "idBase": 29,
+    "id": 29,
     "typereward": "gem_pink",
     "number": 80,
     "confirm": false
   },
   {
-    "idBase": 30,
+    "id": 30,
     "typereward": "coin",
     "number": 2500,
     "confirm": false

@@ -1,42 +1,50 @@
 [
   {
+    "id": "equip",
     "type": "equip",
-    "id": "knife_137",
-    "index": 1
+    "idBase": "knife_137",
+    "index": 1,
+    "target": "empty"
   },
   {
+    "id": "equip",
     "type": "equip",
-    "id": "axe_195",
-    "index": 1
+    "idBase": "axe_195",
+    "index": 1,
+    "target": "empty"
   },
   {
     "type": "items",
-    "id": "flour_405",
+    "idBase": "flour_405",
     "index": 5
   },
   {
     "type": "items",
-    "id": "shovel_340",
+    "idBase": "shovel_340",
     "index": 4
   },
   {
     "type": "items",
-    "id": "water_346",
+    "idBase": "water_346",
     "index": 4
   },
   {
+    "id": "equip",
     "type": "equip",
-    "id": "scepter_288",
-    "index": 4
+    "idBase": "scepter_288",
+    "index": 4,
+    "target": "empty"
   },
   {
+    "id": "equip",
     "type": "equip",
-    "id": "shield_235",
-    "index": 4
+    "idBase": "shield_235",
+    "index": 4,
+    "target": "empty"
   },
   {
     "type": "items",
-    "id": "egg_423",
+    "idBase": "egg_423",
     "index": 4
   }
 ]

@@ -1,9 +1,9 @@
 package com.game.ui.base;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -57,46 +57,12 @@ public class UIImage extends Image {
         return this;
     }
 
-    public UIImage origin(int alignment) {
-        switch (alignment) {
-            case Align.center:
-                this.setAlign(Align.center);
-                this.setOrigin(this.getImageWidth() * 0.5f, this.getImageHeight() * 0.5f);
-                break;
-            case Align.left:
-                this.setOrigin(0, this.getImageHeight() * 0.5f);
-                break;
-            case Align.right:
-                this.setOrigin(this.getImageWidth(), this.getImageHeight() * 0.5f);
-                break;
-            case Align.top:
-                this.setOrigin(this.getImageWidth() * 0.5f, this.getImageHeight());
-                break;
-            case Align.bottom:
-                this.setOrigin(this.getImageWidth() * 0.5f, 0);
-                break;
-            case Align.topLeft:
-                this.setOrigin(0, this.getImageHeight());
-                break;
-            case Align.topRight:
-                this.setOrigin(this.getImageWidth(), this.getImageHeight());
-                break;
-            case Align.bottomLeft:
-                this.setOrigin(0, 0);
-                break;
-            case Align.bottomRight:
-                this.setOrigin(this.getImageWidth(), 0);
-                break;
-            default:
-                return this;
-        }
-        return this;
-    }
 
     public UIImage align(int align) {
         this.setAlign(align);
         return this;
     }
+
 
     public UIImage parent(Group rootGroup) {
         rootGroup.addActor(this);
@@ -123,4 +89,57 @@ public class UIImage extends Image {
         this.setVisible(b);
         return this;
     }
+
+    public UIImage color(Color color) {
+        this.setColor(color);
+        return this;
+    }
+
+    public UIImage color(String color) {
+        this.setColor(Color.valueOf(color));
+        return this;
+    }
+
+    public UIImage origin(int alignment) {
+        this.setOrigin(alignment);
+        return this;
+    }
+
+//    public UIImage origin(int alignment) {
+//        switch (alignment) {
+//            case Align.center:
+//                this.setAlign(Align.center);
+//                this.setOrigin(this.getImageWidth() * 0.5f, this.getImageHeight() * 0.5f);
+//                break;
+//            case Align.left:
+//                this.setOrigin(0, this.getImageHeight() * 0.5f);
+//                break;
+//            case Align.right:
+//                this.setOrigin(this.getImageWidth(), this.getImageHeight() * 0.5f);
+//                break;
+//            case Align.top:
+//                this.setOrigin(this.getImageWidth() * 0.5f, this.getImageHeight());
+//                break;
+//            case Align.bottom:
+//                this.setOrigin(this.getImageWidth() * 0.5f, 0);
+//                break;
+//            case Align.topLeft:
+//                this.setOrigin(0, this.getImageHeight());
+//                break;
+//            case Align.topRight:
+//                this.setOrigin(this.getImageWidth(), this.getImageHeight());
+//                break;
+//            case Align.bottomLeft:
+//                this.setOrigin(0, 0);
+//                break;
+//            case Align.bottomRight:
+//                this.setOrigin(this.getImageWidth(), 0);
+//                break;
+//            default:
+//                return this;
+//        }
+//        return this;
+//    }
+
+
 }

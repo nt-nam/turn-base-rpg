@@ -3,28 +3,28 @@
     {
       "grid": "2,1",
       "characterId": "enemy",
-      "characterBaseId": "tank_Knight",
+      "nameRegion": "tank_Knight",
       "star": 0,
       "level": 1
     },
     {
       "grid": "2,0",
       "characterId": "enemy",
-      "characterBaseId": "assassin_Knight",
+      "nameRegion": "assassin_Knight",
       "star": 0,
       "level": 1
     }
   ],
   "reward": [
     {
+      "id": "coin",
       "type": "coin",
-      "idBase": "coin",
-      "index": 30
+      "quantity": 30
     },
     {
+      "id": "gem_pink",
       "type": "gem",
-      "idBase": "gem_pink",
-      "index": 1
+      "quantity": 1
     }
   ]
 }

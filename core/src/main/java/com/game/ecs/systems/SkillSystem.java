@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.game.core.BattleConfig;
-import com.game.core.BattleSimulationResult;
 import com.game.core.Mappers;
 import com.game.core.TurnResult;
 import com.game.core.TurnResultPool;
@@ -39,8 +38,8 @@ public class SkillSystem {
         }
 
         TurnResult result = TurnResultPool.getInstance().obtain();
-        result.actorId = ca.characterBaseId;
-        result.targetId = ct.characterBaseId;
+        result.actorId = ca.nameRegion;
+        result.targetId = ct.nameRegion;
         result.skillUsed = skill.name;
         result.targetEntity = target;
 
@@ -104,7 +103,7 @@ public class SkillSystem {
                     if (targetStat != null) {
                         targetStat.hp = (int) Math.min(targetStat.hp + healAmount, getMaxHp(healTarget));
                         if (healTarget == target) {
-                            result.targetId = Mappers.base.get(healTarget).characterBaseId;
+                            result.targetId = Mappers.base.get(healTarget).nameRegion;
                             result.damage = -healAmount; // Âm để biểu thị heal
                         }
                     }

@@ -25,7 +25,7 @@ gem_pink
 bounds:1454,234,43,48
 home
 bounds:1149,157,95,95
-icomdef
+icondef
 bounds:572,2,38,40
 icon_speed_attack
 bounds:1359,192,40,42

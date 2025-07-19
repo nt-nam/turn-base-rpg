@@ -19,11 +19,11 @@ public class ActionQueueComponent implements Component {
 
         public Action( Entity actor, Entity target,float duration, SkillStateComponent.State state, String action, ObjectMap<String,Integer> note) {
             this.actor = actor;
-            this.startX = actor.getComponent(PositionComponent.class).x;
-            this.startY = actor.getComponent(PositionComponent.class).y;
+            this.startX = actor != null ? actor.getComponent(PositionComponent.class).x : 0;
+            this.startY =actor != null ? actor.getComponent(PositionComponent.class).y: 0;
             this.target = target;
-            this.endX = target.getComponent(PositionComponent.class).x;
-            this.endY = target.getComponent(PositionComponent.class).y;
+            this.endX =target != null ? target.getComponent(PositionComponent.class).x: 0;
+            this.endY =target != null ? target.getComponent(PositionComponent.class).y: 0;
             this.duration = duration;
             this.state = state;
             this.action = action;

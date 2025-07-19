@@ -1,11 +1,11 @@
 [
-  { "idBase": "Recruited",     "name": "Chiêu mộ",         "dec": "Số lượng người đã tuyển dụng",    "number": 12 },
-  { "idBase": "Kill",          "name": "Chiến công",       "dec": "Số lượng kẻ thù bị tiêu diệt",    "number": 10 },
-  { "idBase": "LevelTeam",     "name": "Cấp độ đội",       "dec": "Tổng cấp độ cao nhất của đội",    "number": 50 },
-  { "idBase": "Level",         "name": "Cấp độ",           "dec": "Cấp độ",                          "number": 0  },
-  { "idBase": "Win",           "name": "Trận thắng",       "dec": "Số trận thắng",                   "number": 7  },
-  { "idBase": "CoinSum",       "name": "Tổng tiền",        "dec": "Tổng số tiền xu kiếm được",       "number": 17 },
-  { "idBase": "GemPay",        "name": "Gem",              "dec": "Số lượng gem đã chi trả",         "number": 7  },
-  { "idBase": "Equip",         "name": "Trang bị",         "dec": "Số lượng trang bị đã từn sở hữu", "number": 8  }
+  { "nameRegion": "Recruited",     "name": "Chiêu mộ",         "dec": "Số lượng người đã tuyển dụng",    "number": 12 },
+  { "nameRegion": "Kill",          "name": "Chiến công",       "dec": "Số lượng kẻ thù bị tiêu diệt",    "number": 10 },
+  { "nameRegion": "LevelTeam",     "name": "Cấp độ đội",       "dec": "Tổng cấp độ cao nhất của đội",    "number": 50 },
+  { "nameRegion": "Level",         "name": "Cấp độ",           "dec": "Cấp độ",                          "number": 0  },
+  { "nameRegion": "Win",           "name": "Trận thắng",       "dec": "Số trận thắng",                   "number": 7  },
+  { "nameRegion": "CoinSum",       "name": "Tổng tiền",        "dec": "Tổng số tiền xu kiếm được",       "number": 17 },
+  { "nameRegion": "GemPay",        "name": "Gem",              "dec": "Số lượng gem đã chi trả",         "number": 7  },
+  { "nameRegion": "Equip",         "name": "Trang bị",         "dec": "Số lượng trang bị đã từn sở hữu", "number": 8  }
 ]
 

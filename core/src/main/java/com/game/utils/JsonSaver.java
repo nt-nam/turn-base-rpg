@@ -93,8 +93,6 @@ public class JsonSaver {
         copyFileToLocal(ACHIEVEMENT_BASE_JSON, ACHIEVEMENT_JSON);
         copyFileToLocal(MISSION_BASE_JSON, MISSION_JSON);
         copyFileToLocal(DAILY_BASE_JSON, DAILY_REWARD_JSON);
-//        saveString(PARTY_ATTACK, "[]");
-//        saveString(PARTY_FULL, "[]");
         return true;
     }
 
@@ -144,4 +142,10 @@ public class JsonSaver {
 
         return jsonValue;  // Trả về JsonValue sau khi đã tải
     }
+
+    public static void SaveFullDataAccount(){
+//        saveObject();
+    }
+
+
 }
