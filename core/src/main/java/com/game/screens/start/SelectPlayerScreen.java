@@ -1,7 +1,6 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -24,7 +23,7 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.utils.GameSession;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 import com.game.utils.json.Account;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        accounts = JsonHelper.loadAccountList( true);
+        accounts = DataHelper.loadAccountList(true);
         if (accounts != null) {
             for (Account element : accounts) {
                 MainGame.getAsM().load("atlas/characters/" + element.characterSelect + ".atlas", TextureAtlas.class);
@@ -94,7 +93,7 @@ public class SelectPlayerScreen extends BaseScreen {
     public void show() {
         Gdx.app.log("SelectPlayerScreen", "show() called");
         super.show();
-        accounts = JsonHelper.loadAccountList( true);
+        accounts = DataHelper.loadAccountList(true);
 
         showScrollPane();
 
@@ -126,6 +125,7 @@ public class SelectPlayerScreen extends BaseScreen {
 
                         GameSession.playerName = element.id;
                         GameSession.selectedCharacterId = element.characterSelect;
+                        GameSession.profile = DataHelper.loadProfile(true);
                         MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
                     }).parent(rootGroup);
                 uiGroup.setOrigin(uiGroup.getWidth() / 2, uiGroup.getHeight() / 2);

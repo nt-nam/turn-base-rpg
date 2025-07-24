@@ -1,18 +1,19 @@
 {
   "name": "a",
   "level": 50,
-  "CharacterSelect": "character1",
-  "Area": "",
+  "characterSelect": "character1",
+  "area": "village_0",
   "pos": {
-    "x": 0.0,
-    "y": 0.0
+    "x": -1.0,
+    "y": -1.0
   },
+  "dailyCheck": "2025-07-23",
   "sizeTeam": 5,
   "exp": 0,
   "coin": 0,
   "gem": 15,
-  "NumberOfTeammatesRecruited" : 11,
+  "numberOfTeammatesRecruited": 12,
   "equipment": 5,
-  "NumberOfEnemies": 0,
-  "Unlocked Area": []
+  "numberOfEnemies": 6,
+  "unlocked": []
 }

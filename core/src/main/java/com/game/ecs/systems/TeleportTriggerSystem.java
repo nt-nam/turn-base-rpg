@@ -38,7 +38,7 @@ public class TeleportTriggerSystem extends EntitySystem {
                 if (GameSession.pendingTeleport == null) {
                     GameSession.pendingTeleport = new PendingTeleport(ttc.nextMap, ttc.nextSpawn, ttc.name);
                     System.out.println("Player đứng trên trigger teleport: " + ttc.name + " - spawn " + ttc.nextSpawn);
-                    GameSession.currentMapId = ttc.nextMap;
+                    GameSession.targetMapId = ttc.nextMap;
                     GameSession.selectedPlayerSpawnIndex = ttc.nextSpawn;
                     WorldMapScreen.showBtnNextMap(true);
                 }

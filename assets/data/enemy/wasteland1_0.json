@@ -1,51 +1,23 @@
 {
   "grid": [
     {
-      "grid": "2,1",
-      "characterId": "enemy",
+      "grid": "1,1",
+      "characterId": "boss",
       "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "2,0",
-      "characterId": "enemy",
-      "nameRegion": "warrior_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "2,2",
-      "characterId": "enemy",
-      "nameRegion": "mage_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "1,0",
-      "characterId": "enemy",
-      "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "1,2",
-      "characterId": "enemy",
-      "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
+      "star": 3,
+      "level": 5
     }
   ],
   "reward": [
     {
       "type": "coin",
       "id": "coin",
-      "quantity": 10
+      "quantity": 100
     },
     {
       "type": "gem",
       "id": "gem_pink",
-      "quantity": 1
+      "quantity": 5
     }
   ]
 }

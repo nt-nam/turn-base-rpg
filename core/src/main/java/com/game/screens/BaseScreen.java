@@ -57,7 +57,7 @@ public abstract class BaseScreen implements Screen {
         stage.draw();
 
         updateUI(delta);
-        debugGrid();
+//        debugGrid();
     }
 
     protected void updateLogic(float delta) {

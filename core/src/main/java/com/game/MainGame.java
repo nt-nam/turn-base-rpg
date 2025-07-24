@@ -1,6 +1,7 @@
 package com.game;
 
 import static com.game.utils.Constants.BMF;
+import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Game;
@@ -13,25 +14,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.managers.AudioManager;
-import com.game.managers.CharacterTilemapManager;
 import com.game.managers.GAssetManager;
-import com.game.managers.MapManager;
-import com.game.managers.SaveManager;
 import com.game.screens.ScreenManager;
-import com.game.ui.UIManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
+import com.game.ui.OverlayUI;
+import com.game.ui.base.UIButton;
+import com.game.ui.base.UIGroup;
+import com.game.ui.base.UIImage;
+import com.game.ui.base.UILabel;
 import com.game.utils.GameSession;
 
 public class MainGame extends Game {
     private static AudioManager audioManager;
-    private static CharacterTilemapManager characterTilemapManager;
     private static GAssetManager assetManager;
     private static EventManager eventManager;
-    private static MapManager mpm;
-    private static SaveManager pm;
     private static ScreenManager scm;
-    private static UIManager uim;
 
     private static GameSession session;
 
@@ -127,7 +125,30 @@ public class MainGame extends Game {
 
     @Override
     public void render() {
-        super.render();
+        try {
+            super.render();
+        } catch (Exception e) {
+            createPopupNotification();
+        }
+    }
+
+    private void createPopupNotification() {
+        UIGroup a = new UIGroup().name("popupDelete").size(stage.getWidth(), stage.getHeight());
+        stage.addActor(a);
+        UIButton btnYes = new UIButton("OK", MainGame.getAsM().getRegion(UI_POPUP, "btn_green"));
+
+        btnYes.check(() -> {
+            Gdx.app.exit();
+        });
+
+        a.child(
+            OverlayUI.overlay(a),
+            new UIImage(MainGame.getAsM().get9p()).bounds(stage.getWidth() * 0.2f, stage.getHeight() * 0.2f, stage.getWidth() * 0.6f, stage.getHeight() * 0.6f),
+            new UILabel("Rất xin lỗi!!!", BMF).pos(stage.getWidth() * 0.28f, stage.getHeight() * 0.65f).fontScale(2),
+            new UILabel("   Có vấn đề [Không xác định] sảy ra, vui lòng khởi động lại\n" +
+                "   Hoặc liên hệ với chúng tôi thông qua Gmail: mssv@student.stu.edu.vn", BMF).bounds(stage.getWidth() * 0.3f, stage.getHeight() * 0.4f, stage.getWidth() * 0.4f, stage.getHeight() * 0.2f).warp(true),
+            btnYes.bounds(stage.getWidth() * 0.32f, stage.getHeight() * 0.25f, stage.getWidth() * 0.15f, stage.getHeight() * 0.12f)
+        );
     }
 
     @Override

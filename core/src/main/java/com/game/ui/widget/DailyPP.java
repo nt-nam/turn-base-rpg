@@ -1,12 +1,12 @@
 package com.game.ui.widget;
 
 import static com.game.utils.Constants.DAILY_REWARD_JSON;
+import static com.game.utils.Constants.INFO_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.JsonValue;
 import com.game.MainGame;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
@@ -14,20 +14,19 @@ import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.GameSession;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 import com.game.utils.JsonSaver;
 import com.game.utils.json.DailyReward;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 public class DailyPP {
     public static UIGroup popup;
     private static List<DailyReward> dailyRewardList;
 
     public static void show(boolean b) {
-        dailyRewardList = JsonHelper.loadDailyRewardList(true);
+        dailyRewardList = DataHelper.loadDailyRewardList(true);
         popup.setVisible(b);
     }
 
@@ -39,16 +38,13 @@ public class DailyPP {
             .name("origin")
             .parent(popup)
             .bounds(w * 0.15f, h * 0.05f, w * 0.7f, h * 0.9f);
-        dailyRewardList = JsonHelper.loadDailyRewardList(true);
-
-//        JsonValue dailyRewards = JsonHelper.getJsonValue(DAILY_REWARD_JSON).get("daily_rewards");
-//        List<DailyReward> dailyRewardList = JsonHelper.loadDailyRewards(DAILY_REWARD_JSON);
+        dailyRewardList = DataHelper.loadDailyRewardList(true);
 
         float size = h/6.2f;
         float margin = size * 0.3f;
 
         UITable table = new UITable().name("table").size(size * 7, size * 5).pos(w * 0.2f, h * 0.1f);
-
+boolean flag = false;
         for (int i = 0; i < 30; i++) {
             UIGroup uiGroup;
             if (dailyRewardList != null && i < dailyRewardList.size()) {
@@ -63,12 +59,21 @@ public class DailyPP {
                     new UILabel(item.number+"")
                         .pos(margin * 0.4f, margin * 0.2f)
                 );
-                uiGroup.onClick(() -> {
-                    if(GameSession.profile.getDailyCheck() == LocalDate.now())
-                    popup.addActor(NotificationPP.ppr(w,h,"You get "+item.number+" "+item.typereward));
-                    item.confirm = true;
-                    update();
-                });
+                if(!item.confirm && !flag){
+                    flag =true;
+                    uiGroup.onClick(() -> {
+                        if(GameSession.profile.getDailyCheck().equals(LocalDate.now())){
+                            popup.addActor(NotificationPP.ppr(w,h,"Bạn đã điểm danh cho ngày hôm nay"));
+                        }else{
+                            popup.addActor(NotificationPP.ppr(w,h,"Điểm danh thành công"));
+                            item.confirm = true;
+                            uiGroup.findActor("icon").setColor(Color.GRAY);
+                            GameSession.profile.dailyCheck = LocalDate.now().toString();
+                            update();
+                        }
+                    });
+                }
+
                 if (item.confirm) {
                     uiGroup.findActor("icon").setColor(Color.GRAY);
                 }
@@ -91,5 +96,6 @@ public class DailyPP {
 
     public static void update() {
         JsonSaver.saveObject(DAILY_REWARD_JSON, dailyRewardList);
+        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
     }
 }

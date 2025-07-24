@@ -6,7 +6,10 @@ import com.game.utils.json.Account;
 import com.game.utils.json.Achievement;
 import com.game.utils.json.Bag;
 import com.game.utils.json.CharacterBase;
+import com.game.utils.json.CheckMap;
+import com.game.utils.json.Equip;
 import com.game.utils.json.EquipBase;
+import com.game.utils.json.Item;
 import com.game.utils.json.Lineup;
 import com.game.utils.data.PendingTeleport;
 import com.game.utils.json.DailyReward;
@@ -25,10 +28,6 @@ import java.util.Set;
 public class GameSession {
     // User/account
     public static String playerName = "";
-    public static String mainInfo ="";
-    public static String playerId = "";
-    public static int selectedSlot = 0;
-    public static int sizeTeam =5;
     public static Profile profile = new Profile();
 
     // Character selection
@@ -37,9 +36,9 @@ public class GameSession {
     public static String skillCharacter = "orange";
 
     // Position/state
-    public static String currentMapId = "village_0";
+    public static String targetMapId = "village_0";
     public static String enemyMapId = "";
-    public static float playerX = 0, playerY = 0;
+    public static float playerX = -1, playerY = -1;
     public static String playerDirection = "down";
     public static PendingTeleport pendingTeleport = null;
     public static boolean moveLeft = false;
@@ -52,12 +51,15 @@ public class GameSession {
     public static List<EquipBase> equipBaseList = new ArrayList<>();
     public static List<CharacterBase> characterBaseList = new ArrayList<>();
     public static List<SkillBase> skillBaseList = new ArrayList<>();
+    public static MapBattle mapBattle = new MapBattle();
 
     public static List<Bag> bagList = new ArrayList<>();
+    public static List<Equip> equipList = new ArrayList<>();
+    public static List<Item> itemList = new ArrayList<>();
     public static List<Lineup> lineupList = new ArrayList<>();
     public static List<Hero> heroList = new ArrayList<>();
     public static List<Hero> heroEnemyList = new ArrayList<>();
-    public static MapBattle mapBattle = new MapBattle();
+    public static List<CheckMap> checkMapList = new ArrayList<>();
     public static List<Achievement> achievementList = new ArrayList<>();
     public static List<Mission> missionList = new ArrayList<>();
     public static List<DailyReward> dailyRewardList = new ArrayList<>();

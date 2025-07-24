@@ -8,6 +8,7 @@ public class EnemyTriggerComponent implements Component {
     public int level;
 
     public EnemyTriggerComponent(int id, String mapEnemy, int level) {
+        this.id = id;
         this.mapEnemy = mapEnemy;
         this.level = level;
     }

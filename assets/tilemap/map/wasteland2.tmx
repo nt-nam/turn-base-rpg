@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="399">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="9" height="9" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="402">
  <editorsettings>
   <chunksize width="32" height="32"/>
  </editorsettings>
@@ -34,13 +34,25 @@
     <property name="index" type="int" value="5"/>
     <property name="map" value="wasteland1"/>
     <property name="name" value="Đất hoang 1"/>
+    <property name="needClearMap" type="int" value="2"/>
     <property name="spawn" type="int" value="5"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#ffff00" id="10" name="npc"/>
  <objectgroup color="#ff55ff" id="12" name="object"/>
- <objectgroup color="#ff0000" id="11" name="enemies"/>
+ <objectgroup color="#ff0000" id="11" name="enemies">
+  <object id="400" x="192" y="96" width="34" height="32">
+   <properties>
+    <property name="id" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="401" x="96" y="160" width="34" height="32">
+   <properties>
+    <property name="id" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup color="#00ff00" id="8" name="player">
   <object id="320" name="spawn" x="33.8182" y="174">
    <properties>

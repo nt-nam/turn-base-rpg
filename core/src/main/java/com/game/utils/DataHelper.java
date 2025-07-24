@@ -2,44 +2,52 @@ package com.game.utils;
 
 import static com.game.utils.Constants.ACHIEVEMENT_JSON;
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
+import static com.game.utils.Constants.CHECK_MAP_JSON;
 import static com.game.utils.Constants.DAILY_REWARD_JSON;
+import static com.game.utils.Constants.EQUIPS_JSON;
 import static com.game.utils.Constants.EQUIP_JSON;
+import static com.game.utils.Constants.INFO_JSON;
+import static com.game.utils.Constants.ITEMS_JSON;
 import static com.game.utils.Constants.ITEM_JSON;
 import static com.game.utils.Constants.LINEUP_ATTACK;
 import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
 import static com.game.utils.Constants.MISSION_JSON;
 import static com.game.utils.Constants.SKILL_JSON;
-import static com.game.utils.Constants.WAREHOUSE_JSON;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.game.ecs.component.EquipComponent;
 import com.game.ecs.component.InfoComponent;
 import com.game.utils.json.Achievement;
-import com.game.utils.json.Bag;
 import com.game.utils.json.CharacterBase;
+import com.game.utils.json.CheckMap;
 import com.game.utils.json.DailyReward;
+import com.game.utils.json.Equip;
 import com.game.utils.json.EquipBase;
+import com.game.utils.json.Item;
 import com.game.utils.json.Lineup;
 import com.game.utils.json.Hero;
 import com.game.utils.json.ItemBase;
 import com.game.utils.json.Account;
 import com.game.utils.json.MapBattle;
 import com.game.utils.json.Mission;
+import com.game.utils.json.Profile;
 import com.game.utils.json.Reward;
 import com.game.utils.json.skill.EffectSkill;
 import com.game.utils.json.skill.Skill;
 import com.game.utils.json.skill.SkillBase;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class JsonHelper {
+public class DataHelper {
 
     public static List<Account> loadAccountList(boolean b) {
         if (b || GameSession.accountList.isEmpty()) {
@@ -50,7 +58,9 @@ public class JsonHelper {
             }
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
-
+if(root == null){
+    return null;
+}
             for (JsonValue item : root) {
                 Account newItem = new Account();
                 newItem.id = item.getString("id");
@@ -61,6 +71,32 @@ public class JsonHelper {
             }
         }
         return GameSession.accountList;
+    }
+
+    public static Profile loadProfile(boolean b) {
+        if (b || GameSession.profile != null) {
+            FileHandle fileHandle = Gdx.files.local(INFO_JSON);
+            if (!fileHandle.exists()) {
+                return null;
+            }
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            Profile newItem = new Profile(root.getString("name"), root.getString("characterSelect"));
+            newItem.level = root.getInt("level");
+            newItem.area = root.getString("area");
+            newItem.pos = new Vector2(root.get("pos").getInt("x"), root.get("pos").getInt("y"));
+            newItem.dailyCheck = root.getString("dailyCheck");
+            newItem.sizeTeam = root.getInt("sizeTeam");
+            newItem.exp = root.getInt("exp");
+            newItem.coin = root.getInt("coin");
+            newItem.gem = root.getInt("gem");
+            newItem.numberOfTeammatesRecruited = root.getInt("numberOfTeammatesRecruited");
+            newItem.equipment = root.getInt("equipment");
+            newItem.numberOfEnemies = root.getInt("numberOfEnemies");
+            GameSession.profile = newItem;
+        }
+        return GameSession.profile;
     }
 
     public static List<Achievement> loadAchievementList(boolean b) {
@@ -82,25 +118,29 @@ public class JsonHelper {
         return GameSession.achievementList;
     }
 
-    public static List<Bag> loadBagList(boolean b) {
-        if (b || GameSession.bagList.isEmpty()) {
-            GameSession.bagList.clear();
-            FileHandle fileHandle = Gdx.files.local(WAREHOUSE_JSON);
+    public static List<CheckMap> loadCheckMapList(boolean b) {
+        if (b || GameSession.checkMapList.isEmpty()) {
+            GameSession.checkMapList.clear();
+            FileHandle fileHandle = Gdx.files.local(CHECK_MAP_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
             for (JsonValue equip : root) {
                 if (equip.isEmpty()) return null;
-                Bag newBag = new Bag();
-                newBag.id = equip.getString("id", "empty");
-                newBag.idBase = equip.getString("idBase");
-                newBag.type = equip.getString("type");
-                newBag.index = equip.getInt("index", 1);
-                newBag.target = equip.getString("target", "empty");
-                GameSession.bagList.add(newBag);
+                CheckMap child = new CheckMap();
+                child.name = equip.getString("name");
+                child.sum = equip.getInt("sum");
+                child.battleList = new ArrayList<>();
+                for (JsonValue a : equip.get("battleList")) {
+                    CheckMap.BattleDes battle = new CheckMap.BattleDes();
+                    battle.id = a.getString("id");
+                    battle.dayCheck = LocalDate.parse(a.getString("dayCheck"));
+                    child.battleList.add(battle);
+                }
+                GameSession.checkMapList.add(child);
             }
         }
-        return GameSession.bagList;
+        return GameSession.checkMapList;
     }
 
     public static List<CharacterBase> loadCharacterBaseList() {
@@ -180,7 +220,7 @@ public class JsonHelper {
     public static List<EquipBase> loadEquipBaseList(boolean b) {
         if (b || GameSession.equipBaseList.isEmpty()) {
             GameSession.equipBaseList.clear();
-            FileHandle fileHandle = Gdx.files.local(EQUIP_JSON);
+            FileHandle fileHandle = Gdx.files.internal(EQUIP_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -189,6 +229,7 @@ public class JsonHelper {
                 newEquip.nameRegion = equip.getString("nameRegion");
                 newEquip.name = equip.getString("name");
                 newEquip.category = equip.getString("category", "default");
+                newEquip.currency = equip.getString("currency", "default");
                 newEquip.price = equip.getInt("price", -1);
 
                 JsonValue stats = equip.get("stats");
@@ -207,10 +248,30 @@ public class JsonHelper {
         return GameSession.equipBaseList;
     }
 
+    public static List<Equip> loadEquipList(boolean b) {
+        if (b || GameSession.equipList.isEmpty()) {
+            GameSession.equipList.clear();
+            FileHandle fileHandle = Gdx.files.local(EQUIPS_JSON);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue equip : root) {
+                Equip newEquip = new Equip();
+                newEquip.id = equip.getString("id");
+                newEquip.nameRegion = equip.getString("nameRegion");
+                newEquip.level = equip.getInt("level");
+                newEquip.target = equip.getString("target","default");
+
+                GameSession.equipList.add(newEquip);
+            }
+        }
+        return GameSession.equipList;
+    }
+
     public static List<ItemBase> loadItemBaseList(boolean b) {
         if (b || GameSession.itemBaseList.isEmpty()) {
             GameSession.itemBaseList.clear();
-            FileHandle fileHandle = Gdx.files.local(ITEM_JSON);
+            FileHandle fileHandle = Gdx.files.internal(ITEM_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -220,11 +281,27 @@ public class JsonHelper {
                 newItem.name = item.getString("name");
                 newItem.tier = item.getInt("tier");
                 newItem.price = item.getInt("price");
-
                 GameSession.itemBaseList.add(newItem);
             }
         }
         return GameSession.itemBaseList;
+    }
+
+    public static List<Item> loadItemList(boolean b) {
+        if (b || GameSession.itemList.isEmpty()) {
+            GameSession.itemList.clear();
+            FileHandle fileHandle = Gdx.files.local(ITEMS_JSON);
+            JsonReader reader = new JsonReader();
+            JsonValue root = reader.parse(fileHandle);
+
+            for (JsonValue item : root) {
+                Item newItem = new Item();
+                newItem.nameRegion = item.getString("nameRegion", "empty");
+                newItem.index = item.getInt("index");
+                GameSession.itemList.add(newItem);
+            }
+        }
+        return GameSession.itemList;
     }
 
     public static List<Mission> loadMissionList(boolean b) {
@@ -258,7 +335,7 @@ public class JsonHelper {
     public static List<SkillBase> loadSkillBaseList(boolean b) {
         if (b || GameSession.skillBaseList.isEmpty()) {
             GameSession.skillBaseList.clear();
-            FileHandle fileHandle = Gdx.files.local(SKILL_JSON);
+            FileHandle fileHandle = Gdx.files.internal(SKILL_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -299,7 +376,7 @@ public class JsonHelper {
         return GameSession.skillBaseList;
     }
 
-    public static List<Lineup> upfateLineupList(boolean b) {
+    public static List<Lineup> updateLineupList(boolean b) {
         GameSession.lineupList.clear();
         for (Hero hero : GameSession.heroList) {
             if (!hero.grid.equals("empty")) {
@@ -310,7 +387,7 @@ public class JsonHelper {
                 GameSession.lineupList.add(a);
             }
         }
-        JsonSaver.saveObject(LINEUP_ATTACK,GameSession.lineupList);
+        JsonSaver.saveObject(LINEUP_ATTACK, GameSession.lineupList);
         return GameSession.lineupList;
     }
 

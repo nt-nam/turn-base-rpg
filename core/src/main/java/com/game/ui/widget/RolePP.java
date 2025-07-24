@@ -1,8 +1,6 @@
 package com.game.ui.widget;
 
-import static com.game.utils.Constants.ACHIEVEMENT_JSON;
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.MISSION_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -16,7 +14,7 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.Color;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 import com.game.utils.json.Achievement;
 import com.game.utils.json.Mission;
 
@@ -73,8 +71,8 @@ public class RolePP {
         float size = h * 0.2f;
         float margin = size * 0.2f;
 
-        List<Achievement> achievements = JsonHelper.loadAchievementList( false);
-        List<Mission> missions = JsonHelper.loadMissionList( false);
+        List<Achievement> achievements = DataHelper.loadAchievementList( false);
+        List<Mission> missions = DataHelper.loadMissionList( false);
 
         createAchievement(popup, achievements, size, w,h);
         createMission(popup, missions, size, w,h);
@@ -127,5 +125,6 @@ public class RolePP {
     }
 
     public static void update() {
+
     }
 }

@@ -30,7 +30,7 @@ public class Profile {
         this.level = 1;
         this.characterSelect = characterSelect;
         this.area = "village_0";
-        this.pos = new Vector2(0, 0);
+        this.pos = new Vector2(-1, -1);
         this.dailyCheck = LocalDate.now().minusDays(1).toString();
         this.sizeTeam = 1;
         this.exp = 0;

@@ -4,9 +4,10 @@ import static com.game.utils.Constants.ACHIEVEMENT_BASE_JSON;
 import static com.game.utils.Constants.ACHIEVEMENT_JSON;
 import static com.game.utils.Constants.DAILY_BASE_JSON;
 import static com.game.utils.Constants.DAILY_REWARD_JSON;
+import static com.game.utils.Constants.EQUIPS_JSON;
+import static com.game.utils.Constants.ITEMS_JSON;
 import static com.game.utils.Constants.MISSION_BASE_JSON;
 import static com.game.utils.Constants.MISSION_JSON;
-import static com.game.utils.Constants.WAREHOUSE_JSON;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -89,7 +90,8 @@ public class JsonSaver {
     }
 
     public static boolean createAccount() {
-        saveString(WAREHOUSE_JSON, "[]");
+        saveString(ITEMS_JSON, "[]");
+        saveString(EQUIPS_JSON, "[]");
         copyFileToLocal(ACHIEVEMENT_BASE_JSON, ACHIEVEMENT_JSON);
         copyFileToLocal(MISSION_BASE_JSON, MISSION_JSON);
         copyFileToLocal(DAILY_BASE_JSON, DAILY_REWARD_JSON);

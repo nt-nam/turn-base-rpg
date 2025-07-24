@@ -7,6 +7,7 @@ import static com.game.utils.Constants.UI_POPUP;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
 import com.game.ui.base.UIGroup;
@@ -22,9 +23,13 @@ import java.util.List;
 
 public class RecruitPP {
     private static UIGroup hiddenCard;
+    private static UIGroup newHeroCard;
+    private static Hero newHero;
+
     public static void show(boolean b) {
         hiddenCard.setVisible(b);
     }
+
     public static UIGroup pp(float w, float h) {
         UIGroup popup = new UIGroup().name("recruit");
         NinePatch ninePatch = MainGame.getAsM().get9p();
@@ -38,48 +43,75 @@ public class RecruitPP {
         hiddenCard = new UIGroup().name("card").pos(w * 0.4f, h * 0.2f).size(w * 0.2f, h * 0.6f).parent(popup).origin(Align.center);
         new UIImage(ninePatch).size(w * 0.2f, h * 0.6f).parent(hiddenCard);
         new UILabel("?", BMF).pos(w * 0.03f, h * 0.3f).fontScale(12).parent(hiddenCard);
+
+        newHeroCard = new UIGroup().name("newHeroCard").pos(w * 0.4f, h * 0.2f).size(w * 0.2f, h * 0.6f).parent(popup).origin(Align.center);
+        new UIImage(ninePatch).size(w * 0.2f, h * 0.6f).parent(newHeroCard);
+        new UIImage(ninePatch).name("frame").bounds(0, h * 0.2f, w * 0.2f, h * 0.3f).origin(Align.center).scale(1f).parent(newHeroCard);
+        new UILabel("Đồng đội mới", BMF).name("nameCharacter").bounds(0, 0, w * 0.2f, h * 0.2f).align(Align.center).fontScale(2).parent(newHeroCard);
+        newHeroCard.setVisible(false);
+
         hiddenCard.onClick(() -> {
             if (GameSession.isRecruit()) {
                 hiddenCard.action(Actions.sequence(
+                    Actions.parallel(
+                        Actions.rotateBy(2880f, 2f),
+                        Actions.scaleTo(0.1f, 0.1f, 2f)
+                    ),
+                    Actions.scaleTo(1f, 1f, 0.5f),
                     Actions.run(new Runnable() {
                         @Override
                         public void run() {
                             gemUI.setText(GameSession.gem);
                             addNewMenber();
+                            showNewHeroCard();
                         }
-                    }),
-                    Actions.parallel(
-                        Actions.rotateBy(2880f, 2f),
-                        Actions.scaleTo(0.1f, 0.1f, 2f)
-                    ),
-                    Actions.scaleTo(1f, 1f, 0.5f)
+                    }), Actions.visible(false)
                 ));
             } else {
                 NotificationPP.pprRecruit(w, h, "Cần 5 Gem để có thể chiêu mộ thành viên mới").parent(popup);
             }
         });
+
+
         return popup;
+    }
+
+    private static void showNewHeroCard() {
+        ((UIImage) newHeroCard.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(newHero.nameRegion, "idle")));
+//        ((UILabel) newHeroCard.findActor("nameCharacter")).setText(newHero.);
+        newHeroCard.setVisible(true);
+        newHeroCard.action(Actions.sequence(
+            Actions.delay(2),
+            Actions.fadeOut(2f),
+            Actions.scaleTo(1f, 1f),
+            Actions.visible(false),
+            Actions.run(() -> {
+                hiddenCard.setVisible(true);
+            }),
+            Actions.fadeIn(0f)));
     }
 
     private static void addNewMenber() {
         List<CharacterBase> baseHero = GameSession.characterBaseList;
         List<Hero> fullHero = GameSession.heroList;
-        int random = MathUtils.random(baseHero.size());
-        CharacterBase characterBase = baseHero.get(random-1);
+        int random = MathUtils.random(0,baseHero.size()-1);
+        CharacterBase characterBase = baseHero.get(random);
         Hero hero = new Hero();
-        hero.characterId = characterBase.characterId;
+        hero.characterId = "character"+GameSession.profile.numberOfTeammatesRecruited++;
         hero.nameRegion = characterBase.nameRegion;
         hero.grid = "empty";
         hero.star = 0;
         hero.level = 1;
 
         hero.equip = new Hero.Equip();
-        hero.equip.weapon = "0";
-        hero.equip.armor = "0";
-        hero.equip.jewelry = "0";
-        hero.equip.support = "0";
+        hero.equip.weapon = "empty";
+        hero.equip.armor = "empty";
+        hero.equip.jewelry = "empty";
+        hero.equip.support = "empty";
 
         fullHero.add(hero);
-        JsonSaver.saveObject(HERO_FULL,fullHero);
+        JsonSaver.saveObject(HERO_FULL, fullHero);
+        newHero = hero;
+
     }
 }

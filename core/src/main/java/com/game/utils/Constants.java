@@ -26,10 +26,12 @@ public class Constants {
     public static final String INFO_JSON                = "data/select/"+ GameSession.playerName +"/info.json";
     public static final String HERO_FULL                = "data/select/"+ GameSession.playerName +"/hero_full.json";
     public static final String LINEUP_ATTACK            = "data/select/"+ GameSession.playerName +"/lineup.json";
-    public static final String WAREHOUSE_JSON           = "data/select/"+ GameSession.playerName +"/warehouse.json";
+    public static final String EQUIPS_JSON              = "data/select/"+ GameSession.playerName +"/equips.json";
+    public static final String ITEMS_JSON               = "data/select/"+ GameSession.playerName +"/items.json";
     public static final String DAILY_REWARD_JSON        = "data/select/"+ GameSession.playerName +"/daily_rewards.json";
     public static final String ACHIEVEMENT_JSON         = "data/select/"+ GameSession.playerName +"/achievement.json";
     public static final String MISSION_JSON             = "data/select/"+ GameSession.playerName +"/mission.json";
+    public static final String CHECK_MAP_JSON           = "data/select/"+ GameSession.playerName +"/check_enemy_map.json";
 
     //JSON BASE
     public static final String ACHIEVEMENT_BASE_JSON    = "data/base/achievement.json";

@@ -1,28 +1,7 @@
 {
   "grid": [
     {
-      "grid": "2,1",
-      "characterId": "enemy",
-      "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "2,0",
-      "characterId": "enemy",
-      "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "2,2",
-      "characterId": "enemy",
-      "nameRegion": "assassin_Knight",
-      "star": 0,
-      "level": 1
-    },
-    {
-      "grid": "1,0",
+      "grid": "1,1",
       "characterId": "enemy",
       "nameRegion": "assassin_Knight",
       "star": 0,

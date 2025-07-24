@@ -1,30 +1,22 @@
 [
   {
     "id": "equip1",
-    "type": "equip",
     "nameRegion": "knife_137",
-    "index": 1,
-    "target": "empty"
+    "level": 1
   },
   {
     "id": "equip2",
-    "type": "equip",
     "nameRegion": "axe_195",
-    "index": 1,
-    "target": "empty"
+    "level": 1
   },
   {
     "id": "equip3",
-    "type": "equip",
     "nameRegion": "scepter_288",
-    "index": 4,
-    "target": "empty"
+    "level": 4
   },
   {
     "id": "equip4",
-    "type": "equip",
     "nameRegion": "shield_235",
-    "index": 4,
-    "target": "empty"
+    "level": 4
   }
 ]

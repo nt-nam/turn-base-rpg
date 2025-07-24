@@ -21,7 +21,7 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 import com.game.utils.JsonSaver;
 import com.game.utils.json.Account;
 import com.game.utils.json.CharacterBase;
@@ -54,7 +54,7 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        List<CharacterBase> characterBaseList = JsonHelper.loadCharacterBaseList();
+        List<CharacterBase> characterBaseList = DataHelper.loadCharacterBaseList();
         for (CharacterBase baseData : characterBaseList) {
             MainGame.getAsM().load(CHARACTER_ATLAS + baseData.nameRegion + ".atlas", TextureAtlas.class);
         }
@@ -67,7 +67,7 @@ public class NewPlayerScreen extends BaseScreen {
     protected void createScreen() {
         createBackground();
         characterBaseDataList = GameSession.characterBaseList;
-        List<Account> account = JsonHelper.loadAccountList(true);
+        List<Account> account = DataHelper.loadAccountList(true);
         if (characterBaseDataList.isEmpty()) {
             throw new RuntimeException("No knights found!");
         }
@@ -123,13 +123,15 @@ public class NewPlayerScreen extends BaseScreen {
                     return;
                 }
                 if (account != null) {
-                    if (JsonHelper.get(account, "id", nameInput) != null) {
+                    if (DataHelper.get(account, "id", nameInput) != null) {
                         playerNameField.getStage().setKeyboardFocus(null);
                         playerNameField.setMessageText("'............'");
                         rootGroup.addActor(NotificationPP.ppr(screenWidth, screenHeight, "Người chơi này đã tồn tại, vui lòng nhập tên khác!!"));
                         return;
                     }
                 }
+
+
 
                 // Tạo entity sự kiện chọn knight (chuẩn ECS)
                 Entity eventEntity = engine.createEntity();
@@ -156,7 +158,7 @@ public class NewPlayerScreen extends BaseScreen {
 
                 createFullPatty();
 
-                List<Account> accounts = JsonHelper.loadAccountList(true);
+                List<Account> accounts = DataHelper.loadAccountList(true);
                 if (accounts == null) {
                     accounts = new ArrayList<>();
                 }
@@ -166,7 +168,7 @@ public class NewPlayerScreen extends BaseScreen {
                 a.characterSelect = getCurrentKnightId();
                 accounts.add(a);
 
-                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", profile);
+                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", GameSession.profile);
                 JsonSaver.saveObject(MAININFO_JSON_LOCAL, accounts);
                 JsonSaver.createAccount();
 

@@ -34,4 +34,18 @@ public class Hero {
         public String jewelry;
         public String support;
     }
+
+    public boolean checkLevel() {
+        if (this.exp >= this.level * 100) {
+            this.level++;
+            this.exp -= this.level * 100;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" + "characterId='" + characterId + '\'' + ", nameRegion='" + nameRegion + '\'' + ", grid='" + grid + '\'' + ", star=" + star + ", level=" + level + ", exp=" + exp + ", stat=" + stat + ", equip=" + equip + '}';
+    }
 }

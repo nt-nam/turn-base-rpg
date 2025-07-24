@@ -13,7 +13,8 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
-import com.game.utils.JsonHelper;
+import com.game.utils.GameSession;
+import com.game.utils.DataHelper;
 import com.game.utils.json.EquipBase;
 import com.game.utils.json.ItemBase;
 
@@ -30,7 +31,7 @@ public class ShopPP {
 
     public static Group pp(float w, float h) {
         float size = h * 0.1f;
-        useFor = JsonHelper.loadItemBaseList(true);
+        useFor = DataHelper.loadItemBaseList(true);
         popup = new UIGroup().name("shop").size(w, h);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
@@ -49,7 +50,7 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(false);
                 ((UIButton) popup.findActor("btnItem")).setChecked(true);
-                useFor = JsonHelper.loadItemBaseList(true);
+                useFor = DataHelper.loadItemBaseList(true);
                 page = 0;
                 updateGrid(popup, w, h);
             })
@@ -62,7 +63,7 @@ public class ShopPP {
             .check(() -> {
                 ((UIButton) popup.findActor("btnEquip")).setChecked(true);
                 ((UIButton) popup.findActor("btnItem")).setChecked(false);
-                useFor = JsonHelper.loadEquipBaseList(true);
+                useFor = DataHelper.loadEquipBaseList(true);
                 page = 0;
                 updateGrid(popup, w, h);
             })
@@ -72,13 +73,13 @@ public class ShopPP {
         new UIGroup().name("coin").pos(w * 0.6f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.1f),
-            new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSession.coin+"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         new UIGroup().name("gem").pos(w * 0.75f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
-            new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSession.gem+"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         updateGrid(popup, w, h);

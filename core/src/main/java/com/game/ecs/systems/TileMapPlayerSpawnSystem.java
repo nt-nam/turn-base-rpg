@@ -1,7 +1,5 @@
 package com.game.ecs.systems;
 
-import static com.game.utils.Constants.CHARACTER_BASE_JSON;
-
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
@@ -19,7 +17,7 @@ import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.GameSession;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 
 public class TileMapPlayerSpawnSystem extends EntitySystem {
     private final Engine engine;
@@ -45,8 +43,8 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
             if ("spawn".equals(obj.getName())) {
                 int index = obj.getProperties().get("index", 0, Integer.class);
                 if (index == spawnIndex) {
-                    float x = obj.getProperties().get("x", 0f, Float.class) * SCALE;
-                    float y = obj.getProperties().get("y", 0f, Float.class) * SCALE;
+                    float x = GameSession.profile.pos.x != -1 ? GameSession.profile.pos.x:obj.getProperties().get("x", 0f, Float.class) * SCALE;
+                    float y = GameSession.profile.pos.y != -1 ? GameSession.profile.pos.y:obj.getProperties().get("y", 0f, Float.class) * SCALE;
 
                     // Đặt camera đúng tâm spawn
                     camera.position.set(x, y, 0);
@@ -54,7 +52,7 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
 
                     // Tạo entity player
                     String characterId = GameSession.selectedCharacterId;
-                    CharacterComponent data = new CharacterComponent(JsonHelper.get(GameSession.characterBaseList, "characterId", characterId));
+                    CharacterComponent data = new CharacterComponent(DataHelper.get(GameSession.characterBaseList, "characterId", characterId));
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());

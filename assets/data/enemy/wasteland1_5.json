@@ -13,13 +13,6 @@
       "nameRegion": "warrior_Knight",
       "star": 0,
       "level": 1
-    },
-    {
-      "grid": "2,2",
-      "characterId": "enemy",
-      "nameRegion": "tank_Knight",
-      "star": 0,
-      "level": 1
     }
   ],
   "reward": [

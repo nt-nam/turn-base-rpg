@@ -62,8 +62,8 @@ public class EnemyCollisionSystem extends EntitySystem {
                 if (GameSession.currentEnemy == null) {
                     GameSession.currentEnemy = triggerComponent;
                     System.out.println("Chạm enemy: " + triggerComponent.mapEnemy + " - id " + triggerComponent.id + " - level " + triggerComponent.level);
-                    GameSession.playerX = playerPos.x;
-                    GameSession.playerY = playerPos.y;
+                    GameSession.profile.pos.x = playerPos.x;
+                    GameSession.profile.pos.y = playerPos.y;
                     GameSession.enemyMapId = triggerComponent.id+"";
                     WorldMapScreen.showBtnAttackBattle(true);
 

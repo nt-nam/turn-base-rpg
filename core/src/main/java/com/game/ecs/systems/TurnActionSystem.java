@@ -46,7 +46,7 @@ public class TurnActionSystem extends IteratingSystem {
                     return;
                 }
                 if(nextAction.action.equals("enemy")){
-                    BattleScreen.showPopupWin();
+                    BattleScreen.showPopupFail();
                     return;
                 }
                 if (!queue.isProcessing) {

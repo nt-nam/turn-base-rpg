@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.game.MainGame;
-import com.game.managers.event.ui.ClickButtonEvent;
 
 public class UIButton extends TextButton {
 
@@ -153,7 +152,6 @@ public class UIButton extends TextButton {
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                MainGame.getEvM().dispatch(new ClickButtonEvent());
                 action.run();
             }
         });
@@ -220,7 +218,7 @@ public class UIButton extends TextButton {
         return this;
     }
 
-    public UIButton bounds(int x, int y, float width, float height) {
+    public UIButton bounds(float x, float y, float width, float height) {
         this.setBounds(x, y, width, height);
         return this;
     }

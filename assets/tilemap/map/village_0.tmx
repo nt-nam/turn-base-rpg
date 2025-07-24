@@ -101,6 +101,7 @@
     <property name="block" type="bool" value="true"/>
     <property name="map" value="garden1"/>
     <property name="name" value="Vườn cây"/>
+    <property name="needClearMap" type="int" value="1"/>
     <property name="spawn" type="int" value="0"/>
    </properties>
   </object>
@@ -109,6 +110,7 @@
     <property name="index" type="int" value="5"/>
     <property name="map" value="wasteland1"/>
     <property name="name" value="Đất hoang"/>
+    <property name="needClearMap" type="int" value="1"/>
     <property name="spawn" type="int" value="0"/>
    </properties>
   </object>

@@ -32,7 +32,6 @@ import com.game.ecs.component.TileMapComponent;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.CameraClampSystem;
 import com.game.ecs.systems.CollisionSystem;
-import com.game.ecs.systems.DebugDrawSystem;
 import com.game.ecs.systems.EnemyCollisionSystem;
 import com.game.ecs.systems.PlayerInputSystem;
 import com.game.ecs.systems.SpriteRenderSystem;
@@ -53,7 +52,7 @@ import com.game.ui.widget.RecruitPP;
 import com.game.ui.widget.RolePP;
 import com.game.ui.widget.SettingPP;
 import com.game.ui.widget.ShopPP;
-import com.game.utils.JsonHelper;
+import com.game.utils.DataHelper;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
 
@@ -64,6 +63,8 @@ public class WorldMapScreen extends BaseScreen {
     private static UIButton btnNextMap;
     private static UIButton btnAttackBattle;
     private UIJoystick joystick;
+    private UILabel coinLB;
+    private UILabel gemLB;
 
     public WorldMapScreen() {
         super();
@@ -73,15 +74,17 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createHUD() {
+        coinLB = new UILabel(GameSession.coin + "", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f);
         new UIGroup().name("coin").pos(screenWidth * 0.025f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
-            new UILabel("100", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f)
+            coinLB
         ).parent(rootGroup);
+        gemLB = new UILabel(GameSession.gem + "", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f);
         new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
-            new UILabel("100", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f)
+            gemLB
         ).parent(rootGroup);
     }
 
@@ -98,6 +101,9 @@ public class WorldMapScreen extends BaseScreen {
             .visible(false)
             .parent(rootGroup)
             .onClick(() -> {
+                GameSession.profile.pos.x = -1;
+                GameSession.profile.pos.y = -1;
+                GameSession.profile.area = GameSession.targetMapId;
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
         btnAttackBattle = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "origin"))
@@ -135,6 +141,7 @@ public class WorldMapScreen extends BaseScreen {
     private void createButton(String regionName, String popupName, String text, float x, float y) {
         if (text != "") {
             new UIButton(text, MainGame.getAsM().getRegion(UI_POPUP, "origin"))
+                .name("btn1"+popupName)
                 .pos(x, y - screenWidth * 0.03f)
                 .size(screenWidth * 0.08f, screenWidth * 0.03f)
                 .onClick(() -> showPopup(popupName))
@@ -144,6 +151,7 @@ public class WorldMapScreen extends BaseScreen {
                 .setOrigin(Align.center);
         }
         new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, regionName))
+            .name("btn2"+popupName)
             .size(screenWidth * 0.08f, screenWidth * 0.08f)
             .pos(x, y)
             .fontScale(2)
@@ -167,12 +175,12 @@ public class WorldMapScreen extends BaseScreen {
 
 
     public static void loadingAsset() {
-        JsonValue characterBase = JsonHelper.getJsonValue(CHARACTER_BASE_JSON);
+        JsonValue characterBase = DataHelper.getJsonValue(CHARACTER_BASE_JSON);
         for (JsonValue character : characterBase) {
             String nameRegion = character.getString("nameRegion");
             MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + nameRegion + ".atlas");
         }
-        MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.currentMapId));
+        MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.profile.area));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
     }
@@ -309,7 +317,7 @@ public class WorldMapScreen extends BaseScreen {
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
 
-        map = MainGame.getAsM().getTiledMap(GameSession.currentMapId);
+        map = MainGame.getAsM().getTiledMap(GameSession.profile.area);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map, SCALE);
 
         loadAllAnimations(GameSession.selectedCharacterId, CHARACTER_ATLAS + GameSession.selectedCharacterId + ".atlas");
@@ -319,7 +327,7 @@ public class WorldMapScreen extends BaseScreen {
         engine.addEntity(mapEntity);
 
         engine.addSystem(new TileMapRenderSystem(camera));
-        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
+//        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));
@@ -332,6 +340,17 @@ public class WorldMapScreen extends BaseScreen {
         setupEnemies(engine, map, SCALE);
         hidePopup();
         updatePopup();
+        hideBtnFuncByTypeMap(GameSession.profile.area.equals("village_0"));
+    }
+
+    private void hideBtnFuncByTypeMap(boolean a) {
+            rootGroup.findActor("btn1checkin").setVisible(a);
+            rootGroup.findActor("btn1shop").setVisible(a);
+            rootGroup.findActor("btn1recruit").setVisible(a);
+
+            rootGroup.findActor("btn2checkin").setVisible(a);
+            rootGroup.findActor("btn2shop").setVisible(a);
+            rootGroup.findActor("btn2recruit").setVisible(a);
     }
 
     private void updatePopup() {
@@ -340,6 +359,13 @@ public class WorldMapScreen extends BaseScreen {
         HerosPP.update();
         DailyPP.update();
         ShopPP.update();
+    }
+
+    @Override
+    protected void updateUI(float delta) {
+        super.updateUI(delta);
+        coinLB.setText(GameSession.coin);
+        gemLB.setText(GameSession.gem);
     }
 
     @Override

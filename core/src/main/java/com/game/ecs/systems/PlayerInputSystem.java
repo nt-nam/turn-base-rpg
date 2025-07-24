@@ -76,6 +76,8 @@ public class PlayerInputSystem extends EntitySystem {
             if (dx != 0 || dy != 0) {
                 pos.x += dx;
                 pos.y += dy;
+                GameSession.profile.pos.x = pos.x;
+                GameSession.profile.pos.y = pos.y;
                 if (state != null && state.requested != AnimationStateComponent.State.RUN) {
                     state.requested = AnimationStateComponent.State.RUN;
                 }
