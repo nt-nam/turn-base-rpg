@@ -6,7 +6,6 @@ import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.game.MainGame;
 import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
@@ -29,7 +28,7 @@ public class ShopPP {
         popup.setVisible(b);
     }
 
-    public static Group pp(float w, float h) {
+    public static UIGroup pp(float w, float h) {
         float size = h * 0.1f;
         useFor = DataHelper.loadItemBaseList(true);
         popup = new UIGroup().name("shop").size(w, h);
@@ -71,15 +70,15 @@ public class ShopPP {
             .fontScale(1.2f).parent(popup);
 
         new UIGroup().name("coin").pos(w * 0.6f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.1f),
-            new UILabel(GameSession.coin+"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSession.profile.coin+"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         new UIGroup().name("gem").pos(w * 0.75f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
-            new UILabel(GameSession.gem+"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSession.profile.gem +"", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         updateGrid(popup, w, h);

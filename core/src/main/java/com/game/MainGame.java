@@ -49,7 +49,9 @@ public class MainGame extends Game {
     }
 
     public static GAssetManager getAsM() {
-        if (assetManager == null) { assetManager = new GAssetManager();}
+        if (assetManager == null) {
+            assetManager = new GAssetManager();
+        }
         return assetManager;
     }
 
@@ -62,7 +64,7 @@ public class MainGame extends Game {
 
 
     public static ScreenManager getScM() {
-        if(scm == null) scm = new ScreenManager();
+        if (scm == null) scm = new ScreenManager();
         return scm;
     }
 
@@ -88,7 +90,7 @@ public class MainGame extends Game {
         return engine;
     }
 
-    public static MainGame getInstance(){
+    public static MainGame getInstance() {
         return (MainGame) Gdx.app.getApplicationListener();
     }
 
@@ -125,11 +127,7 @@ public class MainGame extends Game {
 
     @Override
     public void render() {
-        try {
-            super.render();
-        } catch (Exception e) {
-            createPopupNotification();
-        }
+        super.render();
     }
 
     private void createPopupNotification() {
@@ -162,9 +160,10 @@ public class MainGame extends Game {
         assetManager.dispose();
         super.dispose();
     }
+
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        viewport.update(width, height,true);
+        viewport.update(width, height, true);
     }
 }

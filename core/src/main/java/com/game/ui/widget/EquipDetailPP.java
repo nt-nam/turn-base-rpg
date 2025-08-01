@@ -33,13 +33,13 @@ public class EquipDetailPP {
             .bounds(w * 0.08f, h * 0.08f, w * 0.84f, h * 0.84f);
 
         new UIGroup().name("coin").pos(w * 0.6f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.1f),
             new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         new UIGroup().name("gem").pos(w * 0.75f, h * 0.75f).size(w * 0.15f, h * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
             new UILabel("100", BMF).pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);

@@ -5,6 +5,7 @@ import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
+import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -46,8 +47,10 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UIJoystick;
 import com.game.ui.base.UILabel;
 import com.game.ui.widget.BagPP;
+import com.game.ui.widget.BattleDetailPP;
 import com.game.ui.widget.DailyPP;
 import com.game.ui.widget.HerosPP;
+import com.game.ui.widget.PotentialPP;
 import com.game.ui.widget.RecruitPP;
 import com.game.ui.widget.RolePP;
 import com.game.ui.widget.SettingPP;
@@ -74,18 +77,18 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createHUD() {
-        coinLB = new UILabel(GameSession.coin + "", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f);
+        coinLB = new UILabel(GameSession.profile.coin + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("coin").pos(screenWidth * 0.025f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
             coinLB
-        ).parent(rootGroup);
-        gemLB = new UILabel(GameSession.gem + "", BMF).pos(screenHeight * 0.15f, 0).size(screenWidth * 0.15f, screenHeight * 0.12f);
+        ).parent(rootGroup).onClick(()->{GameSession.profile.coin+=100;coinLB.setText(GameSession.profile.coin);});
+        gemLB = new UILabel(GameSession.profile.gem + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
-            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
+            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
             gemLB
-        ).parent(rootGroup);
+        ).parent(rootGroup).onClick(()->{GameSession.profile.gem+=100;coinLB.setText(GameSession.profile.gem);});
     }
 
     private void createJoystick() {
@@ -95,7 +98,7 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createPopupFF() {
-        btnNextMap = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "origin"))
+        btnNextMap = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"))
             .size(screenWidth * 0.13f, screenHeight * 0.1f)
             .pos(screenWidth * 0.3f, screenHeight * 0.1f)
             .visible(false)
@@ -106,73 +109,82 @@ public class WorldMapScreen extends BaseScreen {
                 GameSession.profile.area = GameSession.targetMapId;
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
-        btnAttackBattle = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "origin"))
+        btnAttackBattle = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"))
             .size(screenWidth * 0.13f, screenHeight * 0.1f)
             .pos(screenWidth * 0.3f, screenHeight * 0.1f)
             .visible(false)
             .parent(rootGroup)
             .onClick(() -> {
-                MainGame.getScM().showScreen(ScreenType.BATTLE);
+//                MainGame.getScM().showScreen(ScreenType.BATTLE);
+                rootGroup.addActor(BattleDetailPP.pp(screenWidth, screenHeight));
+                rootGroup.findActor("overlay").setVisible(true);
             });
 
         float y = screenHeight * 0.08f;
 
-        createButton("bag", "bag", "Túi đồ", screenWidth * 0.9f, y);
-        createButton("heros", "hero", "Đội hình", screenWidth * 0.8f, y);
-        createButton("role", "role", "Nhân vật", screenWidth * 0.7f, y);
-        createButton("checkin", "checkin", "Hằng ngày", screenWidth * 0.6f, y);
-        createButton("shop", "shop", "Cửa hàng", screenWidth * 0.5f, y);
-        createButton("setting", "setting", "Cài đặt", screenWidth * 0.9f, screenHeight * 0.8f);
-        createButton("support", "recruit", "Chiêu mộ", screenWidth * 0.9f, screenHeight * 0.35f);
+        UIButton btnClose = createBtnClose().visible(false);
+        btnClose.onClick(()->{
+            btnClose.getParent().remove();
+            rootGroup.findActor("overlay").setVisible(false);
+        });
 
+        createButton("bag", "bag", "Túi đồ", screenWidth * 0.9f, y, () -> {
+            rootGroup.addActor(BagPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("heros", "hero", "Đội hình", screenWidth * 0.8f, y, () -> {
+            rootGroup.addActor(HerosPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("role", "role", "Nhân vật", screenWidth * 0.7f, y, () -> {
+            rootGroup.addActor(RolePP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("checkin", "checkin", "Hằng ngày", screenWidth * 0.6f, y, () -> {
+            rootGroup.addActor(DailyPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("shop", "shop", "Cửa hàng", screenWidth * 0.5f, y, () -> {
+            rootGroup.addActor(ShopPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("setting", "setting", "Cài đặt", screenWidth * 0.9f, screenHeight * 0.81f, () -> {
+            rootGroup.addActor(SettingPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("potential", "potential", "Tiến hóa", screenWidth * 0.9f, screenHeight * 0.55f, () -> {
+            rootGroup.addActor(PotentialPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
+        createButton("support", "recruit", "Chiêu mộ", screenWidth * 0.9f, screenHeight * 0.32f, () -> {
+            rootGroup.addActor(RecruitPP.pp(screenWidth, screenHeight).child(btnClose.visible(true)));
+            rootGroup.findActor("overlay").setVisible(true);
+        });
 
-        createOverLay();
-        rootGroup.addActor(SettingPP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(BagPP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(RolePP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(HerosPP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(DailyPP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(ShopPP.pp(screenWidth, screenHeight));
-        rootGroup.addActor(RecruitPP.pp(screenWidth, screenHeight));
-        createBtnClose();
-        hidePopup();
+        rootGroup.addActor(createOverLay().visible(false));
+
     }
 
-    private void createButton(String regionName, String popupName, String text, float x, float y) {
+    private void createButton(String regionName, String popupName, String text, float x, float y, Runnable runnable) {
         if (text != "") {
-            new UIButton(text, MainGame.getAsM().getRegion(UI_POPUP, "origin"))
-                .name("btn1"+popupName)
+            new UIButton(text, MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"))
+                .name("btn1" + popupName)
                 .pos(x, y - screenWidth * 0.03f)
                 .size(screenWidth * 0.08f, screenWidth * 0.03f)
-                .onClick(() -> showPopup(popupName))
+                .onClick(runnable)
                 .fontScale(0.7f)
                 .parent(rootGroup)
                 .scale(1.2f)
                 .setOrigin(Align.center);
         }
         new UIButton(MainGame.getAsM().getRegion(ATLAS_ICON, regionName))
-            .name("btn2"+popupName)
+            .name("btn2" + popupName)
             .size(screenWidth * 0.08f, screenWidth * 0.08f)
             .pos(x, y)
             .fontScale(2)
-            .onClick(() -> showPopup(popupName))
+            .onClick(runnable)
             .parent(rootGroup);
     }
-
-
-    private void hidePopup() {
-        rootGroup.findActor("coin").setVisible(true);
-        rootGroup.findActor("gem").setVisible(true);
-        hidePopup("setting");
-        hidePopup("bag");
-        hidePopup("hero");
-        hidePopup("role");
-        hidePopup("checkin");
-        hidePopup("shop");
-        hidePopup("recruit");
-        hidePopoupGen();
-    }
-
 
     public static void loadingAsset() {
         JsonValue characterBase = DataHelper.getJsonValue(CHARACTER_BASE_JSON);
@@ -183,42 +195,33 @@ public class WorldMapScreen extends BaseScreen {
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.profile.area));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
+        DataHelper.loadHeroList(HERO_FULL,true);
+        DataHelper.loadLineupList(true);
+        DataHelper.loadAchievementList(true);
+        DataHelper.loadMissionList(true);
+        DataHelper.loadEquipBaseList(true);
+        DataHelper.loadItemBaseList(true);
+        DataHelper.loadEquipList(true);
+        DataHelper.loadItemList(true);
     }
 
-    private void createBtnClose() {
-        new UIButton(
+    private UIButton createBtnClose() {
+        return new UIButton(
             MainGame.getAsM().getRegion(UI_WOOD, "x_up_037"),
             MainGame.getAsM().getRegion(UI_WOOD, "x_down_038"))
             .name("closeBtn")
             .size(screenWidth * 0.1f, screenWidth * 0.1f)
-            .pos(screenWidth * 0.9f, screenHeight * 0.75f)
-            .onClick(() -> {
-                hidePopup();
-            })
-            .parent(rootGroup);
+            .pos(screenWidth * 0.9f, screenHeight * 0.75f);
     }
 
 
-    private void createOverLay() {
+    private UIImage createOverLay() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(0, 0, 0, 0.8f);
         pixmap.fill();
         Texture overlay = new Texture(pixmap);
         pixmap.dispose();
-        new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
-
-    }
-
-    private void showPopup(String a) {
-        if (rootGroup.findActor(a) == null) {
-            Gdx.app.error("WorldMapScreen", "Actor with name '" + a + "' not found");
-            return;
-        }
-        rootGroup.findActor("coin").setVisible(false);
-        rootGroup.findActor("gem").setVisible(false);
-        rootGroup.findActor(a).setVisible(true);
-        ((UIGroup) rootGroup.findActor(a)).run();
-        showPopoupGen();
+        return new UIImage(overlay).name("overlay").parent(rootGroup).bounds(0, 0, screenWidth, screenHeight);
     }
 
     private void showPopoupGen() {
@@ -233,11 +236,6 @@ public class WorldMapScreen extends BaseScreen {
         }
     }
 
-    private void hidePopup(String nameActor) {
-        rootGroup.findActor(nameActor).setVisible(false);
-        hidePopoupGen();
-    }
-
     public static void showBtnNextMap(boolean b) {
         btnNextMap.setVisible(b);
         if (b) btnNextMap.setText(GameSession.pendingTeleport.name);
@@ -245,7 +243,7 @@ public class WorldMapScreen extends BaseScreen {
 
     public static void showBtnAttackBattle(boolean b) {
         btnAttackBattle.setVisible(b);
-        if (b) btnAttackBattle.setText("Tấn công");
+        if (b) btnAttackBattle.setText("Kiểm tra");
     }
 
     private void loadAllAnimations(String nameRegion, String atlasPath) {
@@ -338,34 +336,26 @@ public class WorldMapScreen extends BaseScreen {
         setupTeleportTriggers(engine, map, SCALE);
         engine.addSystem(new EnemyCollisionSystem());
         setupEnemies(engine, map, SCALE);
-        hidePopup();
-        updatePopup();
         hideBtnFuncByTypeMap(GameSession.profile.area.equals("village_0"));
     }
 
     private void hideBtnFuncByTypeMap(boolean a) {
-            rootGroup.findActor("btn1checkin").setVisible(a);
-            rootGroup.findActor("btn1shop").setVisible(a);
-            rootGroup.findActor("btn1recruit").setVisible(a);
+        rootGroup.findActor("btn1checkin").setVisible(a);
+        rootGroup.findActor("btn1shop").setVisible(a);
+        rootGroup.findActor("btn1recruit").setVisible(a);
+        rootGroup.findActor("btn1potential").setVisible(a);
 
-            rootGroup.findActor("btn2checkin").setVisible(a);
-            rootGroup.findActor("btn2shop").setVisible(a);
-            rootGroup.findActor("btn2recruit").setVisible(a);
-    }
-
-    private void updatePopup() {
-        BagPP.update();
-        RolePP.update();
-        HerosPP.update();
-        DailyPP.update();
-        ShopPP.update();
+        rootGroup.findActor("btn2checkin").setVisible(a);
+        rootGroup.findActor("btn2shop").setVisible(a);
+        rootGroup.findActor("btn2recruit").setVisible(a);
+        rootGroup.findActor("btn2potential").setVisible(a);
     }
 
     @Override
     protected void updateUI(float delta) {
         super.updateUI(delta);
-        coinLB.setText(GameSession.coin);
-        gemLB.setText(GameSession.gem);
+        coinLB.setText(GameSession.profile.coin);
+        gemLB.setText(GameSession.profile.gem);
     }
 
     @Override

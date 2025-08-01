@@ -98,18 +98,23 @@ public class GAssetManager {
             Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
         }
         if (atlas.findRegion(regionName)==null) {
-            Gdx.app.error("AssetManager", "RegionCharacter not found: " + regionName+"---"+atlasPath);
+            Gdx.app.error("AssetManager", "RegionCharacter not found: " + atlasPath+" -> "+regionName);
         }
         return atlas.findRegion(regionName);
     }
 
     public NinePatch getRegion9patch(String atlasPath, String regionName, int padding) {
         TextureAtlas atlas = getAtlas(atlasPath);
+
+        if(atlas.findRegion(regionName) == null){
+            Gdx.app.error("AssetManager", "Region9patch not found: " + atlasPath+" -> "+regionName);
+        return null;
+        }
         return new NinePatch(atlas.findRegion(regionName),padding,padding,padding,padding);
     }
 
     public NinePatch get9p() {
-        return getRegion9patch(UI_POPUP, "origin", 20);
+        return getRegion9patch(UI_POPUP, "tile_origin", 20);
     }
 
     public void loadTexture(String path) {

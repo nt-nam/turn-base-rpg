@@ -151,7 +151,7 @@ public class NewPlayerScreen extends BaseScreen {
                 List<Lineup> lineups = new ArrayList<>();
                 Lineup g = new Lineup();
                 g.grid = "1,1";
-                g.characterId = "character1";
+                g.characterId = "character0";
                 g.nameRegion = getCurrentKnightId();
                 lineups.add(g);
                 JsonSaver.saveObject(LINEUP_ATTACK, lineups);
@@ -211,7 +211,7 @@ public class NewPlayerScreen extends BaseScreen {
         equip.addProperty("support", "empty");
 
         JsonObject character = new JsonObject();
-        character.addProperty("characterId", "character1");
+        character.addProperty("characterId", "character0");
         character.addProperty("nameRegion", getCurrentKnightId());
         character.addProperty("grid", "1,1");
         character.addProperty("star", 0);
@@ -286,7 +286,7 @@ public class NewPlayerScreen extends BaseScreen {
 
     private void createBackground() {
         String namePopup = "popup_000";
-        TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
         UIImage popup = new UIImage(origin).nine(origin, 30, 30, 30, 30)
             .name(namePopup)
             .parent(rootGroup)

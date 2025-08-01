@@ -45,20 +45,6 @@ public abstract class BaseScreen implements Screen {
         stage.addActor(rootGroup);
     }
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0.1f, 0.1f, 0.15f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        updateLogic(delta);
-
-        engine.update(delta);
-        stage.act(delta);
-        stage.draw();
-
-        updateUI(delta);
-//        debugGrid();
-    }
 
     protected void updateLogic(float delta) {
     }
@@ -125,5 +111,20 @@ public abstract class BaseScreen implements Screen {
             shapeRenderer.line(x, 0, x, Gdx.graphics.getHeight());
         }
         shapeRenderer.end();
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0.1f, 0.1f, 0.15f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        updateLogic(delta);
+
+        engine.update(delta);
+        stage.act(delta);
+        stage.draw();
+
+        updateUI(delta);
+        debugGrid();
     }
 }

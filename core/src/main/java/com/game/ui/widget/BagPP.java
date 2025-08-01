@@ -21,7 +21,6 @@ import java.util.List;
 public class BagPP {
     private static UIGroup popup;
     private static UITable table;
-//    private static UIGroup gridLineup;
     private static UIGroup compareEquip;
     private static List<Item> itemList;
     private static List<Equip> equipList;
@@ -37,7 +36,7 @@ public class BagPP {
         popup.setVisible(b);
     }
 
-    public static Group pp(float w, float h) {
+    public static UIGroup pp(float w, float h) {
         width = w;
         height = h;
         popup = new UIGroup().name("bag").size(BagPP.width, height);
@@ -68,6 +67,7 @@ public class BagPP {
                 ((UIButton) popup.findActor("btnItem")).setChecked(false);
                 useE = true;
                 page = 0;
+
                 update();
             })
             .check(true)
@@ -134,7 +134,7 @@ public class BagPP {
 
 //    private static void createGridLineup() {
 //        gridLineup = new UIGroup().name("grid").size(width * 0.4f, height);
-//        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+//        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
 //        new UIImage(profile).nine(profile, 30, 30, 30, 30)
 //            .name("origin")
 //            .parent(gridLineup)
@@ -158,7 +158,7 @@ public class BagPP {
 //                        .size(sizeTile, sizeTile).child(
 //                            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
 //                                .size(sizeTile, sizeTile),
-//                            new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "rarity0", 20))
+//                            new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity0", 20))
 //                                .name("select")
 //                                .size(sizeTile, sizeTile)
 //                                .visible(false),

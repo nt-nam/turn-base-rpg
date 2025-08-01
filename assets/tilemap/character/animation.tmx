@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="1" height="1" tilewidth="48" tileheight="48" infinite="0" nextlayerid="20" nextobjectid="337">
+ <tileset firstgid="1" source="animation.tsx"/>
+ <tileset firstgid="49" source="../../atlas/knight2/01Knight.tsx"/>
+ <layer id="1" name="idle" width="1" height="1">
+  <data encoding="csv">
+49
+</data>
+ </layer>
+ <layer id="14" name="run" width="1" height="1">
+  <data encoding="csv">
+65
+</data>
+ </layer>
+ <layer id="15" name="walk" width="1" height="1">
+  <data encoding="csv">
+57
+</data>
+ </layer>
+ <layer id="18" name="attack" width="1" height="1">
+  <data encoding="csv">
+73
+</data>
+ </layer>
+ <layer id="16" name="hurt" width="1" height="1">
+  <data encoding="csv">
+83
+</data>
+ </layer>
+ <layer id="19" name="jump" width="1" height="1">
+  <data encoding="csv">
+81
+</data>
+ </layer>
+ <layer id="17" name="deal" width="1" height="1">
+  <data encoding="csv">
+89
+</data>
+ </layer>
+</map>

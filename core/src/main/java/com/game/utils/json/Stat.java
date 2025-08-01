@@ -21,9 +21,10 @@ public class Stat {
         int critPlus = 0;
 
         double multiplierLevel = Math.pow(1.1f, hero.level - 1);
-        double multiplierStar = Math.pow(1.5f, hero.star);
+//        double multiplierStar = Math.pow(1.5f, hero.star);
+        double multiplierStar = hero.star*0.5f+1;
 
-        EquipBase weapon = DataHelper.get(equipBaseList, "nameRegion", hero.equip.weapon);
+        EquipBase weapon = equipBaseList!= null?DataHelper.get(equipBaseList, "nameRegion", hero.equip.weapon):null;
         if (weapon != null) {
             hpPlus += (weapon.stats != null ? weapon.stats.get("hp") : 0);
             atkPlus += (weapon.stats != null ? weapon.stats.get("atk") : 0);
@@ -33,7 +34,7 @@ public class Stat {
 
         }
 
-        EquipBase armor = DataHelper.get(equipBaseList, "nameRegion", hero.equip.armor);
+        EquipBase armor = equipBaseList!=null?DataHelper.get(equipBaseList, "nameRegion", hero.equip.armor):null;
         if (armor != null) {
             hpPlus += (armor.stats != null ? armor.stats.get("hp") : 0);
             atkPlus += (armor.stats != null ? armor.stats.get("atk") : 0);
@@ -42,7 +43,7 @@ public class Stat {
             critPlus += (armor.stats != null ? armor.stats.get("crit") : 0);
         }
 
-        EquipBase jewelry = DataHelper.get(equipBaseList, "nameRegion", hero.equip.jewelry);
+        EquipBase jewelry = equipBaseList!=null?DataHelper.get(equipBaseList, "nameRegion", hero.equip.jewelry):null;
         if (jewelry != null) {
             hpPlus += (jewelry.stats != null ? jewelry.stats.get("hp") : 0);
             atkPlus += (jewelry.stats != null ? jewelry.stats.get("atk") : 0);
@@ -51,7 +52,7 @@ public class Stat {
             critPlus += (jewelry.stats != null ? jewelry.stats.get("crit") : 0);
         }
 
-        EquipBase support = DataHelper.get(equipBaseList, "nameRegion", hero.equip.support);
+        EquipBase support = equipBaseList!=null?DataHelper.get(equipBaseList, "nameRegion", hero.equip.support):null;
         if (support != null) {
             hpPlus += (support.stats != null ? support.stats.get("hp") : 0);
             atkPlus += (support.stats != null ? support.stats.get("atk") : 0);
@@ -60,12 +61,19 @@ public class Stat {
             critPlus += (support.stats != null ? support.stats.get("crit") : 0);
         }
 
-        this.hp = (int) (characterBase.hp * multiplierLevel * multiplierStar) + hpPlus;
+//        this.hp = (int) (characterBase.hp * multiplierLevel * multiplierStar) + hpPlus;
+//        this.energy = 0;
+//        this.atk = (int) (characterBase.atk * multiplierLevel * multiplierStar) + atkPlus;
+//        this.def = (int) (characterBase.def * multiplierLevel * multiplierStar) + defPlus;
+//        this.agi = (int) (characterBase.agi * multiplierLevel * multiplierStar) + agiPlus;
+//        this.crit = (int) (characterBase.crit * multiplierLevel * multiplierStar) + critPlus;
+
+        this.hp = (int) (characterBase.hp * hero.level * multiplierStar) + hpPlus;
         this.energy = 0;
-        this.atk = (int) (characterBase.atk * multiplierLevel * multiplierStar) + atkPlus;
-        this.def = (int) (characterBase.def * multiplierLevel * multiplierStar) + defPlus;
-        this.agi = (int) (characterBase.agi * multiplierLevel * multiplierStar) + agiPlus;
-        this.crit = (int) (characterBase.crit * multiplierLevel * multiplierStar) + critPlus;
+        this.atk = (int) (characterBase.atk * hero.level * multiplierStar) + atkPlus;
+        this.def = (int) (characterBase.def * hero.level * multiplierStar) + defPlus;
+        this.agi = (int) (characterBase.agi * hero.level * multiplierStar) + agiPlus;
+        this.crit = (int) (characterBase.crit * hero.level * multiplierStar) + critPlus;
 
 
 //        return this;

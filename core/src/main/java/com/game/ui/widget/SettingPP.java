@@ -33,14 +33,16 @@ public class SettingPP {
         popup.setVisible(b);
     }
 
-    public static Group pp(float w, float h) {
+    public static UIGroup pp(float w, float h) {
         popup = new UIGroup().name("setting").size(w, h);
 
-        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
         new UIImage(board).nine(board, 30, 30, 30, 30)
             .name("origin")
             .parent(popup)
             .bounds(w * 0.3f, h * 0.1f, w * 0.4f, h * 0.8f);
+
+
 
 
         TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");
@@ -115,7 +117,7 @@ public class SettingPP {
         a.child(
             OverlayUI.overlay(a),
             new UIImage(MainGame.getAsM().get9p()).bounds(width * 0.2f, height * 0.2f, width * 0.6f, height * 0.6f),
-            new UILabel("Cảnh báo xóa!!!", BMF).pos(width * 0.28f, height * 0.65f).fontScale(2).debug(true),
+            new UILabel("Cảnh báo xóa!!!", BMF).pos(width * 0.28f, height * 0.65f).fontScale(2),
             new UILabel("Bạn sẽ mất toàn bộ dữ liệu từ tài khoản hiện tại và không thể khôi phục lại.", BMF).bounds(width * 0.3f, height * 0.4f, width * 0.4f, height * 0.2f).warp(true),
             btnYes.bounds(width * 0.32f, height * 0.25f, width * 0.15f, height * 0.12f),
             btnNo.bounds(width * 0.53f, height * 0.25f, width * 0.15f, height * 0.12f)

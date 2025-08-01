@@ -3,6 +3,7 @@
     "nameRegion": "sword_000",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -14,6 +15,7 @@
     "nameRegion": "sword_001",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -25,6 +27,7 @@
     "nameRegion": "sword_002",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -37,6 +40,7 @@
     "nameRegion": "sword_003",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -48,6 +52,7 @@
     "nameRegion": "sword_015",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -60,6 +65,7 @@
     "nameRegion": "sword_016",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -71,6 +77,7 @@
     "nameRegion": "sword_017",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -83,6 +90,7 @@
     "nameRegion": "sword_018",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -94,6 +102,7 @@
     "nameRegion": "sword_030",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -106,6 +115,7 @@
     "nameRegion": "sword_031",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -117,6 +127,7 @@
     "nameRegion": "sword_032",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -129,6 +140,7 @@
     "nameRegion": "sword_033",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -140,6 +152,7 @@
     "nameRegion": "sword_045",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -152,6 +165,7 @@
     "nameRegion": "sword_046",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -163,6 +177,7 @@
     "nameRegion": "sword_047",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -175,6 +190,7 @@
     "nameRegion": "sword_048",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -186,6 +202,7 @@
     "nameRegion": "sword_060",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -198,6 +215,7 @@
     "nameRegion": "sword_061",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -209,6 +227,7 @@
     "nameRegion": "sword_062",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -221,6 +240,7 @@
     "nameRegion": "sword_063",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -232,6 +252,7 @@
     "nameRegion": "sword_064",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -244,6 +265,7 @@
     "nameRegion": "sword_065",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -255,6 +277,7 @@
     "nameRegion": "sword_075",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -267,6 +290,7 @@
     "nameRegion": "sword_076",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -278,6 +302,7 @@
     "nameRegion": "sword_077",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -290,6 +315,7 @@
     "nameRegion": "sword_078",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -301,6 +327,7 @@
     "nameRegion": "sword_079",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -313,6 +340,7 @@
     "nameRegion": "sword_080",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -324,6 +352,7 @@
     "nameRegion": "sword_081",
     "name": "Kiếm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -336,6 +365,7 @@
     "nameRegion": "armor_008",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -347,6 +377,7 @@
     "nameRegion": "armor_009",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -358,6 +389,7 @@
     "nameRegion": "armor_010",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -370,6 +402,7 @@
     "nameRegion": "armor_011",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -381,6 +414,7 @@
     "nameRegion": "armor_012",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -392,6 +426,7 @@
     "nameRegion": "armor_013",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -404,6 +439,7 @@
     "nameRegion": "armor_014",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -415,6 +451,7 @@
     "nameRegion": "armor_023",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -426,6 +463,7 @@
     "nameRegion": "armor_024",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -438,6 +476,7 @@
     "nameRegion": "armor_025",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -449,6 +488,7 @@
     "nameRegion": "armor_026",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -460,6 +500,7 @@
     "nameRegion": "armor_038",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -472,6 +513,7 @@
     "nameRegion": "armor_039",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -483,6 +525,7 @@
     "nameRegion": "armor_040",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -494,6 +537,7 @@
     "nameRegion": "armor_041",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -506,6 +550,7 @@
     "nameRegion": "armor_042",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -517,6 +562,7 @@
     "nameRegion": "armor_043",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -528,6 +574,7 @@
     "nameRegion": "armor_044",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -540,6 +587,7 @@
     "nameRegion": "armor_053",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -551,6 +599,7 @@
     "nameRegion": "armor_054",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -562,6 +611,7 @@
     "nameRegion": "armor_055",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -574,6 +624,7 @@
     "nameRegion": "armor_068",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -585,6 +636,7 @@
     "nameRegion": "armor_069",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -596,6 +648,7 @@
     "nameRegion": "armor_070",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -608,6 +661,7 @@
     "nameRegion": "armor_071",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -619,6 +673,7 @@
     "nameRegion": "armor_072",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -630,6 +685,7 @@
     "nameRegion": "armor_073",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -642,6 +698,7 @@
     "nameRegion": "armor_083",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -653,6 +710,7 @@
     "nameRegion": "armor_084",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -664,6 +722,7 @@
     "nameRegion": "armor_085",
     "name": "Áo giáp",
     "category": "armor",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -676,6 +735,7 @@
     "nameRegion": "spear_105",
     "name": "Thương",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -688,6 +748,7 @@
     "nameRegion": "spear_106",
     "name": "Thương",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -699,6 +760,7 @@
     "nameRegion": "spear_107",
     "name": "Thương",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -711,6 +773,7 @@
     "nameRegion": "spear_108",
     "name": "Thương",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -722,6 +785,7 @@
     "nameRegion": "ring_113",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -733,6 +797,7 @@
     "nameRegion": "ring_114",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -744,6 +809,7 @@
     "nameRegion": "ring_115",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -756,6 +822,7 @@
     "nameRegion": "ring_116",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -767,6 +834,7 @@
     "nameRegion": "ring_117",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -778,6 +846,7 @@
     "nameRegion": "ring_118",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -790,6 +859,7 @@
     "nameRegion": "ring_119",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -801,6 +871,7 @@
     "nameRegion": "ring_158",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -813,6 +884,7 @@
     "nameRegion": "ring_159",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -824,6 +896,7 @@
     "nameRegion": "ring_160",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -836,6 +909,7 @@
     "nameRegion": "ring_161",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -847,6 +921,7 @@
     "nameRegion": "ring_162",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -858,6 +933,7 @@
     "nameRegion": "ring_163",
     "name": "Nhẫn",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -870,6 +946,7 @@
     "nameRegion": "trident_120",
     "name": "Đinh ba",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -882,6 +959,7 @@
     "nameRegion": "trident_121",
     "name": "Đinh ba",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -893,6 +971,7 @@
     "nameRegion": "trident_122",
     "name": "Đinh ba",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -905,6 +984,7 @@
     "nameRegion": "trident_150",
     "name": "Đinh ba",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -917,6 +997,7 @@
     "nameRegion": "necklace_128",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -928,6 +1009,7 @@
     "nameRegion": "necklace_129",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -939,6 +1021,7 @@
     "nameRegion": "necklace_130",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -951,6 +1034,7 @@
     "nameRegion": "necklace_131",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -962,6 +1046,7 @@
     "nameRegion": "necklace_132",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -973,6 +1058,7 @@
     "nameRegion": "necklace_133",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -985,6 +1071,7 @@
     "nameRegion": "necklace_173",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -997,6 +1084,7 @@
     "nameRegion": "necklace_174",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1008,6 +1096,7 @@
     "nameRegion": "necklace_175",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1020,6 +1109,7 @@
     "nameRegion": "necklace_176",
     "name": "Vòng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1031,6 +1121,7 @@
     "nameRegion": "knife_135",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1043,6 +1134,7 @@
     "nameRegion": "knife_136",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1054,6 +1146,7 @@
     "nameRegion": "knife_137",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1066,6 +1159,7 @@
     "nameRegion": "knife_138",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1077,6 +1171,7 @@
     "nameRegion": "knife_139",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1089,6 +1184,7 @@
     "nameRegion": "knife_140",
     "name": "Đao",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1100,6 +1196,7 @@
     "nameRegion": "scarf_143",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1111,6 +1208,7 @@
     "nameRegion": "scarf_144",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1122,6 +1220,7 @@
     "nameRegion": "scarf_145",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1134,6 +1233,7 @@
     "nameRegion": "scarf_146",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1145,6 +1245,7 @@
     "nameRegion": "scarf_147",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1156,6 +1257,7 @@
     "nameRegion": "scarf_148",
     "name": "Khăn quàng cổ",
     "category": "jewelry",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1168,6 +1270,7 @@
     "nameRegion": "sickle_151",
     "name": "Liềm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1180,6 +1283,7 @@
     "nameRegion": "sickle_152",
     "name": "Liềm",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1191,6 +1295,7 @@
     "nameRegion": "axe_180",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1203,6 +1308,7 @@
     "nameRegion": "axe_181",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1214,6 +1320,7 @@
     "nameRegion": "axe_182",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1226,6 +1333,7 @@
     "nameRegion": "axe_183",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1237,6 +1345,7 @@
     "nameRegion": "axe_184",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1249,6 +1358,7 @@
     "nameRegion": "axe_195",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1261,6 +1371,7 @@
     "nameRegion": "axe_196",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1272,6 +1383,7 @@
     "nameRegion": "axe_197",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1284,6 +1396,7 @@
     "nameRegion": "axe_198",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1295,6 +1408,7 @@
     "nameRegion": "axe_199",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1307,6 +1421,7 @@
     "nameRegion": "axe_210",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1319,6 +1434,7 @@
     "nameRegion": "axe_211",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1330,6 +1446,7 @@
     "nameRegion": "axe_212",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1342,6 +1459,7 @@
     "nameRegion": "axe_213",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1353,6 +1471,7 @@
     "nameRegion": "axe_214",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1365,6 +1484,7 @@
     "nameRegion": "axe_215",
     "name": "Rìu",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1376,6 +1496,7 @@
     "nameRegion": "shield_218",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1387,6 +1508,7 @@
     "nameRegion": "shield_219",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1398,6 +1520,7 @@
     "nameRegion": "shield_220",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1410,6 +1533,7 @@
     "nameRegion": "shield_221",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1421,6 +1545,7 @@
     "nameRegion": "shield_222",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1432,6 +1557,7 @@
     "nameRegion": "shield_223",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1444,6 +1570,7 @@
     "nameRegion": "shield_233",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1455,6 +1582,7 @@
     "nameRegion": "shield_234",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1466,6 +1594,7 @@
     "nameRegion": "shield_235",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1478,6 +1607,7 @@
     "nameRegion": "shield_236",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1489,6 +1619,7 @@
     "nameRegion": "shield_237",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1500,6 +1631,7 @@
     "nameRegion": "shield_238",
     "name": "Khiên",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1512,6 +1644,7 @@
     "nameRegion": "bow_240",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1524,6 +1657,7 @@
     "nameRegion": "bow_241",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1535,6 +1669,7 @@
     "nameRegion": "bow_242",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1547,6 +1682,7 @@
     "nameRegion": "bow_243",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1558,6 +1694,7 @@
     "nameRegion": "bow_244",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1570,6 +1707,7 @@
     "nameRegion": "bow_245",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1581,6 +1719,7 @@
     "nameRegion": "bow_246",
     "name": "Cung",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1593,6 +1732,7 @@
     "nameRegion": "scepter_270",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1605,6 +1745,7 @@
     "nameRegion": "scepter_271",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1616,6 +1757,7 @@
     "nameRegion": "scepter_272",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1628,6 +1770,7 @@
     "nameRegion": "scepter_273",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1639,6 +1782,7 @@
     "nameRegion": "scepter_285",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1651,6 +1795,7 @@
     "nameRegion": "scepter_286",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1662,6 +1807,7 @@
     "nameRegion": "scepter_287",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1674,6 +1820,7 @@
     "nameRegion": "scepter_288",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1685,6 +1832,7 @@
     "nameRegion": "scepter_289",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1697,6 +1845,7 @@
     "nameRegion": "scepter_290",
     "name": "Quyền trượng",
     "category": "weapon",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1708,6 +1857,7 @@
     "nameRegion": "cloak_278",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1720,6 +1870,7 @@
     "nameRegion": "cloak_279",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1731,6 +1882,7 @@
     "nameRegion": "cloak_280",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1743,6 +1895,7 @@
     "nameRegion": "cloak_281",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1754,6 +1907,7 @@
     "nameRegion": "cloak_282",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1766,6 +1920,7 @@
     "nameRegion": "cloak_283",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1777,6 +1932,7 @@
     "nameRegion": "cloak_284",
     "name": "Áo choàng",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1789,6 +1945,7 @@
     "nameRegion": "book_248",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1800,6 +1957,7 @@
     "nameRegion": "book_249",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1811,6 +1969,7 @@
     "nameRegion": "book_250",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1823,6 +1982,7 @@
     "nameRegion": "book_251",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1834,6 +1994,7 @@
     "nameRegion": "book_252",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1845,6 +2006,7 @@
     "nameRegion": "book_263",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1857,6 +2019,7 @@
     "nameRegion": "book_264",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1868,6 +2031,7 @@
     "nameRegion": "book_265",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1880,6 +2044,7 @@
     "nameRegion": "book_266",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {
@@ -1891,6 +2056,7 @@
     "nameRegion": "book_267",
     "name": "Sách",
     "category": "support",
+    "show": true,
     "currency": "gem",
     "price": 100,
     "stats": {

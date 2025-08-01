@@ -16,7 +16,7 @@ public class LimitedTaskPP {
     public static Group pp(float w, float h){
         UIGroup popup = new UIGroup().name("limitedtask").size(w,h);
 
-        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
         new UIImage(board).nine(board, 30, 30, 30, 30)
             .name("origin")
             .parent(popup)

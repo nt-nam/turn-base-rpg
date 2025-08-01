@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 public class UIGroup extends Group {
     private Runnable runnable = null;
     private boolean isActionRunning = false;
+    private boolean blockClick = false;
 
     public UIGroup() {
         super();
@@ -51,6 +52,11 @@ public class UIGroup extends Group {
 
     public UIGroup run(Runnable run) {
         this.runnable = run;
+        return this;
+    }
+
+    public UIGroup blockClick(boolean b) {
+        blockClick = b;
         return this;
     }
 
@@ -95,11 +101,11 @@ public class UIGroup extends Group {
     }
 
     public UIGroup onClick(Runnable runnable) {
+        this.runnable = runnable;
         this.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                if (isActionRunning) {
+                if (isActionRunning || blockClick) {
                     return;
                 }
                 runnable.run();

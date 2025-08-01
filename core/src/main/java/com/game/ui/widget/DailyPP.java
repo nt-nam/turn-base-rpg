@@ -30,44 +30,45 @@ public class DailyPP {
         popup.setVisible(b);
     }
 
-    public static Group pp(float w, float h) {
+    public static UIGroup pp(float w, float h) {
         popup = new UIGroup().name("checkin").size(w, h);
 
-        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
         new UIImage(board).nine(board, 30, 30, 30, 30)
             .name("origin")
             .parent(popup)
             .bounds(w * 0.15f, h * 0.05f, w * 0.7f, h * 0.9f);
         dailyRewardList = DataHelper.loadDailyRewardList(true);
 
-        float size = h/6.2f;
+        float size = h / 6.2f;
         float margin = size * 0.3f;
 
         UITable table = new UITable().name("table").size(size * 7, size * 5).pos(w * 0.2f, h * 0.1f);
-boolean flag = false;
+        boolean flag = false;
         for (int i = 0; i < 30; i++) {
             UIGroup uiGroup;
             if (dailyRewardList != null && i < dailyRewardList.size()) {
                 DailyReward item = dailyRewardList.get(i);
-                uiGroup = new UIGroup().name(item.id+"").child(
+                uiGroup = new UIGroup().name(item.id + "").child(
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                         .size(size, size),
                     new UIImage(MainGame.getAsM().getRegion(UI_POPUP, item.typereward))
                         .name("icon")
                         .size(size - margin, size - margin)
-                        .pos(margin * 0.5f, margin*0.7f),
-                    new UILabel(item.number+"")
+                        .pos(margin * 0.5f, margin * 0.7f),
+                    new UILabel(item.number + "").name("label")
                         .pos(margin * 0.4f, margin * 0.2f)
                 );
-                if(!item.confirm && !flag){
-                    flag =true;
+                if (!item.confirm && !flag) {
+                    flag = true;
                     uiGroup.onClick(() -> {
-                        if(GameSession.profile.getDailyCheck().equals(LocalDate.now())){
-                            popup.addActor(NotificationPP.ppr(w,h,"Bạn đã điểm danh cho ngày hôm nay"));
-                        }else{
-                            popup.addActor(NotificationPP.ppr(w,h,"Điểm danh thành công"));
+                        if (GameSession.profile.getDailyCheck().equals(LocalDate.now())) {
+                            popup.addActor(NotificationPP.ppr(w, h, "Bạn đã điểm danh cho ngày hôm nay"));
+                        } else {
+                            popup.addActor(NotificationPP.ppr(w, h, "Điểm danh thành công"));
                             item.confirm = true;
-                            uiGroup.findActor("icon").setColor(Color.GRAY);
+                            uiGroup.findActor("icon").setColor(Color.DARK_GRAY);
+                            uiGroup.findActor("label").setColor(Color.DARK_GRAY);
                             GameSession.profile.dailyCheck = LocalDate.now().toString();
                             update();
                         }
@@ -75,7 +76,8 @@ boolean flag = false;
                 }
 
                 if (item.confirm) {
-                    uiGroup.findActor("icon").setColor(Color.GRAY);
+                    uiGroup.findActor("icon").setColor(Color.DARK_GRAY);
+                    uiGroup.findActor("label").setColor(Color.DARK_GRAY);
                 }
             } else {
                 uiGroup = new UIGroup().name("empty").child(

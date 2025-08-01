@@ -2,6 +2,7 @@ package com.game.ui.widget;
 
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.HERO_FULL;
+import static com.game.utils.Constants.INFO_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -33,7 +34,7 @@ public class RecruitPP {
     public static UIGroup pp(float w, float h) {
         UIGroup popup = new UIGroup().name("recruit");
         NinePatch ninePatch = MainGame.getAsM().get9p();
-        UILabel gemUI = new UILabel(GameSession.gem + "", BMF).name("number").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f);
+        UILabel gemUI = new UILabel(GameSession.profile.gem + "", BMF).name("number").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f);
         new UIGroup().name("gem").pos(w * 0.07f, h * 0.1f).size(w * 0.2f, h * 0.15f).child(
             new UIImage(ninePatch).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
@@ -46,42 +47,45 @@ public class RecruitPP {
 
         newHeroCard = new UIGroup().name("newHeroCard").pos(w * 0.4f, h * 0.2f).size(w * 0.2f, h * 0.6f).parent(popup).origin(Align.center);
         new UIImage(ninePatch).size(w * 0.2f, h * 0.6f).parent(newHeroCard);
-        new UIImage(ninePatch).name("frame").bounds(0, h * 0.2f, w * 0.2f, h * 0.3f).origin(Align.center).scale(1f).parent(newHeroCard);
-        new UILabel("Đồng đội mới", BMF).name("nameCharacter").bounds(0, 0, w * 0.2f, h * 0.2f).align(Align.center).fontScale(2).parent(newHeroCard);
+        new UIImage(ninePatch).name("frame").bounds(0, h * 0.2f, w * 0.2f, h * 0.35f).origin(Align.center).scale(1f).parent(newHeroCard);
+        new UILabel("Đồng đội \nmới", BMF).name("nameCharacter").bounds(0, 0, w * 0.2f, h * 0.2f).align(Align.center).fontScale(1.8f).parent(newHeroCard);
         newHeroCard.setVisible(false);
 
         hiddenCard.onClick(() -> {
             if (GameSession.isRecruit()) {
                 hiddenCard.action(Actions.sequence(
+                    Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            gemUI.setText(GameSession.profile.gem);
+                            addNewMenber();
+                            showNewHeroCard();
+                        }
+                    }),
                     Actions.parallel(
                         Actions.rotateBy(2880f, 2f),
                         Actions.scaleTo(0.1f, 0.1f, 2f)
                     ),
+                    Actions.delay(1.5f),
                     Actions.scaleTo(1f, 1f, 0.5f),
-                    Actions.run(new Runnable() {
-                        @Override
-                        public void run() {
-                            gemUI.setText(GameSession.gem);
-                            addNewMenber();
-                            showNewHeroCard();
-                        }
-                    }), Actions.visible(false)
+                    Actions.visible(false)
                 ));
             } else {
                 NotificationPP.pprRecruit(w, h, "Cần 5 Gem để có thể chiêu mộ thành viên mới").parent(popup);
             }
         });
-
-
         return popup;
     }
 
     private static void showNewHeroCard() {
         ((UIImage) newHeroCard.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(newHero.nameRegion, "idle")));
-//        ((UILabel) newHeroCard.findActor("nameCharacter")).setText(newHero.);
+//        ((UILabel) newHeroCard.findActor("nameCharacter")).setText(newHero.nameRegion);
         newHeroCard.setVisible(true);
         newHeroCard.action(Actions.sequence(
-            Actions.delay(2),
+            Actions.fadeOut(0f),
+            Actions.delay(1.5f),
+            Actions.fadeIn(1.5f),
+            Actions.delay(2.5f),
             Actions.fadeOut(2f),
             Actions.scaleTo(1f, 1f),
             Actions.visible(false),
@@ -94,10 +98,10 @@ public class RecruitPP {
     private static void addNewMenber() {
         List<CharacterBase> baseHero = GameSession.characterBaseList;
         List<Hero> fullHero = GameSession.heroList;
-        int random = MathUtils.random(0,baseHero.size()-1);
+        int random = MathUtils.random(0, baseHero.size() - 1);
         CharacterBase characterBase = baseHero.get(random);
         Hero hero = new Hero();
-        hero.characterId = "character"+GameSession.profile.numberOfTeammatesRecruited++;
+        hero.characterId = "character" + (++GameSession.profile.numberOfTeammatesRecruited);
         hero.nameRegion = characterBase.nameRegion;
         hero.grid = "empty";
         hero.star = 0;
@@ -111,6 +115,7 @@ public class RecruitPP {
 
         fullHero.add(hero);
         JsonSaver.saveObject(HERO_FULL, fullHero);
+        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
         newHero = hero;
 
     }

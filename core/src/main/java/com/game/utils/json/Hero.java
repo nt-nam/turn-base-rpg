@@ -1,6 +1,8 @@
 package com.game.utils.json;
 
 import com.badlogic.gdx.utils.JsonValue;
+import com.game.utils.DataHelper;
+import com.game.utils.GameSession;
 
 //hero_full.json
 public class Hero {
@@ -12,6 +14,8 @@ public class Hero {
     public int exp;
     public Stat stat;
     public Equip equip;
+
+    private long battleScore;
 
     public Hero() {
     }
@@ -36,12 +40,18 @@ public class Hero {
     }
 
     public boolean checkLevel() {
-        if (this.exp >= this.level * 100) {
-            this.level++;
+        int levelCurrent = this.level;
+        while (this.exp >= this.level * 100) {
             this.exp -= this.level * 100;
-            return true;
+            this.level++;
         }
-        return false;
+        return this.level > levelCurrent;
+    }
+
+    public long getBattleScore() {
+        stat = new Stat(this, DataHelper.get(GameSession.characterBaseList, "nameRegion", nameRegion), null);
+        battleScore = (long) (stat.hp * 0.3f + stat.atk + stat.def * 2 + stat.agi) * (stat.crit / 100 + 1);
+        return battleScore;
     }
 
     @Override

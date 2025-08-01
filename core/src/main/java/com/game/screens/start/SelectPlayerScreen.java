@@ -103,7 +103,7 @@ public class SelectPlayerScreen extends BaseScreen {
         table.clear();
         UIGroup uiGroup;
         if (accounts != null) {
-            NinePatch ninePatch = MainGame.getAsM().getRegion9patch(UI_POPUP, "origin", 20);
+            NinePatch ninePatch = MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_origin", 20);
             int i = 0;
             for (Account element : accounts) {
                 uiGroup = new UIGroup().size(screenWidth * 0.2f, screenHeight * 0.6f)
@@ -139,7 +139,7 @@ public class SelectPlayerScreen extends BaseScreen {
             scrollPane.setPosition(screenWidth * 0.05f, screenHeight * 0.1f);
             scrollPane.setScrollingDisabled(false, true);
         } else {
-            new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "origin", 20)).size(screenWidth * 0.5f, screenHeight * 0.5f).pos(screenWidth * 0.25f, screenHeight * 0.25f).parent(rootGroup);
+            new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_origin", 20)).size(screenWidth * 0.5f, screenHeight * 0.5f).pos(screenWidth * 0.25f, screenHeight * 0.25f).parent(rootGroup);
             new UILabel("Chưa có nhân vật có sẵn  nào, Vui lòng tạo mới!!!", BMF).size(screenWidth * 0.5f, screenHeight * 0.5f).pos(screenWidth * 0.25f, screenHeight * 0.25f).align(Align.center).parent(rootGroup);
         }
     }

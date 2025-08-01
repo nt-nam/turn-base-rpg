@@ -18,7 +18,7 @@ public class PlayerInputSystem extends EntitySystem {
     private final ImmutableArray<Entity> players;
     private final UIJoystick joystick;
 
-    private static final float SPEED = 250f;
+    private static final float SPEED = 1000f;
 
     public PlayerInputSystem(Engine engine, UIJoystick joystick) {
         this.players = engine.getEntitiesFor(Family.all(
@@ -54,6 +54,21 @@ public class PlayerInputSystem extends EntitySystem {
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 dy -= SPEED * deltaTime;
             }
+            // Keyboard input
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                dx -= SPEED * deltaTime;
+                sprite.flipX = true;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                dx += SPEED * deltaTime;
+                sprite.flipX = false;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                dy += SPEED * deltaTime;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                dy -= SPEED * deltaTime;
+            }
             logicJoystick();
             if (GameSession.moveLeft) {
                 dx -= SPEED * deltaTime;
@@ -71,13 +86,20 @@ public class PlayerInputSystem extends EntitySystem {
             }
 
 
-
             // Thực hiện di chuyển nếu có input
             if (dx != 0 || dy != 0) {
+                // Chuẩn hóa vector di chuyển để không bị di chuyển nhanh khi di chuyển chéo
+                float length = (float) Math.sqrt(dx * dx + dy * dy);
+                if (length != 0) {
+                    dx = (dx / length) * 2f;
+                    dy = (dy / length) * 2f;
+                }
+
                 pos.x += dx;
                 pos.y += dy;
                 GameSession.profile.pos.x = pos.x;
                 GameSession.profile.pos.y = pos.y;
+
                 if (state != null && state.requested != AnimationStateComponent.State.RUN) {
                     state.requested = AnimationStateComponent.State.RUN;
                 }

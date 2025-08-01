@@ -4,7 +4,6 @@ import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.ecs.component.InfoComponent;
 import com.game.utils.json.Account;
 import com.game.utils.json.Achievement;
-import com.game.utils.json.Bag;
 import com.game.utils.json.CharacterBase;
 import com.game.utils.json.CheckMap;
 import com.game.utils.json.Equip;
@@ -29,7 +28,9 @@ public class GameSession {
     // User/account
     public static String playerName = "";
     public static Profile profile = new Profile();
-
+    public static int coin = 0;
+    public static int exp = 0;
+    public static int level = 1;
     // Character selection
     public static String selectedCharacterId = "";
     public static int selectedPlayerSpawnIndex = 0;
@@ -53,7 +54,6 @@ public class GameSession {
     public static List<SkillBase> skillBaseList = new ArrayList<>();
     public static MapBattle mapBattle = new MapBattle();
 
-    public static List<Bag> bagList = new ArrayList<>();
     public static List<Equip> equipList = new ArrayList<>();
     public static List<Item> itemList = new ArrayList<>();
     public static List<Lineup> lineupList = new ArrayList<>();
@@ -66,10 +66,7 @@ public class GameSession {
     public static List<InfoComponent> infoComponentList = new ArrayList<>();
 
     // Stats/resources
-    public static int coin = 0;
-    public static int gem = 15;
-    public static int exp = 0;
-    public static int level = 1;
+
     public static int currentHP = 100;
     public static int currentMP = 20;
 
@@ -99,8 +96,8 @@ public class GameSession {
     }
 
     public static boolean isRecruit() {
-        if(gem >= 5 ){
-            gem -=5;
+        if(profile.gem >= 5 ){
+            profile.gem -=5;
             return true;
         }
         return false;

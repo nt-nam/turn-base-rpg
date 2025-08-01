@@ -1,6 +1,7 @@
 package com.game.utils.json;
 
 import com.badlogic.gdx.math.Vector2;
+import com.game.utils.GameSession;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class Profile {
     public int numberOfEnemies;
     public List<String> unlocked;
 
+    private int battleScore;
+
     public Profile() {
     }
 
@@ -40,9 +43,20 @@ public class Profile {
         this.equipment = 0;
         this.numberOfEnemies = 0;
         this.unlocked = new ArrayList<>();
+
+        this.battleScore = 0;
     }
 
     public LocalDate getDailyCheck() {
         return dailyCheck != null ? LocalDate.parse(dailyCheck) : LocalDate.now();
+    }
+
+    public int getBattleScore() {
+        battleScore = 0;
+        for (Hero hero : GameSession.heroList) {
+            if (hero.grid.equals("empty")) continue;
+            battleScore += hero.getBattleScore();
+        }
+        return battleScore;
     }
 }

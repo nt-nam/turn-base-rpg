@@ -3,6 +3,7 @@
     "nameRegion": "cup_323",
     "name": "Cúp",
     "tier": 1,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -10,6 +11,7 @@
     "nameRegion": "cup_324",
     "name": "Cúp",
     "tier": 2,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -17,6 +19,7 @@
     "nameRegion": "cup_325",
     "name": "Cúp",
     "tier": 3,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -24,6 +27,7 @@
     "nameRegion": "cup_326",
     "name": "Cúp",
     "tier": 4,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -31,6 +35,7 @@
     "nameRegion": "shovel_338",
     "name": "Xẻng",
     "tier": 1,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -38,6 +43,7 @@
     "nameRegion": "shovel_339",
     "name": "Xẻng",
     "tier": 2,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -45,6 +51,7 @@
     "nameRegion": "shovel_340",
     "name": "Xẻng",
     "tier": 3,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -52,6 +59,7 @@
     "nameRegion": "shovel_341",
     "name": "Xẻng",
     "tier": 4,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -59,6 +67,7 @@
     "nameRegion": "food_315",
     "name": "Thức ăn",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -66,6 +75,7 @@
     "nameRegion": "food_316",
     "name": "Thức ăn",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -73,6 +83,7 @@
     "nameRegion": "food_317",
     "name": "Thức ăn",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -80,6 +91,7 @@
     "nameRegion": "food_318",
     "name": "Thức ăn",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -87,6 +99,7 @@
     "nameRegion": "food_319",
     "name": "Thức ăn",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -94,6 +107,7 @@
     "nameRegion": "food_320",
     "name": "Thức ăn",
     "tier": 6,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -101,6 +115,7 @@
     "nameRegion": "food_321",
     "name": "Thức ăn",
     "tier": 7,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -108,6 +123,7 @@
     "nameRegion": "metal_330",
     "name": "Kim loại",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -115,6 +131,7 @@
     "nameRegion": "metal_331",
     "name": "Kim loại",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -122,6 +139,7 @@
     "nameRegion": "metal_332",
     "name": "Kim loại",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -129,6 +147,7 @@
     "nameRegion": "metal_333",
     "name": "Kim loại",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -136,6 +155,7 @@
     "nameRegion": "metal_334",
     "name": "Kim loại",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -143,6 +163,7 @@
     "nameRegion": "metal_335",
     "name": "Kim loại",
     "tier": 6,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -150,6 +171,7 @@
     "nameRegion": "water_345",
     "name": "Thuốc",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -157,6 +179,7 @@
     "nameRegion": "water_346",
     "name": "Thuốc",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -164,6 +187,7 @@
     "nameRegion": "water_347",
     "name": "Thuốc",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -171,6 +195,7 @@
     "nameRegion": "water_348",
     "name": "Thuốc",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -178,6 +203,7 @@
     "nameRegion": "water_349",
     "name": "Thuốc",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -185,6 +211,7 @@
     "nameRegion": "water_350",
     "name": "Thuốc",
     "tier": 6,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -192,6 +219,7 @@
     "nameRegion": "diamond_360",
     "name": "Kim cương",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -199,6 +227,7 @@
     "nameRegion": "diamond_361",
     "name": "Kim cương",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -206,6 +235,7 @@
     "nameRegion": "diamond_362",
     "name": "Kim cương",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -213,6 +243,7 @@
     "nameRegion": "diamond_363",
     "name": "Kim cương",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -220,6 +251,7 @@
     "nameRegion": "diamond_364",
     "name": "Kim cương",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -227,6 +259,7 @@
     "nameRegion": "gemstore_375",
     "name": "Ngọc",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -234,6 +267,7 @@
     "nameRegion": "gemstore_376",
     "name": "Ngọc",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -241,6 +275,7 @@
     "nameRegion": "gemstore_377",
     "name": "Ngọc",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -248,6 +283,7 @@
     "nameRegion": "gemstore_378",
     "name": "Ngọc",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -255,6 +291,7 @@
     "nameRegion": "gemstore_379",
     "name": "Ngọc",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -262,6 +299,7 @@
     "nameRegion": "gem_390",
     "name": "Đá quý",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -269,6 +307,7 @@
     "nameRegion": "gem_391",
     "name": "Đá quý",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -276,6 +315,7 @@
     "nameRegion": "gem_392",
     "name": "Đá quý",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -283,6 +323,7 @@
     "nameRegion": "gem_393",
     "name": "Đá quý",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -290,6 +331,7 @@
     "nameRegion": "gem_394",
     "name": "Đá quý",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -297,6 +339,7 @@
     "nameRegion": "flour_405",
     "name": "Bột phép",
     "tier": 1,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -304,6 +347,7 @@
     "nameRegion": "flour_406",
     "name": "Bột phép",
     "tier": 2,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -311,6 +355,7 @@
     "nameRegion": "flour_407",
     "name": "Bột phép",
     "tier": 3,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -318,6 +363,7 @@
     "nameRegion": "flour_408",
     "name": "Bột phép",
     "tier": 4,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -325,6 +371,7 @@
     "nameRegion": "flour_409",
     "name": "Bột phép",
     "tier": 5,
+    "show": true,
     "currency": "coin",
     "price": 100
   },
@@ -332,6 +379,7 @@
     "nameRegion": "key_420",
     "name": "Chìa khóa",
     "tier": 1,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -339,6 +387,7 @@
     "nameRegion": "key_421",
     "name": "Chìa khóa",
     "tier": 2,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -346,6 +395,7 @@
     "nameRegion": "key_422",
     "name": "Chìa khóa",
     "tier": 3,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -353,6 +403,7 @@
     "nameRegion": "egg_423",
     "name": "Trứng",
     "tier": 1,
+    "show": false,
     "currency": "coin",
     "price": 100
   },
@@ -360,6 +411,8 @@
     "nameRegion": "arrowbox_293",
     "name": "Hộp mũi tên",
     "tier": 1,
+    "show": false,
+    "currency": "coin",
     "price": -1
   }
 ]

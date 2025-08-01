@@ -52,6 +52,7 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UIProgressBar;
 import com.game.utils.DataHelper;
+import com.game.utils.JsonSaver;
 import com.game.utils.data.AnimationCache;
 import com.game.utils.GameSession;
 import com.game.utils.json.CharacterBase;
@@ -72,7 +73,7 @@ public class BattleScreen extends BaseScreen {
     private static boolean isPause;
     private static Entity target;
     private static Group popup;
-    private static int levelEntity = 0;
+    private static int maxLevelEnemy = 0;
     private UILabel label;
 
     private static MapBattle mapBattle;
@@ -183,7 +184,6 @@ public class BattleScreen extends BaseScreen {
         BattleSimulationResult listResult = new BattleSimulator().run(playerTeamCR, enemyTeamCR);
         BattleLogger.logBattleResult(listResult, playerTeamCR, enemyTeamCR);
 
-//        BattleSimulationResultSaver.saveBattleSimulationResult(listResult, "data/battleresult/battle_result.json");
 
         loadAllAnimationsSkill(GameSession.skillCharacter, SKILL_SKILL);
         skill = engine.createEntity();
@@ -245,7 +245,7 @@ public class BattleScreen extends BaseScreen {
                 float posY = y + j * tileSize * 1.1f;
                 new UIImage(UI_POPUP, "empty").parent(rootGroup).bounds(posX, posY, tileSize, tileSize);
 
-                Lineup lineup = DataHelper.get(DataHelper.loadLineupList(LINEUP_ATTACK, false), "grid", i + "," + j);
+                Lineup lineup = DataHelper.get(DataHelper.loadLineupList(true), "grid", i + "," + j);
 
                 if (lineup == null || lineup.characterId == null) {
                     continue;
@@ -322,7 +322,6 @@ public class BattleScreen extends BaseScreen {
                 if (hero == null || hero.characterId == null) {
                     continue;
                 }
-                System.out.println(hero.toString());
 
                 InfoComponent infoCharacter = new InfoComponent();
                 infoCharacter.characterId = hero.characterId;
@@ -331,7 +330,7 @@ public class BattleScreen extends BaseScreen {
                 infoCharacter.star = hero.star;
                 infoCharacter.equip = new InfoComponent.Equipment();
 
-                levelEntity = Math.max(levelEntity, infoCharacter.level);
+                maxLevelEnemy = Math.max(maxLevelEnemy, infoCharacter.level);
 
                 CharacterComponent dataEntity = new CharacterComponent(DataHelper.get(characterBaseList, "nameRegion", infoCharacter.nameRegion));
 
@@ -403,7 +402,7 @@ public class BattleScreen extends BaseScreen {
             })
             .parent(rootGroup);
 
-        TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "origin");
+        TextureRegion origin = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
         new UIImage(origin).nine(origin, 30, 30, 30, 30)
             .name("board")
             .parent(rootGroup)
@@ -453,10 +452,12 @@ public class BattleScreen extends BaseScreen {
         popup.findActor("overlay").setVisible(true);
         popup.findActor("board").setVisible(true);
         popup.findActor("home").setVisible(true);
+        popup.findActor("resume").setVisible(false);
 
         popup.addActor(new UIGroup().child(
             new UILabel("Chiến thắng", BMF).pos(popup.getWidth() * 0.2f, popup.getHeight() * 0.6f).size(popup.getWidth() * 0.6f, popup.getHeight() * 0.3f).fontScale(4).align(Align.center)
         ));
+
         int i = 0;
         float sizeTile = popup.getHeight() * 0.2f;
         float sizeItem = sizeTile * 0.6f;
@@ -464,8 +465,8 @@ public class BattleScreen extends BaseScreen {
         float posStart = popup.getWidth() * 0.5f - sizeTile * 0.5f * (mapBattle.rewardList != null ? mapBattle.rewardList.size() : 0);
         for (Reward reward : mapBattle.rewardList) {
 
-            if (reward.type.equals("coin")) GameSession.coin += reward.quantity;
-            if (reward.type.equals("gem")) GameSession.gem += reward.quantity;
+            if (reward.type.equals("coin")) GameSession.profile.coin += reward.quantity;
+            if (reward.type.equals("gem")) GameSession.profile.gem += reward.quantity;
             if (reward.type.equals("item")) {
                 GameSession.itemList.add(new Item(reward.nameRegion, reward.quantity));
             }
@@ -479,13 +480,13 @@ public class BattleScreen extends BaseScreen {
 
             plusEXP(0.35f);
             GameSession.profile.numberOfEnemies++;
-            GameSession.achievementList.get(1).number+=mapBattle.heroEnemyList.size();
+            GameSession.achievementList.get(1).number += mapBattle.heroEnemyList.size();
             GameSession.achievementList.get(4).number++;
 
             System.out.println("create reward it pp");
             popup.addActor(
                 new UIGroup().child(
-                    new UIImage(UI_POPUP, "rarity0").size(sizeTile, sizeTile),
+                    new UIImage(UI_POPUP, "tile_rarity0").size(sizeTile, sizeTile),
                     new UIImage(UI_POPUP, reward.nameRegion).bounds(sizeTile * (0.2f), sizeTile * 0.2f, sizeItem, sizeItem),
                     new UILabel(reward.quantity + "", BMF).pos(sizeTile * (0.2f), sizeTile * 0.2f).color(Color.SKY).fontScale(1.2f)
                 ).pos(posStart + sizeTile * i, posH)
@@ -510,10 +511,11 @@ public class BattleScreen extends BaseScreen {
         for (Hero he : GameSession.heroList) {
             if (!he.grid.equals("empty")) {
                 System.out.println(he.grid + " só cong exp");
-                he.exp += (int) ((levelEntity * 100) * per);
+                he.exp += (int) ((maxLevelEnemy * 100) * per);
                 he.checkLevel();
             }
         }
+        JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
     }
 
     private void hidePopupPause() {
