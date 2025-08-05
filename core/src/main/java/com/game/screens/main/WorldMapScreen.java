@@ -83,7 +83,7 @@ public class WorldMapScreen extends BaseScreen {
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
             coinLB
-        ).parent(rootGroup).onClick(()->{GameSession.profile.coin+=100;coinLB.setText(GameSession.profile.coin);});
+        ).parent(rootGroup).onClick(()->{GameSession.profile.addCoin(100);coinLB.setText(GameSession.profile.coin);});
 
         gemLB = new UILabel(GameSession.profile.gem + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(

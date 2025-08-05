@@ -1,11 +1,11 @@
 [
   {
     "nameRegion": "sword_000",
-    "name": "Kiếm",
+    "name": "Kiếm cũ",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 50,
     "stats": {
       "atk": 10,
       "crit": 5
@@ -13,11 +13,11 @@
   },
   {
     "nameRegion": "sword_001",
-    "name": "Kiếm",
+    "name": "Kiếm sắt",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 60,
     "stats": {
       "atk": 12,
       "crit": 6
@@ -25,11 +25,11 @@
   },
   {
     "nameRegion": "sword_002",
-    "name": "Kiếm",
+    "name": "Kiếm loại 2",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 70,
     "stats": {
       "atk": 14,
       "crit": 7,
@@ -38,11 +38,11 @@
   },
   {
     "nameRegion": "sword_003",
-    "name": "Kiếm",
+    "name": "Kiếm loại 3",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 80,
     "stats": {
       "atk": 16,
       "crit": 8
@@ -50,11 +50,11 @@
   },
   {
     "nameRegion": "sword_015",
-    "name": "Kiếm",
+    "name": "Kiếm loại 4",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 90,
     "stats": {
       "atk": 20,
       "crit": 10,
@@ -63,7 +63,7 @@
   },
   {
     "nameRegion": "sword_016",
-    "name": "Kiếm",
+    "name": "Kiếm loại 5",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
@@ -75,11 +75,11 @@
   },
   {
     "nameRegion": "sword_017",
-    "name": "Kiếm",
+    "name": "Kiếm loại 6",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 110,
     "stats": {
       "atk": 24,
       "crit": 12,
@@ -88,11 +88,11 @@
   },
   {
     "nameRegion": "sword_018",
-    "name": "Kiếm",
+    "name": "Kiếm loại 7",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 120,
     "stats": {
       "atk": 26,
       "crit": 13
@@ -100,11 +100,11 @@
   },
   {
     "nameRegion": "sword_030",
-    "name": "Kiếm",
+    "name": "Kiếm loại 8",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 130,
     "stats": {
       "atk": 30,
       "crit": 15,
@@ -113,11 +113,11 @@
   },
   {
     "nameRegion": "sword_031",
-    "name": "Kiếm",
+    "name": "Kiếm loại 9",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 140,
     "stats": {
       "atk": 32,
       "crit": 16
@@ -125,11 +125,11 @@
   },
   {
     "nameRegion": "sword_032",
-    "name": "Kiếm",
+    "name": "Kiếm loại 10",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 150,
     "stats": {
       "atk": 34,
       "crit": 17,
@@ -138,11 +138,11 @@
   },
   {
     "nameRegion": "sword_033",
-    "name": "Kiếm",
+    "name": "Kiếm loại 11",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 160,
     "stats": {
       "atk": 36,
       "crit": 18
@@ -154,7 +154,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 170,
     "stats": {
       "atk": 40,
       "crit": 20,
@@ -167,7 +167,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 180,
     "stats": {
       "atk": 42,
       "crit": 21
@@ -179,7 +179,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 190,
     "stats": {
       "atk": 44,
       "crit": 22,
@@ -192,7 +192,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 200,
     "stats": {
       "atk": 46,
       "crit": 23
@@ -204,7 +204,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 210,
     "stats": {
       "atk": 50,
       "crit": 25,
@@ -217,7 +217,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 220,
     "stats": {
       "atk": 52,
       "crit": 26
@@ -229,7 +229,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 230,
     "stats": {
       "atk": 54,
       "crit": 27,
@@ -242,7 +242,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 340,
     "stats": {
       "atk": 56,
       "crit": 28
@@ -254,7 +254,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 230,
     "stats": {
       "atk": 58,
       "crit": 29,
@@ -267,7 +267,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 330,
     "stats": {
       "atk": 60,
       "crit": 30
@@ -279,7 +279,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 350,
     "stats": {
       "atk": 65,
       "crit": 32,
@@ -292,7 +292,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 400,
     "stats": {
       "atk": 67,
       "crit": 33
@@ -304,7 +304,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 500,
     "stats": {
       "atk": 69,
       "crit": 34,
@@ -317,7 +317,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 600,
     "stats": {
       "atk": 71,
       "crit": 35
@@ -329,7 +329,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 700,
     "stats": {
       "atk": 73,
       "crit": 36,
@@ -342,7 +342,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 800,
     "stats": {
       "atk": 75,
       "crit": 37
@@ -354,7 +354,7 @@
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 900,
     "stats": {
       "atk": 77,
       "crit": 38,
@@ -363,7 +363,7 @@
   },
   {
     "nameRegion": "armor_008",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 1",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
@@ -375,11 +375,11 @@
   },
   {
     "nameRegion": "armor_009",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 2",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 120,
     "stats": {
       "hp": 22,
       "def": 16
@@ -387,11 +387,11 @@
   },
   {
     "nameRegion": "armor_010",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 4",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 130,
     "stats": {
       "hp": 24,
       "def": 17,
@@ -400,11 +400,11 @@
   },
   {
     "nameRegion": "armor_011",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 5",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 140,
     "stats": {
       "hp": 26,
       "def": 18
@@ -412,11 +412,11 @@
   },
   {
     "nameRegion": "armor_012",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 7",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 150,
     "stats": {
       "hp": 28,
       "def": 19
@@ -424,11 +424,11 @@
   },
   {
     "nameRegion": "armor_013",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 8",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 170,
     "stats": {
       "hp": 30,
       "def": 20,
@@ -437,11 +437,11 @@
   },
   {
     "nameRegion": "armor_014",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 9",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 180,
     "stats": {
       "hp": 32,
       "def": 21
@@ -449,11 +449,11 @@
   },
   {
     "nameRegion": "armor_023",
-    "name": "Áo giáp",
+    "name": "Áo giáp loại 10",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 190,
     "stats": {
       "hp": 35,
       "def": 22
@@ -461,11 +461,11 @@
   },
   {
     "nameRegion": "armor_024",
-    "name": "Áo giáp",
+    "name": "Áo giáp 11",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 210,
     "stats": {
       "hp": 37,
       "def": 23,
@@ -474,11 +474,11 @@
   },
   {
     "nameRegion": "armor_025",
-    "name": "Áo giáp",
+    "name": "Áo giáp 12",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 230,
     "stats": {
       "hp": 39,
       "def": 24
@@ -486,11 +486,11 @@
   },
   {
     "nameRegion": "armor_026",
-    "name": "Áo giáp",
+    "name": "Áo giáp 13",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 290,
     "stats": {
       "hp": 41,
       "def": 25
@@ -498,11 +498,11 @@
   },
   {
     "nameRegion": "armor_038",
-    "name": "Áo giáp",
+    "name": "Áo giáp 15",
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 310,
     "stats": {
       "hp": 45,
       "def": 27,
@@ -515,7 +515,7 @@
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 220,
     "stats": {
       "hp": 47,
       "def": 28
@@ -527,7 +527,7 @@
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 330,
     "stats": {
       "hp": 49,
       "def": 29
@@ -539,7 +539,7 @@
     "category": "armor",
     "show": true,
     "currency": "gem_pink",
-    "price": 100,
+    "price": 34,
     "stats": {
       "hp": 51,
       "def": 30,
@@ -733,7 +733,7 @@
   },
   {
     "nameRegion": "spear_105",
-    "name": "Thương",
+    "name": "Thương 1",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
@@ -746,7 +746,7 @@
   },
   {
     "nameRegion": "spear_106",
-    "name": "Thương",
+    "name": "Thương 2",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
@@ -758,7 +758,7 @@
   },
   {
     "nameRegion": "spear_107",
-    "name": "Thương",
+    "name": "Thương 4",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
@@ -771,7 +771,7 @@
   },
   {
     "nameRegion": "spear_108",
-    "name": "Thương",
+    "name": "Thương 5",
     "category": "weapon",
     "show": true,
     "currency": "gem_pink",
@@ -783,7 +783,7 @@
   },
   {
     "nameRegion": "ring_113",
-    "name": "Nhẫn",
+    "name": "Nhẫn 1",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -795,7 +795,7 @@
   },
   {
     "nameRegion": "ring_114",
-    "name": "Nhẫn",
+    "name": "Nhẫn 2",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -807,7 +807,7 @@
   },
   {
     "nameRegion": "ring_115",
-    "name": "Nhẫn",
+    "name": "Nhẫn 3",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -820,7 +820,7 @@
   },
   {
     "nameRegion": "ring_116",
-    "name": "Nhẫn",
+    "name": "Nhẫn 4",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -832,7 +832,7 @@
   },
   {
     "nameRegion": "ring_117",
-    "name": "Nhẫn",
+    "name": "Nhẫn 5",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -844,7 +844,7 @@
   },
   {
     "nameRegion": "ring_118",
-    "name": "Nhẫn",
+    "name": "Nhẫn 6",
     "category": "jewelry",
     "show": true,
     "currency": "gem_pink",
@@ -1114,7 +1114,6 @@
     "price": 100,
     "stats": {
       "hp": 51,
-      "mp": 33
     }
   },
   {

@@ -132,6 +132,19 @@ public class RolePP {
         UITable table = new UITable();
         if (achievements != null) {
             for (Achievement child : achievements) {
+                if(child.idBase.equals("Recruited"))
+                    child.number = GameSession.profile.numberOfTeammatesRecruited;
+                else if(child.idBase.equals("Kill"))
+                    child.number = GameSession.profile.numberOfEnemies;
+                else if(child.idBase.equals("Win"))
+                    child.number = GameSession.profile.win;
+                else if(child.idBase.equals("CoinSum"))
+                    child.number = GameSession.profile.coinSum;
+                else if(child.idBase.equals("GemPay"))
+                    child.number = GameSession.profile.gemPay;
+                else if(child.idBase.equals("Equip"))
+                    child.number = GameSession.profile.equipment;
+
                 table.add(
                     new UIGroup().name(child.idBase).size(size * 5, size).child(
                         new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(size * 5, size),

@@ -20,6 +20,10 @@ public class Profile {
     public int coin;
     public int gem;
     public int energy;
+    public int win;
+    public int coinSum;
+    public int gemPay;
+
     public String energyTime;
     public int numberOfTeammatesRecruited;
     public int equipment;

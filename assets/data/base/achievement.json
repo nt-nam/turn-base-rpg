@@ -1,8 +1,6 @@
 [
   { "idBase": "Recruited",     "name": "Chiêu mộ",         "dec": "Số lượng người đã tuyển dụng",    "number": 0 },
   { "idBase": "Kill",          "name": "Chiến công",       "dec": "Số lượng kẻ thù bị tiêu diệt",    "number": 0 },
-  { "idBase": "LevelTeam",     "name": "Cấp độ đội",       "dec": "Tổng cấp độ cao nhất của đội",    "number": 0 },
-  { "idBase": "Level",         "name": "Cấp độ",           "dec": "Cấp độ",                          "number": 0 },
   { "idBase": "Win",           "name": "Trận thắng",       "dec": "Số trận thắng",                   "number": 0 },
   { "idBase": "CoinSum",       "name": "Tổng tiền",        "dec": "Tổng số tiền xu kiếm được",       "number": 0 },
   { "idBase": "GemPay",        "name": "Gem",              "dec": "Số lượng gem đã chi trả",         "number": 0 },

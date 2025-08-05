@@ -30,6 +30,7 @@ import com.game.utils.json.Item;
 import com.game.utils.json.ItemBase;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShopPP {
     private static UIGroup popup;
@@ -169,7 +170,7 @@ public class ShopPP {
         UIImage frame = new UIImage(MainGame.getAsM().get9p()).bounds(width * 0.18f, height * 0.25f, height * 0.5f, height * 0.5f).origin(Align.center).scale(0.8f);
         UILabel name = new UILabel("Name", BMF).name("name").pos(width * 0.47f, height * 0.75f).fontScale(3f);
         UILabel lbCategory = new UILabel("Loại: Vật phẩm tiêu hao", BMF).name("category").pos(width * 0.55f, height * 0.65f).fontScale(1f).align(Align.left).color(Color.SKY);
-        UILabel lbDetail = new UILabel("-- || --", BMF).name("lbDetail").bounds(width * 0.5f, height * 0.3f, width * 0.3f, height * 0.3f).align(Align.center).fontScale(1.5f).warp(true).debug(true);
+        UILabel lbDetail = new UILabel("-- || --", BMF).name("lbDetail").bounds(width * 0.5f, height * 0.3f, width * 0.3f, height * 0.3f).align(Align.center).fontScale(1.5f).warp(true);
         UIImage iconCurrency = new UIImage(MainGame.getAsM().get9p()).bounds(width * 0.55f, height * 0.2f, height * 0.1f, height * 0.1f).scale(0.7f).align(Align.center);
         UILabel lbPrice = new UILabel("Price", BMF).name("name").bounds(width * 0.6f, height * 0.2f, width * 0.1f, height * 0.1f).align(Align.center).fontScale(1.5f);
 
@@ -186,14 +187,14 @@ public class ShopPP {
                 if (item.currency.equals("coin")) {
                     if (GameSession.profile.useCoin(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.itemList.add(new Item(item.nameRegion,1));
+                        GameSession.itemList.add(new Item(item.nameRegion, 1));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ tiền"));
                     }
                 } else if (item.currency.equals("gem_pink")) {
                     if (GameSession.profile.useGem(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.itemList.add(new Item(item.nameRegion,1));
+                        GameSession.itemList.add(new Item(item.nameRegion, 1));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ gem"));
                     }
@@ -205,8 +206,9 @@ public class ShopPP {
             EquipBase item = (EquipBase) object;
             frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion(ATLAS_ITEM, item.nameRegion)));
             name.setText(item.name);
-            lbCategory.setText("Loại: " + textDetail(item.category));
-            lbDetail.setText(item.category);
+//            lbCategory.setText(getTextDetail(item));
+            lbDetail.setText(getTextDetail(item));
+            lbDetail.debug();
             iconCurrency.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, item.currency)));
             lbPrice.setText(item.price + "");
             btnBuy.onClick(() -> {
@@ -235,10 +237,36 @@ public class ShopPP {
         ).origin(Align.center);
 
         detailItem.action(Actions.sequence(
-            Actions.scaleTo(0.5f,0.5f),
-            Actions.scaleTo(1,1,0.5f, Interpolation.swingOut)
+            Actions.scaleTo(0.5f, 0.5f),
+            Actions.scaleTo(1, 1, 0.5f, Interpolation.swingOut)
         ));
         popup.addActor(detailItem);
+    }
+
+    private static String getTextDetail(EquipBase equipBase) {
+        String text = "";
+        Map<String, Integer> stats = equipBase.stats;
+        for (Map.Entry<String, Integer> entry : stats.entrySet()) {
+            text += optionText(entry.getKey()) + ":  " + entry.getValue() + "   \n";
+        }
+        return text;
+    }
+
+    private static String optionText(String op) {
+        String text = "";
+
+        if (op.equals("atk")) {
+            text += "Tấn công";
+        } else if (op.equals("crit")) {
+            text += "Chí mạng";
+        } else if (op.equals("agi")) {
+            text += "Tốc độ";
+        } else if (op.equals("hp")) {
+            text += "Máu";
+        } else if (op.equals("def")) {
+            text += "Thủ";
+        }
+        return text;
     }
 
     private static String textDetail(String category) {

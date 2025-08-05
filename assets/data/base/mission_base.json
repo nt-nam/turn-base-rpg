@@ -1,5 +1,24 @@
 [
   {
+    "idBase": "mission_004",
+    "title": "Bảo vệ ngôi làng",
+    "description": "Bảo vệ ngôi làng khỏi 1 đợt xâm nhập của kẻ thù.",
+    "progress": 0,
+    "targetAmount": 1,
+    "rewards": [
+      {
+        "nameRegion": "reward_007",
+        "type": "item",
+        "quantity": 5
+      },
+      {
+        "nameRegion": "reward_008",
+        "type": "currency",
+        "quantity": 150
+      }
+    ]
+  },
+  {
     "idBase": "mission_001",
     "title": "Tìm viên đá ma thuật",
     "description": "Khám phá khu rừng và tìm viên đá ma thuật ẩn giấu.",
@@ -53,25 +72,6 @@
         "nameRegion": "reward_006",
         "type": "currency",
         "quantity": 200
-      }
-    ]
-  },
-  {
-    "idBase": "mission_004",
-    "title": "Bảo vệ ngôi làng",
-    "description": "Bảo vệ ngôi làng khỏi đợt tấn công của quái vật.",
-    "progress": 0,
-    "targetAmount": 1,
-    "rewards": [
-      {
-        "nameRegion": "reward_007",
-        "type": "item",
-        "quantity": 5
-      },
-      {
-        "nameRegion": "reward_008",
-        "type": "currency",
-        "quantity": 150
       }
     ]
   },

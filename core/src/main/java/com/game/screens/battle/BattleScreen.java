@@ -465,7 +465,7 @@ public class BattleScreen extends BaseScreen {
         float posStart = popup.getWidth() * 0.5f - sizeTile * 0.5f * (mapBattle.rewardList != null ? mapBattle.rewardList.size() : 0);
         for (Reward reward : mapBattle.rewardList) {
 
-            if (reward.type.equals("coin")) GameSession.profile.coin += reward.quantity;
+            if (reward.type.equals("coin")) GameSession.profile.addCoin(reward.quantity);
             if (reward.type.equals("gem")) GameSession.profile.gem += reward.quantity;
             if (reward.type.equals("item")) {
                 GameSession.itemList.add(new Item(reward.nameRegion, reward.quantity));
@@ -480,8 +480,10 @@ public class BattleScreen extends BaseScreen {
 
             plusEXP(0.35f);
             GameSession.profile.numberOfEnemies++;
-            GameSession.achievementList.get(1).number += mapBattle.heroEnemyList.size();
-            GameSession.achievementList.get(4).number++;
+            if(GameSession.targetMapId == "village_0"){
+                GameSession.missionList.get(0).progress = 1;
+                JsonSaver.saveObject(MISSION_JSON,GameSession.missionList);
+            }
 
             System.out.println("create reward it pp");
             popup.addActor(
@@ -515,7 +517,15 @@ public class BattleScreen extends BaseScreen {
                 he.checkLevel();
             }
         }
+        GameSession.profile.exp += (int) ((maxLevelEnemy * 100) * per);
+        if(GameSession.profile.exp >= GameSession.profile.level *100){
+            GameSession.profile.exp -= GameSession.profile.level * 100;
+            GameSession.profile.level++;
+        }
+        GameSession.achievementList.get(2).number++;
+        JsonSaver.saveObject(ACHIEVEMENT_JSON, GameSession.achievementList);
         JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
+        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
     }
 
     private void hidePopupPause() {

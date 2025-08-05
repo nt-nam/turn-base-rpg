@@ -1,7 +1,6 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -127,7 +126,6 @@ public class SelectPlayerScreen extends BaseScreen {
 
                         GameSession.playerName = element.id;
                         GameSession.selectedCharacterId = element.characterSelect;
-                        GameSession.profile = DataHelper.loadProfile(true);
                         Constants.INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
                         Constants.HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
                         Constants.LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
@@ -137,9 +135,11 @@ public class SelectPlayerScreen extends BaseScreen {
                         Constants.ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
                         Constants.MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
                         Constants.CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
+                        System.out.println(GameSession.playerName);
+                        DataHelper.loadProfile(true);
                         DataHelper.loadEquipList(true);
                         DataHelper.loadItemBaseList(true);
-                        DataHelper.loadHeroList(HERO_FULL,true);
+                        DataHelper.loadHeroList(Constants.HERO_FULL,true);
                         DataHelper.loadMissionList(true);
                         DataHelper.loadAchievementList(true);
 
