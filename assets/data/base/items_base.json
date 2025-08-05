@@ -66,6 +66,7 @@
   {
     "nameRegion": "food_315",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 1,
     "show": true,
     "currency": "coin",
@@ -74,6 +75,7 @@
   {
     "nameRegion": "food_316",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 2,
     "show": true,
     "currency": "coin",
@@ -82,6 +84,7 @@
   {
     "nameRegion": "food_317",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 3,
     "show": true,
     "currency": "coin",
@@ -90,6 +93,7 @@
   {
     "nameRegion": "food_318",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 4,
     "show": true,
     "currency": "coin",
@@ -98,6 +102,7 @@
   {
     "nameRegion": "food_319",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 5,
     "show": true,
     "currency": "coin",
@@ -106,6 +111,7 @@
   {
     "nameRegion": "food_320",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 6,
     "show": true,
     "currency": "coin",
@@ -114,6 +120,7 @@
   {
     "nameRegion": "food_321",
     "name": "Thức ăn",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 7,
     "show": true,
     "currency": "coin",
@@ -122,6 +129,7 @@
   {
     "nameRegion": "metal_330",
     "name": "Kim loại",
+    "detail": "Dùng để tăng cấp trang bị",
     "tier": 1,
     "show": true,
     "currency": "coin",
@@ -138,6 +146,7 @@
   {
     "nameRegion": "metal_332",
     "name": "Kim loại",
+    "detail": "Dùng để tăng cấp trang bị",
     "tier": 3,
     "show": true,
     "currency": "coin",
@@ -146,6 +155,7 @@
   {
     "nameRegion": "metal_333",
     "name": "Kim loại",
+    "detail": "Dùng để tăng cấp trang bị",
     "tier": 4,
     "show": true,
     "currency": "coin",
@@ -154,6 +164,7 @@
   {
     "nameRegion": "metal_334",
     "name": "Kim loại",
+    "detail": "Dùng để tăng cấp trang bị",
     "tier": 5,
     "show": true,
     "currency": "coin",
@@ -162,6 +173,7 @@
   {
     "nameRegion": "metal_335",
     "name": "Kim loại",
+    "detail": "Dùng để tăng cấp trang bị",
     "tier": 6,
     "show": true,
     "currency": "coin",
@@ -170,6 +182,7 @@
   {
     "nameRegion": "water_345",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 1,
     "show": true,
     "currency": "coin",
@@ -178,6 +191,7 @@
   {
     "nameRegion": "water_346",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 2,
     "show": true,
     "currency": "coin",
@@ -186,6 +200,7 @@
   {
     "nameRegion": "water_347",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 3,
     "show": true,
     "currency": "coin",
@@ -194,6 +209,7 @@
   {
     "nameRegion": "water_348",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 4,
     "show": true,
     "currency": "coin",
@@ -202,6 +218,7 @@
   {
     "nameRegion": "water_349",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 5,
     "show": true,
     "currency": "coin",
@@ -210,6 +227,7 @@
   {
     "nameRegion": "water_350",
     "name": "Thuốc",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 6,
     "show": true,
     "currency": "coin",
@@ -218,6 +236,7 @@
   {
     "nameRegion": "diamond_360",
     "name": "Kim cương",
+    "detail": "Dùng để tăng cấp nhân vật",
     "tier": 1,
     "show": true,
     "currency": "coin",

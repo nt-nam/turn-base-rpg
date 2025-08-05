@@ -24,7 +24,6 @@ public class BagPP {
     private static UIGroup compareEquip;
     private static List<Item> itemList;
     private static List<Equip> equipList;
-    private static List<Lineup> lineupList;
     private static int page = 0;
     private static float sizeTile;
     private static float marginTile;
@@ -40,7 +39,6 @@ public class BagPP {
         width = w;
         height = h;
         popup = new UIGroup().name("bag").size(BagPP.width, height);
-        lineupList = new ArrayList<>();
         equipList = DataHelper.loadEquipList(true);
         itemList = DataHelper.loadItemList(true);
         useE = true;
@@ -99,7 +97,6 @@ public class BagPP {
         popup.run(() -> {
 
         });
-//        createGridLineup();
         return popup;
     }
 
@@ -131,58 +128,6 @@ public class BagPP {
             })
             .parent(popup);
     }
-
-//    private static void createGridLineup() {
-//        gridLineup = new UIGroup().name("grid").size(width * 0.4f, height);
-//        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
-//        new UIImage(profile).nine(profile, 30, 30, 30, 30)
-//            .name("origin")
-//            .parent(gridLineup)
-//            .bounds(width * 0.01f, height * 0.05f, width * 0.38f, height * 0.9f);
-//        new UILabel("Team", BMF).pos(width * 0.05f, height * 0.8f).fontScale(2.5f).parent(gridLineup);
-//        updateGrid(width, height);
-//        popup.addActor(gridLineup);
-//    }
-//
-//    private static void updateGrid(float width, float height) {
-//        float posOrgX = width * 0.05f;
-//        float posOrgY = height * 0.15f;
-//        List<Lineup> lineup = JsonHelper.loadLineupList(LINEUP_ATTACK, true);
-//        for (int i = 0; i < 3; i++) {
-//            for (int j = 0; j < 3; j++) {
-//                UIGroup heroGrid = null;
-//                if (gridLineup.findActor(i + "," + j) == null) {
-//                    heroGrid = new UIGroup()
-//                        .name(i + "," + j)
-//                        .pos(posOrgX + sizeTile * i, posOrgY + sizeTile * j)
-//                        .size(sizeTile, sizeTile).child(
-//                            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
-//                                .size(sizeTile, sizeTile),
-//                            new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity0", 20))
-//                                .name("select")
-//                                .size(sizeTile, sizeTile)
-//                                .visible(false),
-//                            new UIImage((TextureRegion) null)
-//                                .name("frame")
-//                                .size(sizeTile - marginTile, sizeTile - marginTile)
-//                                .pos(marginTile * 0.5f, marginTile * 0.5f).visible(false)
-//                        ).parent(gridLineup);
-//                    if (JsonHelper.get(lineup, "grid", i + "," + j) != null) {
-//                        Lineup l = JsonHelper.get(lineup, "grid", i + "," + j);
-//                        ((UIImage) heroGrid.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegion(Constants.CHARACTER_ATLAS + l.nameRegion + ".atlas", "idle")));
-//                        heroGrid.findActor("frame").setVisible(true);
-//                    }
-//                } else {
-//                    heroGrid = gridLineup.findActor(i + "," + j);
-//                }
-//
-////                heroGrid.onClick(() -> {
-////                    compareEquipPP();
-////                });
-//
-//            }
-//        }
-//    }
 
     private static void compareEquipPP() {
         compareEquip = new UIGroup();
@@ -258,10 +203,7 @@ public class BagPP {
                         new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "empty"))
                             .size(sizeTile, sizeTile));
                 }
-
-
                 table.add(uiGroup).size(sizeTile, sizeTile);
-
                 if ((i + 1) % 5 == 0) {
                     table.row();
                 }

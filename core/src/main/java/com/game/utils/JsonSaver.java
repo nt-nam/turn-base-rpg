@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.game.utils.json.Profile;
 import com.google.gson.Gson;
 
+
 public class JsonSaver {
 
     public static boolean saveObject(String filePath, Object object) {
@@ -147,6 +148,24 @@ public class JsonSaver {
 
     public static void SaveFullDataAccount(){
 //        saveObject();
+    }
+
+    public static void removeAccount(){
+        FileHandle file = Gdx.files.local("data/select/"+GameSession.profile.name);
+        deleteDirectory(file);
+
+    }
+
+    public static void deleteDirectory(FileHandle dir) {
+        if (dir.isDirectory()) {
+            FileHandle[] files = dir.list();
+            if (files != null) {
+                for (FileHandle file : files) {
+                    deleteDirectory(file);
+                }
+            }
+        }
+        dir.delete();
     }
 
 

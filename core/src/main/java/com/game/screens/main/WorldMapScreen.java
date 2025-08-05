@@ -68,6 +68,7 @@ public class WorldMapScreen extends BaseScreen {
     private UIJoystick joystick;
     private UILabel coinLB;
     private UILabel gemLB;
+    private UILabel energyLB;
 
     public WorldMapScreen() {
         super();
@@ -83,12 +84,21 @@ public class WorldMapScreen extends BaseScreen {
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
             coinLB
         ).parent(rootGroup).onClick(()->{GameSession.profile.coin+=100;coinLB.setText(GameSession.profile.coin);});
+
         gemLB = new UILabel(GameSession.profile.gem + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
             gemLB
         ).parent(rootGroup).onClick(()->{GameSession.profile.gem+=100;coinLB.setText(GameSession.profile.gem);});
+
+//        energyLB = new UILabel(GameSession.profile.energy + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
+//        new UIGroup().name("energy").pos(screenWidth * 0.4f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
+//            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
+//            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_n")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
+//            energyLB
+//        ).parent(rootGroup).onClick(()->{});
+
     }
 
     private void createJoystick() {
@@ -374,5 +384,7 @@ public class WorldMapScreen extends BaseScreen {
     @Override
     public void dispose() {
         super.dispose();
+        engine.removeAllEntities();
+        engine.removeAllSystems();
     }
 }

@@ -1,6 +1,7 @@
 package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
+import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -22,6 +23,7 @@ import com.game.screens.ScreenType;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
+import com.game.utils.Constants;
 import com.game.utils.GameSession;
 import com.game.utils.DataHelper;
 import com.game.utils.json.Account;
@@ -126,6 +128,22 @@ public class SelectPlayerScreen extends BaseScreen {
                         GameSession.playerName = element.id;
                         GameSession.selectedCharacterId = element.characterSelect;
                         GameSession.profile = DataHelper.loadProfile(true);
+                        Constants.INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
+                        Constants.HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
+                        Constants.LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
+                        Constants.EQUIPS_JSON              = "data/select/" + GameSession.playerName + "/equips.json";
+                        Constants.ITEMS_JSON               = "data/select/" + GameSession.playerName + "/items.json";
+                        Constants.DAILY_REWARD_JSON        = "data/select/" + GameSession.playerName + "/daily_rewards.json";
+                        Constants.ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
+                        Constants.MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
+                        Constants.CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
+                        DataHelper.loadEquipList(true);
+                        DataHelper.loadItemBaseList(true);
+                        DataHelper.loadHeroList(HERO_FULL,true);
+                        DataHelper.loadMissionList(true);
+                        DataHelper.loadAchievementList(true);
+
+                        MainGame.getScM().clearScreenCache();
                         MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
                     }).parent(rootGroup);
                 uiGroup.setOrigin(uiGroup.getWidth() / 2, uiGroup.getHeight() / 2);

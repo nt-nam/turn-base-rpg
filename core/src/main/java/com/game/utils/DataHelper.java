@@ -61,9 +61,9 @@ public class DataHelper {
             }
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
-if(root == null){
-    return null;
-}
+            if (root == null) {
+                return null;
+            }
             for (JsonValue item : root) {
                 Account newItem = new Account();
                 newItem.id = item.getString("id");
@@ -94,9 +94,13 @@ if(root == null){
             newItem.exp = root.getInt("exp");
             newItem.coin = root.getInt("coin");
             newItem.gem = root.getInt("gem");
+            newItem.energy = root.getInt("energy", 0);
+            newItem.energyTime = root.getString("energy", "empty");
             newItem.numberOfTeammatesRecruited = root.getInt("numberOfTeammatesRecruited");
             newItem.equipment = root.getInt("equipment");
             newItem.numberOfEnemies = root.getInt("numberOfEnemies");
+            newItem.playMusic = root.getBoolean("playMusic",true);
+            newItem.playSound = root.getBoolean("playSound",true);
             GameSession.profile = newItem;
         }
         return GameSession.profile;
@@ -264,7 +268,7 @@ if(root == null){
                 newEquip.id = equip.getString("id");
                 newEquip.nameRegion = equip.getString("nameRegion");
                 newEquip.level = equip.getInt("level");
-                newEquip.target = equip.getString("target","default");
+                newEquip.target = equip.getString("target", "default");
 
                 GameSession.equipList.add(newEquip);
             }
@@ -283,8 +287,10 @@ if(root == null){
                 ItemBase newItem = new ItemBase();
                 newItem.nameRegion = item.getString("nameRegion", "empty");
                 newItem.name = item.getString("name");
+                newItem.detail = item.getString("detail", "-- || --");
                 newItem.tier = item.getInt("tier");
                 newItem.show = item.getBoolean("show");
+                newItem.currency = item.getString("currency");
                 newItem.price = item.getInt("price");
                 GameSession.itemBaseList.add(newItem);
             }
@@ -308,6 +314,7 @@ if(root == null){
         }
         return GameSession.itemList;
     }
+
 
     public static List<Mission> loadMissionList(boolean b) {
         String filePath = MISSION_JSON;
@@ -381,12 +388,12 @@ if(root == null){
         return GameSession.skillBaseList;
     }
 
-    public static List<Lineup> loadLineupList( boolean b) {
+    public static List<Lineup> loadLineupList(boolean b) {
         if (b || GameSession.lineupList.isEmpty()) {
             GameSession.lineupList.clear();
 
             for (Hero hero : GameSession.heroList) {
-                if(hero.grid.equals("empty")) continue;
+                if (hero.grid.equals("empty")) continue;
                 Lineup c = new Lineup();
                 c.grid = hero.grid;
                 c.characterId = hero.characterId;
@@ -622,4 +629,18 @@ if(root == null){
         return reader.parse(fileHandle);
     }
 
+    public static void clearDataProfile() {
+        GameSession.profile = null;
+        GameSession.profile = new Profile();
+        GameSession.achievementList.clear();
+        GameSession.dailyRewardList.clear();
+        GameSession.equipList.clear();
+        GameSession.heroList.clear();
+        GameSession.itemList.clear();
+        GameSession.lineupList.clear();
+        GameSession.missionList.clear();
+        GameSession.checkMapList.clear();
+
+
+    }
 }

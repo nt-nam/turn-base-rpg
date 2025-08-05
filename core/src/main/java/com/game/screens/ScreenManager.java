@@ -86,8 +86,13 @@ public class ScreenManager implements Disposable {
     }
 
     public void removeScreen(ScreenType type) {
-        screenCache.get(type).dispose();
-        screenCache.remove(type);
+        Screen screenToRemove = screenCache.get(type);
+        if (screenToRemove != null) {
+            screenToRemove.dispose();
+            screenCache.remove(type);
+        } else {
+            System.out.println("Lỗi: Màn hình loại " + type + " không tồn tại trong bộ nhớ đệm.");
+        }
     }
 
     public void showPendingScreen() {

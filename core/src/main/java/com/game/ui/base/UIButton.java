@@ -1,6 +1,7 @@
 package com.game.ui.base;
 
 import static com.game.utils.Constants.BMF;
+import static com.game.utils.Constants.SOUND_BUBBLE_SWITCH;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -153,6 +154,10 @@ public class UIButton extends TextButton {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 action.run();
+            }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return super.touchDown(event, x, y, pointer, button);
             }
         });
         return this;

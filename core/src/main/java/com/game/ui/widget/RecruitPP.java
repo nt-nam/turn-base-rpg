@@ -6,6 +6,7 @@ import static com.game.utils.Constants.INFO_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -50,10 +51,30 @@ public class RecruitPP {
         new UIImage(ninePatch).name("frame").bounds(0, h * 0.2f, w * 0.2f, h * 0.35f).origin(Align.center).scale(1f).parent(newHeroCard);
         new UILabel("Đồng đội \nmới", BMF).name("nameCharacter").bounds(0, 0, w * 0.2f, h * 0.2f).align(Align.center).fontScale(1.8f).parent(newHeroCard);
         newHeroCard.setVisible(false);
-
+        newHeroCard.onClick(() -> {
+            newHeroCard.clearActions();
+            newHeroCard.action(Actions.parallel(
+                Actions.sequence(
+                    Actions.moveBy(1000, 0, 1),
+                    Actions.visible(false),
+                    Actions.moveBy(-1000, 0)
+                ),
+                Actions.run(() -> {
+                    hiddenCard.action(Actions.sequence(
+                        Actions.moveBy(-1000, 0),
+                        Actions.visible(true),
+                        Actions.moveBy(1000, 0, 1)
+                    ));
+                })
+            ));
+            hiddenCard.setVisible(true);
+            hiddenCard.scale(1);
+        });
         hiddenCard.onClick(() -> {
             if (GameSession.isRecruit()) {
+                hiddenCard.clearActions();
                 hiddenCard.action(Actions.sequence(
+                    Actions.scaleTo(0.1f, 0.1f, 1f),
                     Actions.run(new Runnable() {
                         @Override
                         public void run() {
@@ -61,14 +82,7 @@ public class RecruitPP {
                             addNewMenber();
                             showNewHeroCard();
                         }
-                    }),
-                    Actions.parallel(
-                        Actions.rotateBy(2880f, 2f),
-                        Actions.scaleTo(0.1f, 0.1f, 2f)
-                    ),
-                    Actions.delay(1.5f),
-                    Actions.scaleTo(1f, 1f, 0.5f),
-                    Actions.visible(false)
+                    })
                 ));
             } else {
                 NotificationPP.pprRecruit(w, h, "Cần 5 Gem để có thể chiêu mộ thành viên mới").parent(popup);
@@ -82,17 +96,9 @@ public class RecruitPP {
 //        ((UILabel) newHeroCard.findActor("nameCharacter")).setText(newHero.nameRegion);
         newHeroCard.setVisible(true);
         newHeroCard.action(Actions.sequence(
-            Actions.fadeOut(0f),
-            Actions.delay(1.5f),
-            Actions.fadeIn(1.5f),
-            Actions.delay(2.5f),
-            Actions.fadeOut(2f),
-            Actions.scaleTo(1f, 1f),
-            Actions.visible(false),
-            Actions.run(() -> {
-                hiddenCard.setVisible(true);
-            }),
-            Actions.fadeIn(0f)));
+            Actions.scaleTo(0.1f, 0.1f),
+            Actions.scaleTo(1f, 1f, 1f, Interpolation.elasticOut))
+        );
     }
 
     private static void addNewMenber() {

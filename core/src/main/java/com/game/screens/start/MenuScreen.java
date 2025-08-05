@@ -33,7 +33,7 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public void createScreen() {
-        List<CharacterBase> characterBaseList = DataHelper.loadCharacterBaseList();
+        DataHelper.loadCharacterBaseList();
 
         new UIImage(MainGame.getAsM().getTexture("texture/default.png")).size(screenWidth * 0.5f, screenHeight).parent(rootGroup);
 
@@ -124,7 +124,6 @@ public class MenuScreen extends BaseScreen {
         MainGame.getAsM().loadFont(BMF);
         MainGame.getAsM().load("texture/default.png", Texture.class);
         MainGame.getAsM().load("texture/default2.png", Texture.class);
-        MainGame.getAsM().load("music/music_demo.mp3", Music.class);
     }
 
 }

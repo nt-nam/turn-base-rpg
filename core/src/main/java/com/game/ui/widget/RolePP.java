@@ -95,7 +95,7 @@ public class RolePP {
             .bounds(w * 0.01f, h * 0.05f, w * 0.38f, h * 0.9f);
         new UIImage((TextureRegion) null).name("frame").bounds(w * 0.05f, h * 0.5f, h * 0.2f, h * 0.2f).parent(detail).visible(false);
 
-        new UILabel("- " + GameSession.profile.name + " -", BMF).name("nameLb").bounds(w * 0.05f, h * 0.84f, w * 0.3f, h * 0.1f).align(Align.center).fontScale(1.5f).parent(detail);
+        new UILabel("|   " + GameSession.profile.name + "   |", BMF).name("nameLb").bounds(w * 0.05f, h * 0.84f, w * 0.3f, h * 0.1f).align(Align.center).fontScale(1.5f).parent(detail);
         new UILabel("Cấp: " + GameSession.profile.level, BMF).name("levelLb").pos(w * 0.04f, h * 0.74f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);
 
         new UILabel("Kinh nghiệm:", BMF).pos(w * 0.04f, h * 0.65f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);

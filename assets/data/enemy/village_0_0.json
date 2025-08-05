@@ -1,7 +1,7 @@
 {
   "grid": [
     {
-      "grid": "1,1",
+      "grid": "1,2",
       "characterId": "enemy",
       "nameRegion": "assassin_Knight",
       "star": 0,

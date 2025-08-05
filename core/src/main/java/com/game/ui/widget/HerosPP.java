@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
@@ -38,8 +37,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class HerosPP {
-    private static List<Hero> heroList = null;
-    private static List<Lineup> lineupList = null;
     private static List<EquipBase> equipBaseList = null;
 
     private static Hero heroSelect;
@@ -66,11 +63,8 @@ public class HerosPP {
         margin = size * 0.2f;
         popup = new UIGroup().name("hero").size(HerosPP.width, HerosPP.height);
 
-        heroList = DataHelper.loadHeroList(HERO_FULL, true);
-        lineupList = DataHelper.loadLineupList( true);
         heroSelect = null;
 
-        if (heroList.size() > 1) sortHero(heroList);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
         new UIImage(board).nine(board, 30, 30, 30, 30)
@@ -117,64 +111,7 @@ public class HerosPP {
         if (table != null) table.clearChild();
         table = new UITable().name("table");
         equipBaseList = DataHelper.loadEquipBaseList(true);
-        heroList = DataHelper.loadHeroList(HERO_FULL, false);
-        if (heroList.size() > 1) sortHero(heroList);
 
-        for (int i = 0; i < heroList.size(); i++) {
-            UIGroup uiGroup = new UIGroup().name(heroList.get(i).characterId).child(
-                new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity1", 20))
-                    .name("bg")
-                    .size(size, size),
-                new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "select", 20))
-                    .name("imageSelect")
-                    .size(size, size).visible(false).color(Color.YELLOW)
-                    .action(Actions.forever(Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f)))),
-                new UIImage(new TextureRegion())
-                    .name("frame")
-                    .size(size - margin, size - margin)
-                    .pos(margin * 0.5f, margin * 0.8f).visible(false),
-                new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_battle"))
-                    .name("lineup")
-                    .size(size * 0.25f, size * 0.25f)
-                    .pos(size * 0.7f, size * 0.7f).visible(false),
-                new UILabel("", BMF)
-                    .name("textLevel")
-                    .pos(size * 0.2f, size * 0.2f).align(Align.center).fontScale(1f)
-            );
-            final int a = i;
-            uiGroup.onClick(() -> {
-                System.out.println("uiGroup click: " + a);
-                if (groupSelect != null) {
-                    groupSelect.findActor("imageSelect").setVisible(false);
-                    if (heroSelect != null && !heroSelect.grid.equals("empty"))
-                        ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(false);
-                }
-                if (heroSelect == heroList.get(a)) {
-                    heroSelect = null;
-                    detail.setVisible(false);
-                    return;
-                }
-                groupSelect = uiGroup;
-                groupSelect.findActor("imageSelect").setVisible(true);
-                heroSelect = heroList.get(a);
-                if (heroSelect != null && !heroSelect.grid.equals("empty"))
-                    ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(true);
-                boolean flag = gridLineup.isVisible();
-                if (flag) {
-//                    updateGridDrawable();
-
-                    System.out.println("updateGridDrawable");
-                } else {
-                    detail.setVisible(true);
-                    updateDetail();
-                }
-            });
-
-            table.add(uiGroup).size(size, size).pad(5);
-            if ((i + 1) % 5 == 0) {
-                table.row();
-            }
-        }
         table.top().left();
         ScrollPane scrollPane = new ScrollPane(table);
         scrollPane.setName("tableHero");
@@ -188,27 +125,62 @@ public class HerosPP {
     }
 
     private static void updateTable() {
-        heroList = DataHelper.loadHeroList(HERO_FULL, false);
-        for (int i = 0; i < heroList.size(); i++) {
-            UIGroup uiGroup = table.findActor(heroList.get(i).characterId);
-
-            UIImage bg = uiGroup.findActor("bg");
-            UIImage lineup = uiGroup.findActor("lineup");
-            UIImage imageSelect = uiGroup.findActor("imageSelect");
-            UIImage frame = uiGroup.findActor("frame");
-            UILabel textLevel = uiGroup.findActor("textLevel");
-
-
-            Hero hero = heroList.get(i);
-            bg.setDrawable(new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + hero.star, 20)));
-            lineup.visible(hero.grid.equals("empty") ? false : true);
-            imageSelect.visible(false);
-            frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(hero.nameRegion, "idle")));
-            frame.visible(true);
-            textLevel.setText(hero.level + "");
+        if (GameSession.heroList.size() > 1) sortHero(DataHelper.loadHeroList(HERO_FULL, false));
+        if (table != null) table.clearChild();
+        int index = 0;
+        for (Hero hero : GameSession.heroList) {
+            UIGroup uiGroup = new UIGroup().name(hero.characterId).child(
+                new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + hero.star, 20))
+                    .name("bg")
+                    .size(size, size),
+                new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "select", 20))
+                    .name("imageSelect")
+                    .size(size, size).visible(false).color(Color.YELLOW)
+                    .action(Actions.forever(Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f)))),
+                new UIImage(MainGame.getAsM().getRegionCharacter(hero.nameRegion, "idle"))
+                    .name("frame")
+                    .size(size - margin, size - margin)
+                    .pos(margin * 0.5f, margin * 0.8f),
+                new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_battle"))
+                    .name("lineup")
+                    .size(size * 0.25f, size * 0.25f)
+                    .pos(size * 0.7f, size * 0.7f).visible(!hero.grid.equals("empty")),
+                new UILabel(hero.level + "", BMF)
+                    .name("textLevel")
+                    .pos(size * 0.2f, size * 0.2f).align(Align.center).fontScale(1f)
+            );
+            int a = index;
+            uiGroup.onClick(() -> {
+                if (groupSelect != null) {
+                    groupSelect.findActor("imageSelect").setVisible(false);
+                    if (heroSelect != null && !heroSelect.grid.equals("empty"))
+                        ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(false);
+                }
+                if (heroSelect == GameSession.heroList.get(a)) {
+                    heroSelect = null;
+                    detail.setVisible(false);
+                    return;
+                }
+                groupSelect = uiGroup;
+                groupSelect.findActor("imageSelect").setVisible(true);
+                heroSelect = GameSession.heroList.get(a);
+                if (heroSelect != null && !heroSelect.grid.equals("empty"))
+                    ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(true);
+                boolean flag = gridLineup.isVisible();
+                if (flag) {
+                    System.out.println("updateGridDrawable");
+                } else {
+                    detail.setVisible(true);
+                    updateDetail();
+                }
+            });
+            table.add(uiGroup).size(size, size).pad(5);
+            index++;
+            if (index % 5 == 0) {
+                table.row();
+            }
         }
     }
-
 
     private static void createGrid() {
         if (gridLineup != null) gridLineup.clearChildren();
@@ -247,7 +219,7 @@ public class HerosPP {
                     if (heroSelect == null) {
                         return;
                     }
-                    Lineup lineup = DataHelper.get(lineupList, "grid", m + "," + n);
+                    Lineup lineup = DataHelper.get(GameSession.lineupList, "grid", m + "," + n);
                     if (lineup == null) {
                         if (!heroSelect.grid.equals("empty")) {
                             ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("frame").setVisible(false);
@@ -284,7 +256,7 @@ public class HerosPP {
                         }
 
                         //lineup con o grid
-                        if (table.findActor(lineup.characterId)!=null) {
+                        if (table.findActor(lineup.characterId) != null) {
                             UIGroup tileTable = table.findActor(lineup.characterId);
                             tileTable.findActor("imageSelect").setVisible(false);
                             tileTable.findActor("lineup").setVisible(false);
@@ -308,10 +280,9 @@ public class HerosPP {
     }
 
     private static void setEmptyGrid(String gridId) {
-        for (Hero hero:heroList) {
-            if(hero.grid.equals(gridId)){
+        for (Hero hero : GameSession.heroList) {
+            if (hero.grid.equals(gridId)) {
                 hero.grid = "empty";
-//                return;
             }
         }
     }
@@ -322,12 +293,10 @@ public class HerosPP {
     }
 
     private static void updateDrawableGrid() {
-        lineupList = GameSession.lineupList;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-
                 UIGroup item = gridLineup.findActor(i + "," + j);
-                Lineup lineup = DataHelper.get(lineupList, "grid", i + "," + j);
+                Lineup lineup = DataHelper.get(GameSession.lineupList, "grid", i + "," + j);
                 UIImage frame = item.findActor("frame");
                 UIImage select = item.findActor("select");
 
@@ -362,8 +331,8 @@ public class HerosPP {
         new UILabel("Trang bị", BMF).pos(width * 0.04f, height * 0.43f).color(Color.SKY).fontScale(1.5f).parent(detail);
         new UILabel("Chỉ số", BMF).pos(width * 0.24f, height * 0.47f).color(Color.SKY).fontScale(1.5f).parent(detail);
 
-        new UILabel("Lực chiến:", BMF).pos(width * 0.2f, height * 0.73f).size(width*0.2f,height*0.1f).color(Color.CORAL).fontScale(1.2f).parent(detail).warp(true).debug(false).align(Align.center);
-        new UILabel("N/A", BMF).name("battleScoreLb").pos(width * 0.2f, height * 0.67f).size(width*0.2f,height*0.1f).color(Color.CORAL).fontScale(1.2f).parent(detail).warp(true).debug(false).align(Align.center);
+        new UILabel("Lực chiến:", BMF).pos(width * 0.2f, height * 0.73f).size(width * 0.2f, height * 0.1f).color(Color.CORAL).fontScale(1.2f).parent(detail).warp(true).debug(false).align(Align.center);
+        new UILabel("N/A", BMF).name("battleScoreLb").pos(width * 0.2f, height * 0.67f).size(width * 0.2f, height * 0.1f).color(Color.CORAL).fontScale(1.2f).parent(detail).warp(true).debug(false).align(Align.center);
 
         new UILabel("Kinh nghiệm", BMF).pos(width * 0.24f, height * 0.62f).color(Color.SKY).fontScale(1.2f).parent(detail);
         new UILabel("N/A", BMF).name("expLb").pos(width * 0.24f, height * 0.55f).fontScale(1f).parent(detail);
@@ -441,7 +410,7 @@ public class HerosPP {
         ((UILabel) detail.findActor("nameLb")).setText(herobase.name);
         ((UILabel) detail.findActor("levelLb")).setText("Cấp " + heroSelect.level);
         ((UILabel) detail.findActor("expLb")).setText(heroSelect.exp + "/" + (heroSelect.level * 100));
-        ((UILabel) detail.findActor("battleScoreLb")).setText(""+heroSelect.getBattleScore());
+        ((UILabel) detail.findActor("battleScoreLb")).setText("" + heroSelect.getBattleScore());
         ((UILabel) detail.findActor("hpLb")).setText(stat.hp);
         ((UILabel) detail.findActor("attackLb")).setText(stat.atk);
         ((UILabel) detail.findActor("defLb")).setText(stat.def);
@@ -478,19 +447,6 @@ public class HerosPP {
 
     private static TextureRegionDrawable getRegionEquipEmpty(String idEquip) {
         return new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, idEquip));
-    }
-
-    // Hàm trợ giúp để lấy UIImage của select trong grid
-    static void updateSelectGrid(String grid) {
-        if (heroSelect != null) {
-            if (heroSelect.grid != "empty") {
-                if (gridLineup.findActor(heroSelect.grid) != null)
-                    (((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select")).setVisible(false);
-            }
-        }
-        if (!grid.equals("empty")) {
-            ((UIGroup) gridLineup.findActor(grid)).findActor("select").setVisible(true);
-        }
     }
 
     public static List<Hero> sortHero(List<Hero> heroList) {
@@ -551,8 +507,15 @@ public class HerosPP {
         );
     }
 
-    public static void reload() {
 
+    public static boolean updateGrid(int i, int j) {
+        for (Hero hero : GameSession.heroList) {
+            if (hero.grid.equals(i + "," + j)) {
+                hero.grid = "empty";
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void update() {

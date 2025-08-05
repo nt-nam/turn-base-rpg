@@ -37,19 +37,19 @@ public class BattleDetailPP {
 
         Table table = new UITable().pos(width * 0.3f, height * 0.2f).size(width * 0.3f, height * 0.6f).debugAll();
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                Hero hero = DataHelper.get(mapBattle.heroEnemyList, "grid", i + "," + j);
-
+        for (int j = 0; j < 3; j++) {
+            for (int i = 0; i < 3; i++) {
+                Hero hero = DataHelper.get(mapBattle.heroEnemyList, "grid", i + "," + (2-j));
                 if (hero != null) battleScore += hero.getBattleScore();
                 table.add(createItem(hero)).pad(10);
             }
             table.row();
         }
-//        table.top().left();
 
         UIButton button = new UIButton("Tấn công", MainGame.getAsM().getRegion(UI_POPUP, "btn_green")).bounds(width * 0.6f, height * 0.2f, width * 0.1f, height * 0.1f)
             .onClick(() -> {
+                popup.getParent().findActor("overlay").setVisible(false);
+                popup.remove();
                 MainGame.getScM().showScreen(ScreenType.BATTLE);
             });
         UIButton back = new UIButton("bỏ quả", MainGame.getAsM().getRegion(UI_POPUP, "btn_gray")).bounds(width * 0.6f, height * 0.4f, width * 0.1f, height * 0.1f)
@@ -58,14 +58,10 @@ public class BattleDetailPP {
                 popup.remove();
             });
 
-        UILabel lbBattleScore = new UILabel("Lực chiến địch: "+battleScore,BMF ).bounds(width*0.4f,height*0.8f,width*0.1f,height*0.05f).color(Color.CORAL).fontScale(1.5f).align(Align.center);
+        UILabel lbBattleScore = new UILabel("Lực chiến địch: " + battleScore, BMF).bounds(width * 0.4f, height * 0.8f, width * 0.1f, height * 0.05f).color(Color.CORAL).fontScale(1.5f).align(Align.center);
 
         popup.child(
-            new UIImage(MainGame.getAsM().get9p()/*.getRegion9patch(UI_POPUP, "board", 100)*/).bounds(width * 0.25f, height * 0.1f, width * 0.5f, height * 0.8f),
-//            new UIButton(MainGame.getAsM().getRegion(UI_POPUP, "close2")).name("closeBtn2").bounds(width * 0.67f, height * 0.78f, height * 0.1f, height * 0.1f).onClick(() -> {
-//                popup.getParent().findActor("overlay").setVisible(false);
-//                popup.remove();
-//            }),
+            new UIImage(MainGame.getAsM().get9p()).bounds(width * 0.25f, height * 0.1f, width * 0.5f, height * 0.8f),
             table,
             lbBattleScore,
             button, back

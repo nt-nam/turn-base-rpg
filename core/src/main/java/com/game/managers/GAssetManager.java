@@ -1,5 +1,9 @@
 package com.game.managers;
 
+import static com.game.utils.Constants.MUSIC_BATTLE;
+import static com.game.utils.Constants.MUSIC_WORLD1;
+import static com.game.utils.Constants.SOUND_BUBBLE_SHOOT;
+import static com.game.utils.Constants.SOUND_BUBBLE_SWITCH;
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.Gdx;
@@ -20,10 +24,13 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.game.utils.Constants;
 
+import java.util.Map;
+
 public class GAssetManager {
     private final AssetManager am;
-    private
-    String currentMapName = null;
+    private    String currentMapName = null;
+    private Music music;
+    private Map<String, Sound> soundEffects;
 
     public GAssetManager() {
         am = new AssetManager();
@@ -86,19 +93,19 @@ public class GAssetManager {
         if (atlas == null) {
             Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
         }
-        if (atlas.findRegion(regionName)==null) {
-            Gdx.app.error("AssetManager", "Region not found: " + regionName+"---"+atlasPath);
+        if (atlas.findRegion(regionName) == null) {
+            Gdx.app.error("AssetManager", "Region not found: " + regionName + "---" + atlasPath);
         }
         return atlas.findRegion(regionName);
     }
 
     public TextureRegion getRegionCharacter(String atlasPath, String regionName) {
-        TextureAtlas atlas = getAtlas(Constants.CHARACTER_ATLAS+atlasPath+".atlas");
+        TextureAtlas atlas = getAtlas(Constants.CHARACTER_ATLAS + atlasPath + ".atlas");
         if (atlas == null) {
             Gdx.app.error("AssetManager", "Atlas not found: " + atlasPath);
         }
-        if (atlas.findRegion(regionName)==null) {
-            Gdx.app.error("AssetManager", "RegionCharacter not found: " + atlasPath+" -> "+regionName);
+        if (atlas.findRegion(regionName) == null) {
+            Gdx.app.error("AssetManager", "RegionCharacter not found: " + atlasPath + " -> " + regionName);
         }
         return atlas.findRegion(regionName);
     }
@@ -106,11 +113,11 @@ public class GAssetManager {
     public NinePatch getRegion9patch(String atlasPath, String regionName, int padding) {
         TextureAtlas atlas = getAtlas(atlasPath);
 
-        if(atlas.findRegion(regionName) == null){
-            Gdx.app.error("AssetManager", "Region9patch not found: " + atlasPath+" -> "+regionName);
-        return null;
+        if (atlas.findRegion(regionName) == null) {
+            Gdx.app.error("AssetManager", "Region9patch not found: " + atlasPath + " -> " + regionName);
+            return null;
         }
-        return new NinePatch(atlas.findRegion(regionName),padding,padding,padding,padding);
+        return new NinePatch(atlas.findRegion(regionName), padding, padding, padding, padding);
     }
 
     public NinePatch get9p() {
@@ -188,11 +195,21 @@ public class GAssetManager {
         loadAtlas("maps/tiles.atlas");
     }
 
-    public void loadDemoAudioAssets() {
-        loadMusic("music/music_demo.mp3");
-        loadSound("sound/sound_demo.mp3");
+    public void loadAudioAssets() {
+        loadMusic(MUSIC_BATTLE);
+        loadMusic(MUSIC_WORLD1);
+
+        loadSound(SOUND_BUBBLE_SHOOT);
+        loadSound(SOUND_BUBBLE_SWITCH);
     }
 
+    public void playMusic(String path) {
+        getMusic(path).play();
+    }
+
+    public void playSound(String path) {
+        getSound(path).play();
+    }
 
     public String resolve(String image) {
         return "textures/" + image;

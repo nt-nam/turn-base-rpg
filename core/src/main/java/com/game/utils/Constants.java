@@ -23,15 +23,15 @@ public class Constants {
 
     //JSON
     public static final String MAININFO_JSON_LOCAL      = "data/maininfo.json";
-    public static final String INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
-    public static final String HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
-    public static final String LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
-    public static final String EQUIPS_JSON              = "data/select/" + GameSession.playerName + "/equips.json";
-    public static final String ITEMS_JSON               = "data/select/" + GameSession.playerName + "/items.json";
-    public static final String DAILY_REWARD_JSON        = "data/select/" + GameSession.playerName + "/daily_rewards.json";
-    public static final String ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
-    public static final String MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
-    public static final String CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
+    public static  String INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
+    public static  String HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
+    public static  String LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
+    public static  String EQUIPS_JSON              = "data/select/" + GameSession.playerName + "/equips.json";
+    public static  String ITEMS_JSON               = "data/select/" + GameSession.playerName + "/items.json";
+    public static  String DAILY_REWARD_JSON        = "data/select/" + GameSession.playerName + "/daily_rewards.json";
+    public static  String ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
+    public static  String MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
+    public static  String CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
 
     //JSON BASE
     public static final String ACHIEVEMENT_BASE_JSON    = "data/base/achievement.json";
@@ -41,4 +41,13 @@ public class Constants {
     public static final String ITEM_JSON                = "data/base/items_base.json";
     public static final String CHARACTER_BASE_JSON      = "data/base/character_base.json";
     public static final String SKILL_JSON               = "data/base/skill_base.json";
+
+    //MUSIC
+    public static final String MUSIC_BATTLE             = "music/battle.mp3";
+    public static final String MUSIC_WORLD1             = "music/world1.mp3";
+
+    //SOUND
+    public static final String SOUND_BUBBLE_SWITCH      = "sound/bubble_switch.mp3";
+    public static final String SOUND_BUBBLE_SHOOT       = "sound/bubble_shoot.mp3";
+
 }

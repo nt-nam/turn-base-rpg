@@ -8,6 +8,7 @@ import static com.game.utils.Constants.HERO_FULL;
 import static com.game.utils.Constants.INFO_JSON;
 import static com.game.utils.Constants.ITEMS_JSON;
 import static com.game.utils.Constants.LINEUP_ATTACK;
+import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
 import static com.game.utils.Constants.MISSION_JSON;
 import static com.game.utils.Constants.UI_POPUP;
 
@@ -23,8 +24,10 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
+import com.game.utils.DataHelper;
 import com.game.utils.GameSession;
 import com.game.utils.JsonSaver;
+import com.game.utils.json.Account;
 
 public class SettingPP {
     private static UIGroup popup;
@@ -43,41 +46,35 @@ public class SettingPP {
             .bounds(w * 0.3f, h * 0.1f, w * 0.4f, h * 0.8f);
 
 
-
-
         TextureRegion green = MainGame.getAsM().getRegion(UI_POPUP, "btn_green");
         TextureRegion gray = MainGame.getAsM().getRegion(UI_POPUP, "btn_gray");
         TextureRegion red = MainGame.getAsM().getRegion(UI_POPUP, "btn_red");
-        UIButton btnItem = new UIButton("Đổi tài khoản", gray)
-            .bounds((int) (w * 0.4f), (int) (h * 0.55f), w * 0.2f, h * 0.15f)
+        TextureRegion on = MainGame.getAsM().getRegion(UI_POPUP, "btn_on");
+        TextureRegion off = MainGame.getAsM().getRegion(UI_POPUP, "btn_off");
+        UIButton btnChangeAcc = new UIButton("Đổi tài khoản", gray)
+            .bounds((int) (w * 0.33f), (int) (h * 0.3f), w * 0.15f, h * 0.15f)
             .name("btnChangeAcc")
             .check(() -> {
-                //SaveAll();
+                saveData();
                 MainGame.getScM().clearScreenCache();
-                MainGame.getScM().showScreen(ScreenType.MENU_GAME);
+                showMenu();
+                clearDataSession();
             })
             .check(true)
             .fontScale(1.2f).parent(popup);
 
-        UIButton btnEquip = new UIButton("Thoát game", red)
-            .bounds((int) (w * 0.4f), (int) (h * 0.3f), w * 0.2f, h * 0.15f)
+        UIButton btnExitGame = new UIButton("Thoát game", red)
+            .bounds((int) (w * 0.52f), (int) (h * 0.3f), w * 0.15f, h * 0.15f)
             .name("btnExitGame")
             .check(() -> {
-                JsonSaver.saveObject(INFO_JSON, GameSession.profile);
-                JsonSaver.saveObject(ACHIEVEMENT_JSON, GameSession.achievementList);
-                JsonSaver.saveObject(DAILY_REWARD_JSON, GameSession.dailyRewardList);
-                JsonSaver.saveObject(EQUIPS_JSON, GameSession.equipList);
-                JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
-                JsonSaver.saveObject(ITEMS_JSON, GameSession.itemList);
-                JsonSaver.saveObject(LINEUP_ATTACK, GameSession.lineupList);
-                JsonSaver.saveObject(MISSION_JSON, GameSession.missionList);
+                saveData();
                 Gdx.app.exit();
             })
             .check(false)
             .fontScale(1.2f).parent(popup);
 
         UIButton btnDelete = new UIButton("Xóa tài khoản", gray)
-            .bounds((int) (w * 0.32f), (int) (h * 0.75f), w * 0.12f, h * 0.09f)
+            .bounds((int) (w * 0.5f), (int) (h * 0.15f), w * 0.12f, h * 0.09f)
             .name("btnDeleteAcc")
             .check(() -> {
                 Group parent = popup.getParent();
@@ -89,13 +86,46 @@ public class SettingPP {
             .parent(popup);
         btnDelete.setColor(Color.RED);
 
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_music"))
+            .pos(w * 0.41f, h * 0.55f)
+            .scale(1.8f)
+            .parent(popup);
+        new UIButton("", off, on, true)
+            .bounds(w * 0.47f, h * 0.55f, w * 0.12f, h * 0.09f)
+            .name("btnMusic")
+            .check(GameSession.profile.playMusic)
+            .fontScale(0.75f)
+            .parent(popup);
+
+        new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_sound"))
+            .pos(w * 0.41f, h * 0.7f)
+            .scale(1.8f)
+            .parent(popup);
+        new UIButton("", off, on, true)
+            .bounds(w * 0.47f, h * 0.7f, w * 0.12f, h * 0.09f)
+            .name("btnSound")
+            .check(GameSession.profile.playSound)
+            .fontScale(0.75f)
+            .parent(popup);
+
         return popup;
+    }
+
+    private static void saveData() {
+        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
+        JsonSaver.saveObject(ACHIEVEMENT_JSON, GameSession.achievementList);
+        JsonSaver.saveObject(DAILY_REWARD_JSON, GameSession.dailyRewardList);
+        JsonSaver.saveObject(EQUIPS_JSON, GameSession.equipList);
+        JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
+        JsonSaver.saveObject(ITEMS_JSON, GameSession.itemList);
+        JsonSaver.saveObject(LINEUP_ATTACK, GameSession.lineupList);
+        JsonSaver.saveObject(MISSION_JSON, GameSession.missionList);
     }
 
     private static void createPopupDelete() {
         float width = popup.getWidth();
         float height = popup.getHeight();
-        if(popup.findActor("popupDelete") != null){
+        if (popup.findActor("popupDelete") != null) {
             popup.findActor("popupDelete").setVisible(true);
             return;
         }
@@ -104,8 +134,18 @@ public class SettingPP {
         UIButton btnNo = new UIButton("Hủy", MainGame.getAsM().getRegion(UI_POPUP, "btn_red"));
 
         btnYes.check(() -> {
-//                MainGame.getScM().clearScreenCache();
-//                MainGame.getScM().showScreen(ScreenType.MENU_GAME);
+            JsonSaver.removeAccount();
+            DataHelper.loadAccountList(true);
+            Account remove = null;
+            for (Account account : GameSession.accountList) {
+                if (account.id.equals( GameSession.profile.name)) {
+                    remove = account;
+                }
+            }
+            GameSession.accountList.remove(remove);
+            JsonSaver.saveObject(MAININFO_JSON_LOCAL, GameSession.accountList);
+            clearDataSession();
+            showMenu();
         });
         btnNo.check(() -> {
             Group parent = popup.getParent();
@@ -122,5 +162,14 @@ public class SettingPP {
             btnYes.bounds(width * 0.32f, height * 0.25f, width * 0.15f, height * 0.12f),
             btnNo.bounds(width * 0.53f, height * 0.25f, width * 0.15f, height * 0.12f)
         );
+    }
+
+    private static void showMenu() {
+        MainGame.getScM().removeScreen(ScreenType.WORLD_MAP);
+        MainGame.getScM().showScreen(ScreenType.MENU_GAME);
+    }
+
+    private static void clearDataSession() {
+        DataHelper.clearDataProfile();
     }
 }

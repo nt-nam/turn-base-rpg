@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.game.managers.AudioManager;
 import com.game.managers.GAssetManager;
+import com.game.managers.SoundManager;
 import com.game.screens.ScreenManager;
 import com.game.managers.event.EventManager;
 import com.game.screens.ScreenType;
@@ -27,6 +28,7 @@ import com.game.utils.GameSession;
 
 public class MainGame extends Game {
     private static AudioManager audioManager;
+    private static SoundManager soundManager;
     private static GAssetManager assetManager;
     private static EventManager eventManager;
     private static ScreenManager scm;
@@ -46,6 +48,13 @@ public class MainGame extends Game {
             audioManager = new AudioManager();
         }
         return audioManager;
+    }
+
+    public static SoundManager getSoundManager(){
+        if (soundManager == null) {
+            soundManager = new SoundManager();
+        }
+        return soundManager;
     }
 
     public static GAssetManager getAsM() {
@@ -118,6 +127,7 @@ public class MainGame extends Game {
         assetManager.loadSkin("ui/uiskin.json");
         assetManager.loadFont("ui/default.fnt");
         assetManager.loadFont(BMF);
+        assetManager.loadAudioAssets();
         assetManager.finishLoading();
 
         multiplexer.addProcessor(stage); // nếu có stage

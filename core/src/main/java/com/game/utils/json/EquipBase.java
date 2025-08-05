@@ -10,4 +10,5 @@ public class EquipBase extends Inventory{
     public String currency;
     public int price;
     public Map<String, Integer> stats;
+
 }
