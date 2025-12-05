@@ -33,8 +33,10 @@
  <objectgroup color="#0055ff" id="9" name="teleport">
   <object id="312" name="door" x="138.5" y="237.5" width="45.875" height="14">
    <properties>
-    <property name="map" value="Village_0"/>
-    <property name="name" value="Village"/>
+    <property name="block" type="bool" value="true"/>
+    <property name="index" type="int" value="1"/>
+    <property name="map" value="village_0"/>
+    <property name="name" value="Làng"/>
     <property name="spawn" type="int" value="1"/>
    </properties>
   </object>
