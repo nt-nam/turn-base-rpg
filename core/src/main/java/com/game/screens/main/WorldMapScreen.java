@@ -59,7 +59,7 @@ import com.game.ui.widget.SettingPP;
 import com.game.ui.widget.ShopPP;
 import com.game.utils.DataHelper;
 import com.game.utils.data.AnimationCache;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 
 
 public class WorldMapScreen extends BaseScreen {
@@ -88,21 +88,21 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createHUD() {
-        coinLB = new UILabel(GameSession.profile.coin + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
+        coinLB = new UILabel(GameSessionManager.getInstance().profile.coin + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("coin").pos(screenWidth * 0.025f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.1f),
             coinLB
-        ).parent(rootGroup).onClick(()->{GameSession.profile.addCoin(100);coinLB.setText(GameSession.profile.coin);});
+        ).parent(rootGroup).onClick(()->{GameSessionManager.getInstance().profile.addCoin(100);coinLB.setText(GameSessionManager.getInstance().profile.coin);});
 
-        gemLB = new UILabel(GameSession.profile.gem + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
+        gemLB = new UILabel(GameSessionManager.getInstance().profile.gem + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
         new UIGroup().name("gem").pos(screenWidth * 0.2f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
             gemLB
-        ).parent(rootGroup).onClick(()->{GameSession.profile.gem+=100;coinLB.setText(GameSession.profile.gem);});
+        ).parent(rootGroup).onClick(()->{GameSessionManager.getInstance().profile.gem+=100;coinLB.setText(GameSessionManager.getInstance().profile.gem);});
 
-//        energyLB = new UILabel(GameSession.profile.energy + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
+//        energyLB = new UILabel(GameSessionManager.getInstance().profile.energy + "", BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight * 0.12f).align(Align.center);
 //        new UIGroup().name("energy").pos(screenWidth * 0.4f, screenHeight * 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
 //            new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight * 0.12f),
 //            new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_n")).pos(screenHeight * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight * 0.10f),
@@ -124,9 +124,9 @@ public class WorldMapScreen extends BaseScreen {
             .visible(false)
             .parent(rootGroup)
             .onClick(() -> {
-                GameSession.profile.pos.x = -1;
-                GameSession.profile.pos.y = -1;
-                GameSession.profile.area = GameSession.targetMapId;
+                GameSessionManager.getInstance().profile.pos.x = -1;
+                GameSessionManager.getInstance().profile.pos.y = -1;
+                GameSessionManager.getInstance().profile.area = GameSessionManager.getInstance().targetMapId;
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
         btnAttackBattle = new UIButton("", MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"))
@@ -212,7 +212,7 @@ public class WorldMapScreen extends BaseScreen {
             String nameRegion = character.getString("nameRegion");
             MainGame.getAsM().loadAtlas(CHARACTER_ATLAS + nameRegion + ".atlas");
         }
-        MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.profile.area));
+        MainGame.getAsM().loadTiledMap((GameSessionManager.getInstance().pendingTeleport != null ? GameSessionManager.getInstance().pendingTeleport.nextMap : GameSessionManager.getInstance().profile.area));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
         DataHelper.loadHeroList(Constants.playerPath("hero_full.json"),true);
@@ -258,7 +258,7 @@ public class WorldMapScreen extends BaseScreen {
 
     public static void showBtnNextMap(boolean b) {
         btnNextMap.setVisible(b);
-        if (b) btnNextMap.setText(GameSession.pendingTeleport.name);
+        if (b) btnNextMap.setText(GameSessionManager.getInstance().pendingTeleport.name);
     }
 
     public static void showBtnAttackBattle(boolean b) {
@@ -335,10 +335,10 @@ public class WorldMapScreen extends BaseScreen {
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
 
-        map = MainGame.getAsM().getTiledMap(GameSession.profile.area);
+        map = MainGame.getAsM().getTiledMap(GameSessionManager.getInstance().profile.area);
         OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(map, SCALE);
 
-        loadAllAnimations(GameSession.selectedCharacterId, CHARACTER_ATLAS + GameSession.selectedCharacterId + ".atlas");
+        loadAllAnimations(GameSessionManager.getInstance().selectedCharacterId, CHARACTER_ATLAS + GameSessionManager.getInstance().selectedCharacterId + ".atlas");
 
         Entity mapEntity = engine.createEntity();
         mapEntity.add(new TileMapComponent(map, renderer));
@@ -348,7 +348,7 @@ public class WorldMapScreen extends BaseScreen {
 //        engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
-        engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSession.selectedPlayerSpawnIndex, camera));
+        engine.addSystem(new TileMapPlayerSpawnSystem(engine, map, GameSessionManager.getInstance().selectedPlayerSpawnIndex, camera));
         engine.addSystem(new PlayerInputSystem(engine, joystick));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new CollisionSystem(engine, map, SCALE));
@@ -356,7 +356,7 @@ public class WorldMapScreen extends BaseScreen {
         setupTeleportTriggers(engine, map, SCALE);
         engine.addSystem(new EnemyCollisionSystem());
         setupEnemies(engine, map, SCALE);
-        hideBtnFuncByTypeMap(GameSession.profile.area.equals("village_0"));
+        hideBtnFuncByTypeMap(GameSessionManager.getInstance().profile.area.equals("village_0"));
     }
 
     private void hideBtnFuncByTypeMap(boolean a) {
@@ -374,8 +374,8 @@ public class WorldMapScreen extends BaseScreen {
     @Override
     protected void updateUI(float delta) {
         super.updateUI(delta);
-        coinLB.setText(GameSession.profile.coin);
-        gemLB.setText(GameSession.profile.gem);
+        coinLB.setText(GameSessionManager.getInstance().profile.coin);
+        gemLB.setText(GameSessionManager.getInstance().profile.gem);
     }
 
 

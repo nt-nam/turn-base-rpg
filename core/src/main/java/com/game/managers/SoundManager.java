@@ -7,7 +7,7 @@ import static com.game.utils.Constants.SOUND_BUBBLE_SWITCH;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.game.utils.json.Profile;
+import com.game.models.entity.Profile;
 
 import java.util.HashMap;
 import java.util.Map;

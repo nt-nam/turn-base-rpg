@@ -20,9 +20,9 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.Hero;
+import com.game.models.entity.Hero;
 
 public class PotentialPP {
     private static float width, height, sizeTile;
@@ -66,8 +66,8 @@ public class PotentialPP {
             .onClick(() -> {
                 if ((heroMerge != null) && (heroDelete != null)) {
                     int star = heroMerge.star++;
-                    GameSession.heroList.remove(heroDelete);
-                    JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
+                    GameSessionManager.getInstance().heroList.remove(heroDelete);
+                    JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSessionManager.getInstance().heroList);
                     ((UIImage) originM.findActor("bg")).setDrawable(new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + star, 20)));
                     ((UIImage) originM.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(heroMerge.nameRegion, "idle")));
                     popup.getParent().addActor(originM);
@@ -115,7 +115,7 @@ public class PotentialPP {
         table.clearChild();
         int index = 0;
 
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             if (hero.star > 4) continue;
             if (heroMerge != null) {
                 if (!heroMerge.nameRegion.equals(hero.nameRegion)) continue;

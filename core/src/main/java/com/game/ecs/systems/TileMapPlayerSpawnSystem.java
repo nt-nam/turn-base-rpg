@@ -16,7 +16,7 @@ import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SizeComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.screens.main.WorldMapScreen;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.DataHelper;
 
 public class TileMapPlayerSpawnSystem extends EntitySystem {
@@ -43,16 +43,16 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
             if ("spawn".equals(obj.getName())) {
                 int index = obj.getProperties().get("index", 0, Integer.class);
                 if (index == spawnIndex) {
-                    float x = GameSession.profile.pos.x != -1 ? GameSession.profile.pos.x:obj.getProperties().get("x", 0f, Float.class) * SCALE;
-                    float y = GameSession.profile.pos.y != -1 ? GameSession.profile.pos.y:obj.getProperties().get("y", 0f, Float.class) * SCALE;
+                    float x = GameSessionManager.getInstance().profile.pos.x != -1 ? GameSessionManager.getInstance().profile.pos.x:obj.getProperties().get("x", 0f, Float.class) * SCALE;
+                    float y = GameSessionManager.getInstance().profile.pos.y != -1 ? GameSessionManager.getInstance().profile.pos.y:obj.getProperties().get("y", 0f, Float.class) * SCALE;
 
                     // Đặt camera đúng tâm spawn
                     camera.position.set(x, y, 0);
                     camera.update();
 
                     // Tạo entity player
-                    String characterId = GameSession.selectedCharacterId;
-                    CharacterComponent data = new CharacterComponent(DataHelper.get(GameSession.characterBaseList, "characterId", characterId));
+                    String characterId = GameSessionManager.getInstance().selectedCharacterId;
+                    CharacterComponent data = new CharacterComponent(DataHelper.get(GameSessionManager.getInstance().characterBaseList, "characterId", characterId));
 
                     Entity player = engine.createEntity();
                     player.add(new PlayerComponent());

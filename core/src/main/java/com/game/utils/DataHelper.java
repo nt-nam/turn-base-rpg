@@ -22,25 +22,26 @@ import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.game.ecs.component.EquipComponent;
 import com.game.ecs.component.InfoComponent;
-import com.game.utils.json.Achievement;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.CheckMap;
-import com.game.utils.json.DailyReward;
-import com.game.utils.json.Equip;
-import com.game.utils.json.EquipBase;
-import com.game.utils.json.Item;
-import com.game.utils.json.Lineup;
-import com.game.utils.json.Hero;
-import com.game.utils.json.ItemBase;
-import com.game.utils.json.Account;
-import com.game.utils.json.MapBattle;
-import com.game.utils.json.Mission;
-import com.game.utils.json.Profile;
-import com.game.utils.json.Reward;
-import com.game.utils.json.Stat;
-import com.game.utils.json.skill.EffectSkill;
-import com.game.utils.json.skill.Skill;
-import com.game.utils.json.skill.SkillBase;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Achievement;
+import com.game.models.entity.CharacterBase;
+import com.game.models.entity.CheckMap;
+import com.game.models.entity.DailyReward;
+import com.game.models.entity.Equip;
+import com.game.models.entity.EquipBase;
+import com.game.models.entity.Item;
+import com.game.models.entity.Lineup;
+import com.game.models.entity.Hero;
+import com.game.models.entity.ItemBase;
+import com.game.models.entity.Account;
+import com.game.models.entity.MapBattle;
+import com.game.models.entity.Mission;
+import com.game.models.entity.Profile;
+import com.game.models.entity.Reward;
+import com.game.models.entity.Stat;
+import com.game.models.entity.skill.EffectSkill;
+import com.game.models.entity.skill.Skill;
+import com.game.models.entity.skill.SkillBase;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -53,8 +54,8 @@ import java.util.List;
 public class DataHelper {
 
     public static List<Account> loadAccountList(boolean b) {
-        if (b || GameSession.accountList.isEmpty()) {
-            GameSession.accountList.clear();
+        if (b || GameSessionManager.getInstance().accountList.isEmpty()) {
+            GameSessionManager.getInstance().accountList.clear();
             FileHandle fileHandle = Gdx.files.local(MAININFO_JSON_LOCAL);
             if (!fileHandle.exists()) {
                 return null;
@@ -70,14 +71,14 @@ public class DataHelper {
                 newItem.level = item.getInt("level");
                 newItem.characterSelect = item.getString("characterSelect", null);
 
-                GameSession.accountList.add(newItem);
+                GameSessionManager.getInstance().accountList.add(newItem);
             }
         }
-        return GameSession.accountList;
+        return GameSessionManager.getInstance().accountList;
     }
 
     public static Profile loadProfile(boolean b) {
-        if (b || GameSession.profile != null) {
+        if (b || GameSessionManager.getInstance().profile != null) {
             FileHandle fileHandle = Gdx.files.local(Constants.playerPath("info.json"));
             if (!fileHandle.exists()) {
                 return null;
@@ -101,14 +102,14 @@ public class DataHelper {
             newItem.numberOfEnemies = root.getInt("numberOfEnemies");
             newItem.playMusic = root.getBoolean("playMusic",true);
             newItem.playSound = root.getBoolean("playSound",true);
-            GameSession.profile = newItem;
+            GameSessionManager.getInstance().profile = newItem;
         }
-        return GameSession.profile;
+        return GameSessionManager.getInstance().profile;
     }
 
     public static List<Achievement> loadAchievementList(boolean b) {
-        if (b || GameSession.achievementList.isEmpty()) {
-            GameSession.achievementList.clear();
+        if (b || GameSessionManager.getInstance().achievementList.isEmpty()) {
+            GameSessionManager.getInstance().achievementList.clear();
             FileHandle fileHandle = Gdx.files.local(Constants.playerPath("achievement.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -119,15 +120,15 @@ public class DataHelper {
                 newChild.name = c.getString("name");
                 newChild.dec = c.getString("dec", "");
                 newChild.number = c.getInt("number", 0);
-                GameSession.achievementList.add(newChild);
+                GameSessionManager.getInstance().achievementList.add(newChild);
             }
         }
-        return GameSession.achievementList;
+        return GameSessionManager.getInstance().achievementList;
     }
 
     public static List<CheckMap> loadCheckMapList(boolean b) {
-        if (b || GameSession.checkMapList.isEmpty()) {
-            GameSession.checkMapList.clear();
+        if (b || GameSessionManager.getInstance().checkMapList.isEmpty()) {
+            GameSessionManager.getInstance().checkMapList.clear();
             FileHandle fileHandle = Gdx.files.local(Constants.playerPath("check_enemy_map.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -144,14 +145,14 @@ public class DataHelper {
                     battle.dayCheck = LocalDate.parse(a.getString("dayCheck"));
                     child.battleList.add(battle);
                 }
-                GameSession.checkMapList.add(child);
+                GameSessionManager.getInstance().checkMapList.add(child);
             }
         }
-        return GameSession.checkMapList;
+        return GameSessionManager.getInstance().checkMapList;
     }
 
     public static List<CharacterBase> loadCharacterBaseList() {
-        if (GameSession.characterBaseList.isEmpty()) {
+        if (GameSessionManager.getInstance().characterBaseList.isEmpty()) {
             FileHandle fileHandle = Gdx.files.internal(CHARACTER_BASE_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -198,16 +199,16 @@ public class DataHelper {
                 }
 
                 // Thêm đối tượng vào danh sách BaseHero
-                GameSession.characterBaseList.add(newItem);
+                GameSessionManager.getInstance().characterBaseList.add(newItem);
             }
         }
-        return GameSession.characterBaseList;
+        return GameSessionManager.getInstance().characterBaseList;
     }
 
     public static List<DailyReward> loadDailyRewardList(boolean b) {
         String filePath = Constants.playerPath("daily_rewards.json");
-        if (b || GameSession.dailyRewardList.isEmpty()) {
-            GameSession.dailyRewardList.clear();
+        if (b || GameSessionManager.getInstance().dailyRewardList.isEmpty()) {
+            GameSessionManager.getInstance().dailyRewardList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -218,15 +219,15 @@ public class DataHelper {
                 newChild.typereward = child.getString("typereward");
                 newChild.confirm = child.getBoolean("confirm");
                 newChild.number = child.getInt("number");
-                GameSession.dailyRewardList.add(newChild);
+                GameSessionManager.getInstance().dailyRewardList.add(newChild);
             }
         }
-        return GameSession.dailyRewardList;
+        return GameSessionManager.getInstance().dailyRewardList;
     }
 
     public static List<EquipBase> loadEquipBaseList(boolean b) {
-        if (b || GameSession.equipBaseList.isEmpty()) {
-            GameSession.equipBaseList.clear();
+        if (b || GameSessionManager.getInstance().equipBaseList.isEmpty()) {
+            GameSessionManager.getInstance().equipBaseList.clear();
             FileHandle fileHandle = Gdx.files.internal(EQUIP_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -250,15 +251,15 @@ public class DataHelper {
                     System.out.println(" stats null");
                 }
 
-                GameSession.equipBaseList.add(newEquip);
+                GameSessionManager.getInstance().equipBaseList.add(newEquip);
             }
         }
-        return GameSession.equipBaseList;
+        return GameSessionManager.getInstance().equipBaseList;
     }
 
     public static List<Equip> loadEquipList(boolean b) {
-        if (b || GameSession.equipList.isEmpty()) {
-            GameSession.equipList.clear();
+        if (b || GameSessionManager.getInstance().equipList.isEmpty()) {
+            GameSessionManager.getInstance().equipList.clear();
             FileHandle fileHandle = Gdx.files.local(Constants.playerPath("equips.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -270,15 +271,15 @@ public class DataHelper {
                 newEquip.level = equip.getInt("level");
                 newEquip.target = equip.getString("target", "default");
 
-                GameSession.equipList.add(newEquip);
+                GameSessionManager.getInstance().equipList.add(newEquip);
             }
         }
-        return GameSession.equipList;
+        return GameSessionManager.getInstance().equipList;
     }
 
     public static List<ItemBase> loadItemBaseList(boolean b) {
-        if (b || GameSession.itemBaseList.isEmpty()) {
-            GameSession.itemBaseList.clear();
+        if (b || GameSessionManager.getInstance().itemBaseList.isEmpty()) {
+            GameSessionManager.getInstance().itemBaseList.clear();
             FileHandle fileHandle = Gdx.files.internal(ITEM_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -292,15 +293,15 @@ public class DataHelper {
                 newItem.show = item.getBoolean("show");
                 newItem.currency = item.getString("currency");
                 newItem.price = item.getInt("price");
-                GameSession.itemBaseList.add(newItem);
+                GameSessionManager.getInstance().itemBaseList.add(newItem);
             }
         }
-        return GameSession.itemBaseList;
+        return GameSessionManager.getInstance().itemBaseList;
     }
 
     public static List<Item> loadItemList(boolean b) {
-        if (b || GameSession.itemList.isEmpty()) {
-            GameSession.itemList.clear();
+        if (b || GameSessionManager.getInstance().itemList.isEmpty()) {
+            GameSessionManager.getInstance().itemList.clear();
             FileHandle fileHandle = Gdx.files.local(Constants.playerPath("items.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -309,17 +310,17 @@ public class DataHelper {
                 Item newItem = new Item();
                 newItem.nameRegion = item.getString("nameRegion", "empty");
                 newItem.index = item.getInt("index");
-                GameSession.itemList.add(newItem);
+                GameSessionManager.getInstance().itemList.add(newItem);
             }
         }
-        return GameSession.itemList;
+        return GameSessionManager.getInstance().itemList;
     }
 
 
     public static List<Mission> loadMissionList(boolean b) {
         String filePath = Constants.playerPath("mission.json");
-        if (b || GameSession.missionList.isEmpty()) {
-            GameSession.missionList.clear();
+        if (b || GameSessionManager.getInstance().missionList.isEmpty()) {
+            GameSessionManager.getInstance().missionList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -338,15 +339,15 @@ public class DataHelper {
                     reward.quantity = a.getInt("quantity");
                     newChild.rewards.add(reward);
                 }
-                GameSession.missionList.add(newChild);
+                GameSessionManager.getInstance().missionList.add(newChild);
             }
         }
-        return GameSession.missionList;
+        return GameSessionManager.getInstance().missionList;
     }
 
     public static List<SkillBase> loadSkillBaseList(boolean b) {
-        if (b || GameSession.skillBaseList.isEmpty()) {
-            GameSession.skillBaseList.clear();
+        if (b || GameSessionManager.getInstance().skillBaseList.isEmpty()) {
+            GameSessionManager.getInstance().skillBaseList.clear();
             FileHandle fileHandle = Gdx.files.internal(SKILL_JSON);
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
@@ -382,26 +383,26 @@ public class DataHelper {
                 newItem.skill3.effectSkill.name = effect3.get(0).name;
                 newItem.skill3.effectSkill.value = effect3.getInt(0);
 
-                GameSession.skillBaseList.add(newItem);
+                GameSessionManager.getInstance().skillBaseList.add(newItem);
             }
         }
-        return GameSession.skillBaseList;
+        return GameSessionManager.getInstance().skillBaseList;
     }
 
     public static List<Lineup> loadLineupList(boolean b) {
-        if (b || GameSession.lineupList.isEmpty()) {
-            GameSession.lineupList.clear();
+        if (b || GameSessionManager.getInstance().lineupList.isEmpty()) {
+            GameSessionManager.getInstance().lineupList.clear();
 
-            for (Hero hero : GameSession.heroList) {
+            for (Hero hero : GameSessionManager.getInstance().heroList) {
                 if (hero.grid.equals("empty")) continue;
                 Lineup c = new Lineup();
                 c.grid = hero.grid;
                 c.characterId = hero.characterId;
                 c.nameRegion = hero.nameRegion;
-                GameSession.lineupList.add(c);
+                GameSessionManager.getInstance().lineupList.add(c);
             }
         }
-        return GameSession.lineupList;
+        return GameSessionManager.getInstance().lineupList;
     }
 
     public static List<Hero> sortHero(List<Hero> heroList) {
@@ -438,16 +439,16 @@ public class DataHelper {
     public static List<Hero> loadHeroList(String filePath, boolean reload) {
         boolean player = filePath.equals(Constants.playerPath("hero_full.json"));
         if (player) {
-            if (reload || GameSession.heroList.isEmpty()) {
+            if (reload || GameSessionManager.getInstance().heroList.isEmpty()) {
                 return sortHero(loadHeroListPrivate(filePath, player));
             } else {
-                return GameSession.heroList;
+                return GameSessionManager.getInstance().heroList;
             }
         } else {
-            if (reload || GameSession.heroEnemyList.isEmpty()) {
+            if (reload || GameSessionManager.getInstance().heroEnemyList.isEmpty()) {
                 return loadEnemyListPrivate(filePath, player);
             } else {
-                return GameSession.heroEnemyList;
+                return GameSessionManager.getInstance().heroEnemyList;
             }
         }
     }
@@ -485,11 +486,11 @@ public class DataHelper {
             heroes.add(newHero);
         }
         if (b) {
-            GameSession.heroList = heroes;
-            return GameSession.heroList;
+            GameSessionManager.getInstance().heroList = heroes;
+            return GameSessionManager.getInstance().heroList;
         } else {
-            GameSession.heroEnemyList = heroes;
-            return GameSession.heroEnemyList;
+            GameSessionManager.getInstance().heroEnemyList = heroes;
+            return GameSessionManager.getInstance().heroEnemyList;
         }
     }
 
@@ -525,19 +526,19 @@ public class DataHelper {
             heroes.add(newHero);
         }
         if (b) {
-            GameSession.heroList = heroes;
-            return GameSession.heroList;
+            GameSessionManager.getInstance().heroList = heroes;
+            return GameSessionManager.getInstance().heroList;
         } else {
-            GameSession.heroEnemyList = heroes;
-            return GameSession.heroEnemyList;
+            GameSessionManager.getInstance().heroEnemyList = heroes;
+            return GameSessionManager.getInstance().heroEnemyList;
         }
     }
 
     public static MapBattle loadMapBattle(String filePath) {
-        GameSession.mapBattle = new MapBattle();
-        GameSession.mapBattle.heroEnemyList = loadHeroList(filePath, true);
-        GameSession.mapBattle.rewardList = loadRewardBattle(filePath);
-        return GameSession.mapBattle;
+        GameSessionManager.getInstance().mapBattle = new MapBattle();
+        GameSessionManager.getInstance().mapBattle.heroEnemyList = loadHeroList(filePath, true);
+        GameSessionManager.getInstance().mapBattle.rewardList = loadRewardBattle(filePath);
+        return GameSessionManager.getInstance().mapBattle;
     }
 
     private static List<Reward> loadRewardBattle(String filePath) {
@@ -559,8 +560,8 @@ public class DataHelper {
     }
 
     public static List<InfoComponent> loadInfoComponentList(String filePath, boolean b) {
-        if (b || GameSession.infoComponentList.isEmpty()) {
-            GameSession.infoComponentList.clear();
+        if (b || GameSessionManager.getInstance().infoComponentList.isEmpty()) {
+            GameSessionManager.getInstance().infoComponentList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
 
             if (!fileHandle.exists()) {
@@ -591,12 +592,12 @@ public class DataHelper {
                 newBag.equip.jewelry = new EquipComponent(equipItem.get("jewelry"));
                 newBag.equip.support = new EquipComponent(equipItem.get("support"));
 
-                GameSession.infoComponentList.add(newBag);
+                GameSessionManager.getInstance().infoComponentList.add(newBag);
             }
         }
 
         // Trả về danh sách nếu có dữ liệu
-        return GameSession.infoComponentList.isEmpty() ? null : GameSession.infoComponentList;
+        return GameSessionManager.getInstance().infoComponentList.isEmpty() ? null : GameSessionManager.getInstance().infoComponentList;
     }
 
     public static <T> T get(List<T> list, String key, Object value) {
@@ -630,16 +631,16 @@ public class DataHelper {
     }
 
     public static void clearDataProfile() {
-        GameSession.profile = null;
-        GameSession.profile = new Profile();
-        GameSession.achievementList.clear();
-        GameSession.dailyRewardList.clear();
-        GameSession.equipList.clear();
-        GameSession.heroList.clear();
-        GameSession.itemList.clear();
-        GameSession.lineupList.clear();
-        GameSession.missionList.clear();
-        GameSession.checkMapList.clear();
+        GameSessionManager.getInstance().profile = null;
+        GameSessionManager.getInstance().profile = new Profile();
+        GameSessionManager.getInstance().achievementList.clear();
+        GameSessionManager.getInstance().dailyRewardList.clear();
+        GameSessionManager.getInstance().equipList.clear();
+        GameSessionManager.getInstance().heroList.clear();
+        GameSessionManager.getInstance().itemList.clear();
+        GameSessionManager.getInstance().lineupList.clear();
+        GameSessionManager.getInstance().missionList.clear();
+        GameSessionManager.getInstance().checkMapList.clear();
 
 
     }

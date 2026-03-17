@@ -5,7 +5,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.game.ecs.component.*;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.CollisionUtils;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.data.PendingTeleport;
 
 public class TeleportTriggerSystem extends EntitySystem {
@@ -35,20 +35,20 @@ public class TeleportTriggerSystem extends EntitySystem {
 
             if (CollisionUtils.check(playerCol, triggerCol)) {
                 triggered = true;
-                if (GameSession.pendingTeleport == null) {
-                    GameSession.pendingTeleport = new PendingTeleport(ttc.nextMap, ttc.nextSpawn, ttc.name);
+                if (GameSessionManager.getInstance().pendingTeleport == null) {
+                    GameSessionManager.getInstance().pendingTeleport = new PendingTeleport(ttc.nextMap, ttc.nextSpawn, ttc.name);
                     System.out.println("Player đứng trên trigger teleport: " + ttc.name + " - spawn " + ttc.nextSpawn);
-                    GameSession.targetMapId = ttc.nextMap;
-                    GameSession.selectedPlayerSpawnIndex = ttc.nextSpawn;
+                    GameSessionManager.getInstance().targetMapId = ttc.nextMap;
+                    GameSessionManager.getInstance().selectedPlayerSpawnIndex = ttc.nextSpawn;
                     WorldMapScreen.showBtnNextMap(true);
                 }
                 break;
             }
         }
 
-        if (!triggered && GameSession.pendingTeleport != null) {
+        if (!triggered && GameSessionManager.getInstance().pendingTeleport != null) {
             System.out.println("Player đã rời khỏi trigger teleport.");
-            GameSession.pendingTeleport = null;
+            GameSessionManager.getInstance().pendingTeleport = null;
             WorldMapScreen.showBtnNextMap(false);
         }
     }

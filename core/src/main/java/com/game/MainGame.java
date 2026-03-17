@@ -24,7 +24,7 @@ import com.game.ui.base.UIButton;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 
 public class MainGame extends Game {
     private static AudioManager audioManager;
@@ -33,7 +33,6 @@ public class MainGame extends Game {
     private static EventManager eventManager;
     private static ScreenManager scm;
 
-    private static GameSession session;
 
     private static SpriteBatch batch;
     private OrthographicCamera camera;
@@ -77,12 +76,7 @@ public class MainGame extends Game {
         return scm;
     }
 
-    public static GameSession getSession() {
-        if (session == null) {
-            session = new GameSession();
-        }
-        return session;
-    }
+
 
     public static SpriteBatch batch() {
         return batch;

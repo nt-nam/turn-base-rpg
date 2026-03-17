@@ -18,12 +18,12 @@ import com.game.ui.base.UITable;
 import com.game.utils.Color;
 import com.game.utils.Constants;
 import com.game.utils.DataHelper;
-import com.game.utils.GameSession;
-import com.game.utils.json.Achievement;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.Hero;
-import com.game.utils.json.Mission;
-import com.game.utils.json.Stat;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Achievement;
+import com.game.models.entity.CharacterBase;
+import com.game.models.entity.Hero;
+import com.game.models.entity.Mission;
+import com.game.models.entity.Stat;
 
 import java.util.List;
 
@@ -95,21 +95,21 @@ public class RolePP {
             .bounds(w * 0.01f, h * 0.05f, w * 0.38f, h * 0.9f);
         new UIImage((TextureRegion) null).name("frame").bounds(w * 0.05f, h * 0.5f, h * 0.2f, h * 0.2f).parent(detail).visible(false);
 
-        new UILabel("|   " + GameSession.profile.name + "   |", BMF).name("nameLb").bounds(w * 0.05f, h * 0.84f, w * 0.3f, h * 0.1f).align(Align.center).fontScale(1.5f).parent(detail);
-        new UILabel("Cấp: " + GameSession.profile.level, BMF).name("levelLb").pos(w * 0.04f, h * 0.74f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);
+        new UILabel("|   " + GameSessionManager.getInstance().profile.name + "   |", BMF).name("nameLb").bounds(w * 0.05f, h * 0.84f, w * 0.3f, h * 0.1f).align(Align.center).fontScale(1.5f).parent(detail);
+        new UILabel("Cấp: " + GameSessionManager.getInstance().profile.level, BMF).name("levelLb").pos(w * 0.04f, h * 0.74f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);
 
         new UILabel("Kinh nghiệm:", BMF).pos(w * 0.04f, h * 0.65f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);
-        new UILabel(GameSession.profile.exp + "/" + (GameSession.profile.level * 100), BMF).name("expLb").pos(w * 0.05f, h * 0.58f).fontScale(1f).parent(detail);
+        new UILabel(GameSessionManager.getInstance().profile.exp + "/" + (GameSessionManager.getInstance().profile.level * 100), BMF).name("expLb").pos(w * 0.05f, h * 0.58f).fontScale(1f).parent(detail);
 
         new UILabel("Lực chiến đội", BMF).pos(w * 0.04f, h * 0.43f).color(com.badlogic.gdx.graphics.Color.SKY).fontScale(1.5f).parent(detail);
-        new UILabel(GameSession.profile.getBattleScore() + "", BMF).name("expLb").pos(w * 0.05f, h * 0.36f).fontScale(1f).parent(detail);
+        new UILabel(GameSessionManager.getInstance().profile.getBattleScore() + "", BMF).name("expLb").pos(w * 0.05f, h * 0.36f).fontScale(1f).parent(detail);
 
         float pos = h * 0.1f;
         float tile = h * 0.14f;
         sizeTile = h * 0.14f;
 
         int index=0;
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             if(!hero.grid.equals("empty")){
                 detail.addActor(createItem(hero).pos(w * 0.28f, pos + tile * index));
                 index++;
@@ -120,7 +120,7 @@ public class RolePP {
 
     private static void updateDetail() {
         int index=1;
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             if(!hero.grid.equals("empty")){
                 ((UIImage) detail.findActor("cha" + index)).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(hero.nameRegion, "idle")));
                 index++;
@@ -133,17 +133,17 @@ public class RolePP {
         if (achievements != null) {
             for (Achievement child : achievements) {
                 if(child.idBase.equals("Recruited"))
-                    child.number = GameSession.profile.numberOfTeammatesRecruited;
+                    child.number = GameSessionManager.getInstance().profile.numberOfTeammatesRecruited;
                 else if(child.idBase.equals("Kill"))
-                    child.number = GameSession.profile.numberOfEnemies;
+                    child.number = GameSessionManager.getInstance().profile.numberOfEnemies;
                 else if(child.idBase.equals("Win"))
-                    child.number = GameSession.profile.win;
+                    child.number = GameSessionManager.getInstance().profile.win;
                 else if(child.idBase.equals("CoinSum"))
-                    child.number = GameSession.profile.coinSum;
+                    child.number = GameSessionManager.getInstance().profile.coinSum;
                 else if(child.idBase.equals("GemPay"))
-                    child.number = GameSession.profile.gemPay;
+                    child.number = GameSessionManager.getInstance().profile.gemPay;
                 else if(child.idBase.equals("Equip"))
-                    child.number = GameSession.profile.equipment;
+                    child.number = GameSessionManager.getInstance().profile.equipment;
 
                 table.add(
                     new UIGroup().name(child.idBase).size(size * 5, size).child(

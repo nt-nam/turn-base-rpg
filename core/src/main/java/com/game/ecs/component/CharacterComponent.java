@@ -3,7 +3,7 @@ package com.game.ecs.component;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
-import com.game.utils.json.CharacterBase;
+import com.game.models.entity.CharacterBase;
 
 /**
  * CharacterComponent chứa các thông tin cơ bản của nhân vật trong toàn bộ game được load từ file Json: character_base.json

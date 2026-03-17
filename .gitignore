@@ -167,10 +167,6 @@ Thumbs.db
 ## Custom
 *.keystore
 *.jks
-event.md
-checklist.md
-description.md
-StepByStep.md
-GIT_GUIDELINES.md
-general.md
-data
+
+# Ignore game save data
+data/

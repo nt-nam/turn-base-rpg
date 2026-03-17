@@ -1,5 +1,7 @@
 package com.game.utils;
 
+import com.game.managers.GameSessionManager;
+
 public class Constants {
     //TEXT
     public static final String GAME_TITLE         = "Turn Base Game";
@@ -26,7 +28,7 @@ public class Constants {
 
     /** Trả về đường dẫn file JSON theo player hiện tại */
     public static String playerPath(String filename) {
-        return "data/select/" + GameSession.playerName + "/" + filename;
+        return "data/select/" + GameSessionManager.getInstance().playerName + "/" + filename;
     }
 
     //JSON BASE

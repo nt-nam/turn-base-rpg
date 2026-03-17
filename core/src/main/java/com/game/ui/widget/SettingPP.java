@@ -27,9 +27,9 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.utils.DataHelper;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.Account;
+import com.game.models.entity.Account;
 
 public class SettingPP {
     private static UIGroup popup;
@@ -95,7 +95,7 @@ public class SettingPP {
         new UIButton("", off, on, true)
             .bounds(w * 0.47f, h * 0.55f, w * 0.12f, h * 0.09f)
             .name("btnMusic")
-            .check(GameSession.profile.playMusic)
+            .check(GameSessionManager.getInstance().profile.playMusic)
             .fontScale(0.75f)
             .parent(popup);
 
@@ -106,7 +106,7 @@ public class SettingPP {
         new UIButton("", off, on, true)
             .bounds(w * 0.47f, h * 0.7f, w * 0.12f, h * 0.09f)
             .name("btnSound")
-            .check(GameSession.profile.playSound)
+            .check(GameSessionManager.getInstance().profile.playSound)
             .fontScale(0.75f)
             .parent(popup);
 
@@ -114,14 +114,14 @@ public class SettingPP {
     }
 
     private static void saveData() {
-        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
-        JsonSaver.saveObject(Constants.playerPath("achievement.json"), GameSession.achievementList);
-        JsonSaver.saveObject(Constants.playerPath("daily_rewards.json"), GameSession.dailyRewardList);
-        JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSession.equipList);
-        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
-        JsonSaver.saveObject(Constants.playerPath("items.json"), GameSession.itemList);
-        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSession.lineupList);
-        JsonSaver.saveObject(Constants.playerPath("mission.json"), GameSession.missionList);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSessionManager.getInstance().profile);
+        JsonSaver.saveObject(Constants.playerPath("achievement.json"), GameSessionManager.getInstance().achievementList);
+        JsonSaver.saveObject(Constants.playerPath("daily_rewards.json"), GameSessionManager.getInstance().dailyRewardList);
+        JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSessionManager.getInstance().equipList);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSessionManager.getInstance().heroList);
+        JsonSaver.saveObject(Constants.playerPath("items.json"), GameSessionManager.getInstance().itemList);
+        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSessionManager.getInstance().lineupList);
+        JsonSaver.saveObject(Constants.playerPath("mission.json"), GameSessionManager.getInstance().missionList);
     }
 
     private static void createPopupDelete() {
@@ -139,13 +139,13 @@ public class SettingPP {
             JsonSaver.removeAccount();
             DataHelper.loadAccountList(true);
             Account remove = null;
-            for (Account account : GameSession.accountList) {
-                if (account.id.equals( GameSession.profile.name)) {
+            for (Account account : GameSessionManager.getInstance().accountList) {
+                if (account.id.equals( GameSessionManager.getInstance().profile.name)) {
                     remove = account;
                 }
             }
-            GameSession.accountList.remove(remove);
-            JsonSaver.saveObject(MAININFO_JSON_LOCAL, GameSession.accountList);
+            GameSessionManager.getInstance().accountList.remove(remove);
+            JsonSaver.saveObject(MAININFO_JSON_LOCAL, GameSessionManager.getInstance().accountList);
             clearDataSession();
             showMenu();
         });

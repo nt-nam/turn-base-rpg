@@ -9,7 +9,7 @@ import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.PositionComponent;
 import com.game.ecs.component.SpriteComponent;
 import com.game.ui.base.UIJoystick;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 
 public class PlayerInputSystem extends EntitySystem {
     private final ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
@@ -70,18 +70,18 @@ public class PlayerInputSystem extends EntitySystem {
                 dy -= SPEED * deltaTime;
             }
             logicJoystick();
-            if (GameSession.moveLeft) {
+            if (GameSessionManager.getInstance().moveLeft) {
                 dx -= SPEED * deltaTime;
                 sprite.flipX = true;
             }
-            if (GameSession.moveRight) {
+            if (GameSessionManager.getInstance().moveRight) {
                 dx += SPEED * deltaTime;
                 sprite.flipX = false;
             }
-            if (GameSession.moveUp) {
+            if (GameSessionManager.getInstance().moveUp) {
                 dy += SPEED * deltaTime;
             }
-            if (GameSession.moveDown) {
+            if (GameSessionManager.getInstance().moveDown) {
                 dy -= SPEED * deltaTime;
             }
 
@@ -97,8 +97,8 @@ public class PlayerInputSystem extends EntitySystem {
 
                 pos.x += dx;
                 pos.y += dy;
-                GameSession.profile.pos.x = pos.x;
-                GameSession.profile.pos.y = pos.y;
+                GameSessionManager.getInstance().profile.pos.x = pos.x;
+                GameSessionManager.getInstance().profile.pos.y = pos.y;
 
                 if (state != null && state.requested != AnimationStateComponent.State.RUN) {
                     state.requested = AnimationStateComponent.State.RUN;
@@ -117,32 +117,32 @@ public class PlayerInputSystem extends EntitySystem {
 
 
         if (xValue > 0.2f) {  // Nếu joystick nghiêng sang phải (từ 0 đến 1)
-            GameSession.moveRight = true;
-            GameSession.moveLeft = false;
+            GameSessionManager.getInstance().moveRight = true;
+            GameSessionManager.getInstance().moveLeft = false;
         } else if (xValue < -0.2f) {  // Nếu joystick nghiêng sang trái (từ 0 đến -1)
-            GameSession.moveLeft = true;
-            GameSession.moveRight = false;
+            GameSessionManager.getInstance().moveLeft = true;
+            GameSessionManager.getInstance().moveRight = false;
         } else {
-            GameSession.moveRight = false;
-            GameSession.moveLeft = false;
+            GameSessionManager.getInstance().moveRight = false;
+            GameSessionManager.getInstance().moveLeft = false;
         }
 
         if (yValue > 0.2f) {  // Nếu joystick nghiêng lên
-            GameSession.moveUp = true;
-            GameSession.moveDown = false;
+            GameSessionManager.getInstance().moveUp = true;
+            GameSessionManager.getInstance().moveDown = false;
         } else if (yValue < -0.2f) {  // Nếu joystick nghiêng xuống
-            GameSession.moveDown = true;
-            GameSession.moveUp = false;
+            GameSessionManager.getInstance().moveDown = true;
+            GameSessionManager.getInstance().moveUp = false;
         } else {
-            GameSession.moveUp = false;
-            GameSession.moveDown = false;
+            GameSessionManager.getInstance().moveUp = false;
+            GameSessionManager.getInstance().moveDown = false;
         }
 
         if (xValue == 0 && yValue == 0) {
-            GameSession.moveRight = false;
-            GameSession.moveLeft = false;
-            GameSession.moveUp = false;
-            GameSession.moveDown = false;
+            GameSessionManager.getInstance().moveRight = false;
+            GameSessionManager.getInstance().moveLeft = false;
+            GameSessionManager.getInstance().moveUp = false;
+            GameSessionManager.getInstance().moveDown = false;
         }
     }
 

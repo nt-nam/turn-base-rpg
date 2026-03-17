@@ -3,8 +3,8 @@ package com.game.ecs;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.game.core.BattleSimulationResult;
-import com.game.core.TurnResult;
+import com.game.combat.BattleSimulationResult;
+import com.game.combat.TurnResult;
 import com.game.ecs.component.ActionQueueComponent;
 import com.game.ecs.component.SkillStateComponent;
 

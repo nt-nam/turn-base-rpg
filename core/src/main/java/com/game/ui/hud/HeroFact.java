@@ -11,7 +11,7 @@ import com.game.MainGame;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
-import com.game.utils.json.Hero;
+import com.game.models.entity.Hero;
 
 public class HeroFact {
 

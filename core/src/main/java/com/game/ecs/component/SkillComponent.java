@@ -2,7 +2,7 @@ package com.game.ecs.component;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.JsonValue;
-import com.game.utils.json.skill.Skill;
+import com.game.models.entity.skill.Skill;
 
 /// được truyền vào từ data/base/skill_base.json
 public class SkillComponent implements Component {

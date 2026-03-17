@@ -5,7 +5,6 @@ import static com.game.utils.Constants.BMF;
 
 
 import static com.game.utils.Constants.UI_POPUP;
-import static com.game.utils.GameSession.equipList;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,14 +22,14 @@ import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.Constants;
 import com.game.utils.DataHelper;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.Equip;
-import com.game.utils.json.EquipBase;
-import com.game.utils.json.Hero;
-import com.game.utils.json.Lineup;
-import com.game.utils.json.Stat;
+import com.game.models.entity.CharacterBase;
+import com.game.models.entity.Equip;
+import com.game.models.entity.EquipBase;
+import com.game.models.entity.Hero;
+import com.game.models.entity.Lineup;
+import com.game.models.entity.Stat;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -125,10 +124,10 @@ public class HerosPP {
     }
 
     private static void updateTable() {
-        if (GameSession.heroList.size() > 1) sortHero(DataHelper.loadHeroList(Constants.playerPath("hero_full.json"), false));
+        if (GameSessionManager.getInstance().heroList.size() > 1) sortHero(DataHelper.loadHeroList(Constants.playerPath("hero_full.json"), false));
         if (table != null) table.clearChild();
         int index = 0;
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             UIGroup uiGroup = new UIGroup().name(hero.characterId).child(
                 new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + hero.star, 20))
                     .name("bg")
@@ -156,14 +155,14 @@ public class HerosPP {
                     if (heroSelect != null && !heroSelect.grid.equals("empty"))
                         ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(false);
                 }
-                if (heroSelect == GameSession.heroList.get(a)) {
+                if (heroSelect == GameSessionManager.getInstance().heroList.get(a)) {
                     heroSelect = null;
                     detail.setVisible(false);
                     return;
                 }
                 groupSelect = uiGroup;
                 groupSelect.findActor("imageSelect").setVisible(true);
-                heroSelect = GameSession.heroList.get(a);
+                heroSelect = GameSessionManager.getInstance().heroList.get(a);
                 if (heroSelect != null && !heroSelect.grid.equals("empty"))
                     ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(true);
                 boolean flag = gridLineup.isVisible();
@@ -219,19 +218,19 @@ public class HerosPP {
                     if (heroSelect == null) {
                         return;
                     }
-                    Lineup lineup = DataHelper.get(GameSession.lineupList, "grid", m + "," + n);
+                    Lineup lineup = DataHelper.get(GameSessionManager.getInstance().lineupList, "grid", m + "," + n);
                     if (lineup == null) {
                         if (!heroSelect.grid.equals("empty")) {
                             ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("frame").setVisible(false);
                             ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(false);
                         }
-                        if (GameSession.profile.sizeTeam > GameSession.lineupList.size()) {
+                        if (GameSessionManager.getInstance().profile.sizeTeam > GameSessionManager.getInstance().lineupList.size()) {
                             heroSelect.grid = m + "," + n;
                             lineup = new Lineup();
                             lineup.characterId = heroSelect.characterId;
                             lineup.grid = heroSelect.grid;
                             lineup.nameRegion = heroSelect.nameRegion;
-                            GameSession.lineupList.add(lineup);
+                            GameSessionManager.getInstance().lineupList.add(lineup);
                             groupSelect.findActor("lineup").setVisible(true);
                             frame.setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(lineup.nameRegion, "idle")));
                             frame.setVisible(true);
@@ -245,7 +244,7 @@ public class HerosPP {
                         item.findActor("select").setVisible(false);
                         heroSelect.grid = "empty";
                         groupSelect.findActor("lineup").setVisible(false);
-                        GameSession.lineupList.remove(lineup);
+                        GameSessionManager.getInstance().lineupList.remove(lineup);
                         frame.setVisible(false);
                     } else {
                         //xoa va them
@@ -263,7 +262,7 @@ public class HerosPP {
                             setEmptyGrid(lineup.grid);
                         }
 
-                        GameSession.lineupList.remove(lineup);
+                        GameSessionManager.getInstance().lineupList.remove(lineup);
                         item.findActor("select").setVisible(true);
                         heroSelect.grid = m + "," + n;
                         groupSelect.findActor("lineup").setVisible(true);
@@ -280,7 +279,7 @@ public class HerosPP {
     }
 
     private static void setEmptyGrid(String gridId) {
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             if (hero.grid.equals(gridId)) {
                 hero.grid = "empty";
             }
@@ -288,15 +287,15 @@ public class HerosPP {
     }
 
     private static void saveDataLineup() {
-        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSession.lineupList);
-        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
+        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSessionManager.getInstance().lineupList);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSessionManager.getInstance().heroList);
     }
 
     private static void updateDrawableGrid() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 UIGroup item = gridLineup.findActor(i + "," + j);
-                Lineup lineup = DataHelper.get(GameSession.lineupList, "grid", i + "," + j);
+                Lineup lineup = DataHelper.get(GameSessionManager.getInstance().lineupList, "grid", i + "," + j);
                 UIImage frame = item.findActor("frame");
                 UIImage select = item.findActor("select");
 
@@ -441,7 +440,7 @@ public class HerosPP {
 
     private static TextureRegionDrawable getRegionEquip(String idEquip) {
         System.out.println(idEquip);
-        Equip equip = DataHelper.get(equipList, "id", idEquip);
+        Equip equip = DataHelper.get(GameSessionManager.getInstance().equipList, "id", idEquip);
         return new TextureRegionDrawable(MainGame.getAsM().getRegion(ATLAS_ITEM, equip.nameRegion));
     }
 
@@ -509,7 +508,7 @@ public class HerosPP {
 
 
     public static boolean updateGrid(int i, int j) {
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
             if (hero.grid.equals(i + "," + j)) {
                 hero.grid = "empty";
                 return true;

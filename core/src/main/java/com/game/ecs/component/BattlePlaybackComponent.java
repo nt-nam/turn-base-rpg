@@ -1,7 +1,7 @@
 package com.game.ecs.component;
 
 import com.badlogic.ashley.core.Component;
-import com.game.core.BattleSimulationResult;
+import com.game.combat.BattleSimulationResult;
 
 public class BattlePlaybackComponent implements Component {
     public BattleSimulationResult result;

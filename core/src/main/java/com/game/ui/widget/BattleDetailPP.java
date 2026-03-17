@@ -15,9 +15,9 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.DataHelper;
-import com.game.utils.GameSession;
-import com.game.utils.json.Hero;
-import com.game.utils.json.MapBattle;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Hero;
+import com.game.models.entity.MapBattle;
 
 public class BattleDetailPP {
     private static UIGroup popup;
@@ -30,7 +30,7 @@ public class BattleDetailPP {
 
     public static UIGroup pp(float width, float height) {
         popup = new UIGroup().name("battleDetail").size(width, width);
-        String mapPath = "data/enemy/" + GameSession.profile.area + "_" + GameSession.enemyMapId + ".json";
+        String mapPath = "data/enemy/" + GameSessionManager.getInstance().profile.area + "_" + GameSessionManager.getInstance().enemyMapId + ".json";
         mapBattle = DataHelper.loadMapBattle(mapPath);
         sizeTile = height * 0.16f;
         long battleScore = 0;

@@ -25,12 +25,12 @@ import com.game.ui.base.UITextField;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.DataHelper;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.Account;
-import com.game.utils.json.CharacterBase;
+import com.game.models.entity.Account;
+import com.game.models.entity.CharacterBase;
 //import com.game.utils.JsonValueHelper;
-import com.game.utils.GameSession;
-import com.game.utils.json.Lineup;
-import com.game.utils.json.Profile;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Lineup;
+import com.game.models.entity.Profile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -68,7 +68,7 @@ public class NewPlayerScreen extends BaseScreen {
     @Override
     protected void createScreen() {
         createBackground();
-        characterBaseDataList = GameSession.characterBaseList;
+        characterBaseDataList = GameSessionManager.getInstance().characterBaseList;
         List<Account> account = DataHelper.loadAccountList(true);
         if (characterBaseDataList.isEmpty()) {
             throw new RuntimeException("No knights found!");
@@ -144,11 +144,11 @@ public class NewPlayerScreen extends BaseScreen {
                 engine.addEntity(eventEntity);
 
                 playerNameField.getStage().setKeyboardFocus(null);
-                GameSession.playerName = nameInput;
-                GameSession.selectedCharacterId = getCurrentKnightId();
+                GameSessionManager.getInstance().playerName = nameInput;
+                GameSessionManager.getInstance().selectedCharacterId = getCurrentKnightId();
 
                 Profile profile = new Profile(nameInput, getCurrentKnightId());
-                GameSession.profile = profile;
+                GameSessionManager.getInstance().profile = profile;
 
                 List<Lineup> lineups = new ArrayList<>();
                 Lineup g = new Lineup();
@@ -170,7 +170,7 @@ public class NewPlayerScreen extends BaseScreen {
                 a.characterSelect = getCurrentKnightId();
                 accounts.add(a);
 
-                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", GameSession.profile);
+                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", GameSessionManager.getInstance().profile);
                 JsonSaver.saveObject(MAININFO_JSON_LOCAL, accounts);
                 JsonSaver.createAccount();
 

@@ -15,11 +15,11 @@ import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.DataHelper;
-import com.game.utils.GameSession;
-import com.game.utils.json.Equip;
-import com.game.utils.json.EquipBase;
-import com.game.utils.json.Hero;
-import com.game.utils.json.Item;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Equip;
+import com.game.models.entity.EquipBase;
+import com.game.models.entity.Hero;
+import com.game.models.entity.Item;
 
 import java.util.Objects;
 
@@ -124,7 +124,7 @@ public class BagPP {
     private static void updateEquip() {
         tableEquip.clear();
         int index = 0;
-        for (Equip equip : GameSession.equipList) {
+        for (Equip equip : GameSessionManager.getInstance().equipList) {
             tableEquip.add(tileItem(equip.nameRegion).onClick(() -> {
                 createPopup(equip);
             }));
@@ -140,7 +140,7 @@ public class BagPP {
     private static void updateItem() {
         tableItem.clear();
         int index = 0;
-        for (Item item : GameSession.itemList) {
+        for (Item item : GameSessionManager.getInstance().itemList) {
             tableItem.add(tileItem(item.nameRegion).onClick(() -> {
                 createPopup(item);
             }));
@@ -157,7 +157,7 @@ public class BagPP {
         tableHero.clearChild();
         int index = 0;
 
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
 
             index++;
             UIGroup item = createItem(hero);
@@ -166,7 +166,7 @@ public class BagPP {
             item.onClick(() -> {
                 String v = category(equip);
                 if (v.equals("empty")) return;
-                Hero target = DataHelper.get(GameSession.heroList, "characterId", equip.target);
+                Hero target = DataHelper.get(GameSessionManager.getInstance().heroList, "characterId", equip.target);
                 boolean flag = false;
                 if (target != null) {
                     flag = true;
@@ -217,7 +217,7 @@ public class BagPP {
 
     private static String category(Equip e) {
         String eStr = "empty";
-        EquipBase equip = DataHelper.get(GameSession.equipBaseList, "nameRegion", e.nameRegion);
+        EquipBase equip = DataHelper.get(GameSessionManager.getInstance().equipBaseList, "nameRegion", e.nameRegion);
         if (equip != null) eStr = equip.category;
         return eStr;
     }
@@ -226,14 +226,14 @@ public class BagPP {
         tableHero.clearChild();
         int index = 0;
 
-        for (Hero hero : GameSession.heroList) {
+        for (Hero hero : GameSessionManager.getInstance().heroList) {
 
             index++;
             UIGroup itemUI = createItem(hero);
 
 
             itemUI.onClick(() -> {
-                hero.exp += Objects.requireNonNull(DataHelper.get(GameSession.itemBaseList, "nameRegion", item.nameRegion)).tier + 100;
+                hero.exp += Objects.requireNonNull(DataHelper.get(GameSessionManager.getInstance().itemBaseList, "nameRegion", item.nameRegion)).tier + 100;
                 popup.addActor(NotificationPP.ppr(width, height, "Tăng cấp thành công"));
                 System.out.println("category: capnhat thanh cong");
 hero.checkLevel();

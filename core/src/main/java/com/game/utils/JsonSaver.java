@@ -14,7 +14,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.game.utils.json.Profile;
+import com.game.managers.GameSessionManager;
+import com.game.models.entity.Profile;
 import com.google.gson.Gson;
 
 
@@ -151,7 +152,7 @@ public class JsonSaver {
     }
 
     public static void removeAccount(){
-        FileHandle file = Gdx.files.local("data/select/"+GameSession.profile.name);
+        FileHandle file = Gdx.files.local("data/select/"+ GameSessionManager.getInstance().profile.name);
         deleteDirectory(file);
 
     }

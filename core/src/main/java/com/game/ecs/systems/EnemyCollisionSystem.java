@@ -10,7 +10,7 @@ import com.game.ecs.component.PositionComponent;
 import com.game.screens.ScreenType;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.CollisionUtils;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 
 public class EnemyCollisionSystem extends EntitySystem {
     private ImmutableArray<Entity> playerEntities;
@@ -59,12 +59,12 @@ public class EnemyCollisionSystem extends EntitySystem {
             // Kiểm tra va chạm Bound với Bound
             if (CollisionUtils.check(playerBound, enemyBound)) {
                 collided = true;
-                if (GameSession.currentEnemy == null) {
-                    GameSession.currentEnemy = triggerComponent;
+                if (GameSessionManager.getInstance().currentEnemy == null) {
+                    GameSessionManager.getInstance().currentEnemy = triggerComponent;
                     System.out.println("Chạm enemy: " + triggerComponent.mapEnemy + " - id " + triggerComponent.id + " - level " + triggerComponent.level);
-                    GameSession.profile.pos.x = playerPos.x;
-                    GameSession.profile.pos.y = playerPos.y;
-                    GameSession.enemyMapId = triggerComponent.id+"";
+                    GameSessionManager.getInstance().profile.pos.x = playerPos.x;
+                    GameSessionManager.getInstance().profile.pos.y = playerPos.y;
+                    GameSessionManager.getInstance().enemyMapId = triggerComponent.id+"";
                     WorldMapScreen.showBtnAttackBattle(true);
 
 //                    MainGame.getScM().showScreen(ScreenType.BATTLE);
@@ -76,9 +76,9 @@ public class EnemyCollisionSystem extends EntitySystem {
         }
 
         // Nếu player đã rời vùng enemy trigger thì reset currentEnemy
-        if (!collided && GameSession.currentEnemy != null) {
+        if (!collided && GameSessionManager.getInstance().currentEnemy != null) {
             System.out.println("Player đã rời vùng enemy.");
-            GameSession.currentEnemy = null;
+            GameSessionManager.getInstance().currentEnemy = null;
             WorldMapScreen.showBtnAttackBattle(false);
         }
     }

@@ -15,10 +15,10 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.DataHelper;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.DailyReward;
+import com.game.models.entity.DailyReward;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -64,14 +64,14 @@ public class DailyPP {
                 if (!item.confirm && !flag) {
                     flag = true;
                     uiGroup.onClick(() -> {
-                        if (GameSession.profile.getDailyCheck().equals(LocalDate.now())) {
+                        if (GameSessionManager.getInstance().profile.getDailyCheck().equals(LocalDate.now())) {
                             popup.addActor(NotificationPP.ppr(w, h, "Bạn đã điểm danh cho ngày hôm nay"));
                         } else {
                             popup.addActor(NotificationPP.ppr(w, h, "Điểm danh thành công"));
                             item.confirm = true;
                             uiGroup.findActor("icon").setColor(Color.DARK_GRAY);
                             uiGroup.findActor("label").setColor(Color.DARK_GRAY);
-                            GameSession.profile.dailyCheck = LocalDate.now().toString();
+                            GameSessionManager.getInstance().profile.dailyCheck = LocalDate.now().toString();
                             update();
                         }
                     });
@@ -100,6 +100,6 @@ public class DailyPP {
 
     public static void update() {
         JsonSaver.saveObject(Constants.playerPath("daily_rewards.json"), dailyRewardList);
-        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSessionManager.getInstance().profile);
     }
 }

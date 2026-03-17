@@ -18,8 +18,8 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.utils.DataHelper;
-import com.game.utils.json.Account;
-import com.game.utils.json.CharacterBase;
+import com.game.models.entity.Account;
+import com.game.models.entity.CharacterBase;
 
 import java.util.List;
 

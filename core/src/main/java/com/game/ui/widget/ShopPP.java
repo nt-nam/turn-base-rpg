@@ -23,13 +23,13 @@ import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.DataHelper;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.Equip;
-import com.game.utils.json.EquipBase;
-import com.game.utils.json.Item;
-import com.game.utils.json.ItemBase;
+import com.game.models.entity.Equip;
+import com.game.models.entity.EquipBase;
+import com.game.models.entity.Item;
+import com.game.models.entity.ItemBase;
 
 import java.util.List;
 import java.util.Map;
@@ -88,13 +88,13 @@ public class ShopPP {
         new UIGroup().name("coin").pos(w * 0.55f, h * 0.75f).size(w * 0.12f, h * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "coin")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.1f),
-            new UILabel(GameSession.profile.coin + "", BMF).name("label").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSessionManager.getInstance().profile.coin + "", BMF).name("label").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         new UIGroup().name("gem").pos(w * 0.70f, h * 0.75f).size(w * 0.12f, h * 0.12f).child(
             new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"), 20, 20, 20, 20)).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
-            new UILabel(GameSession.profile.gem + "", BMF).name("label").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
+            new UILabel(GameSessionManager.getInstance().profile.gem + "", BMF).name("label").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f)
         ).parent(popup);
 
         createGrid(popup, w, h);
@@ -187,21 +187,21 @@ public class ShopPP {
             lbPrice.setText(item.price + "");
             btnBuy.onClick(() -> {
                 if (item.currency.equals("coin")) {
-                    if (GameSession.profile.useCoin(item.price)) {
+                    if (GameSessionManager.getInstance().profile.useCoin(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.itemList.add(new Item(item.nameRegion, 1));
+                        GameSessionManager.getInstance().itemList.add(new Item(item.nameRegion, 1));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ tiền"));
                     }
                 } else if (item.currency.equals("gem_pink")) {
-                    if (GameSession.profile.useGem(item.price)) {
+                    if (GameSessionManager.getInstance().profile.useGem(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.itemList.add(new Item(item.nameRegion, 1));
+                        GameSessionManager.getInstance().itemList.add(new Item(item.nameRegion, 1));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ gem"));
                     }
                 }
-                JsonSaver.saveObject(Constants.playerPath("items.json"), GameSession.itemList);
+                JsonSaver.saveObject(Constants.playerPath("items.json"), GameSessionManager.getInstance().itemList);
                 updateLabel();
             });
         } else if (object instanceof EquipBase) {
@@ -215,21 +215,21 @@ public class ShopPP {
             lbPrice.setText(item.price + "");
             btnBuy.onClick(() -> {
                 if (item.currency.equals("coin")) {
-                    if (GameSession.profile.useCoin(item.price)) {
+                    if (GameSessionManager.getInstance().profile.useCoin(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.equipList.add(new Equip(item.nameRegion));
+                        GameSessionManager.getInstance().equipList.add(new Equip(item.nameRegion));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ tiền"));
                     }
                 } else if (item.currency.equals("gem_pink")) {
-                    if (GameSession.profile.useGem(item.price)) {
+                    if (GameSessionManager.getInstance().profile.useGem(item.price)) {
                         popup.add(NotificationPP.ppr(width, height, "Mua thành công"));
-                        GameSession.equipList.add(new Equip(item.nameRegion));
+                        GameSessionManager.getInstance().equipList.add(new Equip(item.nameRegion));
                     } else {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ gem"));
                     }
                 }
-                JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSession.equipList);
+                JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSessionManager.getInstance().equipList);
                 updateLabel();
 
             });
@@ -292,7 +292,7 @@ public class ShopPP {
     }
 
     private static void updateLabel() {
-        ((UILabel) ((UIGroup) popup.findActor("coin")).findActor("label")).setText(GameSession.profile.coin + "");
-        ((UILabel) ((UIGroup) popup.findActor("gem")).findActor("label")).setText(GameSession.profile.gem + "");
+        ((UILabel) ((UIGroup) popup.findActor("coin")).findActor("label")).setText(GameSessionManager.getInstance().profile.coin + "");
+        ((UILabel) ((UIGroup) popup.findActor("gem")).findActor("label")).setText(GameSessionManager.getInstance().profile.gem + "");
     }
 }

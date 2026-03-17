@@ -1,5 +1,6 @@
 package com.game.ecs.systems;
 
+import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -10,12 +11,10 @@ import com.game.ecs.component.AnimationStateComponent;
 import com.game.ecs.component.LabelComponent;
 import com.game.ecs.component.MoveToComponent;
 import com.game.ecs.component.PositionComponent;
-import com.game.ecs.component.ProgressBarComponent;
+import com.game.ecs.component.HealthBarComponent;
 import com.game.ecs.component.SkillStateComponent;
-import com.badlogic.ashley.core.ComponentMapper;
 import com.game.ecs.component.StatComponent;
 import com.game.screens.battle.BattleScreen;
-import com.game.ui.base.UILabel;
 
 import java.util.Objects;
 
@@ -42,11 +41,11 @@ public class TurnActionSystem extends IteratingSystem {
                 ActionQueueComponent.Action nextAction = queue.actions.removeFirst();
 
                 if(nextAction.action.equals("player")){
-                    BattleScreen.showPopupWin();
+                    BattleScreen.instance.triggerWin();
                     return;
                 }
                 if(nextAction.action.equals("enemy")){
-                    BattleScreen.showPopupFail();
+                    BattleScreen.instance.triggerFail();
                     return;
                 }
                 if (!queue.isProcessing) {
@@ -71,60 +70,26 @@ public class TurnActionSystem extends IteratingSystem {
 
                 if (nextAction.state == SkillStateComponent.State.HIDE) {
                     targetState = AnimationStateComponent.State.HURT;
-                    UILabel label = nextAction.target.getComponent(LabelComponent.class).label;
+                    LabelComponent labelComponent = nextAction.target.getComponent(LabelComponent.class);
                     float x = nextAction.target.getComponent(PositionComponent.class).x;
                     float y = nextAction.target.getComponent(PositionComponent.class).y;
 
                     if (Objects.equals(nextAction.action, "damage")) {
                         int damage = nextAction.note.get("damage");
                         int hp = nextAction.target.getComponent(StatComponent.class).hp -= damage;
-                        nextAction.target.getComponent(ProgressBarComponent.class).progressBar.setValue(hp);
-                        label.setText(damage);
-                        label.setPosition(x,y);
-                        label.clearActions();
-                        label.addAction(Actions.sequence(
-                            Actions.run(()-> label.setColor(Color.GREEN)),
-                            Actions.fadeIn(0.5f),  // Fade in over 0.5 seconds
-                            Actions.parallel(  // Run both actions in parallel
-                                Actions.moveBy(0, 50, 0.8f),  // Move up by 50 units over 0.8 seconds
-                                Actions.scaleTo(1.5f, 1.5f, 0.8f)  // Scale up by 150% over 0.8 seconds
-                            ),
-                            Actions.scaleTo(1,1,0),
-                            Actions.fadeOut(0.5f)
-                            ));
+                        nextAction.target.getComponent(HealthBarComponent.class).currentHp = hp;
+                        labelComponent.activeLabels.add(new LabelComponent.DamageText("-" + damage, x, y, false));
                         System.out.println("Damage: " + damage);
                     }
                     if (Objects.equals(nextAction.action, "critical")) {
                         int damage = nextAction.note.get("damage");
-                        label.setText(damage);
-                        label.setPosition(x,y);
-                        label.clearActions();
-                        label.addAction(Actions.sequence(
-                            Actions.run(()-> label.setColor(Color.RED)),
-                            Actions.fadeIn(0.5f),  // Fade in over 0.5 seconds
-                            Actions.parallel(  // Run both actions in parallel
-                                Actions.moveBy(0, 50, 0.8f),  // Move up by 50 units over 0.8 seconds
-                                Actions.scaleTo(1.5f, 1.5f, 0.8f)  // Scale up by 150% over 0.8 seconds
-                            ),
-                            Actions.scaleTo(1,1,0),
-                            Actions.fadeOut(0.5f)
-                            ));
+                        int hp = nextAction.target.getComponent(StatComponent.class).hp -= damage;
+                        nextAction.target.getComponent(HealthBarComponent.class).currentHp = hp;
+                        labelComponent.activeLabels.add(new LabelComponent.DamageText("-" + damage, x, y, true));
                         System.out.println("Critical: " + damage);
                     }
                     if (Objects.equals(nextAction.action, "miss")) {
-                        label.setText("Miss!!!");
-                        label.setPosition(x,y);
-                        label.clearActions();
-                        label.addAction(Actions.sequence(
-                            Actions.run(()-> label.setColor(Color.GRAY)),
-                            Actions.fadeIn(0.5f),  // Fade in over 0.5 seconds
-                            Actions.parallel(  // Run both actions in parallel
-                                Actions.moveBy(0, 50, 0.8f),  // Move up by 50 units over 0.8 seconds
-                                Actions.scaleTo(1.5f, 1.5f, 0.8f)  // Scale up by 150% over 0.8 seconds
-                            ),
-                            Actions.scaleTo(1,1,0),
-                            Actions.fadeOut(0.5f)
-                            ));
+                        labelComponent.activeLabels.add(new LabelComponent.DamageText("Miss", x, y, false));
                         System.out.println("Miss!!!");
                     }
 

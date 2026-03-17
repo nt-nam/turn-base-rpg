@@ -23,9 +23,9 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.utils.Constants;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.DataHelper;
-import com.game.utils.json.Account;
+import com.game.models.entity.Account;
 
 import java.util.List;
 
@@ -125,10 +125,10 @@ public class SelectPlayerScreen extends BaseScreen {
                         eventEntity.add(comp);
                         engine.addEntity(eventEntity);
 
-                        GameSession.playerName = element.id;
-                        GameSession.selectedCharacterId = element.characterSelect;
-                        // playerPath() sẽ tự động dùng GameSession.playerName
-                        System.out.println(GameSession.playerName);
+                        GameSessionManager.getInstance().playerName = element.id;
+                        GameSessionManager.getInstance().selectedCharacterId = element.characterSelect;
+                        // playerPath() sẽ tự động dùng GameSessionManager.getInstance().playerName
+                        System.out.println(GameSessionManager.getInstance().playerName);
                         DataHelper.loadProfile(true);
                         DataHelper.loadEquipList(true);
                         DataHelper.loadItemBaseList(true);

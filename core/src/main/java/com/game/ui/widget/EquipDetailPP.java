@@ -9,7 +9,7 @@ import com.game.ui.OverlayUI;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
-import com.game.utils.json.EquipBase;
+import com.game.models.entity.EquipBase;
 
 
 public class EquipDetailPP {

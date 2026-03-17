@@ -18,10 +18,10 @@ import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
 import com.game.ui.hud.NotificationPP;
-import com.game.utils.GameSession;
+import com.game.managers.GameSessionManager;
 import com.game.utils.JsonSaver;
-import com.game.utils.json.CharacterBase;
-import com.game.utils.json.Hero;
+import com.game.models.entity.CharacterBase;
+import com.game.models.entity.Hero;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class RecruitPP {
     public static UIGroup pp(float w, float h) {
         UIGroup popup = new UIGroup().name("recruit");
         NinePatch ninePatch = MainGame.getAsM().get9p();
-        UILabel gemUI = new UILabel(GameSession.profile.gem + "", BMF).name("number").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f);
+        UILabel gemUI = new UILabel(GameSessionManager.getInstance().profile.gem + "", BMF).name("number").pos(h * 0.15f, 0).size(w * 0.15f, h * 0.12f);
         new UIGroup().name("gem").pos(w * 0.07f, h * 0.1f).size(w * 0.2f, h * 0.15f).child(
             new UIImage(ninePatch).size(w * 0.15f, h * 0.12f),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "gem_pink")).pos(h * 0.01f, h * 0.01f).size(h * 0.1f, h * 0.10f),
@@ -73,14 +73,14 @@ public class RecruitPP {
             hiddenCard.scale(1);
         });
         hiddenCard.onClick(() -> {
-            if (GameSession.isRecruit()) {
+            if (GameSessionManager.getInstance().isRecruit()) {
                 hiddenCard.clearActions();
                 hiddenCard.action(Actions.sequence(
                     Actions.scaleTo(0.1f, 0.1f, 1f),
                     Actions.run(new Runnable() {
                         @Override
                         public void run() {
-                            gemUI.setText(GameSession.profile.gem);
+                            gemUI.setText(GameSessionManager.getInstance().profile.gem);
                             addNewMenber();
                             showNewHeroCard();
                         }
@@ -104,12 +104,12 @@ public class RecruitPP {
     }
 
     private static void addNewMenber() {
-        List<CharacterBase> baseHero = GameSession.characterBaseList;
-        List<Hero> fullHero = GameSession.heroList;
+        List<CharacterBase> baseHero = GameSessionManager.getInstance().characterBaseList;
+        List<Hero> fullHero = GameSessionManager.getInstance().heroList;
         int random = MathUtils.random(0, baseHero.size() - 1);
         CharacterBase characterBase = baseHero.get(random);
         Hero hero = new Hero();
-        hero.characterId = "character" + (++GameSession.profile.numberOfTeammatesRecruited);
+        hero.characterId = "character" + (++GameSessionManager.getInstance().profile.numberOfTeammatesRecruited);
         hero.nameRegion = characterBase.nameRegion;
         hero.grid = "empty";
         hero.star = 0;
@@ -123,7 +123,7 @@ public class RecruitPP {
 
         fullHero.add(hero);
         JsonSaver.saveObject(Constants.playerPath("hero_full.json"), fullHero);
-        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSessionManager.getInstance().profile);
         newHero = hero;
 
     }
