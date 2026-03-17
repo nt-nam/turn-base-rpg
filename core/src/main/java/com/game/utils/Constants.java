@@ -21,17 +21,13 @@ public class Constants {
     public static final String SKILL_FIRE               = "atlas/skill/fire.atlas";
     public static final String SKILL_LAZE               = "atlas/skill/laze.atlas";
 
-    //JSON
+    //JSON — Dùng playerPath() thay vì các field mutable
     public static final String MAININFO_JSON_LOCAL      = "data/maininfo.json";
-    public static  String INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
-    public static  String HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
-    public static  String LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
-    public static  String EQUIPS_JSON              = "data/select/" + GameSession.playerName + "/equips.json";
-    public static  String ITEMS_JSON               = "data/select/" + GameSession.playerName + "/items.json";
-    public static  String DAILY_REWARD_JSON        = "data/select/" + GameSession.playerName + "/daily_rewards.json";
-    public static  String ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
-    public static  String MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
-    public static  String CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
+
+    /** Trả về đường dẫn file JSON theo player hiện tại */
+    public static String playerPath(String filename) {
+        return "data/select/" + GameSession.playerName + "/" + filename;
+    }
 
     //JSON BASE
     public static final String ACHIEVEMENT_BASE_JSON    = "data/base/achievement.json";

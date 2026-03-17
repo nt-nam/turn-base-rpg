@@ -1,5 +1,7 @@
 package com.game.screens.start;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.*;
 
 import com.badlogic.ashley.core.Entity;
@@ -154,7 +156,7 @@ public class NewPlayerScreen extends BaseScreen {
                 g.characterId = "character0";
                 g.nameRegion = getCurrentKnightId();
                 lineups.add(g);
-                JsonSaver.saveObject(LINEUP_ATTACK, lineups);
+                JsonSaver.saveObject(Constants.playerPath("lineup.json"), lineups);
 
                 createFullPatty();
 
@@ -224,7 +226,7 @@ public class NewPlayerScreen extends BaseScreen {
         Gson gson = new Gson();
         String jsonString = gson.toJson(jsonObjectList);
 
-        JsonSaver.saveString(HERO_FULL, jsonString);
+        JsonSaver.saveString(Constants.playerPath("hero_full.json"), jsonString);
         // Lưu vào file trong bộ nhớ trong của ứng dụng
 //            FileHandle file = Gdx.files.local("data/character.json");
 //            file.writeString(jsonString, false); // false để ghi đè nếu tệp đã tồn tại
@@ -294,27 +296,6 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     @Override
-    public void show() {
-        Gdx.app.log("NewPlayerScreen", "show() called");
-        super.show();
-    }
-
-    @Override
-    protected void updateLogic(float delta) {
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        updateLogic(delta);
-        updateUI(delta);
-    }
-
-    @Override
-    protected void updateUI(float delta) {
-    }
-
-    @Override
     public void hide() {
         super.hide();
         engine.removeAllEntities();
@@ -323,5 +304,6 @@ public class NewPlayerScreen extends BaseScreen {
 
     @Override
     public void dispose() {
+        super.dispose();
     }
 }

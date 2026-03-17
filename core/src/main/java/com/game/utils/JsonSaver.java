@@ -1,13 +1,13 @@
 package com.game.utils;
 
 import static com.game.utils.Constants.ACHIEVEMENT_BASE_JSON;
-import static com.game.utils.Constants.ACHIEVEMENT_JSON;
+
 import static com.game.utils.Constants.DAILY_BASE_JSON;
-import static com.game.utils.Constants.DAILY_REWARD_JSON;
-import static com.game.utils.Constants.EQUIPS_JSON;
-import static com.game.utils.Constants.ITEMS_JSON;
+
+
+
 import static com.game.utils.Constants.MISSION_BASE_JSON;
-import static com.game.utils.Constants.MISSION_JSON;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -91,11 +91,11 @@ public class JsonSaver {
     }
 
     public static boolean createAccount() {
-        saveString(ITEMS_JSON, "[]");
-        saveString(EQUIPS_JSON, "[]");
-        copyFileToLocal(ACHIEVEMENT_BASE_JSON, ACHIEVEMENT_JSON);
-        copyFileToLocal(MISSION_BASE_JSON, MISSION_JSON);
-        copyFileToLocal(DAILY_BASE_JSON, DAILY_REWARD_JSON);
+        saveString(Constants.playerPath("items.json"), "[]");
+        saveString(Constants.playerPath("equips.json"), "[]");
+        copyFileToLocal(ACHIEVEMENT_BASE_JSON, Constants.playerPath("achievement.json"));
+        copyFileToLocal(MISSION_BASE_JSON, Constants.playerPath("mission.json"));
+        copyFileToLocal(DAILY_BASE_JSON, Constants.playerPath("daily_rewards.json"));
         return true;
     }
 

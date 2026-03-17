@@ -140,24 +140,8 @@ public class MainGame extends Game {
         super.render();
     }
 
-    private void createPopupNotification() {
-        UIGroup a = new UIGroup().name("popupDelete").size(stage.getWidth(), stage.getHeight());
-        stage.addActor(a);
-        UIButton btnYes = new UIButton("OK", MainGame.getAsM().getRegion(UI_POPUP, "btn_green"));
 
-        btnYes.check(() -> {
-            Gdx.app.exit();
-        });
 
-        a.child(
-            OverlayUI.overlay(a),
-            new UIImage(MainGame.getAsM().get9p()).bounds(stage.getWidth() * 0.2f, stage.getHeight() * 0.2f, stage.getWidth() * 0.6f, stage.getHeight() * 0.6f),
-            new UILabel("Rất xin lỗi!!!", BMF).pos(stage.getWidth() * 0.28f, stage.getHeight() * 0.65f).fontScale(2),
-            new UILabel("   Có vấn đề [Không xác định] sảy ra, vui lòng khởi động lại\n" +
-                "   Hoặc liên hệ với chúng tôi thông qua Gmail: mssv@student.stu.edu.vn", BMF).bounds(stage.getWidth() * 0.3f, stage.getHeight() * 0.4f, stage.getWidth() * 0.4f, stage.getHeight() * 0.2f).warp(true),
-            btnYes.bounds(stage.getWidth() * 0.32f, stage.getHeight() * 0.25f, stage.getWidth() * 0.15f, stage.getHeight() * 0.12f)
-        );
-    }
 
     @Override
     public void dispose() {

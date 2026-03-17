@@ -11,4 +11,15 @@ dependencies {
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+
+  // Test dependencies
+  testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+  testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.2"
+  testImplementation "org.junit.jupiter:junit-jupiter-params:5.10.2"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.2"
+}
+
+test {
+  useJUnitPlatform()
 }

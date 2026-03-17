@@ -1,8 +1,10 @@
 package com.game.ui.widget;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.HERO_FULL;
-import static com.game.utils.Constants.INFO_JSON;
+
+
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -120,8 +122,8 @@ public class RecruitPP {
         hero.equip.support = "empty";
 
         fullHero.add(hero);
-        JsonSaver.saveObject(HERO_FULL, fullHero);
-        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), fullHero);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
         newHero = hero;
 
     }

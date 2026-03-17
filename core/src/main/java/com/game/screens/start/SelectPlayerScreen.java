@@ -36,7 +36,7 @@ public class SelectPlayerScreen extends BaseScreen {
 
     public SelectPlayerScreen() {
         super();
-        createBackground();
+        createScreen();
     }
 
     public static void loadingAsset() {
@@ -51,7 +51,8 @@ public class SelectPlayerScreen extends BaseScreen {
 
     }
 
-    private void createBackground() {
+    @Override
+    protected void createScreen() {
         new UIImage(new Texture(Gdx.files.internal("texture/battle/summer.png"))).size(screenWidth, screenHeight).parent(rootGroup);
         table = new Table();
         table.top();
@@ -126,20 +127,12 @@ public class SelectPlayerScreen extends BaseScreen {
 
                         GameSession.playerName = element.id;
                         GameSession.selectedCharacterId = element.characterSelect;
-                        Constants.INFO_JSON                = "data/select/" + GameSession.playerName + "/info.json";
-                        Constants.HERO_FULL                = "data/select/" + GameSession.playerName + "/hero_full.json";
-                        Constants.LINEUP_ATTACK            = "data/select/" + GameSession.playerName + "/lineup.json";
-                        Constants.EQUIPS_JSON              = "data/select/" + GameSession.playerName + "/equips.json";
-                        Constants.ITEMS_JSON               = "data/select/" + GameSession.playerName + "/items.json";
-                        Constants.DAILY_REWARD_JSON        = "data/select/" + GameSession.playerName + "/daily_rewards.json";
-                        Constants.ACHIEVEMENT_JSON         = "data/select/" + GameSession.playerName + "/achievement.json";
-                        Constants.MISSION_JSON             = "data/select/" + GameSession.playerName + "/mission.json";
-                        Constants.CHECK_MAP_JSON           = "data/select/" + GameSession.playerName + "/check_enemy_map.json";
+                        // playerPath() sẽ tự động dùng GameSession.playerName
                         System.out.println(GameSession.playerName);
                         DataHelper.loadProfile(true);
                         DataHelper.loadEquipList(true);
                         DataHelper.loadItemBaseList(true);
-                        DataHelper.loadHeroList(Constants.HERO_FULL,true);
+                        DataHelper.loadHeroList(Constants.playerPath("hero_full.json"),true);
                         DataHelper.loadMissionList(true);
                         DataHelper.loadAchievementList(true);
 
@@ -169,13 +162,4 @@ public class SelectPlayerScreen extends BaseScreen {
         updateScrollAction();
     }
 
-    @Override
-    public void resize(int width, int height) {
-        super.resize(width, height);
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-    }
 }

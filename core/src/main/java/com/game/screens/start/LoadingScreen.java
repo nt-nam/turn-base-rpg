@@ -23,6 +23,11 @@ public class LoadingScreen extends BaseScreen {
     }
 
     @Override
+    protected void createScreen() {
+        // LoadingScreen tạo UI trong constructor vì nó là screen đặc biệt
+    }
+
+    @Override
     public void show() {
         super.show();
         Gdx.app.log("LoadingScreen", "show() called");

@@ -16,6 +16,9 @@ import com.game.ui.base.UIButton;
 import com.game.utils.ResourceUtils;
 
 public abstract class BaseScreen implements Screen {
+
+    /** Override trả về true nếu Screen này sử dụng Ashley ECS Engine. */
+    protected boolean usesEngine() { return false; }
     protected Stage stage;
     protected static Engine engine;
     protected float screenWidth;
@@ -36,8 +39,7 @@ public abstract class BaseScreen implements Screen {
         shapeRenderer = new ShapeRenderer();
     }
 
-    protected void createScreen() {
-    }
+    protected abstract void createScreen();
 
     @Override
     public void show() {
@@ -120,7 +122,9 @@ public abstract class BaseScreen implements Screen {
 
         updateLogic(delta);
 
-        engine.update(delta);
+        if (usesEngine()) {
+            engine.update(delta);
+        }
         stage.act(delta);
         stage.draw();
 

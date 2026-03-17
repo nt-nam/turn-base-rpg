@@ -1,9 +1,11 @@
 package com.game.ui.widget;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.EQUIPS_JSON;
-import static com.game.utils.Constants.ITEMS_JSON;
+
+
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.Color;
@@ -199,7 +201,7 @@ public class ShopPP {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ gem"));
                     }
                 }
-                JsonSaver.saveObject(ITEMS_JSON, GameSession.itemList);
+                JsonSaver.saveObject(Constants.playerPath("items.json"), GameSession.itemList);
                 updateLabel();
             });
         } else if (object instanceof EquipBase) {
@@ -227,7 +229,7 @@ public class ShopPP {
                         popup.add(NotificationPP.ppr(width, height, "Không đủ gem"));
                     }
                 }
-                JsonSaver.saveObject(EQUIPS_JSON, GameSession.equipList);
+                JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSession.equipList);
                 updateLabel();
 
             });

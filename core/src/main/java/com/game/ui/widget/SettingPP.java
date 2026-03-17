@@ -1,15 +1,17 @@
 package com.game.ui.widget;
 
-import static com.game.utils.Constants.ACHIEVEMENT_JSON;
+import com.game.utils.Constants;
+
+
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.DAILY_REWARD_JSON;
-import static com.game.utils.Constants.EQUIPS_JSON;
-import static com.game.utils.Constants.HERO_FULL;
-import static com.game.utils.Constants.INFO_JSON;
-import static com.game.utils.Constants.ITEMS_JSON;
-import static com.game.utils.Constants.LINEUP_ATTACK;
+
+
+
+
+
+
 import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
-import static com.game.utils.Constants.MISSION_JSON;
+
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.Gdx;
@@ -112,14 +114,14 @@ public class SettingPP {
     }
 
     private static void saveData() {
-        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
-        JsonSaver.saveObject(ACHIEVEMENT_JSON, GameSession.achievementList);
-        JsonSaver.saveObject(DAILY_REWARD_JSON, GameSession.dailyRewardList);
-        JsonSaver.saveObject(EQUIPS_JSON, GameSession.equipList);
-        JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
-        JsonSaver.saveObject(ITEMS_JSON, GameSession.itemList);
-        JsonSaver.saveObject(LINEUP_ATTACK, GameSession.lineupList);
-        JsonSaver.saveObject(MISSION_JSON, GameSession.missionList);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("achievement.json"), GameSession.achievementList);
+        JsonSaver.saveObject(Constants.playerPath("daily_rewards.json"), GameSession.dailyRewardList);
+        JsonSaver.saveObject(Constants.playerPath("equips.json"), GameSession.equipList);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
+        JsonSaver.saveObject(Constants.playerPath("items.json"), GameSession.itemList);
+        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSession.lineupList);
+        JsonSaver.saveObject(Constants.playerPath("mission.json"), GameSession.missionList);
     }
 
     private static void createPopupDelete() {

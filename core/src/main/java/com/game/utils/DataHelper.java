@@ -1,17 +1,17 @@
 package com.game.utils;
 
-import static com.game.utils.Constants.ACHIEVEMENT_JSON;
+
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
-import static com.game.utils.Constants.CHECK_MAP_JSON;
-import static com.game.utils.Constants.DAILY_REWARD_JSON;
-import static com.game.utils.Constants.EQUIPS_JSON;
+
+
+
 import static com.game.utils.Constants.EQUIP_JSON;
-import static com.game.utils.Constants.INFO_JSON;
-import static com.game.utils.Constants.ITEMS_JSON;
+
+
 import static com.game.utils.Constants.ITEM_JSON;
-import static com.game.utils.Constants.LINEUP_ATTACK;
+
 import static com.game.utils.Constants.MAININFO_JSON_LOCAL;
-import static com.game.utils.Constants.MISSION_JSON;
+
 import static com.game.utils.Constants.SKILL_JSON;
 
 import com.badlogic.gdx.Gdx;
@@ -78,7 +78,7 @@ public class DataHelper {
 
     public static Profile loadProfile(boolean b) {
         if (b || GameSession.profile != null) {
-            FileHandle fileHandle = Gdx.files.local(INFO_JSON);
+            FileHandle fileHandle = Gdx.files.local(Constants.playerPath("info.json"));
             if (!fileHandle.exists()) {
                 return null;
             }
@@ -109,7 +109,7 @@ public class DataHelper {
     public static List<Achievement> loadAchievementList(boolean b) {
         if (b || GameSession.achievementList.isEmpty()) {
             GameSession.achievementList.clear();
-            FileHandle fileHandle = Gdx.files.local(ACHIEVEMENT_JSON);
+            FileHandle fileHandle = Gdx.files.local(Constants.playerPath("achievement.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -128,7 +128,7 @@ public class DataHelper {
     public static List<CheckMap> loadCheckMapList(boolean b) {
         if (b || GameSession.checkMapList.isEmpty()) {
             GameSession.checkMapList.clear();
-            FileHandle fileHandle = Gdx.files.local(CHECK_MAP_JSON);
+            FileHandle fileHandle = Gdx.files.local(Constants.playerPath("check_enemy_map.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -205,7 +205,7 @@ public class DataHelper {
     }
 
     public static List<DailyReward> loadDailyRewardList(boolean b) {
-        String filePath = DAILY_REWARD_JSON;
+        String filePath = Constants.playerPath("daily_rewards.json");
         if (b || GameSession.dailyRewardList.isEmpty()) {
             GameSession.dailyRewardList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
@@ -259,7 +259,7 @@ public class DataHelper {
     public static List<Equip> loadEquipList(boolean b) {
         if (b || GameSession.equipList.isEmpty()) {
             GameSession.equipList.clear();
-            FileHandle fileHandle = Gdx.files.local(EQUIPS_JSON);
+            FileHandle fileHandle = Gdx.files.local(Constants.playerPath("equips.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -301,7 +301,7 @@ public class DataHelper {
     public static List<Item> loadItemList(boolean b) {
         if (b || GameSession.itemList.isEmpty()) {
             GameSession.itemList.clear();
-            FileHandle fileHandle = Gdx.files.local(ITEMS_JSON);
+            FileHandle fileHandle = Gdx.files.local(Constants.playerPath("items.json"));
             JsonReader reader = new JsonReader();
             JsonValue root = reader.parse(fileHandle);
 
@@ -317,7 +317,7 @@ public class DataHelper {
 
 
     public static List<Mission> loadMissionList(boolean b) {
-        String filePath = MISSION_JSON;
+        String filePath = Constants.playerPath("mission.json");
         if (b || GameSession.missionList.isEmpty()) {
             GameSession.missionList.clear();
             FileHandle fileHandle = Gdx.files.local(filePath);
@@ -436,7 +436,7 @@ public class DataHelper {
     }
 
     public static List<Hero> loadHeroList(String filePath, boolean reload) {
-        boolean player = filePath.equals(Constants.HERO_FULL);
+        boolean player = filePath.equals(Constants.playerPath("hero_full.json"));
         if (player) {
             if (reload || GameSession.heroList.isEmpty()) {
                 return sortHero(loadHeroListPrivate(filePath, player));

@@ -104,8 +104,6 @@ public class ScreenManager implements Disposable {
 
     private boolean needLoadingFor(ScreenType targetScreen) {
         switch (targetScreen) {
-            case MAIN_GAME:
-                return true;
             case CHECK_ATLAS:
                 CheckRegionScreen.loadingAsset();
                 return true;

@@ -1,5 +1,7 @@
 package com.game.screens.battle;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.*;
 
 import com.badlogic.ashley.core.Entity;
@@ -20,6 +22,7 @@ import com.game.core.BattleConfig;
 import com.game.core.BattleLogger;
 import com.game.core.BattleSimulationResult;
 import com.game.core.BattleSimulator;
+import com.game.core.StatCalculator;
 import com.game.ecs.TurnProcessor;
 import com.game.ecs.component.ActionQueueComponent;
 import com.game.ecs.component.AnimationStateComponent;
@@ -88,8 +91,9 @@ public class BattleScreen extends BaseScreen {
 
     public BattleScreen() {
         super();
-        createScreen();
     }
+
+
 
     public static void loadingAsset() {
         MainGame.getAsM().loadAtlas(SKILL_SKILL);
@@ -204,14 +208,7 @@ public class BattleScreen extends BaseScreen {
         for (Entity entity : playerTeam) {
             CharacterComponent dataEntity = entity.getComponent(CharacterComponent.class);
             InfoComponent infoComponent = entity.getComponent(InfoComponent.class);
-            entity.add(new StatComponent(
-                dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoComponent.level)) : 100,
-                dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoComponent.level)) : 50,
-                dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoComponent.level)) : 20,
-                dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoComponent.level)) : 10,
-                dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoComponent.level)) : 30,
-                dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoComponent.level)) : 10
-            ));
+            entity.add(StatCalculator.calculate(dataEntity, infoComponent.level, 0));
         }
     }
 
@@ -252,7 +249,7 @@ public class BattleScreen extends BaseScreen {
                 }
 
 
-                Hero hero = DataHelper.get(DataHelper.loadHeroList(HERO_FULL, false), "characterId", lineup.characterId);
+                Hero hero = DataHelper.get(DataHelper.loadHeroList(Constants.playerPath("hero_full.json"), false), "characterId", lineup.characterId);
                 InfoComponent infoCharacter = new InfoComponent();
                 infoCharacter.characterId = lineup.characterId;
                 infoCharacter.nameRegion = lineup.nameRegion;
@@ -275,14 +272,7 @@ public class BattleScreen extends BaseScreen {
                 entity.add(new SizeComponent(tileSize, tileSize));
                 entity.add(infoCharacter);
 
-                StatComponent stat = new StatComponent(
-                    dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 100,
-                    dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 50,
-                    dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 20,
-                    dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10,
-                    dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 30,
-                    dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10
-                );
+                StatComponent stat = StatCalculator.calculate(dataEntity, infoCharacter.level, infoCharacter.star);
                 entity.add(stat);
 
                 // Initialize skills
@@ -348,14 +338,7 @@ public class BattleScreen extends BaseScreen {
                 entity.add(new SizeComponent(hero.characterId.equals("boss") ? tileSize * 2.5f : tileSize, hero.characterId.equals("boss") ? tileSize * 2.5f : tileSize));
                 entity.add(infoCharacter);
 
-                StatComponent stat = new StatComponent(
-                    dataEntity.hp > 0 ? (int) (dataEntity.hp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 100,
-                    dataEntity.mp > 0 ? (int) (dataEntity.mp * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 50,
-                    dataEntity.atk > 0 ? (int) (dataEntity.atk * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 20,
-                    dataEntity.def > 0 ? (int) (dataEntity.def * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10,
-                    dataEntity.agi > 0 ? (int) (dataEntity.agi * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 30,
-                    dataEntity.crit > 0 ? (int) (dataEntity.crit * Math.pow(1.1f, infoCharacter.level) * Math.pow(1.5f, infoCharacter.star)) : 10
-                );
+                StatComponent stat = StatCalculator.calculate(dataEntity, infoCharacter.level, infoCharacter.star);
                 entity.add(stat);
 
                 // Initialize skills
@@ -482,7 +465,7 @@ public class BattleScreen extends BaseScreen {
             GameSession.profile.numberOfEnemies++;
             if(GameSession.targetMapId == "village_0"){
                 GameSession.missionList.get(0).progress = 1;
-                JsonSaver.saveObject(MISSION_JSON,GameSession.missionList);
+                JsonSaver.saveObject(Constants.playerPath("mission.json"),GameSession.missionList);
             }
 
             System.out.println("create reward it pp");
@@ -523,9 +506,9 @@ public class BattleScreen extends BaseScreen {
             GameSession.profile.level++;
         }
         GameSession.achievementList.get(2).number++;
-        JsonSaver.saveObject(ACHIEVEMENT_JSON, GameSession.achievementList);
-        JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
-        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("achievement.json"), GameSession.achievementList);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
     }
 
     private void hidePopupPause() {
@@ -537,21 +520,11 @@ public class BattleScreen extends BaseScreen {
         rootGroup.findActor("setting").setVisible(false);
     }
 
-    @Override
-    protected void updateLogic(float delta) {
-    }
 
-    private Entity checkMiss() {
-        if (target == null) return null;
-        return target;
-    }
-
-    private Entity checkCritical() {
-        if (skill == null) return null;
-
-        return null;
-    }
-
+    /**
+     * Custom render: KHÔNG gọi super.render() vì BattleScreen cần
+     * điều khiển engine.update() dựa trên isPause.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.15f, 1);
@@ -567,21 +540,6 @@ public class BattleScreen extends BaseScreen {
         }
 
         updateUI(delta);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 
     @Override

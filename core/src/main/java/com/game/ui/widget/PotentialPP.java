@@ -1,7 +1,9 @@
 package com.game.ui.widget;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.HERO_FULL;
+
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -65,7 +67,7 @@ public class PotentialPP {
                 if ((heroMerge != null) && (heroDelete != null)) {
                     int star = heroMerge.star++;
                     GameSession.heroList.remove(heroDelete);
-                    JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
+                    JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
                     ((UIImage) originM.findActor("bg")).setDrawable(new NinePatchDrawable(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + star, 20)));
                     ((UIImage) originM.findActor("frame")).setDrawable(new TextureRegionDrawable(MainGame.getAsM().getRegionCharacter(heroMerge.nameRegion, "idle")));
                     popup.getParent().addActor(originM);

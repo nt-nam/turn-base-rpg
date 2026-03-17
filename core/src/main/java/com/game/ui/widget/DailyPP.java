@@ -1,7 +1,9 @@
 package com.game.ui.widget;
 
-import static com.game.utils.Constants.DAILY_REWARD_JSON;
-import static com.game.utils.Constants.INFO_JSON;
+import com.game.utils.Constants;
+
+
+
 import static com.game.utils.Constants.UI_POPUP;
 
 import com.badlogic.gdx.graphics.Color;
@@ -97,7 +99,7 @@ public class DailyPP {
     }
 
     public static void update() {
-        JsonSaver.saveObject(DAILY_REWARD_JSON, dailyRewardList);
-        JsonSaver.saveObject(INFO_JSON, GameSession.profile);
+        JsonSaver.saveObject(Constants.playerPath("daily_rewards.json"), dailyRewardList);
+        JsonSaver.saveObject(Constants.playerPath("info.json"), GameSession.profile);
     }
 }

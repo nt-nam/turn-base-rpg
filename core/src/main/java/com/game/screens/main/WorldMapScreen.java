@@ -1,11 +1,13 @@
 package com.game.screens.main;
 
+import com.game.utils.Constants;
+
 import static com.game.utils.Constants.ATLAS_ICON;
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.CHARACTER_ATLAS;
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.CHARACTER_BASE_JSON;
-import static com.game.utils.Constants.HERO_FULL;
+
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.Constants.UI_WOOD;
 
@@ -70,8 +72,16 @@ public class WorldMapScreen extends BaseScreen {
     private UILabel gemLB;
     private UILabel energyLB;
 
+    @Override
+    protected boolean usesEngine() { return true; }
+
     public WorldMapScreen() {
         super();
+        createScreen();
+    }
+
+    @Override
+    protected void createScreen() {
         createJoystick();
         createHUD();
         createPopupFF();
@@ -176,7 +186,7 @@ public class WorldMapScreen extends BaseScreen {
     }
 
     private void createButton(String regionName, String popupName, String text, float x, float y, Runnable runnable) {
-        if (text != "") {
+        if (!text.isEmpty()) {
             new UIButton(text, MainGame.getAsM().getRegion(UI_POPUP, "tile_origin"))
                 .name("btn1" + popupName)
                 .pos(x, y - screenWidth * 0.03f)
@@ -205,7 +215,7 @@ public class WorldMapScreen extends BaseScreen {
         MainGame.getAsM().loadTiledMap((GameSession.pendingTeleport != null ? GameSession.pendingTeleport.nextMap : GameSession.profile.area));
         MainGame.getAsM().loadAtlas(ATLAS_ITEM);
         MainGame.getAsM().loadAtlas(ATLAS_ICON);
-        DataHelper.loadHeroList(HERO_FULL,true);
+        DataHelper.loadHeroList(Constants.playerPath("hero_full.json"),true);
         DataHelper.loadLineupList(true);
         DataHelper.loadAchievementList(true);
         DataHelper.loadMissionList(true);
@@ -368,10 +378,7 @@ public class WorldMapScreen extends BaseScreen {
         gemLB.setText(GameSession.profile.gem);
     }
 
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-    }
+
 
     @Override
     public void hide() {

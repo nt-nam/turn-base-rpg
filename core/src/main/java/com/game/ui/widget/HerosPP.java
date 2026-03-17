@@ -2,8 +2,8 @@ package com.game.ui.widget;
 
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
-import static com.game.utils.Constants.LINEUP_ATTACK;
-import static com.game.utils.Constants.HERO_FULL;
+
+
 import static com.game.utils.Constants.UI_POPUP;
 import static com.game.utils.GameSession.equipList;
 
@@ -125,7 +125,7 @@ public class HerosPP {
     }
 
     private static void updateTable() {
-        if (GameSession.heroList.size() > 1) sortHero(DataHelper.loadHeroList(HERO_FULL, false));
+        if (GameSession.heroList.size() > 1) sortHero(DataHelper.loadHeroList(Constants.playerPath("hero_full.json"), false));
         if (table != null) table.clearChild();
         int index = 0;
         for (Hero hero : GameSession.heroList) {
@@ -288,8 +288,8 @@ public class HerosPP {
     }
 
     private static void saveDataLineup() {
-        JsonSaver.saveObject(LINEUP_ATTACK, GameSession.lineupList);
-        JsonSaver.saveObject(HERO_FULL, GameSession.heroList);
+        JsonSaver.saveObject(Constants.playerPath("lineup.json"), GameSession.lineupList);
+        JsonSaver.saveObject(Constants.playerPath("hero_full.json"), GameSession.heroList);
     }
 
     private static void updateDrawableGrid() {

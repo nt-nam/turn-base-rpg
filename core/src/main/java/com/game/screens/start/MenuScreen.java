@@ -32,7 +32,7 @@ public class MenuScreen extends BaseScreen {
     }
 
     @Override
-    public void createScreen() {
+    protected void createScreen() {
         DataHelper.loadCharacterBaseList();
 
         new UIImage(MainGame.getAsM().getTexture("texture/default.png")).size(screenWidth * 0.5f, screenHeight).parent(rootGroup);
@@ -85,32 +85,6 @@ public class MenuScreen extends BaseScreen {
         super.show();
         Gdx.app.log("MenuScreen", "show() called");
         stage.addActor(rootGroup);
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        Gdx.app.log("MenuScreen", "resize(" + width + ", " + height + ") called");
-        super.resize(width, height);
-    }
-
-    @Override
-    public void pause() {
-        Gdx.app.log("MenuScreen", "pause() called");
-    }
-
-    @Override
-    public void resume() {
-        Gdx.app.log("MenuScreen", "resume() called");
-    }
-
-    @Override
-    public void hide() {
-        Gdx.app.log("MenuScreen", "hide() called");
     }
 
     @Override
