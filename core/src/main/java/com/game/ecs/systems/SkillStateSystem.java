@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.game.ecs.component.SkillStateComponent;
@@ -40,7 +41,7 @@ public class SkillStateSystem extends EntitySystem {
 
             Animation<TextureRegion> anim = AnimationCache.get(spr.spriteId, spr.animationName);
             if (anim == null) {
-                System.out.println("[SkillStateSystem] Không tìm thấy animation: " + spr.spriteId + " / " + spr.animationName);
+                Gdx.app.debug("SkillStateSystem", "Khong tim thay animation: " + spr.spriteId + " / " + spr.animationName);
                 continue;
             }
 

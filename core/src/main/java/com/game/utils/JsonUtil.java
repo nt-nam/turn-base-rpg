@@ -20,7 +20,7 @@ public class JsonUtil {
             file.writeString(jsonString, false); // false để ghi đè tệp
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            Gdx.app.error("JsonUtil", "Loi doc/ghi JSON: " + e.getMessage(), e);
             return false;
         }
     }
@@ -33,7 +33,7 @@ public class JsonUtil {
 
         // Kiểm tra sự tồn tại của tệp
         if (!file.exists()) {
-            System.err.println("File does not exist: " + filePath);
+            Gdx.app.error("JsonUtil", "File does not exist: " + filePath);
             return null;
         }
 
@@ -41,7 +41,7 @@ public class JsonUtil {
             // Đọc dữ liệu từ file và chuyển thành ObjectMap
             return json.fromJson(ObjectMap.class, file.readString());
         } catch (Exception e) {
-            e.printStackTrace();
+            Gdx.app.error("JsonUtil", "Loi doc/ghi JSON: " + e.getMessage(), e);
             return null;
         }
     }
@@ -60,7 +60,7 @@ public class JsonUtil {
             file.writeString(jsonString, false); // false để ghi đè
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            Gdx.app.error("JsonUtil", "Loi doc/ghi JSON: " + e.getMessage(), e);
             return false;
         }
     }
@@ -73,7 +73,7 @@ public class JsonUtil {
 
         // Kiểm tra sự tồn tại của tệp
         if (!file.exists()) {
-            System.err.println("File does not exist: " + filePath);
+            Gdx.app.error("JsonUtil", "File does not exist: " + filePath);
             return null;
         }
 
@@ -81,7 +81,7 @@ public class JsonUtil {
             // Đọc dữ liệu từ file và chuyển thành Array<ObjectMap>
             return json.fromJson(Array.class, file.readString());
         } catch (Exception e) {
-            e.printStackTrace();
+            Gdx.app.error("JsonUtil", "Loi doc/ghi JSON: " + e.getMessage(), e);
             return null;
         }
     }

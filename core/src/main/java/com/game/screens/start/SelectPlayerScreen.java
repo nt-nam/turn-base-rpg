@@ -2,13 +2,10 @@ package com.game.screens.start;
 
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.UI_POPUP;
-import static com.game.utils.Constants.UI_WOOD;
 
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -16,13 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
-import com.game.ecs.component.PlayerSelectedComponent;
 import com.game.screens.BaseScreen;
 import com.game.screens.ScreenType;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
-import com.game.utils.Constants;
 import com.game.managers.GameSessionManager;
 import com.game.utils.DataHelper;
 import com.game.models.entity.Account;
@@ -40,15 +35,7 @@ public class SelectPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        accounts = DataHelper.loadAccountList(true);
-        if (accounts != null) {
-            for (Account element : accounts) {
-                MainGame.getAsM().load("atlas/characters/" + element.characterSelect + ".atlas", TextureAtlas.class);
-            }
-        }
-
-        MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
-
+        accounts = SelectPlayerAssets.load();
     }
 
     @Override
@@ -118,23 +105,7 @@ public class SelectPlayerScreen extends BaseScreen {
 //                        new UILabel(acc.getString("characterSelect"), BMF).pos(50, screenHeight*0.2f).fontScale(1f)
                     )
                     .onClick(() -> {
-                        Entity eventEntity = engine.createEntity();
-                        PlayerSelectedComponent comp = engine.createComponent(PlayerSelectedComponent.class);
-                        comp.playerName = element.id;
-                        comp.knightId = element.characterSelect;
-                        eventEntity.add(comp);
-                        engine.addEntity(eventEntity);
-
-                        GameSessionManager.getInstance().playerName = element.id;
-                        GameSessionManager.getInstance().selectedCharacterId = element.characterSelect;
-                        // playerPath() sẽ tự động dùng GameSessionManager.getInstance().playerName
-                        System.out.println(GameSessionManager.getInstance().playerName);
-                        DataHelper.loadProfile(true);
-                        DataHelper.loadEquipList(true);
-                        DataHelper.loadItemBaseList(true);
-                        DataHelper.loadHeroList(Constants.playerPath("hero_full.json"),true);
-                        DataHelper.loadMissionList(true);
-                        DataHelper.loadAchievementList(true);
+                        SelectPlayerLoader.selectAccount(engine, element);
 
                         MainGame.getScM().clearScreenCache();
                         MainGame.getScM().showScreen(ScreenType.WORLD_MAP);

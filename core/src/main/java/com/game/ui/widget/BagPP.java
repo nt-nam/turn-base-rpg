@@ -1,5 +1,7 @@
 package com.game.ui.widget;
 
+import com.badlogic.gdx.Gdx;
+
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
 import static com.game.utils.Constants.UI_POPUP;
@@ -16,12 +18,12 @@ import com.game.ui.base.UITable;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.DataHelper;
 import com.game.managers.GameSessionManager;
+import com.game.models.entity.Bag;
 import com.game.models.entity.Equip;
 import com.game.models.entity.EquipBase;
 import com.game.models.entity.Hero;
 import com.game.models.entity.Item;
-
-import java.util.Objects;
+import com.game.models.entity.ItemBase;
 
 public class BagPP {
     private static UIGroup popup;
@@ -125,7 +127,8 @@ public class BagPP {
         tableEquip.clear();
         int index = 0;
         for (Equip equip : GameSessionManager.getInstance().equipList) {
-            tableEquip.add(tileItem(equip.nameRegion).onClick(() -> {
+            String label = "Lv" + equip.level;
+            tableEquip.add(tileItemWithLabel(equip.nameRegion, label).onClick(() -> {
                 createPopup(equip);
             }));
             index++;
@@ -141,7 +144,8 @@ public class BagPP {
         tableItem.clear();
         int index = 0;
         for (Item item : GameSessionManager.getInstance().itemList) {
-            tableItem.add(tileItem(item.nameRegion).onClick(() -> {
+            String label = "x" + item.quantity;
+            tableItem.add(tileItemWithLabel(item.nameRegion, label).onClick(() -> {
                 createPopup(item);
             }));
             index++;
@@ -190,7 +194,7 @@ public class BagPP {
                 }
 
                 popup.addActor(NotificationPP.ppr(width, height, "Cập nhật thành công"));
-                System.out.println("category: capnhat thanh cong");
+                Gdx.app.debug("BagPP", "category: capnhat thanh cong");
 
                 group.remove();
                 popup.findActor("closeBtn").setVisible(true);
@@ -216,10 +220,8 @@ public class BagPP {
     }
 
     private static String category(Equip e) {
-        String eStr = "empty";
-        EquipBase equip = DataHelper.get(GameSessionManager.getInstance().equipBaseList, "nameRegion", e.nameRegion);
-        if (equip != null) eStr = equip.category;
-        return eStr;
+        EquipBase base = Bag.findEquipBase(e.nameRegion);
+        return e.getCategory(base);
     }
 
     private static void createPopup(Item item) {
@@ -231,12 +233,20 @@ public class BagPP {
             index++;
             UIGroup itemUI = createItem(hero);
 
-
             itemUI.onClick(() -> {
-                hero.exp += Objects.requireNonNull(DataHelper.get(GameSessionManager.getInstance().itemBaseList, "nameRegion", item.nameRegion)).tier + 100;
-                popup.addActor(NotificationPP.ppr(width, height, "Tăng cấp thành công"));
-                System.out.println("category: capnhat thanh cong");
-hero.checkLevel();
+                ItemBase base = Bag.findItemBase(item.nameRegion);
+                int effectValue = item.getEffectValue(base);
+                hero.exp += effectValue;
+                hero.checkLevel();
+                
+                // Consume 1 item
+                item.quantity--;
+                if (item.quantity <= 0) {
+                    GameSessionManager.getInstance().itemList.remove(item);
+                }
+                
+                popup.addActor(NotificationPP.ppr(width, height, "+" + effectValue + " EXP"));
+                Gdx.app.debug("BagPP", "Item used: " + item.nameRegion + " -> +" + effectValue + " exp");
             });
 
 
@@ -259,10 +269,14 @@ hero.checkLevel();
     }
 
     private static UIGroup tileItem(String nameRegion) {
+        return tileItemWithLabel(nameRegion, "");
+    }
+
+    private static UIGroup tileItemWithLabel(String nameRegion, String labelText) {
         UIGroup tile = new UIGroup().size(sizeTile, sizeTile);
         new UIImage(MainGame.getAsM().get9p()).size(sizeTile, sizeTile).parent(tile);
         new UIImage(MainGame.getAsM().getRegion(ATLAS_ITEM, nameRegion)).pos(sizeTile * 0.1f, sizeTile * 0.1f).size(sizeTile, sizeTile).align(Align.center).scale(0.8f).parent(tile);
-        new UILabel("", BMF).parent(tile);
+        new UILabel(labelText, BMF).pos(sizeTile * 0.05f, sizeTile * 0.05f).fontScale(0.9f).parent(tile);
         return tile;
     }
 

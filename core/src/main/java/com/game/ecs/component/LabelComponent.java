@@ -9,15 +9,33 @@ public class LabelComponent implements Component {
         public String text;
         public float x;
         public float y;
+        public float vx; // velocity x
+        public float vy; // velocity y
         public float lifeTime;
+        public float maxLifeTime;
         public boolean isCritical;
+        public boolean isHeal;
         
         public DamageText(String text, float x, float y, boolean isCritical) {
+            this(text, x, y, isCritical, false);
+        }
+
+        public DamageText(String text, float x, float y, boolean isCritical, boolean isHeal) {
             this.text = text;
             this.x = x;
             this.y = y;
-            this.lifeTime = 1.0f; // 1 second default lifetime
+            this.maxLifeTime = 1.2f; // slightly longer lifetime for smooth fade
+            this.lifeTime = this.maxLifeTime;
             this.isCritical = isCritical;
+            this.isHeal = isHeal;
+            
+            // Random scatter trajectory
+            this.vx = (float) (Math.random() * 80 - 40);
+            this.vy = (float) (Math.random() * 100 + 150); // initial upward burst
+            if (isCritical) {
+                this.vy += 100; // crit bursts higher
+                this.vx *= 1.5f;
+            }
         }
     }
     

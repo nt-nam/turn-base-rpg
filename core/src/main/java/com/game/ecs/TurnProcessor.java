@@ -19,21 +19,21 @@ public class TurnProcessor {
         ///custom----------------
         for (Array<TurnResult> round : listResult.rounds) {
             for (TurnResult turn : round) {
-                ObjectMap note = new ObjectMap();
+                ObjectMap<String, Integer> note = new ObjectMap<>();
 
 
                 ///show action turn mới
                 queue.actions.addLast(new ActionQueueComponent.Action(
                     turn.actorEntity,
                     turn.actorEntity,
-                    1f, // Duration of movement
+                    0.4f, // Reduced from 1f for snappier attack animation
                     SkillStateComponent.State.ATTACK,
                     "",note
                 ));
                 queue.actions.addLast(new ActionQueueComponent.Action(
                     turn.actorEntity,
                     turn.targetEntity,
-                    0.5f, // Duration of movement
+                    0.25f, // Reduced from 0.5f for faster projectile/impact
                     SkillStateComponent.State.ULTIMATE,
                     "",note
                 ));
@@ -41,7 +41,7 @@ public class TurnProcessor {
                 queue.actions.addLast(new ActionQueueComponent.Action(
                     turn.targetEntity,
                     turn.targetEntity,
-                    0.5f,
+                    0.25f,
                     SkillStateComponent.State.HIDE,
                     "",note
                 ));
@@ -67,12 +67,19 @@ public class TurnProcessor {
                         turn.targetEntity,
                         0.0f,
                         SkillStateComponent.State.HIDE,"damage",note));
+                } else if (turn.damage < 0) {
+                    note.put("heal", -turn.damage);
+                    queue.actions.addLast(new ActionQueueComponent.Action(
+                        turn.targetEntity,
+                        turn.targetEntity,
+                        0.0f,
+                        SkillStateComponent.State.HIDE,"heal",note));
                 }
                 if(turn.targetDead){
                     queue.actions.addLast(new ActionQueueComponent.Action(
                         turn.targetEntity,
                         turn.targetEntity,
-                        1f,
+                        0.4f,
                         SkillStateComponent.State.HIDE,"dead",note));
                 }
 
@@ -83,7 +90,7 @@ public class TurnProcessor {
         queue.actions.addLast(new ActionQueueComponent.Action(
             null,
             null,
-            1f,
+            0.4f,
             SkillStateComponent.State.HIDE,listResult.winner, null));
     }
 }

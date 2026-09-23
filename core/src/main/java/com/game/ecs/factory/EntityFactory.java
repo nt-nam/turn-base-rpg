@@ -145,7 +145,10 @@ public class EntityFactory {
         float barW = isBoss ? tileSize * 2 : tileSize * 1f;
         float barH = isBoss ? tileSize * 0.2f : tileSize * 0.1f;
 
-        entity.add(new HealthBarComponent(1.0f, barX, barY, barW, barH));
+        HealthBarComponent hb = new HealthBarComponent(1.0f, barX, barY, barW, barH);
+        hb.currentHp = stat.hp;
+        hb.maxHp = stat.maxHp;
+        entity.add(hb);
         entity.add(new LabelComponent());
         
         team.add(entity);

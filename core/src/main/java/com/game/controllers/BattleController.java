@@ -1,5 +1,6 @@
 package com.game.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.game.managers.GameSessionManager;
 import com.game.models.entity.Equip;
 import com.game.models.entity.Hero;
@@ -67,7 +68,7 @@ public class BattleController {
         GameSessionManager session = GameSessionManager.getInstance();
         for (Hero he : session.heroList) {
             if (!he.grid.equals("empty")) {
-                System.out.println(he.grid + " received exp");
+                Gdx.app.debug("BattleController", he.grid + " received exp");
                 he.exp += (int) ((maxLevelEnemy * 100) * per);
                 he.checkLevel();
             }

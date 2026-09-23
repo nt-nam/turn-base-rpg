@@ -9,18 +9,21 @@ public class SkillComponent implements Component {
     public int id;
     public String name;
     public String description;
+    public int mpCost;
     public JsonValue effect;
 
-    public SkillComponent(int id, String name, String description, JsonValue effect) {
+    public SkillComponent(int id, String name, String description, int mpCost, JsonValue effect) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.mpCost = mpCost;
         this.effect = effect;
     }
     public SkillComponent(int id,Skill skill) {
         this.id = id;
         this.name = skill.name;
         this.description = skill.description;
+        this.mpCost = skill.mpCost;
         this.effect = new JsonValue(JsonValue.ValueType.object);
         this.effect.addChild(skill.effectSkill.name,new JsonValue(skill.effectSkill.value));
     }

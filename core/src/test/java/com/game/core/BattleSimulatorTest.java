@@ -11,6 +11,10 @@ import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.EnemyComponent;
 import com.game.ecs.component.StatComponent;
 import com.game.ecs.component.SkillComponent;
+import com.game.combat.BattleSimulator;
+import com.game.combat.BattleSimulationException;
+import com.game.combat.BattleSimulationResult;
+import com.game.combat.BattleConfig;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -144,8 +148,8 @@ class BattleSimulatorTest {
             entity.add(isEnemy ? new EnemyComponent() : new PlayerComponent());
 
             // Thêm kỹ năng đơn giản (không có effect → fallback sang basic attack trong TurnExecution)
-            SkillComponent basicAttack = new SkillComponent(1, "basic", "Tấn công cơ bản", null);
-            ListSkillComponent skills = new ListSkillComponent(null);
+            SkillComponent basicAttack = new SkillComponent(1, "basic", "Tấn công cơ bản", 0, null);
+            ListSkillComponent skills = new ListSkillComponent();
             skills.skills = new Array<>();
             skills.skills.add(basicAttack);
             entity.add(skills);

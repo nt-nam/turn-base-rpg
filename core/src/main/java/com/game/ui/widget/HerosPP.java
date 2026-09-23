@@ -1,5 +1,7 @@
 package com.game.ui.widget;
 
+import com.badlogic.gdx.Gdx;
+
 import static com.game.utils.Constants.ATLAS_ITEM;
 import static com.game.utils.Constants.BMF;
 
@@ -167,7 +169,7 @@ public class HerosPP {
                     ((UIGroup) gridLineup.findActor(heroSelect.grid)).findActor("select").setVisible(true);
                 boolean flag = gridLineup.isVisible();
                 if (flag) {
-                    System.out.println("updateGridDrawable");
+                    Gdx.app.debug("HerosPP", "updateGridDrawable");
                 } else {
                     detail.setVisible(true);
                     updateDetail();
@@ -363,25 +365,25 @@ public class HerosPP {
             new UIImage(MainGame.getAsM().get9p()).size(tile, tile),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "shadow_shield")).name("icon").size(tile, tile).origin(Align.center).scale(0.6f)
         ).pos(pos, pos).parent(detail).onClick(() -> {
-            System.out.println("Click equip: shield");
+            Gdx.app.debug("HerosPP", "Click equip: shield");
         });
         new UIGroup().name("necklet").child(
             new UIImage(MainGame.getAsM().get9p()).size(tile, tile),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "shadow_necklet")).name("icon").size(tile, tile).origin(Align.center).scale(0.6f)
         ).pos(pos + tile, pos).parent(detail).onClick(() -> {
-            System.out.println("Click equip: necklet");
+            Gdx.app.debug("HerosPP", "Click equip: necklet");
         });
         new UIGroup().name("sword").child(
             new UIImage(MainGame.getAsM().get9p()).size(tile, tile),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "shadow_sword")).name("icon").size(tile, tile).origin(Align.center).scale(0.6f)
         ).pos(pos, pos + tile).parent(detail).onClick(() -> {
-            System.out.println("Click equip: sword");
+            Gdx.app.debug("HerosPP", "Click equip: sword");
         });
         new UIGroup().name("armor").child(
             new UIImage(MainGame.getAsM().get9p()).size(tile, tile),
             new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "shadow_armor")).name("icon").size(tile, tile).origin(Align.center).scale(0.6f)
         ).pos(pos + tile, pos + tile).parent(detail).onClick(() -> {
-            System.out.println("Click equip: armor");
+            Gdx.app.debug("HerosPP", "Click equip: armor");
         });
 
         detail.setVisible(false);
@@ -439,7 +441,7 @@ public class HerosPP {
     }
 
     private static TextureRegionDrawable getRegionEquip(String idEquip) {
-        System.out.println(idEquip);
+        Gdx.app.debug("HerosPP", "getRegionEquip: " + idEquip);
         Equip equip = DataHelper.get(GameSessionManager.getInstance().equipList, "id", idEquip);
         return new TextureRegionDrawable(MainGame.getAsM().getRegion(ATLAS_ITEM, equip.nameRegion));
     }

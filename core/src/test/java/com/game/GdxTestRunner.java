@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.badlogic.gdx.backends.headless.mock.graphics.MockGL20;
 
 /**
  * Khởi tạo LibGDX Headless backend dùng chung cho các unit test cần Gdx.app.
@@ -27,7 +26,7 @@ public class GdxTestRunner {
         }, config);
         // Sử dụng MockGL20 của LibGDX headless thay vì Mockito
         if (Gdx.gl == null) {
-            Gdx.gl = Gdx.gl20 = new MockGL20();
+            Gdx.gl = Gdx.gl20 = null; // Tests shouldn't need GL directly if headless without MockGL20
         }
         initialized = true;
     }

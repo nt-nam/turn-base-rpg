@@ -20,7 +20,7 @@ public abstract class BaseScreen implements Screen {
     /** Override trả về true nếu Screen này sử dụng Ashley ECS Engine. */
     protected boolean usesEngine() { return false; }
     protected Stage stage;
-    protected static Engine engine;
+    protected final Engine engine;
     protected float screenWidth;
     protected float screenHeight;
     protected Group rootGroup;
@@ -41,10 +41,28 @@ public abstract class BaseScreen implements Screen {
 
     protected abstract void createScreen();
 
+    /**
+     * Hook vong doi: goi khi Screen bat dau hien thi (sau khi rootGroup da vao stage).
+     * Screen dung ECS nen dang ky systems/entities tai day thay vi trong show().
+     */
+    protected void onEnter() {
+    }
+
+    /**
+     * Hook vong doi: goi khi Screen bi an. Mac dinh don sach ECS (diem cleanup DUY NHAT
+     * cho ECS). removeAll* la vo hai neu Screen khong dung Engine. Screen co the override
+     * de bo sung teardown rieng (nho goi super.onExit()).
+     */
+    protected void onExit() {
+        engine.removeAllEntities();
+        engine.removeAllSystems();
+    }
+
     @Override
     public void show() {
         stage.clear();
         stage.addActor(rootGroup);
+        onEnter();
     }
 
 
@@ -91,6 +109,7 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void hide() {
+        onExit();
     }
 
     @Override

@@ -25,15 +25,15 @@ public class JsonSaver {
         Gson json = new Gson();
         String jsonString = json.toJson(object);
 
-        System.out.println("Serialized JSON: " + jsonString);
+        Gdx.app.debug("JsonSaver", "Serialized JSON: " + jsonString);
         FileHandle file = Gdx.files.local(filePath);
 
         try {
             file.writeString(jsonString, false);
-            System.out.println("Data saved to " + file.path());
+            Gdx.app.debug("JsonSaver", "Data saved to " + file.path());
             return true;
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            Gdx.app.error("JsonSaver", "An error occurred: " + e.getMessage(), e);
             return false;
         }
     }
@@ -46,16 +46,16 @@ public class JsonSaver {
 
         if (!dir.exists()) {
             dir.mkdirs();
-            System.out.println("Created directory: " + dirPath);
+            Gdx.app.debug("JsonSaver", "Created directory: " + dirPath);
         }
         String s = json.toJson(profile);
         FileHandle file = Gdx.files.local(dirPath + "/info.json");
         try {
             file.writeString(s, false);  // Ghi đè nếu tệp đã tồn tại
-            System.out.println("Data saved to " + file.path());
+            Gdx.app.debug("JsonSaver", "Data saved to " + file.path());
             return true;
         } catch (GdxRuntimeException e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            Gdx.app.error("JsonSaver", "An error occurred: " + e.getMessage(), e);
             return false;
         }
     }
@@ -67,10 +67,10 @@ public class JsonSaver {
 
         try {
             file.writeString(value, false);
-            System.out.println("Data saved to " + file.path());
+            Gdx.app.debug("JsonSaver", "Data saved to " + file.path());
             return true;
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            Gdx.app.error("JsonSaver", "An error occurred: " + e.getMessage(), e);
             return false;
         }
     }
@@ -83,10 +83,10 @@ public class JsonSaver {
 
         try {
             file.writeString(jsonString, false);
-            System.out.println("Data saved to " + file.path());
+            Gdx.app.debug("JsonSaver", "Data saved to " + file.path());
             return true;
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            Gdx.app.error("JsonSaver", "An error occurred: " + e.getMessage(), e);
             return false;
         }
     }
@@ -104,7 +104,7 @@ public class JsonSaver {
         FileHandle sourceFile = Gdx.files.internal(assetPath);
 
         if (!sourceFile.exists()) {
-            System.err.println("Source file does not exist: " + assetPath);
+            Gdx.app.error("JsonSaver", "Source file does not exist: " + assetPath);
             return;
         }
 
@@ -112,7 +112,7 @@ public class JsonSaver {
         destFile.parent().mkdirs();
 
         sourceFile.copyTo(destFile);
-        System.out.println("File copied from " + assetPath + " to " + localPath);
+        Gdx.app.debug("JsonSaver", "File copied from " + assetPath + " to " + localPath);
     }
 
 
@@ -125,7 +125,7 @@ public class JsonSaver {
             FileHandle file = Gdx.files.internal(path);
 
             if (!file.exists()) {
-                System.err.println("File not found in assets: " + path);
+                Gdx.app.error("JsonSaver", "File not found in assets: " + path);
                 return null;  // Nếu tệp không tồn tại, trả về null
             }
 
@@ -133,15 +133,14 @@ public class JsonSaver {
             jsonValue = reader.parse(file);
 
             if (jsonValue == null) {
-                System.err.println("Failed to parse JSON from file: " + path);
+                Gdx.app.error("JsonSaver", "Failed to parse JSON from file: " + path);
                 return null;  // Nếu không thể parse JSON, trả về null
             }
 
-            System.out.println("Successfully loaded JSON from: " + path);
+            Gdx.app.debug("JsonSaver", "Successfully loaded JSON from: " + path);
         } catch (Exception e) {
             // Xử lý lỗi khi đọc hoặc phân tích JSON
-            System.err.println("An error occurred while loading the JSON file: " + path);
-            e.printStackTrace();
+            Gdx.app.error("JsonSaver", "An error occurred while loading the JSON file: " + path, e);
         }
 
         return jsonValue;  // Trả về JsonValue sau khi đã tải

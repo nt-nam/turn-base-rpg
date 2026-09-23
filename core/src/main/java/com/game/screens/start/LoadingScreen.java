@@ -3,7 +3,6 @@ package com.game.screens.start;
 import static com.game.utils.Constants.BMF;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.game.MainGame;
 import com.game.screens.BaseScreen;
@@ -38,13 +37,12 @@ public class LoadingScreen extends BaseScreen {
 
     }
 
-
     @Override
     protected void updateLogic(float delta) {
         if (loadingStarted) {
             boolean done = MainGame.getAsM().update();
 
-            int progress = (int)(MainGame.getAsM().getProgress() * 100);
+            int progress = (int) (MainGame.getAsM().getProgress() * 100);
             progressLabel.setText("Đang tải: " + progress + "%");
 
             if (done) {

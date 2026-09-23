@@ -2,6 +2,7 @@ package com.game.ecs.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.game.MainGame;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.EnemyTriggerComponent;
@@ -61,7 +62,7 @@ public class EnemyCollisionSystem extends EntitySystem {
                 collided = true;
                 if (GameSessionManager.getInstance().currentEnemy == null) {
                     GameSessionManager.getInstance().currentEnemy = triggerComponent;
-                    System.out.println("Chạm enemy: " + triggerComponent.mapEnemy + " - id " + triggerComponent.id + " - level " + triggerComponent.level);
+                    Gdx.app.debug("EnemyCollisionSystem", "Cham enemy: " + triggerComponent.mapEnemy + " - id " + triggerComponent.id + " - level " + triggerComponent.level);
                     GameSessionManager.getInstance().profile.pos.x = playerPos.x;
                     GameSessionManager.getInstance().profile.pos.y = playerPos.y;
                     GameSessionManager.getInstance().enemyMapId = triggerComponent.id+"";
@@ -77,7 +78,7 @@ public class EnemyCollisionSystem extends EntitySystem {
 
         // Nếu player đã rời vùng enemy trigger thì reset currentEnemy
         if (!collided && GameSessionManager.getInstance().currentEnemy != null) {
-            System.out.println("Player đã rời vùng enemy.");
+            Gdx.app.debug("EnemyCollisionSystem", "Player da roi vung enemy.");
             GameSessionManager.getInstance().currentEnemy = null;
             WorldMapScreen.showBtnAttackBattle(false);
         }

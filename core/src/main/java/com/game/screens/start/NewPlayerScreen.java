@@ -24,17 +24,10 @@ import com.game.ui.base.UILabel;
 import com.game.ui.base.UITextField;
 import com.game.ui.hud.NotificationPP;
 import com.game.utils.DataHelper;
-import com.game.utils.JsonSaver;
 import com.game.models.entity.Account;
 import com.game.models.entity.CharacterBase;
-//import com.game.utils.JsonValueHelper;
 import com.game.managers.GameSessionManager;
-import com.game.models.entity.Lineup;
-import com.game.models.entity.Profile;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewPlayerScreen extends BaseScreen {
@@ -56,13 +49,7 @@ public class NewPlayerScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-        List<CharacterBase> characterBaseList = DataHelper.loadCharacterBaseList();
-        for (CharacterBase baseData : characterBaseList) {
-            MainGame.getAsM().load(CHARACTER_ATLAS + baseData.nameRegion + ".atlas", TextureAtlas.class);
-        }
-        MainGame.getAsM().load(SKILL_SKILL, TextureAtlas.class);
-        MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
-        MainGame.getAsM().load(UI_POPUP, TextureAtlas.class);
+        NewPlayerAssets.load();
     }
 
     @Override
@@ -144,35 +131,8 @@ public class NewPlayerScreen extends BaseScreen {
                 engine.addEntity(eventEntity);
 
                 playerNameField.getStage().setKeyboardFocus(null);
-                GameSessionManager.getInstance().playerName = nameInput;
-                GameSessionManager.getInstance().selectedCharacterId = getCurrentKnightId();
 
-                Profile profile = new Profile(nameInput, getCurrentKnightId());
-                GameSessionManager.getInstance().profile = profile;
-
-                List<Lineup> lineups = new ArrayList<>();
-                Lineup g = new Lineup();
-                g.grid = "1,1";
-                g.characterId = "character0";
-                g.nameRegion = getCurrentKnightId();
-                lineups.add(g);
-                JsonSaver.saveObject(Constants.playerPath("lineup.json"), lineups);
-
-                createFullPatty();
-
-                List<Account> accounts = DataHelper.loadAccountList(true);
-                if (accounts == null) {
-                    accounts = new ArrayList<>();
-                }
-                Account a = new Account();
-                a.id = nameInput;
-                a.level = 1;
-                a.characterSelect = getCurrentKnightId();
-                accounts.add(a);
-
-                JsonSaver.saveObject("data/select/" + nameInput + "/info.json", GameSessionManager.getInstance().profile);
-                JsonSaver.saveObject(MAININFO_JSON_LOCAL, accounts);
-                JsonSaver.createAccount();
+                NewPlayerAccountCreator.create(nameInput, getCurrentKnightId());
 
                 MainGame.getScM().showScreen(ScreenType.WORLD_MAP);
             });
@@ -200,37 +160,6 @@ public class NewPlayerScreen extends BaseScreen {
         // Nút Close
         createCloseButton(ScreenType.MENU_GAME);
 
-
-    }
-
-    private void createFullPatty() {
-        List<JsonObject> jsonObjectList = new ArrayList<>();
-        // Tạo đối tượng JsonObject để xây dựng cấu trúc JSON
-        JsonObject equip = new JsonObject();
-        equip.addProperty("weapon", "empty");
-        equip.addProperty("armor", "empty");
-        equip.addProperty("jewelry", "empty");
-        equip.addProperty("support", "empty");
-
-        JsonObject character = new JsonObject();
-        character.addProperty("characterId", "character0");
-        character.addProperty("nameRegion", getCurrentKnightId());
-        character.addProperty("grid", "1,1");
-        character.addProperty("star", 0);
-        character.addProperty("level", 1);
-        character.add("equip", equip);
-
-        jsonObjectList.add(character);
-
-        // Chuyển đối tượng Java thành JSON string
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(jsonObjectList);
-
-        JsonSaver.saveString(Constants.playerPath("hero_full.json"), jsonString);
-        // Lưu vào file trong bộ nhớ trong của ứng dụng
-//            FileHandle file = Gdx.files.local("data/character.json");
-//            file.writeString(jsonString, false); // false để ghi đè nếu tệp đã tồn tại
-//            System.out.println("Character JSON saved to " + file.path());
 
     }
 
@@ -298,8 +227,6 @@ public class NewPlayerScreen extends BaseScreen {
     @Override
     public void hide() {
         super.hide();
-        engine.removeAllEntities();
-        engine.removeAllSystems();
     }
 
     @Override

@@ -23,7 +23,6 @@ public class TimeISO8601 {
         String isoDate = (1970 + years) + "-" + (months + 1) + "-" + dayOfMonth + "T" +
             hours + ":" + minutes + ":" + seconds + "Z";
 
-        System.out.println(isoDate); // Ví dụ: 2025-07-04T12:45:30Z
         return isoDate;
     }
     public static double  parseDay(long currentTimeMillis){

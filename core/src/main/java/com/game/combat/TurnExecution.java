@@ -10,6 +10,7 @@ import com.game.ecs.component.ListSkillComponent;
 import com.game.ecs.component.SkillComponent;
 import com.game.ecs.component.StatComponent;
 import com.game.ecs.component.PlayerComponent;
+import com.game.ecs.component.BuffComponent;
 
 public class TurnExecution {
     public TurnExecution() {
@@ -46,7 +47,7 @@ public class TurnExecution {
         turn.targetEntity = target;
 
         // Cập nhật MP cho actor
-        int mpCost = selectedSkill.id == 1 ? 0 : (selectedSkill.id == 2 ? BattleConfig.getMpSkill2Cost() : BattleConfig.getMpSkill3Cost());
+        int mpCost = getSkillCost(selectedSkill);
         updateMP(actorStats, -mpCost);
 
         // Cập nhật MP cho target
@@ -61,25 +62,27 @@ public class TurnExecution {
         return turn;
     }
 
+    private int getSkillCost(SkillComponent skill) {
+        if (skill.mpCost > 0) return skill.mpCost;
+        if (skill.id == 2) return BattleConfig.getMpSkill2Cost();
+        if (skill.id == 3) return BattleConfig.getMpSkill3Cost();
+        return 0;
+    }
+
     private SkillComponent selectSkill(StatComponent actorStats, ListSkillComponent listSkill) {
-        // Ưu tiên kỹ năng ID 3 nếu đủ MP
+        SkillComponent bestSkill = null;
         for (SkillComponent skill : listSkill.skills) {
-            if (skill.id == 3 && actorStats.mp >= BattleConfig.getMpSkill3Cost()) {
-                return skill;
+            if (actorStats.mp >= getSkillCost(skill)) {
+                if (bestSkill == null || skill.id > bestSkill.id) {
+                    bestSkill = skill;
+                }
             }
         }
-        // Thử kỹ năng ID 2 nếu không đủ MP cho ID 3
-        for (SkillComponent skill : listSkill.skills) {
-            if (skill.id == 2 && actorStats.mp >= BattleConfig.getMpSkill2Cost()) {
-                return skill;
-            }
+        
+        if (bestSkill != null) {
+            return bestSkill;
         }
-        // Fallback về kỹ năng ID 1 (tấn công cơ bản)
-        for (SkillComponent skill : listSkill.skills) {
-            if (skill.id == 1) {
-                return skill;
-            }
-        }
+
         Gdx.app.error("TurnExecution", "Không tìm thấy kỹ năng hợp lệ");
         return null;
     }
@@ -128,12 +131,13 @@ public class TurnExecution {
             for (JsonValue effect : skill.effect) {
                 String effectName = effect.name;
                 float effectValue = effect.asFloat();
+                EffectType type = EffectType.fromString(effectName);
 
-                switch (effectName) {
-                    case "damage":
+                switch (type) {
+                    case DAMAGE:
                         // Tính sát thương: effectValue + actorStats.atk + 5
                         int baseDamage = (int) (effectValue + actorStats.atk + 5);
-                        int attackTimes = Math.max(skill.effect.getInt("attackTimes", 1), 1);
+                        int attackTimes = Math.max(skill.effect.getInt(EffectType.ATTACK_TIMES.getKey(), 1), 1);
                         for (int i = 0; i < attackTimes; i++) {
                             // Nhân với counter và critical
                             int damageBeforeDef = (int) (baseDamage * multiplier * critMultiplier);
@@ -154,37 +158,52 @@ public class TurnExecution {
                         if (result.targetDead) effectDesc.append("Mục tiêu bị hạ gục. ");
                         break;
 
-                    case "armor":
-                        // Tăng def của actor
-                        actorStats.def += effectValue;
-                        result.state.put("armor", effectValue);
-                        effectDesc.append("Tăng " + effectValue + " giáp. ");
+                    case ARMOR:
+                        BuffComponent buffArmor = actor.getComponent(BuffComponent.class);
+                        if (buffArmor == null) {
+                            buffArmor = new BuffComponent();
+                            actor.add(buffArmor);
+                        }
+                        int durationArmor = skill.effect.getInt("duration", 3);
+                        buffArmor.addBuff(EffectType.ARMOR, effectValue, durationArmor, actorStats);
+                        result.state.put(EffectType.ARMOR.getKey(), effectValue);
+                        effectDesc.append("Tăng " + effectValue + " giáp (" + durationArmor + " lượt). ");
                         break;
 
-                    case "dodgeChance":
-                        // Tăng agi của actor
-                        actorStats.agi += effectValue;
-                        result.state.put("dodgeChance", effectValue);
-                        effectDesc.append("Tăng " + effectValue + " khả năng né tránh. ");
+                    case DODGE_CHANCE:
+                        BuffComponent buffDodge = actor.getComponent(BuffComponent.class);
+                        if (buffDodge == null) {
+                            buffDodge = new BuffComponent();
+                            actor.add(buffDodge);
+                        }
+                        int durationDodge = skill.effect.getInt("duration", 3);
+                        buffDodge.addBuff(EffectType.DODGE_CHANCE, effectValue, durationDodge, actorStats);
+                        result.state.put(EffectType.DODGE_CHANCE.getKey(), effectValue);
+                        effectDesc.append("Tăng " + effectValue + " khả năng né tránh (" + durationDodge + " lượt). ");
                         break;
 
-                    case "critChance":
-                        // Tăng critRate của actor
-                        actorStats.critRate += effectValue;
-                        result.state.put("critChance", effectValue);
-                        effectDesc.append("Tăng " + effectValue + " tỷ lệ chí mạng. ");
+                    case CRIT_CHANCE:
+                        BuffComponent buffCrit = actor.getComponent(BuffComponent.class);
+                        if (buffCrit == null) {
+                            buffCrit = new BuffComponent();
+                            actor.add(buffCrit);
+                        }
+                        int durationCrit = skill.effect.getInt("duration", 3);
+                        buffCrit.addBuff(EffectType.CRIT_CHANCE, effectValue, durationCrit, actorStats);
+                        result.state.put(EffectType.CRIT_CHANCE.getKey(), effectValue);
+                        effectDesc.append("Tăng " + effectValue + " tỷ lệ chí mạng (" + durationCrit + " lượt). ");
                         break;
 
-                    case "manaRegen":
+                    case MANA_REGEN:
                         // Hồi MP cho actor
                         actorStats.mp = (int) Math.min(actorStats.mp + effectValue, actorStats.maxMp);
-                        result.state.put("manaRegen", effectValue);
+                        result.state.put(EffectType.MANA_REGEN.getKey(), effectValue);
                         effectDesc.append("Hồi " + effectValue + " MP. ");
                         break;
 
-                    case "heal":
+                    case HEAL:
                         // Hồi máu cho các mục tiêu
-                        int numTargets = skill.effect.getInt("targets", 1);
+                        int numTargets = skill.effect.getInt(EffectType.TARGETS.getKey(), 1);
                         Array<Entity> targets = selectHealTargets(actor, skill, numTargets);
                         for (Entity healTarget : targets) {
                             StatComponent healStats = healTarget.getComponent(StatComponent.class);
@@ -200,16 +219,22 @@ public class TurnExecution {
                         }
                         break;
 
-                    case "damageReflection":
+                    case DAMAGE_REFLECTION:
                         // Phản sát thương cho cả actor và target
                         actorStats.hp = (int) Math.max(actorStats.hp - effectValue, 0);
                         targetStats.hp = (int) Math.max(targetStats.hp - effectValue, 0);
                         result.damage += effectValue;
                         result.targetDead = targetStats.hp <= 0;
-                        result.state.put("damageReflection", effectValue);
+                        result.state.put(EffectType.DAMAGE_REFLECTION.getKey(), effectValue);
                         effectDesc.append("Phản " + effectValue + " sát thương. ");
                         break;
 
+                    case ATTACK_TIMES:
+                    case TARGETS:
+                        // Các thông số bổ sung, không cần xử lý hiệu ứng độc lập
+                        break;
+
+                    case UNKNOWN:
                     default:
                         // Ghi log và lưu các hiệu ứng không ánh xạ tới chỉ số
                         Gdx.app.log("TurnExecution", "Hiệu ứng không xác định: " + effectName + " với giá trị " + effectValue);

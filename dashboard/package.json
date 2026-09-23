@@ -1,0 +1,24 @@
+{
+  "name": "lvpxw-dashboard",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Game Content Studio cho LVpxW - xem/sua thong so + build level, ghi thang vao assets/data",
+  "scripts": {
+    "server": "node server/index.js",
+    "dev:web": "vite",
+    "dev": "concurrently -n api,web -c cyan,green \"npm:server\" \"npm:dev:web\"",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "express": "4.21.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.4",
+    "concurrently": "9.1.2",
+    "vite": "5.4.11"
+  }
+}

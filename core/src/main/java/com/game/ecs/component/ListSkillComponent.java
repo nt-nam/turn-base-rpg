@@ -11,6 +11,9 @@ public class ListSkillComponent implements Component {
     }
     public ListSkillComponent(SkillBase skillBase){
         skills = new Array<>();
+        if (skillBase == null) {
+            return;
+        }
         skills.add(new SkillComponent(1,skillBase.skill1));
         skills.add(new SkillComponent(2,skillBase.skill2));
         skills.add(new SkillComponent(3,skillBase.skill3));

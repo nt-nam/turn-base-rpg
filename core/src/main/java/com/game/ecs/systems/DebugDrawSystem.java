@@ -6,6 +6,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
@@ -78,7 +79,7 @@ public class DebugDrawSystem extends EntitySystem {
                     float h = (float)obj.getProperties().get("height")*SCALE;
                     shapeRenderer.rect(x, y, w, h);
                 }else{
-                    System.out.println("Không phải RectangleMapObject: " + obj);
+                    Gdx.app.debug("DebugDrawSystem", "Khong phai RectangleMapObject: " + obj);
                 }
             }
         }
@@ -95,7 +96,7 @@ public class DebugDrawSystem extends EntitySystem {
                     float h = (float)obj.getProperties().get("height")*SCALE;
                     shapeRenderer.rect(x, y, w, h);
                 }else{
-                    System.out.println("Không phải RectangleMapObject: " + obj);
+                    Gdx.app.debug("DebugDrawSystem", "Khong phai RectangleMapObject: " + obj);
                 }
             }
         }
@@ -110,7 +111,7 @@ public class DebugDrawSystem extends EntitySystem {
                     float h = (float)obj.getProperties().get("height")*SCALE;
                     shapeRenderer.rect(x, y, w, h);
                 }else{
-                    System.out.println("Không phải RectangleMapObject: " + obj);
+                    Gdx.app.debug("DebugDrawSystem", "Khong phai RectangleMapObject: " + obj);
                 }
             }
         }

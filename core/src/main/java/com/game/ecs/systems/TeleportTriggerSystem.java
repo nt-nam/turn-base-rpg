@@ -2,6 +2,7 @@ package com.game.ecs.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
 import com.game.ecs.component.*;
 import com.game.screens.main.WorldMapScreen;
 import com.game.utils.CollisionUtils;
@@ -37,7 +38,7 @@ public class TeleportTriggerSystem extends EntitySystem {
                 triggered = true;
                 if (GameSessionManager.getInstance().pendingTeleport == null) {
                     GameSessionManager.getInstance().pendingTeleport = new PendingTeleport(ttc.nextMap, ttc.nextSpawn, ttc.name);
-                    System.out.println("Player đứng trên trigger teleport: " + ttc.name + " - spawn " + ttc.nextSpawn);
+                    Gdx.app.debug("TeleportTriggerSystem", "Player dung tren trigger teleport: " + ttc.name + " - spawn " + ttc.nextSpawn);
                     GameSessionManager.getInstance().targetMapId = ttc.nextMap;
                     GameSessionManager.getInstance().selectedPlayerSpawnIndex = ttc.nextSpawn;
                     WorldMapScreen.showBtnNextMap(true);
@@ -47,7 +48,7 @@ public class TeleportTriggerSystem extends EntitySystem {
         }
 
         if (!triggered && GameSessionManager.getInstance().pendingTeleport != null) {
-            System.out.println("Player đã rời khỏi trigger teleport.");
+            Gdx.app.debug("TeleportTriggerSystem", "Player da roi khoi trigger teleport.");
             GameSessionManager.getInstance().pendingTeleport = null;
             WorldMapScreen.showBtnNextMap(false);
         }

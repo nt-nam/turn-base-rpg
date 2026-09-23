@@ -44,29 +44,47 @@ public class LabelRenderSystem extends IteratingSystem {
         while (iterator.hasNext()) {
             LabelComponent.DamageText damageText = iterator.next();
 
-            // Update lifetime and position
+            // Update physics (parabolic arc)
             damageText.lifeTime -= deltaTime;
-            damageText.y += 50 * deltaTime; // Move up
+            damageText.x += damageText.vx * deltaTime;
+            damageText.y += damageText.vy * deltaTime;
+            damageText.vy -= 600 * deltaTime; // Gravity pull
 
             if (damageText.lifeTime <= 0) {
                 iterator.remove();
                 continue;
             }
 
-            // Render
-            font.getData().setScale(1.5f);
-            if (damageText.isCritical) {
-                font.setColor(Color.RED);
-                font.getData().setScale(2.0f);
-            } else if (damageText.text.equals("Miss")) {
-                font.setColor(Color.GRAY);
-            } else {
-                font.setColor(Color.GREEN);
+            float progress = 1.0f - (damageText.lifeTime / damageText.maxLifeTime);
+            
+            // Render scaling (pop out effect)
+            float baseScale = damageText.isCritical ? 2.0f : 1.3f;
+            float scale = baseScale;
+            if (progress < 0.15f) {
+                // scale pops up to 1.5x of base
+                scale = baseScale * (1.0f + (progress / 0.15f) * 0.5f);
+            } else if (progress < 0.3f) {
+                // scale settles back to base
+                scale = baseScale * (1.5f - ((progress - 0.15f) / 0.15f) * 0.5f);
             }
 
-            // Simple fade out
-            Color color = font.getColor();
-            font.setColor(color.r, color.g, color.b, damageText.lifeTime);
+            // Alpha fade out in last 50%
+            float alpha = 1.0f;
+            if (progress > 0.5f) {
+                alpha = 1.0f - ((progress - 0.5f) * 2.0f);
+            }
+
+            font.getData().setScale(scale);
+            
+            if (damageText.isHeal) {
+                font.setColor(0, 1, 0, alpha); // Green for heal
+            } else if (damageText.isCritical) {
+                font.setColor(1, 0.2f, 0, alpha); // Red-orange for critical
+            } else if (damageText.text.equals("Miss")) {
+                font.setColor(0.7f, 0.7f, 0.7f, alpha); // Gray for miss
+            } else {
+                font.setColor(1, 1, 1, alpha); // White for normal damage
+            }
 
             font.draw(batch, damageText.text, damageText.x, damageText.y);
 

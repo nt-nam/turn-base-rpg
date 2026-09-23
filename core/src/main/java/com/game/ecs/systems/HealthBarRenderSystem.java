@@ -25,6 +25,7 @@ public class HealthBarRenderSystem extends IteratingSystem {
         posMapper = ComponentMapper.getFor(PositionComponent.class);
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer.setAutoShapeType(true);
     }
 
     @Override
@@ -42,7 +43,9 @@ public class HealthBarRenderSystem extends IteratingSystem {
         StatComponent stat = statMapper.get(entity);
         PositionComponent pos = posMapper.get(entity);
 
-        hb.currentHp = stat.hp;
+        // Do not force hb.currentHp = stat.hp here! 
+        // TurnActionSystem reduces the visual hb.currentHp smoothly.
+        // hb.currentHp = stat.hp;
         hb.maxHp = stat.maxHp;
         
         if (hb.maxHp > 0) {

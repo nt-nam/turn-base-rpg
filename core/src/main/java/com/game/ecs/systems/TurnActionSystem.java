@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.game.ecs.component.ActionQueueComponent;
 import com.game.ecs.component.AnimationStateComponent;
@@ -41,16 +42,25 @@ public class TurnActionSystem extends IteratingSystem {
                 ActionQueueComponent.Action nextAction = queue.actions.removeFirst();
 
                 if(nextAction.action.equals("player")){
-                    BattleScreen.instance.triggerWin();
+                    Gdx.app.debug("TurnActionSystem", "Player won the battle! Triggering win.");
+                    if (BattleScreen.instance != null) {
+                        BattleScreen.instance.triggerWin();
+                    } else {
+                        Gdx.app.error("TurnActionSystem", "BattleScreen.instance is null when triggering win");
+                    }
                     return;
                 }
-                if(nextAction.action.equals("enemy")){
-                    BattleScreen.instance.triggerFail();
+                if(nextAction.action.equals("enemy") || nextAction.action.startsWith("draw")){
+                    Gdx.app.debug("TurnActionSystem", "Enemy won or match drawn (" + nextAction.action + "). Triggering fail.");
+                    if (BattleScreen.instance != null) {
+                        BattleScreen.instance.triggerFail();
+                    } else {
+                        Gdx.app.error("TurnActionSystem", "BattleScreen.instance is null when triggering fail");
+                    }
                     return;
                 }
                 if (!queue.isProcessing) {
-                    BattleScreen.setTarget(nextAction.target);
-//                    BattleScreen.skill = nextAction.actor;
+                    // Target tracking removed - user deleted BattleScreen.setTarget
                 }
                 queue.isProcessing = true;
 
@@ -63,12 +73,20 @@ public class TurnActionSystem extends IteratingSystem {
                 moveTo.elapsed = 0;
                 moveTo.reached = false;
 
-                nextAction.actor.getComponent(AnimationStateComponent.class).requested = AnimationStateComponent.State.ATTACK;
+                if (nextAction.actor != null) {
+                    AnimationStateComponent actorAnim = nextAction.actor.getComponent(AnimationStateComponent.class);
+                    if (actorAnim != null) {
+                        actorAnim.requested = AnimationStateComponent.State.ATTACK;
+                    }
+                }
 
-                AnimationStateComponent targetAnimationState = nextAction.target.getComponent(AnimationStateComponent.class);
+                AnimationStateComponent targetAnimationState = null;
+                if (nextAction.target != null) {
+                    targetAnimationState = nextAction.target.getComponent(AnimationStateComponent.class);
+                }
                 AnimationStateComponent.State targetState = (targetAnimationState != null) ? targetAnimationState.current : null;
 
-                if (nextAction.state == SkillStateComponent.State.HIDE) {
+                if (nextAction.state == SkillStateComponent.State.HIDE && nextAction.target != null) {
                     targetState = AnimationStateComponent.State.HURT;
                     LabelComponent labelComponent = nextAction.target.getComponent(LabelComponent.class);
                     float x = nextAction.target.getComponent(PositionComponent.class).x;
@@ -76,26 +94,41 @@ public class TurnActionSystem extends IteratingSystem {
 
                     if (Objects.equals(nextAction.action, "damage")) {
                         int damage = nextAction.note.get("damage");
-                        int hp = nextAction.target.getComponent(StatComponent.class).hp -= damage;
-                        nextAction.target.getComponent(HealthBarComponent.class).currentHp = hp;
+                        HealthBarComponent healthBar = nextAction.target.getComponent(HealthBarComponent.class);
+                        if (healthBar != null) {
+                             healthBar.currentHp = Math.max(0, healthBar.currentHp - damage);
+                        }
                         labelComponent.activeLabels.add(new LabelComponent.DamageText("-" + damage, x, y, false));
-                        System.out.println("Damage: " + damage);
+                        Gdx.app.debug("TurnActionSystem", "Damage: " + damage);
                     }
                     if (Objects.equals(nextAction.action, "critical")) {
                         int damage = nextAction.note.get("damage");
-                        int hp = nextAction.target.getComponent(StatComponent.class).hp -= damage;
-                        nextAction.target.getComponent(HealthBarComponent.class).currentHp = hp;
+                        HealthBarComponent healthBar = nextAction.target.getComponent(HealthBarComponent.class);
+                        if (healthBar != null) {
+                             healthBar.currentHp = Math.max(0, healthBar.currentHp - damage);
+                        }
                         labelComponent.activeLabels.add(new LabelComponent.DamageText("-" + damage, x, y, true));
-                        System.out.println("Critical: " + damage);
+                        Gdx.app.debug("TurnActionSystem", "Critical: " + damage);
+                    }
+                    if (Objects.equals(nextAction.action, "heal")) {
+                        int heal = nextAction.note.get("heal");
+                        HealthBarComponent healthBar = nextAction.target.getComponent(HealthBarComponent.class);
+                        StatComponent stat = nextAction.target.getComponent(StatComponent.class);
+                        if (healthBar != null && stat != null) {
+                             healthBar.currentHp = Math.min(stat.maxHp, healthBar.currentHp + heal);
+                        }
+                        // spawn a heal label (green, non-critical, isHeal = true)
+                        labelComponent.activeLabels.add(new LabelComponent.DamageText("+" + heal, x, y, false, true));
+                        Gdx.app.debug("TurnActionSystem", "Heal: " + heal);
                     }
                     if (Objects.equals(nextAction.action, "miss")) {
                         labelComponent.activeLabels.add(new LabelComponent.DamageText("Miss", x, y, false));
-                        System.out.println("Miss!!!");
+                        Gdx.app.debug("TurnActionSystem", "Miss!!!");
                     }
 
                     if (Objects.equals(nextAction.action, "dead")) {
                         targetState = AnimationStateComponent.State.DIE;
-                        System.out.println("Die: ");
+                        Gdx.app.debug("TurnActionSystem", "Die: ");
                     }
 
 

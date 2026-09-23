@@ -1,5 +1,6 @@
 package com.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Disposable;
 import com.game.MainGame;
@@ -18,14 +19,51 @@ import com.game.screens.start.SelectPlayerScreen;
 import com.game.screens.start.SplashScreen;
 
 import java.util.EnumMap;
+import java.util.function.Supplier;
 
 public class ScreenManager implements Disposable {
 
+    /**
+     * Bang dang ky khai bao cho tung ScreenType:
+     * - factory: cach tao Screen.
+     * - assetLoader: (tuy chon) tac vu preload asset; neu != null thi Screen can di qua LoadingScreen.
+     * Them Screen moi = them 1 dong o day, KHONG phai sua switch trong nhieu method.
+     */
+    private static final class ScreenSpec {
+        final Supplier<Screen> factory;
+        final Runnable assetLoader; // null neu khong can loading
+
+        ScreenSpec(Supplier<Screen> factory, Runnable assetLoader) {
+            this.factory = factory;
+            this.assetLoader = assetLoader;
+        }
+    }
+
+    private final EnumMap<ScreenType, ScreenSpec> registry;
     private final EnumMap<ScreenType, Screen> screenCache;
     private ScreenType pendingScreen;
 
     public ScreenManager() {
         screenCache = new EnumMap<>(ScreenType.class);
+        registry = new EnumMap<>(ScreenType.class);
+
+        // factory-only (khong can loading)
+        registry.put(ScreenType.SPLASH, new ScreenSpec(SplashScreen::new, null));
+        registry.put(ScreenType.LOADING, new ScreenSpec(LoadingScreen::new, null));
+        registry.put(ScreenType.BATTLE_RESULT, new ScreenSpec(BattleResultScreen::new, null));
+        registry.put(ScreenType.INVENTORY, new ScreenSpec(InventoryScreen::new, null));
+        registry.put(ScreenType.CHARACTER_SELECT, new ScreenSpec(CharacterScreen::new, null));
+        registry.put(ScreenType.QUEST, new ScreenSpec(QuestScreen::new, null));
+        registry.put(ScreenType.MINI_MAP, new ScreenSpec(MapScreen::new, null));
+        registry.put(ScreenType.PAUSE, new ScreenSpec(PauseScreen::new, null));
+
+        // can preload asset -> di qua LoadingScreen
+        registry.put(ScreenType.CHECK_ATLAS, new ScreenSpec(CheckRegionScreen::new, CheckRegionScreen::loadingAsset));
+        registry.put(ScreenType.MENU_GAME, new ScreenSpec(MenuScreen::new, MenuScreen::loadingAsset));
+        registry.put(ScreenType.NEW_PLAYER, new ScreenSpec(NewPlayerScreen::new, NewPlayerScreen::loadingAsset));
+        registry.put(ScreenType.WORLD_MAP, new ScreenSpec(WorldMapScreen::new, WorldMapScreen::loadingAsset));
+        registry.put(ScreenType.SELECT_PLAYER, new ScreenSpec(SelectPlayerScreen::new, SelectPlayerScreen::loadingAsset));
+        registry.put(ScreenType.BATTLE, new ScreenSpec(BattleScreen::new, BattleScreen::loadingAsset));
     }
 
     public void showScreen(ScreenType type) {
@@ -51,38 +89,8 @@ public class ScreenManager implements Disposable {
     }
 
     private Screen createScreen(ScreenType type) {
-        switch (type) {
-            case SPLASH:
-                return new SplashScreen();
-            case LOADING:
-                return new LoadingScreen();
-            case MENU_GAME:
-                return new MenuScreen();
-            case CHECK_ATLAS:
-                return new CheckRegionScreen();
-            case NEW_PLAYER:
-                return new NewPlayerScreen();
-            case SELECT_PLAYER:
-                return new SelectPlayerScreen();
-            case WORLD_MAP:
-                return new WorldMapScreen();
-            case BATTLE:
-                return new BattleScreen();
-            case BATTLE_RESULT:
-                return new BattleResultScreen();
-            case INVENTORY:
-                return new InventoryScreen();
-            case CHARACTER_SELECT:
-                return new CharacterScreen();
-            case QUEST:
-                return new QuestScreen();
-            case MINI_MAP:
-                return new MapScreen();
-            case PAUSE:
-                return new PauseScreen();
-            default:
-                return null;
-        }
+        ScreenSpec spec = registry.get(type);
+        return spec != null ? spec.factory.get() : null;
     }
 
     public void removeScreen(ScreenType type) {
@@ -91,7 +99,7 @@ public class ScreenManager implements Disposable {
             screenToRemove.dispose();
             screenCache.remove(type);
         } else {
-            System.out.println("Lỗi: Màn hình loại " + type + " không tồn tại trong bộ nhớ đệm.");
+            Gdx.app.log("ScreenManager", "Man hinh loai " + type + " khong ton tai trong bo nho dem.");
         }
     }
 
@@ -103,28 +111,12 @@ public class ScreenManager implements Disposable {
     }
 
     private boolean needLoadingFor(ScreenType targetScreen) {
-        switch (targetScreen) {
-            case CHECK_ATLAS:
-                CheckRegionScreen.loadingAsset();
-                return true;
-            case MENU_GAME:
-                MenuScreen.loadingAsset();
-                return true;
-            case NEW_PLAYER:
-                NewPlayerScreen.loadingAsset();
-                return true;
-            case WORLD_MAP:
-                WorldMapScreen.loadingAsset();
-                return true;
-            case SELECT_PLAYER:
-                SelectPlayerScreen.loadingAsset();
-                return true;
-            case BATTLE:
-                BattleScreen.loadingAsset();
-                return true;
-            default:
-                return false;
+        ScreenSpec spec = registry.get(targetScreen);
+        if (spec != null && spec.assetLoader != null) {
+            spec.assetLoader.run();
+            return true;
         }
+        return false;
     }
 
     public void clearScreenCache() {
@@ -138,7 +130,7 @@ public class ScreenManager implements Disposable {
 
     @Override
     public void dispose() {
-        System.out.println("Disposing ScreenManager and all cached screens...");
+        Gdx.app.log("ScreenManager", "Disposing ScreenManager and all cached screens...");
         for (Screen screen : screenCache.values()) {
             screen.dispose();
         }

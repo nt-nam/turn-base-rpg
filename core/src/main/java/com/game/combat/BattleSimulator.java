@@ -7,6 +7,7 @@ import com.game.ecs.component.CharacterComponent;
 import com.game.ecs.component.GridComponent;
 import com.game.ecs.component.PlayerComponent;
 import com.game.ecs.component.StatComponent;
+import com.game.ecs.component.BuffComponent;
 
 public class BattleSimulator {
     private TurnExecution turnExecution;
@@ -53,6 +54,19 @@ public class BattleSimulator {
             boolean anyAction = false;
 
             for (Entity actor : order) {
+                // Tick buffs
+                BuffComponent buffComp = actor.getComponent(BuffComponent.class);
+                if (buffComp != null) {
+                    for (int i = buffComp.buffs.size - 1; i >= 0; i--) {
+                        BuffComponent.Buff buff = buffComp.buffs.get(i);
+                        buff.duration--;
+                        if (buff.duration <= 0) {
+                            buffComp.removeBuffStat(buff.type, buff.value, actor.getComponent(StatComponent.class));
+                            buffComp.buffs.removeIndex(i);
+                        }
+                    }
+                }
+
                 boolean isActor = actor.getComponent(PlayerComponent.class) != null;
 
                 if (battleState.isDead(actor)) {
@@ -127,41 +141,28 @@ public class BattleSimulator {
         // Nếu không có mục tiêu hợp lệ, trả về null
         if (validTargets.isEmpty()) {
             Gdx.app.error("TargetSelection", "No valid target found for actor: " + ca.nameRegion);
-            return validTargets.first();
+            return null;
         }
 
-        // Tìm mục tiêu hợp lệ trong cùng cột (col) nếu actor là iPlayer
-        if (iPlayer) {
-            // Sắp xếp các mục tiêu trong cùng cột của actor (theo thứ tự trước)
-            validTargets.sort((a, b) -> {
-                GridComponent ga = a.getComponent(GridComponent.class);
-                GridComponent gb = b.getComponent(GridComponent.class);
-                return Integer.compare(ga.row, gb.row);  // Sắp xếp theo hàng (row), chọn mục tiêu đầu tiên
-            });
-
-            // Kiểm tra mục tiêu trong cùng cột (với iPlayer, chọn entity có thứ tự đầu tiên trong cột)
-            for (Entity target : validTargets) {
-                GridComponent targetGrid = target.getComponent(GridComponent.class);
-                if (targetGrid.col == actorGrid.col) {
-                    return target;
-                }
+        // Ưu tiên theo hàng (càng gần càng tốt) và sau đó là khoảng cách cột
+        validTargets.sort((a, b) -> {
+            GridComponent ga = a.getComponent(GridComponent.class);
+            GridComponent gb = b.getComponent(GridComponent.class);
+            
+            int rowCompare = iPlayer ? Integer.compare(ga.row, gb.row) : Integer.compare(gb.row, ga.row);
+            if (rowCompare != 0) {
+                return rowCompare;
             }
-        } else {
-            // Nếu không phải iPlayer, lấy entity cuối cùng trong row
-            validTargets.sort((a, b) -> {
-                GridComponent ga = a.getComponent(GridComponent.class);
-                GridComponent gb = b.getComponent(GridComponent.class);
-                return Integer.compare(gb.row, ga.row);  // Sắp xếp theo hàng (row), chọn mục tiêu cuối cùng
-            });
-
-            // Kiểm tra mục tiêu trong cùng cột, nếu không phải iPlayer thì chọn mục tiêu cuối cùng trong row
-            for (Entity target : validTargets) {
-                GridComponent targetGrid = target.getComponent(GridComponent.class);
-                if (targetGrid.col == actorGrid.col) {
-                    return target;
-                }
+            
+            int colDistA = Math.abs(ga.col - actorGrid.col);
+            int colDistB = Math.abs(gb.col - actorGrid.col);
+            int colCompare = Integer.compare(colDistA, colDistB);
+            if (colCompare != 0) {
+                return colCompare;
             }
-        }
+
+            return Integer.compare(a.hashCode(), b.hashCode());
+        });
 
         return validTargets.first();
     }

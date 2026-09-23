@@ -1,6 +1,7 @@
 package com.game.combat;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.game.ecs.component.CharacterComponent;
@@ -26,19 +27,19 @@ public class BattleLogger {
         }
 
         // Log initial team states
-        System.out.println("=== Battle Start ===");
-        System.out.println("Player Team Initial State:");
+        Gdx.app.debug("BattleLogger", "=== Battle Start ===");
+        Gdx.app.debug("BattleLogger", "Player Team Initial State:");
         logTeamState(playerTeam);
-        System.out.println("Enemy Team Initial State:");
+        Gdx.app.debug("BattleLogger", "Enemy Team Initial State:");
         logTeamState(enemyTeam);
-        System.out.println("===================");
+        Gdx.app.debug("BattleLogger", "===================");
 
         // Log each round
         int roundIndex = 0;
         for (Array<TurnResult> round : result.rounds) {
-            System.out.println("Round " + (roundIndex + 1) + ":");
+            Gdx.app.debug("BattleLogger", "Round " + (roundIndex + 1) + ":");
             if (round.isEmpty()) {
-                System.out.println("  No actions performed in this round.");
+                Gdx.app.debug("BattleLogger", "  No actions performed in this round.");
             } else {
                 int turnIndex = 0;
                 for (TurnResult turn : round) {
@@ -67,7 +68,7 @@ public class BattleLogger {
                     }
 
                     // Log turn details
-                    System.out.println(
+                    Gdx.app.debug("BattleLogger",
                         "  Turn " + (++turnIndex) + ": " + turn.actorId +
                             " used " + (turn.skillUsed.isEmpty() ? "Unknown Skill" : turn.skillUsed) +
                             " on " + turn.targetId +
@@ -84,19 +85,19 @@ public class BattleLogger {
         }
 
         // Log final team states
-        System.out.println("=== Battle End ===");
-        System.out.println("Player Team Final State:");
+        Gdx.app.debug("BattleLogger", "=== Battle End ===");
+        Gdx.app.debug("BattleLogger", "Player Team Final State:");
         logTeamState(playerTeam);
-        System.out.println("Enemy Team Final State:");
+        Gdx.app.debug("BattleLogger", "Enemy Team Final State:");
         logTeamState(enemyTeam);
-        System.out.println("Winner: " + result.winner);
-        System.out.println("===================");
+        Gdx.app.debug("BattleLogger", "Winner: " + result.winner);
+        Gdx.app.debug("BattleLogger", "===================");
 
     }
 
     private static void logTeamState(Array<Entity> team) {
         if (team.isEmpty()) {
-            System.out.println("  Team is empty.");
+            Gdx.app.debug("BattleLogger", "  Team is empty.");
             return;
         }
         for (Entity e : team) {
@@ -106,7 +107,7 @@ public class BattleLogger {
             int hp = stats != null ? stats.hp : 0;
             int mp = stats != null ? stats.mp : 0;
             String status = (stats != null && stats.hp > 0) ? "Alive" : "Dead";
-            System.out.println(
+            Gdx.app.debug("BattleLogger",
                 "  " + characterId +
                     " :: HP: " + hp +
                     " :: MP: " + mp +

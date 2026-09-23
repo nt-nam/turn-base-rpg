@@ -38,7 +38,7 @@ class CalculateHelperTest {
     @CsvSource({
         "1,  50",     // (int)((1 * 0.5) * 100) = 50
         "2, 200",     // (int)((4 * 0.5) * 100) = 200
-        "10, 50000",  // (int)((100 * 0.5) * 100) = 5000... kiểm tra formula
+        "10, 5000",   // (int)((10 * (10 * 0.5)) * 100) = 5000
     })
     @DisplayName("Giá trị xp phải đúng công thức level*(level*0.5)*100")
     void xp_specificValues(int level, int expected) {
