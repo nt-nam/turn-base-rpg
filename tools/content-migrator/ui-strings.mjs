@@ -1,4 +1,5 @@
 import { writeFileSync } from "node:fs";
+import { extendedStrings } from "./ui-strings-extended.mjs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -180,6 +181,11 @@ const strings = {
   "ui.debug.grant_food": ["+10 thức ăn bậc 3", "+10 tier 3 food"],
   "ui.debug.granted": ["Đã cộng", "Granted"],
 };
+
+for (const [key, value] of Object.entries(extendedStrings)) {
+  if (key in strings) throw new Error(`duplicate ui key ${key}`);
+  strings[key] = value;
+}
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../content/localization");
 for (const [index, locale] of ["vi", "en"].entries()) {

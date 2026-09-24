@@ -11,6 +11,7 @@ import com.pxworld.client.core.GameClock
 import com.pxworld.client.core.GameServices
 import com.pxworld.content.ContentBundle
 import com.pxworld.content.ContentLoader
+import com.pxworld.infrastructure.replay.FileReplayStore
 import com.pxworld.infrastructure.save.FileSaveStore
 import java.io.File
 import java.time.LocalDate
@@ -62,6 +63,7 @@ fun main() {
         saves = FileSaveStore(options.saveDirectory),
         clock = SystemClock,
         flavor = options.flavor,
+        replays = FileReplayStore(File(options.saveDirectory, "replays")),
         onReady = { api -> driver = (api as GameApp).automation },
     )
     val configuration = Lwjgl3ApplicationConfiguration().apply {

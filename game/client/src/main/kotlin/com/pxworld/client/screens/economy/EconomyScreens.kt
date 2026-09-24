@@ -12,19 +12,25 @@ import com.pxworld.client.screens.StandardScreen
 import com.pxworld.client.ui.Tokens
 import com.pxworld.screens.GameScreenId
 
-class ShopHomeScreen(context: ScreenContext, args: ScreenArgs) : StandardScreen(GameScreenId.ECONOMY_SHOP_HOME, context, args) {
+class ShopHomeScreen(id: GameScreenId, context: ScreenContext, args: ScreenArgs) : StandardScreen(id, context, args) {
+
+    constructor(context: ScreenContext, args: ScreenArgs) : this(GameScreenId.ECONOMY_SHOP_HOME, context, args)
 
     override val titleKey = "ui.shop.title"
 
     override fun body(content: Table) {
         val lookup = Lookup(context)
         val state = context.state
-        val tab = args.optional("tab") ?: TAB_ITEMS
+        val tab = when (id) {
+            GameScreenId.ECONOMY_SHOP_EQUIPMENT -> TAB_EQUIPMENT
+            GameScreenId.ECONOMY_SHOP_ITEMS -> TAB_ITEMS
+            else -> args.optional("tab") ?: TAB_ITEMS
+        }
         val bar = Table()
         bar.add(ui.label(text("ui.shop.balance", state.wallet.balance(Currencies.GOLD), state.wallet.balance(Currencies.GEM)), "heading", testId("balance"))).expandX().left()
         listOf(TAB_ITEMS to "ui.shop.items", TAB_EQUIPMENT to "ui.shop.equipment").forEach { (key, label) ->
             bar.add(ui.button(testId("tab/$key"), text(label), if (key == tab) "tab-active" else "tab") {
-                if (key != tab) context.navigator.replace(id, ScreenArgs.of("tab" to key))
+                if (key != tab) context.navigator.replace(if (key == TAB_ITEMS) GameScreenId.ECONOMY_SHOP_ITEMS else GameScreenId.ECONOMY_SHOP_EQUIPMENT)
             }).padLeft(Tokens.SPACE_XS)
         }
         content.add(bar).growX().padBottom(Tokens.SPACE_S).row()
@@ -42,6 +48,9 @@ class ShopHomeScreen(context: ScreenContext, args: ScreenArgs) : StandardScreen(
             val affordable = state.wallet.balance(offer.currency) >= offer.price
             card.add(ui.button(testId("buy/${offer.id}"), text("ui.shop.buy"), enabled = affordable) {
                 context.navigator.open(GameScreenId.ECONOMY_PURCHASE_CONFIRM, ScreenArgs.of("kind" to offer.kind, "id" to offer.id))
+            }).growX().row()
+            card.add(ui.button(testId("detail/${offer.id}"), text("ui.common.details"), "ghost") {
+                context.navigator.open(GameScreenId.ECONOMY_OFFER_DETAIL, ScreenArgs.of("kind" to offer.kind, "id" to offer.id))
             }).growX()
             grid.add(card).width(160f).pad(Tokens.SPACE_XS)
             if (index % 6 == 5) grid.row()
@@ -73,10 +82,10 @@ class PurchaseConfirmScreen(context: ScreenContext, args: ScreenArgs) : ModalScr
         if (price != null) content.add(ui.label("${price.amount} ${lookup.currencyName(price.currency)}", "body")).colspan(2).padBottom(Tokens.SPACE_M).row()
         content.add(ui.button(testId("cancel"), text("ui.common.cancel"), "secondary") { context.navigator.back() }).growX().padRight(Tokens.SPACE_S)
         content.add(ui.button(testId("confirm"), text("ui.shop.buy")) {
-            val result = context.act(text("ui.shop.bought", name)) {
+            val result = context.act {
                 if (isItem) context.services.rules.buyItem(it, offerId, 1) else context.services.rules.buyEquipment(it, offerId)
             }
-            if (result != null) context.navigator.back()
+            if (result != null) context.navigator.replace(GameScreenId.ECONOMY_PURCHASE_RESULT, ScreenArgs.of("kind" to kind, "id" to offerId))
         }).growX()
     }
 }
@@ -101,6 +110,11 @@ class RecruitHomeScreen(context: ScreenContext, args: ScreenArgs) : StandardScre
         content.add(pool).padBottom(Tokens.SPACE_L).row()
         content.add(ui.label(text("ui.recruit.rates", context.services.catalog.recruitableHeroes().size), "muted")).padBottom(Tokens.SPACE_S).row()
         content.add(ui.label(text("ui.recruit.balance", balance, lookup.currencyName(price.currency)), "body", testId("balance"))).padBottom(Tokens.SPACE_S).row()
+        val links = Table()
+        listOf("rates" to GameScreenId.ECONOMY_RECRUIT_RATES, "history" to GameScreenId.ECONOMY_RECRUIT_HISTORY, "pity" to GameScreenId.ECONOMY_PITY_TRACKER).forEach { (key, target) ->
+            links.add(ui.button(testId(key), text("ui.recruit.link.$key"), "ghost") { context.navigator.open(target) }).padRight(Tokens.SPACE_XS)
+        }
+        content.add(links).padBottom(Tokens.SPACE_S).row()
         content.add(ui.button(testId("recruit"), text("ui.recruit.recruit", price.amount, lookup.currencyName(price.currency)), enabled = balance >= price.amount) {
             val transition = context.act { context.services.rules.recruit(it, context.services.clock.nowMillis()) }
             val recruited = transition?.events?.filterIsInstance<GameEvent.HeroRecruited>()?.firstOrNull()
@@ -148,7 +162,8 @@ class DailyCheckinScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
         }
         content.add(grid).padBottom(Tokens.SPACE_M).row()
         content.add(ui.button(testId("claim"), text(if (claimable) "ui.checkin.claim" else "ui.checkin.claimed_today", nextDay), enabled = claimable) {
-            context.act(text("ui.checkin.claimed")) { context.services.rules.claimCheckin(it, context.services.clock.epochDay()) }
+            val result = context.act { context.services.rules.claimCheckin(it, context.services.clock.epochDay()) }
+            if (result != null) context.navigator.open(GameScreenId.ECONOMY_CHECKIN_CLAIM, ScreenArgs.of("day" to nextDay.toString()))
         }).width(320f).height(Tokens.BUTTON_HEIGHT)
     }
 }

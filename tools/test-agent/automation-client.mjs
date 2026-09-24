@@ -70,8 +70,36 @@ export class AutomationClient {
     throw new Error(`timed out waiting for ${label} (last: ${JSON.stringify(last)})`);
   }
 
+  async settle(except = null) {
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      const screen = await this.screen();
+      if (!screen || screen === except) return;
+      const dismiss = DISMISSIBLE[screen];
+      if (dismiss === undefined) return;
+      if (dismiss === null) {
+        await sleep(250);
+        continue;
+      }
+      const node = (await this.tree()).find((entry) => entry.testId === `${screen}/${dismiss}` && entry.enabled);
+      if (!node) return;
+      await this.call("ui.tap", { testId: node.testId }).catch(() => {});
+      this.trace.push(`settle ${screen}`);
+      await sleep(120);
+    }
+  }
+
+  async passFirstRun() {
+    await this.waitFor(async () => ["game.boot.legal_notice", "game.boot.privacy_consent", "game.boot.language_pick", "game.boot.main_menu"].includes(await this.screen()), 20_000, "boot flow");
+    if ((await this.screen()) === "game.boot.legal_notice") await this.tap("game.boot.legal_notice/accept");
+    if ((await this.screen()) === "game.boot.privacy_consent") await this.tap("game.boot.privacy_consent/deny");
+    if ((await this.screen()) === "game.boot.language_pick") await this.tap("game.boot.language_pick/language/vi");
+  }
+
   async waitScreen(screenId, timeoutMs = 15_000) {
-    await this.waitFor(async () => (await this.screen()) === screenId, timeoutMs, `screen ${screenId}`);
+    await this.waitFor(async () => {
+      await this.settle(screenId);
+      return (await this.screen()) === screenId;
+    }, timeoutMs, `screen ${screenId}`);
     this.trace.push(`screen ${screenId}`);
   }
 
@@ -84,6 +112,8 @@ export class AutomationClient {
   }
 
   async tap(testId, timeoutMs = 10_000) {
+    const owner = testId.split("/")[0];
+    await this.settle(owner);
     await this.waitFor(async () => (await this.node(testId))?.enabled, timeoutMs, `enabled ${testId}`);
     await this.call("ui.tap", { testId });
     this.trace.push(`tap ${testId}`);
@@ -114,6 +144,17 @@ export class AutomationClient {
     this.socket?.close();
   }
 }
+
+const DISMISSIBLE = {
+  "game.onboarding.tutorial_move": "got_it",
+  "game.onboarding.tutorial_battle": "got_it",
+  "game.onboarding.tutorial_lineup": "got_it",
+  "game.onboarding.tutorial_reward": "got_it",
+  "game.economy.purchase_result": "close",
+  "game.economy.checkin_claim": "close",
+  "game.progression.quest_claim": "close",
+  "game.world.map_transition": null,
+};
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

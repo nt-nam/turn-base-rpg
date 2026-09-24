@@ -85,6 +85,19 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         true
     }
 
+    fun resetFirstRun() = call {
+        context.preferences.legalAccepted = false
+        context.preferences.privacyAnswered = false
+        context.preferences.locale = null
+        context.session.end()
+        context.navigator.reset(GameScreenId.BOOT_SPLASH)
+        true
+    }
+
+    fun replays(): List<Map<String, Any?>> = call {
+        context.services.replays.list().map { mapOf("id" to it.id, "encounter" to it.encounterId, "outcome" to it.outcome.name, "commands" to it.commands.size) }
+    }
+
     fun registeredScreens(): List<String> = call { context.navigator.registered.map { it.id }.sorted() }
 
     fun tree(): List<UiNode> = call { treeNow() }

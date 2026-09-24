@@ -65,6 +65,7 @@ class DebugCheatsScreen(context: ScreenContext, args: ScreenArgs) : StandardScre
             "gold" to Grant(GrantKind.CURRENCY, Currencies.GOLD, 10_000),
             "gem" to Grant(GrantKind.CURRENCY, Currencies.GEM, 1_000),
             "food" to Grant(GrantKind.ITEM, "item.food_t3", 10),
+            "hero" to Grant(GrantKind.HERO, context.state.profile.starterHeroId, 1),
         )
         grants.forEach { (key, grant) ->
             content.add(ui.button(testId(key), text("ui.debug.grant_$key"), "secondary") {

@@ -93,6 +93,7 @@ data class PlayerJournal(
     val lineupPresets: Map<String, Map<GridCell, String>> = emptyMap(),
     val lastIdleClaimMillis: Long? = null,
     val playSeconds: Long = 0,
+    val tutorialsSeen: Set<String> = emptySet(),
 ) {
     companion object {
         const val RECRUIT_HISTORY_SIZE: Int = 50

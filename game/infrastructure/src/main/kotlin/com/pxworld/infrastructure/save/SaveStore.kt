@@ -107,6 +107,8 @@ class FileSaveStore(private val directory: File, private val keptBackups: Int = 
         throw CorruptSave(if (failures.isEmpty()) "no save for slot $slot" else failures.joinToString("; "))
     }
 
+    override fun export(slot: String): String = file(slot).takeIf { it.isFile }?.readText() ?: SaveCodec.encode(load(slot))
+
     override fun delete(slot: String) {
         (listOf(file(slot)) + (1..keptBackups).map { backup(slot, it) }).forEach { it.delete() }
     }

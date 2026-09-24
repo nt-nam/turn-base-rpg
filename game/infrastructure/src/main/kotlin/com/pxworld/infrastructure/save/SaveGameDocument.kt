@@ -92,6 +92,7 @@ data class JournalDocument(
     val lineupPresets: Map<String, Map<String, String>> = emptyMap(),
     val lastIdleClaimMillis: Long? = null,
     val playSeconds: Long = 0,
+    val tutorialsSeen: List<String> = emptyList(),
 )
 
 object SaveGameMapper {
@@ -124,6 +125,7 @@ object SaveGameMapper {
             lineupPresets = state.journal.lineupPresets.toSortedMap().mapValues { (_, cells) -> cellsToDocument(cells) },
             lastIdleClaimMillis = state.journal.lastIdleClaimMillis,
             playSeconds = state.journal.playSeconds,
+            tutorialsSeen = state.journal.tutorialsSeen.sorted(),
         ),
     )
 
@@ -166,6 +168,7 @@ object SaveGameMapper {
             lineupPresets = document.journal.lineupPresets.mapValues { (_, cells) -> cellsFromDocument(cells) },
             lastIdleClaimMillis = document.journal.lastIdleClaimMillis,
             playSeconds = document.journal.playSeconds,
+            tutorialsSeen = document.journal.tutorialsSeen.toSet(),
         ),
         stats = LifetimeStats(document.counters),
         nextInstanceNumber = document.nextInstanceNumber,

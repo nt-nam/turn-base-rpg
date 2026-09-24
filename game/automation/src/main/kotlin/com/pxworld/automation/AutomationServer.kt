@@ -46,6 +46,8 @@ class AutomationProtocol(private val driver: () -> StageAutomationDriver?) {
         return when (method) {
             "session.info" -> automation.session()
             "app.exit" -> automation.exit()
+            "app.resetFirstRun" -> automation.resetFirstRun()
+            "replays.list" -> automation.replays()
             "screen.registered" -> automation.registeredScreens()
             "screen.tree" -> automation.tree()
             "screen.open" -> automation.open(text("screenId"), (params["args"] as? JsonObject)?.mapValues { it.value.jsonPrimitive.content }.orEmpty())

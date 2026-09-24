@@ -10,7 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.pxworld.client.automation.StageAutomationDriver
+import com.pxworld.client.core.AppPreferences
 import com.pxworld.client.core.AssetService
+import com.pxworld.client.core.LogBuffer
 import com.pxworld.client.core.GameApi
 import com.pxworld.client.core.GameServices
 import com.pxworld.client.core.GameSession
@@ -34,6 +36,8 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
     lateinit var automation: StageAutomationDriver
         private set
     private var unsubscribe: (() -> Unit)? = null
+    private lateinit var logs: LogBuffer
+    private var playTimeAccumulator = 0f
 
     override fun create() {
         batch = SpriteBatch()
@@ -42,7 +46,10 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         ui = UiKit(Gdx.files.internal(FONT))
         navigator = Navigator(stage, DefaultScreens.registry())
         val session = GameSession(services)
-        context = ScreenContext(services, assets, Localization(services.content.localization, Localization.FALLBACK), ui, navigator, session, batch)
+        logs = LogBuffer(Gdx.app.applicationLogger).also { Gdx.app.applicationLogger = it }
+        val preferences = AppPreferences.open(PREFERENCES)
+        val localization = Localization(services.content.localization, preferences.locale?.takeIf { it in services.content.localization } ?: Localization.FALLBACK)
+        context = ScreenContext(services, assets, localization, ui, navigator, session, batch, preferences, logs)
         navigator.context = context
         automation = StageAutomationDriver(this, stage, context)
         Gdx.input.inputProcessor = InputMultiplexer(stage, object : InputAdapter() {
@@ -75,8 +82,17 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         if (store !== watchedStore) {
             watchedStore = store
             watchStore()
+            store?.let { ui.applyTextScale(it.state.settings.textScalePercent) }
         }
         val delta = Gdx.graphics.deltaTime.coerceAtMost(MAX_FRAME_SECONDS)
+        if (store != null) {
+            playTimeAccumulator += delta
+            if (playTimeAccumulator >= PLAY_TIME_FLUSH_SECONDS) {
+                val seconds = playTimeAccumulator.toLong()
+                playTimeAccumulator -= seconds
+                store.update { services.collection.addPlayTime(it, seconds) }
+            }
+        }
         ScreenUtils.clear(Tokens.background)
         navigator.update(delta)
         navigator.renderWorld(delta)
@@ -106,5 +122,7 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
     companion object {
         const val FONT: String = "font/arial_uni_30.fnt"
         const val MAX_FRAME_SECONDS: Float = 1f / 20f
+        const val PLAY_TIME_FLUSH_SECONDS: Float = 60f
+        const val PREFERENCES: String = "pxworld"
     }
 }

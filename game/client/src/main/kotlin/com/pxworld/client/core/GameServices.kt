@@ -3,6 +3,8 @@ package com.pxworld.client.core
 import com.pxworld.application.CollectionRules
 import com.pxworld.application.GameRules
 import com.pxworld.application.GameStore
+import com.pxworld.application.InMemoryReplays
+import com.pxworld.application.ReplayRepository
 import com.pxworld.application.NewGame
 import com.pxworld.application.QuestTracker
 import com.pxworld.application.SaveRepository
@@ -28,6 +30,7 @@ class GameServices(
     val saves: SaveRepository,
     val clock: GameClock,
     val flavor: BuildFlavor,
+    val replays: ReplayRepository = InMemoryReplays(),
     val onReady: (GameApi) -> Unit = {},
 ) {
     val catalog: ContentBundleCatalog = ContentBundleCatalog(content)

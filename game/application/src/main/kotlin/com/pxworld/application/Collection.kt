@@ -168,6 +168,17 @@ class CollectionRules(private val catalog: ContentCatalog, private val rules: Ga
         return rules.enterMap(state, mapId, -1, -1, 0)
     }
 
+    fun markTutorial(state: GameState, tutorialId: String): Transition {
+        if (tutorialId in state.journal.tutorialsSeen) return Transition(state, emptyList())
+        val marked = state.copy(journal = state.journal.copy(tutorialsSeen = state.journal.tutorialsSeen + tutorialId))
+        return if (tutorialId == TUTORIAL_COMPLETE) rules.grant(marked, TUTORIAL_REWARD, LedgerReason("tutorial")) else Transition(marked, emptyList())
+    }
+
     fun addPlayTime(state: GameState, seconds: Long): GameState =
         state.copy(journal = state.journal.copy(playSeconds = state.journal.playSeconds + seconds))
+
+    companion object {
+        const val TUTORIAL_COMPLETE: String = "tutorial_reward"
+        val TUTORIAL_REWARD: List<Grant> = listOf(Grant(GrantKind.CURRENCY, Currencies.GEM, 10), Grant(GrantKind.ITEM, "item.food_t1", 3))
+    }
 }

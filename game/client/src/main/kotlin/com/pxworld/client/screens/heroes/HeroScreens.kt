@@ -23,8 +23,10 @@ class HeroRosterScreen(context: ScreenContext, args: ScreenArgs) : StandardScree
     override fun body(content: Table) {
         val lookup = Lookup(context)
         val state = context.state
-        content.add(ui.button(testId("lineup"), text("ui.heroes.edit_lineup"), "secondary") { context.navigator.open(GameScreenId.HEROES_LINEUP_EDITOR) })
-            .right().padBottom(Tokens.SPACE_S).row()
+        val tools = Table()
+        listOf("lineup" to GameScreenId.HEROES_LINEUP_EDITOR, "presets" to GameScreenId.HEROES_LINEUP_PRESETS, "analysis" to GameScreenId.HEROES_LINEUP_ANALYSIS, "synergy" to GameScreenId.HEROES_SYNERGY_VIEW, "counters" to GameScreenId.HEROES_CLASS_COUNTER_CHART)
+            .forEach { (key, target) -> tools.add(ui.button(testId(key), text("ui.heroes.tool.$key"), "secondary") { context.navigator.open(target) }).padLeft(Tokens.SPACE_XS) }
+        content.add(tools).right().padBottom(Tokens.SPACE_S).row()
         val grid = Table().top().left()
         state.heroes.sortedByDescending { context.power(it) }.forEachIndexed { index, hero ->
             val card = ui.panel()
@@ -97,6 +99,7 @@ class HeroOverviewScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
             right.add(row).growX().padTop(Tokens.SPACE_XS).row()
         }
 
+        content.add(heroOverviewLinks(context, hero, ::testId)).colspan(3).left().padBottom(Tokens.SPACE_M).row()
         content.add(left).top().width(260f).padRight(Tokens.SPACE_M)
         content.add(middle).top().width(380f).padRight(Tokens.SPACE_M)
         content.add(right).top().width(460f)
@@ -119,8 +122,7 @@ class HeroStarUpScreen(context: ScreenContext, args: ScreenArgs) : StandardScree
             row.add(ui.label(text("ui.heroes.level_star", fodder.level, fodder.star), "body")).expandX().left()
             if (state.lineup.contains(fodder.instanceId)) row.add(ui.label(text("ui.heroes.in_lineup"), "negative")).padRight(Tokens.SPACE_S)
             row.add(ui.button(testId("consume/${fodder.instanceId}"), text("ui.heroes.consume"), "danger") {
-                context.act(text("ui.heroes.star_up_done")) { context.services.rules.raiseStar(it, target.instanceId, fodder.instanceId) }
-                    ?.let { context.navigator.back() }
+                context.navigator.open(GameScreenId.HEROES_HERO_MERGE_CONFIRM, ScreenArgs.of("target" to target.instanceId, "fodder" to fodder.instanceId))
             })
             content.add(row).width(700f).padBottom(Tokens.SPACE_S).row()
         }
@@ -131,6 +133,8 @@ class LineupEditorScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
 
     override val titleKey = "ui.lineup.title"
     private var selected: GridCell? = null
+
+    override fun onShow() = com.pxworld.client.screens.onboarding.Tutorials.showIfPending(context, "tutorial_lineup")
 
     override fun body(content: Table) {
         val lookup = Lookup(context)

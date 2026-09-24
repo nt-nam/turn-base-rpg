@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.pxworld.application.GameEvent
+import com.pxworld.application.ReplayRecord
+import com.pxworld.application.ReplaySlot
 import com.pxworld.client.core.SpriteSet
 import com.pxworld.client.navigation.GameScreen
 import com.pxworld.client.navigation.ScreenArgs
@@ -49,6 +51,7 @@ class CombatantActor(
     maxHp: Int,
     private val white: TextureRegion,
     skin: com.badlogic.gdx.scenes.scene2d.ui.Skin,
+    screenId: String,
     private val onTap: (UnitId) -> Unit,
 ) : Group() {
 
@@ -64,7 +67,7 @@ class CombatantActor(
 
     init {
         setSize(SIZE, SIZE + 36f)
-        this.name = "${GameScreenId.BATTLE_BATTLE_MAIN.id}/unit/$unit"
+        this.name = "$screenId/unit/$unit"
         energyBar.setPosition(0f, 0f)
         hpBar.setPosition(0f, 7f)
         figure.setPosition(0f, 16f)
@@ -112,7 +115,9 @@ class EffectActor(private val animation: Animation<TextureRegion>) : Actor() {
     }
 }
 
-class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(GameScreenId.BATTLE_BATTLE_MAIN, context, args) {
+class BattleMainScreen(id: GameScreenId, context: ScreenContext, args: ScreenArgs) : GameScreen(id, context, args) {
+
+    constructor(context: ScreenContext, args: ScreenArgs) : this(GameScreenId.BATTLE_BATTLE_MAIN, context, args)
 
     private val lookup = Lookup(context)
     private val encounterId = args["encounter"]
@@ -125,25 +130,39 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
     private var state: BattleState
     private var wait = 0f
     private var auto = false
-    private var speed = 1
+    private var speed = context.state.settings.battleSpeed.coerceIn(1, 4)
     private var pendingSkill: String? = null
     private var finished = false
+    private val replay: ReplayRecord? = args.optional("replay")?.let { context.services.replays.load(it) }
+    private val script = ArrayDeque(replay?.commands.orEmpty())
+    private val seed: Long = replay?.seed ?: context.services.clock.nowMillis()
+    private val slots: List<ReplaySlot>
+    private val issued = mutableListOf<BattleCommand>()
 
     init {
         val game = context.state
-        val lineup = game.lineup.cells.map { (cell, instanceId) ->
+        slots = replay?.lineup ?: game.lineup.cells.map { (cell, instanceId) ->
             val hero = game.hero(instanceId)
-            val bonus = context.services.collection.equipmentBonus(game, instanceId)
-            LineupSlot(hero.heroId, hero.level, hero.star, cell, bonus)
+            ReplaySlot(hero.heroId, hero.level, hero.star, cell, context.services.collection.equipmentBonus(game, instanceId))
         }
-        val setup = context.services.battles.battle(context.services.clock.nowMillis(), lineup, encounterId)
-        val start = BattleEngine.start(setup)
+        val lineup = slots.map { LineupSlot(it.heroId, it.level, it.star, it.cell, it.bonus) }
+        val start = BattleEngine.start(context.services.battles.battle(seed, lineup, encounterId))
         state = start.state
         enqueue(start.events)
     }
 
+    val isReplay: Boolean get() = replay != null
+
+    override fun onShow() {
+        if (!isReplay) com.pxworld.client.screens.onboarding.Tutorials.showIfPending(context, "tutorial_battle")
+    }
     val battleState: BattleState get() = state
-    val awaitingPlayer: Boolean get() = !finished && queue.isEmpty() && wait <= 0f && !auto && state.activeUnit?.side == BattleSide.ALLY
+    val battleLog: List<BattleEvent> get() = log.toList()
+    val awaitingPlayer: Boolean get() = !finished && !isReplay && queue.isEmpty() && wait <= 0f && !auto && state.activeUnit?.side == BattleSide.ALLY
+
+    fun flee() = finish(BattleOutcome.DEFEAT)
+
+    fun selectSkill(skillId: String) = chooseSkill(skillId)
 
     fun legalCommands(): List<BattleCommand> = if (awaitingPlayer) BattleEngine.legalCommands(state) else emptyList()
 
@@ -161,7 +180,8 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         content.background = context.ui.tinted(Tokens.background)
         val top = Table().pad(Tokens.SPACE_S)
         top.background = context.ui.tinted(Tokens.surface)
-        top.add(ui.label(text(context.services.content.encounters.first { it.id == encounterId }.name), "heading", testId("title"))).expandX().left()
+        val title = text(context.services.content.encounters.first { it.id == encounterId }.name)
+        top.add(ui.label(if (isReplay) text("ui.battle.replay_title", title) else title, "heading", testId("title"))).expandX().left()
         top.add(status).padRight(Tokens.SPACE_M)
         top.add(ui.button(testId("auto"), text(if (auto) "ui.battle.auto_on" else "ui.battle.auto_off"), "secondary") { setAuto(!auto) }).padRight(Tokens.SPACE_S)
         top.add(ui.button(testId("speed"), "x$speed", "secondary") {
@@ -172,7 +192,7 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
             context.session.pendingBattleLog = log.toList()
             context.navigator.open(GameScreenId.BATTLE_BATTLE_LOG)
         }).padRight(Tokens.SPACE_S)
-        top.add(ui.button(testId("flee"), text("ui.battle.flee"), "danger") { finish(BattleOutcome.DEFEAT) })
+        top.add(ui.button(testId("pause"), text("ui.battle.pause"), "danger") { context.navigator.open(GameScreenId.BATTLE_BATTLE_PAUSE) })
         content.top()
         content.add(top).growX().row()
         arena.setSize(Tokens.VIRTUAL_WIDTH, ARENA_HEIGHT)
@@ -187,7 +207,7 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         state.combatants.forEach { combatant ->
             val sprite = if (combatant.id.side == BattleSide.ALLY) lookup.heroSprite(combatant.setup.name) else lookup.enemySprite(combatant.setup.name)
             val displayName = if (combatant.id.side == BattleSide.ALLY) lookup.heroName(combatant.setup.name) else lookup.enemyName(combatant.setup.name)
-            val actor = CombatantActor(combatant.id, sprite, "$displayName Lv${combatant.setup.level}", combatant.maxHp, context.ui.whiteRegion, context.ui.skin, ::onUnitTapped)
+            val actor = CombatantActor(combatant.id, sprite, "$displayName Lv${combatant.setup.level}", combatant.maxHp, context.ui.whiteRegion, context.ui.skin, id.id, ::onUnitTapped)
             actor.energy = combatant.energy
             val depthOffset = combatant.setup.cell.depth * COLUMN_SPACING
             val x = if (combatant.id.side == BattleSide.ALLY) ALLY_FRONT_X - depthOffset else ENEMY_FRONT_X + depthOffset
@@ -224,7 +244,11 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         pendingSkill?.let { skillId ->
             legal.filter { it.skillId == skillId }.mapNotNull { it.target }.forEach { units[it]?.targetable = true }
             controls.add(ui.label(text("ui.battle.pick_target"), "muted")).padLeft(Tokens.SPACE_M)
+            controls.add(ui.button(testId("target_list"), text("ui.battle.target_list"), "ghost") {
+                context.navigator.open(GameScreenId.BATTLE_TARGET_SELECT, ScreenArgs.of("skill" to skillId))
+            }).padLeft(Tokens.SPACE_S)
         }
+        controls.add(ui.button(testId("skill_info"), "?", "ghost") { context.navigator.open(GameScreenId.BATTLE_SKILL_SELECT) }).padLeft(Tokens.SPACE_M)
     }
 
     private fun chooseSkill(skillId: String) {
@@ -246,6 +270,7 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
 
     private fun apply(command: BattleCommand) {
         pendingSkill = null
+        issued += command
         val step = BattleEngine.apply(state, command)
         state = step.state
         enqueue(step.events)
@@ -258,7 +283,7 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
     }
 
     override fun update(delta: Float) {
-        if (finished) return
+        if (finished || context.navigator.current !== this) return
         wait -= delta * speed
         while (wait <= 0f && queue.isNotEmpty()) {
             wait += play(queue.removeFirst())
@@ -266,7 +291,11 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         }
         if (wait > 0f || queue.isNotEmpty()) return
         state.outcome?.let { finish(it); return }
-        if (auto || state.activeUnit?.side == BattleSide.ENEMY) {
+        if (isReplay) {
+            val next = script.removeFirstOrNull()
+            if (next == null) finish(state.outcome ?: BattleOutcome.DRAW) else apply(next)
+            wait = AI_THINK_SECONDS
+        } else if (auto || state.activeUnit?.side == BattleSide.ENEMY) {
             apply(BattleEngine.autoCommand(state))
             wait = AI_THINK_SECONDS
         } else {
@@ -379,6 +408,22 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         if (finished) return
         finished = true
         refreshControls()
+        if (isReplay) {
+            context.navigator.toast(text("ui.replay.finished"))
+            return
+        }
+        context.services.replays.save(
+            ReplayRecord(
+                id = "replay-${seed}",
+                encounterId = encounterId,
+                seed = seed,
+                lineup = slots,
+                commands = issued.toList(),
+                outcome = outcome,
+                rounds = state.round,
+                recordedAtMillis = context.services.clock.nowMillis(),
+            ),
+        )
         val defeated = state.combatants.count { it.id.side == BattleSide.ENEMY && !it.isAlive }
         val transition = context.act { context.services.rules.finishBattle(it, encounterId, outcome, defeated) }
         context.session.lastBattle = BattleSummary(encounterId, outcome, state.round, log.toList(), transition?.events.orEmpty())
@@ -420,6 +465,10 @@ class BattleResultScreen(id: GameScreenId, context: ScreenContext, args: ScreenA
     }
     override val showBack = false
 
+    override fun onShow() {
+        if (id == GameScreenId.BATTLE_BATTLE_VICTORY) com.pxworld.client.screens.onboarding.Tutorials.showIfPending(context, com.pxworld.application.CollectionRules.TUTORIAL_COMPLETE)
+    }
+
     override fun body(content: Table) {
         val lookup = Lookup(context)
         val summary = context.session.lastBattle
@@ -438,10 +487,21 @@ class BattleResultScreen(id: GameScreenId, context: ScreenContext, args: ScreenA
             if (gains.isEmpty()) content.add(ui.label(text("ui.result.nothing"), "muted")).row()
             gains.forEachIndexed { index, line -> content.add(ui.label(line, "body", testId("gain/$index"))).left().row() }
         }
-        content.add(ui.button(testId("continue"), text("ui.common.continue")) { context.navigator.back() }).width(260f).height(Tokens.BUTTON_HEIGHT).padTop(Tokens.SPACE_L).row()
+        val details = Table()
+        listOf(
+            "rewards" to GameScreenId.BATTLE_BATTLE_REWARDS,
+            "breakdown" to GameScreenId.BATTLE_DAMAGE_BREAKDOWN,
+            "level_ups" to GameScreenId.BATTLE_LEVEL_UP,
+            "quests" to GameScreenId.BATTLE_BATTLE_QUEST_PROGRESS,
+            "replays" to GameScreenId.BATTLE_REPLAY_LIST,
+        ).forEach { (key, target) ->
+            details.add(ui.button(testId(key), text("ui.result.$key"), "secondary") { context.navigator.open(target) }).padRight(Tokens.SPACE_XS)
+        }
+        content.add(details).padTop(Tokens.SPACE_L).row()
+        content.add(ui.button(testId("continue"), text("ui.common.continue")) { context.navigator.back() }).width(260f).height(Tokens.BUTTON_HEIGHT).padTop(Tokens.SPACE_M).row()
         if (id != GameScreenId.BATTLE_BATTLE_VICTORY) {
             content.add(ui.button(testId("retry"), text("ui.result.retry"), "secondary") {
-                context.navigator.replace(GameScreenId.BATTLE_BATTLE_MAIN, ScreenArgs.of("encounter" to args["encounter"]))
+                context.navigator.open(GameScreenId.BATTLE_RETRY_CONFIRM, ScreenArgs.of("encounter" to args["encounter"]))
             }).width(260f).height(Tokens.BUTTON_HEIGHT).padTop(Tokens.SPACE_S)
         }
     }

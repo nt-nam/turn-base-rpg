@@ -24,7 +24,7 @@ class SplashScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(GameSc
 
     override fun update(delta: Float) {
         elapsed += delta
-        if (elapsed >= DURATION) context.navigator.reset(GameScreenId.BOOT_MAIN_MENU)
+        if (elapsed >= DURATION) context.navigator.reset(FirstRun.next(context))
     }
 
     companion object {
@@ -48,6 +48,11 @@ class MainMenuScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Game
         menu.add(ui.button(testId("load"), text("ui.menu.load"), "secondary", enabled = slots.isNotEmpty()) {
             context.navigator.open(GameScreenId.BOOT_SLOT_LIST)
         }).row()
+        val extras = Table()
+        extras.add(ui.button(testId("settings"), text("ui.pause.settings"), "ghost") { context.navigator.open(GameScreenId.SETTINGS_SETTINGS_HOME) }).padRight(Tokens.SPACE_XS)
+        extras.add(ui.button(testId("patch_notes"), text("ui.patch.title"), "ghost") { context.navigator.open(GameScreenId.BOOT_PATCH_NOTES) }).padRight(Tokens.SPACE_XS)
+        extras.add(ui.button(testId("offline"), text("ui.offline.title"), "ghost") { context.navigator.open(GameScreenId.BOOT_OFFLINE_MODE) })
+        menu.add(extras).width(560f).row()
         if (context.services.flavor.debugTools) {
             menu.add(ui.button(testId("debug"), text("ui.menu.debug"), "ghost") { context.navigator.open(GameScreenId.DEBUG_DEBUG_MENU) }).row()
         }

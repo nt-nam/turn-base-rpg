@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pxworld.application.GameRuleViolation
 import com.pxworld.application.GameStore
 import com.pxworld.application.Transition
+import com.pxworld.client.core.AppPreferences
 import com.pxworld.client.core.AssetService
+import com.pxworld.client.core.DebugFlags
+import com.pxworld.client.core.LogBuffer
 import com.pxworld.client.core.GameServices
 import com.pxworld.client.core.GameSession
 import com.pxworld.client.core.Localization
@@ -20,6 +23,9 @@ class ScreenContext(
     val navigator: Navigator,
     val session: GameSession,
     val batch: SpriteBatch,
+    val preferences: AppPreferences,
+    val logs: LogBuffer,
+    val debugFlags: DebugFlags = DebugFlags(),
 ) {
     val widgets: Widgets = Widgets(ui, text)
     val store: GameStore get() = session.requireStore

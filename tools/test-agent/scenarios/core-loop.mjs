@@ -8,6 +8,7 @@ export const name = "core-loop";
 export const description = "Create a hero, claim check-in, shop, explore, battle, recruit, equip, lineup, quests, settings";
 
 export async function run(agent, shot) {
+  await agent.passFirstRun();
   await agent.waitScreen(S("boot.main_menu"), 20_000);
   await shot("01-main-menu");
 
@@ -78,6 +79,7 @@ export async function run(agent, shot) {
   await shot("11-battle-after-command");
   await agent.call("battle.auto", { enabled: true });
   await agent.waitFor(async () => {
+    await agent.settle();
     const screen = await agent.screen();
     return ["battle.battle_victory", "battle.battle_defeat", "battle.battle_draw"].map(S).includes(screen);
   }, 90_000, "battle result");

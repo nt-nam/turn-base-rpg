@@ -25,6 +25,9 @@ class QuestListScreen(context: ScreenContext, args: ScreenArgs) : StandardScreen
             info.add(ui.label(text(record.description), "small", wrap = true)).width(620f).left().row()
             info.add(ui.label(quest.rewards.joinToString("  |  ") { lookup.grantLabel(it) }, "muted")).left()
             row.add(info).expandX().left()
+            row.add(ui.button(testId("detail/${quest.id}"), text("ui.common.details"), "ghost") {
+                context.navigator.open(GameScreenId.PROGRESSION_QUEST_DETAIL, ScreenArgs.of("quest" to quest.id))
+            }).padRight(Tokens.SPACE_S)
             row.add(ui.label("${progress?.progress ?: 0}/${quest.count}", "body", testId("progress/${quest.id}"))).padRight(Tokens.SPACE_M)
             when {
                 progress?.claimed == true -> row.add(ui.label(text("ui.quests.claimed"), "positive"))
@@ -58,6 +61,9 @@ class AchievementListScreen(context: ScreenContext, args: ScreenArgs) : Standard
             info.add(ui.label(text(record.description), "small")).left().row()
             if (next != null) info.add(ui.label(next.rewards.joinToString("  |  ") { lookup.grantLabel(it) }, "muted")).left()
             row.add(info).expandX().left()
+            row.add(ui.button(testId("detail/${achievement.id}"), text("ui.common.details"), "ghost") {
+                context.navigator.open(GameScreenId.PROGRESSION_ACHIEVEMENT_DETAIL, ScreenArgs.of("achievement" to achievement.id))
+            }).padRight(Tokens.SPACE_S)
             row.add(ui.label(if (next == null) text("ui.achievements.complete") else "$value/${next.target}", "body", testId("progress/${achievement.id}"))).padRight(Tokens.SPACE_M)
             row.add(ui.label(text("ui.achievements.tier", claimed, achievement.tiers.size), "muted")).padRight(Tokens.SPACE_M)
             row.add(ui.button(testId("claim/${achievement.id}"), text("ui.quests.claim"), enabled = next != null && value >= next.target) {

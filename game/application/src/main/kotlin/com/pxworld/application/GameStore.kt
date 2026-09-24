@@ -7,6 +7,7 @@ interface SaveRepository {
     fun load(slot: String): GameState
     fun save(slot: String, state: GameState)
     fun delete(slot: String)
+    fun export(slot: String): String
 }
 
 fun interface GameStoreListener {

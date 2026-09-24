@@ -34,6 +34,8 @@ abstract class StandardScreen(id: GameScreenId, context: ScreenContext, args: Sc
 
 abstract class ModalScreen(id: GameScreenId, context: ScreenContext, args: ScreenArgs) : GameScreen(id, context, args) {
 
+    val screenContext: ScreenContext get() = context
+
     override val presentation = com.pxworld.client.navigation.Presentation.MODAL
 
     abstract fun dialog(content: Table)
@@ -114,5 +116,36 @@ class Lookup(private val context: ScreenContext) {
     companion object {
         fun power(stats: StatBlock): Int =
             stats[StatKind.HP] / 10 + stats[StatKind.ATTACK] + stats[StatKind.DEFENSE] + stats[StatKind.SPEED] + stats[StatKind.CRIT_RATE] / 5
+    }
+}
+
+abstract class TextPageScreen(id: GameScreenId, context: ScreenContext, args: ScreenArgs) : StandardScreen(id, context, args) {
+
+    abstract val sections: List<Pair<String, String>>
+
+    override fun body(content: Table) {
+        val page = Table().top().left()
+        sections.forEachIndexed { index, (headingKey, bodyKey) ->
+            page.add(ui.label(text(headingKey), "heading", testId("section/$index"))).left().padTop(if (index == 0) 0f else Tokens.SPACE_M).row()
+            page.add(ui.label(text(bodyKey), "body", wrap = true)).width(900f).left().row()
+        }
+        content.add(ui.scroll(page, testId("page"))).grow()
+    }
+}
+
+abstract class ConfirmScreen(id: GameScreenId, context: ScreenContext, args: ScreenArgs) : ModalScreen(id, context, args) {
+
+    abstract val titleText: String
+    abstract val messageText: String
+    open val confirmText: String get() = text("ui.common.confirm")
+    open val confirmStyle: String = "primary"
+
+    abstract fun confirm()
+
+    override fun dialog(content: Table) {
+        content.add(ui.label(titleText, "title", testId("title"))).colspan(2).row()
+        content.add(ui.label(messageText, "body", testId("message"), wrap = true)).width(480f).colspan(2).pad(Tokens.SPACE_M, 0f, Tokens.SPACE_M, 0f).row()
+        content.add(ui.button(testId("cancel"), text("ui.common.cancel"), "secondary") { context.navigator.back() }).growX().padRight(Tokens.SPACE_S)
+        content.add(ui.button(testId("confirm"), confirmText, confirmStyle) { confirm() }).growX()
     }
 }

@@ -13,6 +13,27 @@ class SettingsHomeScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
     override val titleKey = "ui.settings.title"
 
     override fun body(content: Table) {
+        val inGame = context.session.store != null
+        val hub = Table()
+        listOf(
+            Triple("audio", GameScreenId.SETTINGS_SETTINGS_AUDIO, true),
+            Triple("graphics", GameScreenId.SETTINGS_SETTINGS_GRAPHICS, false),
+            Triple("controls", GameScreenId.SETTINGS_SETTINGS_CONTROLS, false),
+            Triple("language_page", GameScreenId.SETTINGS_SETTINGS_LANGUAGE, false),
+            Triple("accessibility", GameScreenId.SETTINGS_SETTINGS_ACCESSIBILITY, true),
+            Triple("privacy", GameScreenId.SETTINGS_SETTINGS_PRIVACY, false),
+            Triple("playtime_report", GameScreenId.SETTINGS_PLAYTIME_REPORT, true),
+            Triple("help_center", GameScreenId.SETTINGS_HELP_CENTER, false),
+            Triple("faq", GameScreenId.SETTINGS_FAQ, false),
+            Triple("bug_report", GameScreenId.SETTINGS_BUG_REPORT, false),
+            Triple("credits", GameScreenId.SETTINGS_CREDITS, false),
+        ).forEachIndexed { index, (key, target, needsGame) ->
+            hub.add(ui.button(testId("open/$key"), text("ui.settings.$key"), "secondary", enabled = inGame || !needsGame) { context.navigator.open(target) })
+                .width(260f).height(Tokens.BUTTON_HEIGHT).pad(Tokens.SPACE_XS)
+            if (index % 3 == 2) hub.row()
+        }
+        content.add(hub).colspan(2).padBottom(Tokens.SPACE_L).row()
+        if (!inGame) return
         val settings = context.state.settings
         fun toggleRow(key: String, value: Boolean, change: (Boolean) -> Unit) {
             content.add(ui.label(text("ui.settings.$key"), "body")).width(260f).left()

@@ -64,9 +64,20 @@ class UiKit(fontFile: FileHandle) : Disposable {
         NinePatch(Texture(pixmap).also { textures += it; pixmap.dispose() }, radius, radius, radius, radius)
     }
 
-    val titleFont: BitmapFont = font(fontFile, 1.0f)
-    val bodyFont: BitmapFont = font(fontFile, 0.68f)
-    val smallFont: BitmapFont = font(fontFile, 0.54f)
+    val titleFont: BitmapFont = font(fontFile, TITLE_SCALE)
+    val bodyFont: BitmapFont = font(fontFile, BODY_SCALE)
+    val smallFont: BitmapFont = font(fontFile, SMALL_SCALE)
+
+    var textScalePercent: Int = 100
+        private set
+
+    fun applyTextScale(percent: Int) {
+        textScalePercent = percent
+        val factor = percent / 100f
+        titleFont.data.setScale(TITLE_SCALE * factor)
+        bodyFont.data.setScale(BODY_SCALE * factor)
+        smallFont.data.setScale(SMALL_SCALE * factor)
+    }
 
     init {
         labelStyle("title", titleFont, Tokens.text)
@@ -127,6 +138,12 @@ class UiKit(fontFile: FileHandle) : Disposable {
             this.fontColor = fontColor
             this.disabledFontColor = Tokens.muted
         })
+    }
+
+    companion object {
+        const val TITLE_SCALE: Float = 1.0f
+        const val BODY_SCALE: Float = 0.68f
+        const val SMALL_SCALE: Float = 0.54f
     }
 
     override fun dispose() {

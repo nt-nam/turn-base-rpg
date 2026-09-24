@@ -55,6 +55,7 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
 
     override fun onShow() {
         loadMap(context.state.position.mapId, context.state.position.spawnIndex, restoreSavedPosition = true)
+        com.pxworld.client.screens.onboarding.Tutorials.showIfPending(context, "tutorial_move")
     }
 
     private fun loadMap(targetMap: String, spawnIndex: Int, restoreSavedPosition: Boolean) {
@@ -169,7 +170,12 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
     }
 
     override fun onStateChanged(state: GameState, events: List<GameEvent>) {
+        if (state.position.mapId != mapId && state.position.x < 0) {
+            loadMap(state.position.mapId, state.position.spawnIndex, restoreSavedPosition = false)
+            context.navigator.open(GameScreenId.WORLD_MAP_TRANSITION, ScreenArgs.of("map" to state.position.mapId))
+        }
         refreshTopBar()
+        refreshActions()
     }
 
     override fun onHide() {
@@ -206,6 +212,7 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
         loadMap(target, teleport.targetSpawn, restoreSavedPosition = false)
         refreshTopBar()
         refreshActions()
+        context.navigator.open(GameScreenId.WORLD_MAP_TRANSITION, ScreenArgs.of("map" to target))
     }
 
     private fun persistPosition() {
@@ -253,6 +260,14 @@ class PauseMenuScreen(context: ScreenContext, args: ScreenArgs) : ModalScreen(Ga
     override fun dialog(content: Table) {
         content.add(ui.label(text("ui.pause.title"), "title")).colspan(3).padBottom(Tokens.SPACE_M).row()
         val entries = listOf(
+            "map" to GameScreenId.WORLD_REGION_MAP,
+            "minimap" to GameScreenId.WORLD_MINIMAP,
+            "tracker" to GameScreenId.WORLD_QUEST_TRACKER,
+            "codex" to GameScreenId.PROGRESSION_CODEX_HEROES,
+            "exchange" to GameScreenId.ECONOMY_CURRENCY_EXCHANGE,
+            "idle" to GameScreenId.ECONOMY_IDLE_REWARDS,
+            "replays" to GameScreenId.BATTLE_REPLAY_LIST,
+            "tips" to GameScreenId.PROGRESSION_TIPS_LIBRARY,
             "heroes" to GameScreenId.HEROES_HERO_ROSTER,
             "lineup" to GameScreenId.HEROES_LINEUP_EDITOR,
             "bag" to GameScreenId.INVENTORY_BAG_EQUIPMENT,
