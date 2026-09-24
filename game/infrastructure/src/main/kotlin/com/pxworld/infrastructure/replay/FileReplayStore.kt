@@ -34,23 +34,30 @@ data class ReplayDocument(
 
 class FileReplayStore(private val directory: File, private val capacity: Int = 30) : ReplayRepository {
 
-    private val json = Json { prettyPrint = false; ignoreUnknownKeys = true }
-
     override fun list(): List<ReplayRecord> =
         directory.listFiles { file -> file.extension == "json" }.orEmpty()
-            .mapNotNull { runCatching { decode(it.readText()) }.getOrNull() }
+            .mapNotNull { runCatching { ReplayCodec.decode(it.readText()) }.getOrNull() }
             .sortedByDescending { it.recordedAtMillis }
 
     override fun save(record: ReplayRecord) {
         directory.mkdirs()
-        File(directory, "${record.id}.json").writeText(json.encodeToString(ReplayDocument.serializer(), encode(record)))
+        File(directory, "${record.id}.json").writeText(ReplayCodec.encode(record))
         list().drop(capacity).forEach { File(directory, "${it.id}.json").delete() }
     }
 
     override fun load(id: String): ReplayRecord? =
-        File(directory, "$id.json").takeIf { it.isFile }?.let { decode(it.readText()) }
+        File(directory, "$id.json").takeIf { it.isFile }?.let { ReplayCodec.decode(it.readText()) }
+}
 
-    private fun encode(record: ReplayRecord) = ReplayDocument(
+object ReplayCodec {
+
+    val json = Json { prettyPrint = false; ignoreUnknownKeys = true }
+
+    fun encode(record: ReplayRecord): String = json.encodeToString(ReplayDocument.serializer(), document(record))
+
+    fun decode(text: String): ReplayRecord = record(json.decodeFromString(ReplayDocument.serializer(), text))
+
+    fun document(record: ReplayRecord) = ReplayDocument(
         id = record.id,
         encounterId = record.encounterId,
         seed = record.seed,
@@ -63,8 +70,7 @@ class FileReplayStore(private val directory: File, private val capacity: Int = 3
         recordedAtMillis = record.recordedAtMillis,
     )
 
-    private fun decode(text: String): ReplayRecord {
-        val document = json.decodeFromString(ReplayDocument.serializer(), text)
+    fun record(document: ReplayDocument): ReplayRecord {
         return ReplayRecord(
             id = document.id,
             encounterId = document.encounterId,
