@@ -70,7 +70,7 @@ class ContentTest {
     @Test
     fun `starter hero alone can fight the first village encounter`() {
         val assembler = BattleContentAssembler(bundle)
-        val starter = bundle.heroes.single { it.starter }
+        val starter = bundle.heroes.first { it.starter }
         val lineup = listOf(LineupSlot(starter.id, level = 1, star = 0, cell = GridCell(1, 0)))
         val record = BattleEngine.runAuto(assembler.battle(1, lineup, "encounter.dawnvillage_01.e0"))
         assertTrue(record.finalState.isOver)

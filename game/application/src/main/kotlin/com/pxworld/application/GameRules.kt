@@ -10,6 +10,7 @@ import com.pxworld.domain.progression.ExperienceCurve
 import com.pxworld.domain.progression.GameState
 import com.pxworld.domain.progression.Lineup
 import com.pxworld.domain.progression.OwnedHero
+import com.pxworld.domain.progression.WorldPosition
 import com.pxworld.domain.random.Pcg32
 import com.pxworld.domain.stats.StatBlock
 import com.pxworld.domain.stats.StatFormula
@@ -161,8 +162,37 @@ class GameRules(private val catalog: ContentCatalog) {
         }
         val (profileLevel, profileExperience) = ExperienceCurve.addExperience(current.profile.level, current.profile.experience, experience)
         if (profileLevel > current.profile.level) events += GameEvent.ProfileLeveledUp(profileLevel)
-        current = current.copy(profile = current.profile.copy(level = profileLevel, experience = profileExperience))
+        current = current.copy(
+            profile = current.profile.copy(level = profileLevel, experience = profileExperience),
+            lineup = current.lineup.copy(capacity = maxOf(current.lineup.capacity, LineupCapacity.forProfileLevel(profileLevel))),
+        )
         return Transition(current, events)
+    }
+
+    fun enterMap(state: GameState, mapId: String, x: Int, y: Int, spawnIndex: Int): Transition {
+        val moved = state.copy(position = WorldPosition(mapId, x, y, spawnIndex))
+        val events = if (mapId != state.position.mapId) listOf<GameEvent>(GameEvent.MapEntered(mapId)) else emptyList()
+        return Transition(moved, events)
+    }
+
+    fun claimQuest(state: GameState, questId: String): Transition {
+        val progress = state.quests.firstOrNull { it.questId == questId } ?: throw GameRuleViolation("quest $questId not started")
+        if (!progress.completed) throw GameRuleViolation("quest $questId is not complete")
+        if (progress.claimed) throw GameRuleViolation("quest $questId already claimed")
+        val quest = catalog.quests().first { it.id == questId }
+        val marked = state.copy(quests = state.quests.map { if (it.questId == questId) it.copy(claimed = true) else it })
+        val granted = grant(marked, quest.rewards, LedgerReason("quest", questId))
+        return Transition(granted.state, granted.events + GameEvent.QuestRewardClaimed(questId))
+    }
+
+    fun claimAchievementTier(state: GameState, achievementId: String): Transition {
+        val achievement = catalog.achievements().firstOrNull { it.id == achievementId } ?: throw GameRuleViolation("unknown achievement $achievementId")
+        val claimed = state.claimedAchievementTiers[achievementId] ?: 0
+        val tier = achievement.tiers.getOrNull(claimed) ?: throw GameRuleViolation("all tiers claimed")
+        if (state.stats.value(achievement.counter) < tier.target) throw GameRuleViolation("tier ${claimed + 1} not reached")
+        val marked = state.copy(claimedAchievementTiers = state.claimedAchievementTiers + (achievementId to claimed + 1))
+        val granted = grant(marked, tier.rewards, LedgerReason("achievement", "$achievementId#${claimed + 1}"))
+        return Transition(granted.state, granted.events + GameEvent.AchievementTierClaimed(achievementId, claimed + 1))
     }
 
     fun grant(state: GameState, grants: List<Grant>, reason: LedgerReason): Transition {

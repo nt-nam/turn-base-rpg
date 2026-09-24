@@ -1,13 +1,27 @@
 [versions]
-kotlin = "2.1.21"
+kotlin = "2.4.20"
 junit = "5.10.2"
-kotlinxSerialization = "1.8.1"
+kotlinxSerialization = "1.11.0"
+gdx = "1.13.1"
+ktx = "1.13.1-rc1"
+fleks = "2.15"
+javaWebSocket = "1.6.0"
 
 [libraries]
 junit-bom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
 junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+gdx-core = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdx" }
+gdx-backend-lwjgl3 = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl3", version.ref = "gdx" }
+gdx-backend-headless = { module = "com.badlogicgames.gdx:gdx-backend-headless", version.ref = "gdx" }
+gdx-platform = { module = "com.badlogicgames.gdx:gdx-platform", version.ref = "gdx" }
+ktx-actors = { module = "io.github.libktx:ktx-actors", version.ref = "ktx" }
+ktx-scene2d = { module = "io.github.libktx:ktx-scene2d", version.ref = "ktx" }
+ktx-graphics = { module = "io.github.libktx:ktx-graphics", version.ref = "ktx" }
+ktx-assets = { module = "io.github.libktx:ktx-assets", version.ref = "ktx" }
+fleks = { module = "io.github.quillraven.fleks:Fleks", version.ref = "fleks" }
+java-websocket = { module = "org.java-websocket:Java-WebSocket", version.ref = "javaWebSocket" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

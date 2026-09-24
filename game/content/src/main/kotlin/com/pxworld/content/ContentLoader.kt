@@ -26,8 +26,9 @@ object ContentLoader {
         val stringMap = MapSerializer(String.serializer(), String.serializer())
         val localization = files.filterKeys { it.startsWith("localization/") && it.endsWith(".json") }
             .toSortedMap()
-            .map { (path, text) -> path.removePrefix("localization/").removeSuffix(".json") to parse(path, text, stringMap) }
-            .toMap()
+            .map { (path, text) -> path.removePrefix("localization/").substringBefore(".") to parse(path, text, stringMap) }
+            .groupBy({ it.first }, { it.second })
+            .mapValues { (_, tables) -> tables.fold(emptyMap<String, String>()) { merged, table -> merged + table } }
         val assetMap = files["assets/legacy_asset_map.json"]?.let { parse("assets/legacy_asset_map.json", it, stringMap) }.orEmpty()
 
         return ContentBundle(
@@ -44,6 +45,7 @@ object ContentLoader {
             achievements = kind("achievements", AchievementRecord.serializer()),
             checkinTables = kind("checkin_tables", CheckinTableRecord.serializer()),
             battleRules = kind("balance", BattleRulesRecord.serializer()),
+            maps = kind("maps", MapRecord.serializer()),
             localization = localization,
             assetMap = assetMap,
         )

@@ -17,6 +17,11 @@ sealed interface GameEvent {
     data class LineupChanged(val heroInstanceIds: List<String>) : GameEvent
     data class ProfileLeveledUp(val level: Int) : GameEvent
     data class CheckinClaimed(val tableId: String, val day: Int) : GameEvent
+    data class MapEntered(val mapId: String) : GameEvent
+    data class QuestProgressed(val questId: String, val progress: Int, val target: Int) : GameEvent
+    data class QuestCompleted(val questId: String) : GameEvent
+    data class QuestRewardClaimed(val questId: String) : GameEvent
+    data class AchievementTierClaimed(val achievementId: String, val tier: Int) : GameEvent
     data class BattleFinished(val encounterId: String, val outcome: BattleOutcome, val enemiesDefeated: Int) : GameEvent
 }
 

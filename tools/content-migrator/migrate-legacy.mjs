@@ -425,8 +425,6 @@ if (existsSync(out) && !process.argv.includes("--force")) {
   console.error("content/ already exists and is the source of truth. Re-run with --force only to rebuild it from legacy data (overwrites migrated files).");
   process.exit(1);
 }
-const ownedDirectories = ["currencies", "hero_classes", "statuses", "skills", "heroes", "enemies", "encounters", "items", "equipment", "quests", "achievements", "checkin_tables", "balance", "assets", "localization"];
-for (const directory of ownedDirectories) rmSync(resolve(out, directory), { recursive: true, force: true });
 write("currencies/currencies.json", currencies);
 write("hero_classes/hero_classes.json", heroClasses);
 write("statuses/statuses.json", statuses);

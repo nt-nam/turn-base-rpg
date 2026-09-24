@@ -50,6 +50,7 @@ object ContentValidator {
         expectPrefix(bundle.achievements.map { it.id }, "achievement")
         expectPrefix(bundle.checkinTables.map { it.id }, "checkin")
         expectPrefix(bundle.battleRules.map { it.id }, "balance")
+        expectPrefix(bundle.maps.map { it.id }, "map")
 
         val classIds = bundle.heroClasses.map { it.id }.toSet()
         val statusIds = bundle.statuses.map { it.id }.toSet()
@@ -61,6 +62,7 @@ object ContentValidator {
         val enemyIds = bundle.enemies.map { it.id }.toSet()
         val encounterIds = bundle.encounters.map { it.id }.toSet()
         val itemCategories = bundle.items.map { it.category }.toSet()
+        val mapIds = bundle.maps.map { it.id }.toSet()
 
         val primary = bundle.localization[PRIMARY_LOCALE]
         if (primary == null) error("localization", "missing primary locale $PRIMARY_LOCALE")
@@ -158,7 +160,7 @@ object ContentValidator {
             kit(hero.id, hero.skills)
             asset(hero.id, hero.sprite)
         }
-        if (bundle.heroes.count { it.starter } != 1) error("heroes", "exactly one hero must be marked starter")
+        if (bundle.heroes.none { it.starter }) error("heroes", "at least one hero must be selectable as starter")
 
         bundle.enemies.forEach { enemy ->
             text(enemy.id, enemy.name)
@@ -170,7 +172,7 @@ object ContentValidator {
 
         bundle.encounters.forEach { encounter ->
             text(encounter.id, encounter.name)
-            if (!encounter.map.startsWith("map.")) error(encounter.id, "map must be a map.* id")
+            if (encounter.map !in mapIds) error(encounter.id, "unknown map ${encounter.map}")
             if (encounter.enemies.isEmpty()) error(encounter.id, "needs at least one enemy")
             if (encounter.enemies.size > GridCell.GRID_SIZE * GridCell.GRID_SIZE) error(encounter.id, "more enemies than grid cells")
             encounter.enemies.forEach { placed ->
@@ -185,6 +187,12 @@ object ContentValidator {
         }
         bundle.encounters.groupBy { it.map to it.mapObjectId }.filterValues { it.size > 1 }
             .forEach { (key, list) -> error(list.first().id, "map object ${key.second} on ${key.first} is used by ${list.map { it.id }}") }
+
+        bundle.maps.forEach { map ->
+            text(map.id, map.name)
+            asset(map.id, map.asset)
+        }
+        bundle.maps.groupBy { it.legacyName }.filterValues { it.size > 1 }.forEach { (legacy, list) -> error(list.first().id, "legacy map $legacy is claimed by ${list.map { it.id }}") }
 
         bundle.items.forEach { item ->
             text(item.id, item.name)
@@ -219,7 +227,7 @@ object ContentValidator {
                 "win_encounter" -> if (objective.target !in encounterIds) error(quest.id, "unknown encounter ${objective.target}")
                 "collect_item" -> if (objective.target !in itemIds) error(quest.id, "unknown item ${objective.target}")
                 "collect_item_category" -> if (objective.target !in itemCategories) error(quest.id, "unknown item category ${objective.target}")
-                "reach_map" -> if (objective.target?.startsWith("map.") != true) error(quest.id, "reach_map target must be a map.* id")
+                "reach_map" -> if (objective.target !in mapIds) error(quest.id, "unknown map ${objective.target}")
                 "defeat_enemies" -> if (objective.target != null && objective.target !in enemyIds) error(quest.id, "unknown enemy ${objective.target}")
             }
             rewards(quest.id, quest.rewards)
@@ -250,7 +258,7 @@ object ContentValidator {
         }
 
         val usedAssets = (bundle.currencies.map { it.icon } + bundle.skills.map { it.vfx } + bundle.heroes.map { it.sprite } +
-            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon }).toSet()
+            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset }).toSet()
         (bundle.assetMap.keys - usedAssets).forEach { warning("assets", "asset key $it is mapped but never used") }
 
         missingTranslations.forEach { (locale, count) -> warning("localization.$locale", "$count keys have no $locale translation yet") }

@@ -49,7 +49,7 @@
       "skill.assassin.deathmark"
     ],
     "sprite": "sprite:hero/nyx",
-    "starter": false
+    "starter": true
   },
   {
     "id": "hero.selene",
@@ -75,7 +75,7 @@
       "skill.mage.sunfall"
     ],
     "sprite": "sprite:hero/selene",
-    "starter": false
+    "starter": true
   },
   {
     "id": "hero.fenn",
@@ -101,7 +101,7 @@
       "skill.ranger.arrow_rain"
     ],
     "sprite": "sprite:hero/fenn",
-    "starter": false
+    "starter": true
   },
   {
     "id": "hero.mirae",
@@ -127,7 +127,7 @@
       "skill.support.swift_hymn"
     ],
     "sprite": "sprite:hero/mirae",
-    "starter": false
+    "starter": true
   },
   {
     "id": "hero.borin",
@@ -153,6 +153,6 @@
       "skill.tank.iron_wall"
     ],
     "sprite": "sprite:hero/borin",
-    "starter": false
+    "starter": true
   }
 ]

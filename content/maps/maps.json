@@ -1,0 +1,138 @@
+[
+  {
+    "id": "map.dawnvillage_01",
+    "name": "map.dawnvillage_01.name",
+    "region": "region.dawnvillage",
+    "asset": "map:dawnvillage_01",
+    "legacyName": "village_0",
+    "recommendedLevel": 0
+  },
+  {
+    "id": "map.dawnvillage_02",
+    "name": "map.dawnvillage_02.name",
+    "region": "region.dawnvillage",
+    "asset": "map:dawnvillage_02",
+    "legacyName": "village_1",
+    "recommendedLevel": 0
+  },
+  {
+    "id": "map.dawnvillage_03",
+    "name": "map.dawnvillage_03.name",
+    "region": "region.dawnvillage",
+    "asset": "map:dawnvillage_03",
+    "legacyName": "village_2",
+    "recommendedLevel": 0
+  },
+  {
+    "id": "map.dawnvillage_04",
+    "name": "map.dawnvillage_04.name",
+    "region": "region.dawnvillage",
+    "asset": "map:dawnvillage_04",
+    "legacyName": "village_3",
+    "recommendedLevel": 0
+  },
+  {
+    "id": "map.dawnvillage_05",
+    "name": "map.dawnvillage_05.name",
+    "region": "region.dawnvillage",
+    "asset": "map:dawnvillage_05",
+    "legacyName": "village_4",
+    "recommendedLevel": 0
+  },
+  {
+    "id": "map.mistgarden_01",
+    "name": "map.mistgarden_01.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_01",
+    "legacyName": "garden0",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.mistgarden_02",
+    "name": "map.mistgarden_02.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_02",
+    "legacyName": "garden1",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.mistgarden_03",
+    "name": "map.mistgarden_03.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_03",
+    "legacyName": "garden2",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.mistgarden_04",
+    "name": "map.mistgarden_04.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_04",
+    "legacyName": "garden3",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.mistgarden_05",
+    "name": "map.mistgarden_05.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_05",
+    "legacyName": "garden4",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.mistgarden_06",
+    "name": "map.mistgarden_06.name",
+    "region": "region.mistgarden",
+    "asset": "map:mistgarden_06",
+    "legacyName": "garden5",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.ashwaste_01",
+    "name": "map.ashwaste_01.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_01",
+    "legacyName": "wasteland1",
+    "recommendedLevel": 2
+  },
+  {
+    "id": "map.ashwaste_02",
+    "name": "map.ashwaste_02.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_02",
+    "legacyName": "wasteland2",
+    "recommendedLevel": 3
+  },
+  {
+    "id": "map.ashwaste_03",
+    "name": "map.ashwaste_03.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_03",
+    "legacyName": "wasteland3",
+    "recommendedLevel": 4
+  },
+  {
+    "id": "map.ashwaste_04",
+    "name": "map.ashwaste_04.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_04",
+    "legacyName": "wasteland4",
+    "recommendedLevel": 5
+  },
+  {
+    "id": "map.ashwaste_05",
+    "name": "map.ashwaste_05.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_05",
+    "legacyName": "wasteland5",
+    "recommendedLevel": 6
+  },
+  {
+    "id": "map.ashwaste_06",
+    "name": "map.ashwaste_06.name",
+    "region": "region.ashwaste",
+    "asset": "map:ashwaste_06",
+    "legacyName": "wasteland6",
+    "recommendedLevel": 7
+  }
+]

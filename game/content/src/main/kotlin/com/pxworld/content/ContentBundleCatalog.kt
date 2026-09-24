@@ -1,11 +1,14 @@
 package com.pxworld.content
 
+import com.pxworld.application.AchievementSummary
+import com.pxworld.application.AchievementTier
 import com.pxworld.application.ContentCatalog
 import com.pxworld.application.Currencies
 import com.pxworld.application.EncounterSummary
 import com.pxworld.application.Grant
 import com.pxworld.application.GrantKind
 import com.pxworld.application.Price
+import com.pxworld.application.QuestSummary
 import com.pxworld.domain.progression.EquipmentSlot
 import com.pxworld.domain.stats.StatBlock
 
@@ -20,7 +23,7 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
 
     val itemsByIcon: Map<String, String> = bundle.items.associate { it.icon to it.id }
     val heroesByClass: Map<String, String> = bundle.heroes.associate { it.classId to it.id }
-    val starterHeroId: String = bundle.heroes.single { it.starter }.id
+    val starterHeroId: String = bundle.heroes.first { it.starter }.id
 
     override fun heroExists(heroId: String): Boolean = heroId in heroes
 
@@ -62,6 +65,24 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
 
     override fun checkinLength(tableId: String): Int = requireNotNull(checkinTables[tableId]) { "unknown check-in table $tableId" }.days.size
 
+    override fun itemCategory(itemId: String): String? = items[itemId]?.category
+
+    override fun quests(): List<QuestSummary> = bundle.quests.map { quest ->
+        QuestSummary(quest.id, quest.objective.kind, quest.objective.target, quest.objective.count, quest.rewards.map(::grant))
+    }
+
+    override fun achievements(): List<AchievementSummary> = bundle.achievements.map { achievement ->
+        AchievementSummary(achievement.id, achievement.counter, achievement.tiers.map { AchievementTier(it.target.toLong(), it.rewards.map(::grant)) })
+    }
+
+    override fun startingGrants(): List<Grant> = STARTING_GRANTS
+
+    override fun starterHeroes(): List<String> = bundle.heroes.filter { it.starter }.map { it.id }
+
+    override fun startingMap(): String = STARTING_MAP
+
+    override fun defaultCheckinTable(): String = bundle.checkinTables.first().id
+
     fun enemyExists(enemyId: String): Boolean = enemyId in enemies
 
     private fun grant(record: RewardRecord): Grant = Grant(
@@ -77,5 +98,7 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
 
     companion object {
         val RECRUIT_PRICE: Price = Price(Currencies.GEM, 5)
+        const val STARTING_MAP: String = "map.dawnvillage_01"
+        val STARTING_GRANTS: List<Grant> = listOf(Grant(GrantKind.CURRENCY, Currencies.GOLD, 300), Grant(GrantKind.CURRENCY, Currencies.GEM, 20))
     }
 }

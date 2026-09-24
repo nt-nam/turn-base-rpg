@@ -1,5 +1,6 @@
 package com.pxworld.infrastructure.save
 
+import com.pxworld.application.SaveRepository
 import com.pxworld.domain.progression.GameState
 import kotlinx.serialization.json.Json
 import java.io.File
@@ -47,15 +48,15 @@ object SaveCodec {
         MessageDigest.getInstance("SHA-256").digest(text.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
 }
 
-class FileSaveStore(private val directory: File, private val keptBackups: Int = 3) {
+class FileSaveStore(private val directory: File, private val keptBackups: Int = 3) : SaveRepository {
 
-    fun slots(): List<String> =
+    override fun slots(): List<String> =
         directory.listFiles { file -> file.isFile && file.name.endsWith(SAVE_SUFFIX) }
             .orEmpty()
             .map { it.name.removeSuffix(SAVE_SUFFIX) }
             .sorted()
 
-    fun save(slot: String, state: GameState) {
+    override fun save(slot: String, state: GameState) {
         require(SLOT_PATTERN.matches(slot)) { "slot names are lowercase letters, digits and underscores" }
         directory.mkdirs()
         val target = file(slot)
@@ -72,7 +73,7 @@ class FileSaveStore(private val directory: File, private val keptBackups: Int = 
         }
     }
 
-    fun load(slot: String): GameState {
+    override fun load(slot: String): GameState {
         val candidates = listOf(file(slot)) + (1..keptBackups).map { backup(slot, it) }
         val failures = mutableListOf<String>()
         for (candidate in candidates.filter { it.isFile }) {
@@ -85,7 +86,7 @@ class FileSaveStore(private val directory: File, private val keptBackups: Int = 
         throw CorruptSave(if (failures.isEmpty()) "no save for slot $slot" else failures.joinToString("; "))
     }
 
-    fun delete(slot: String) {
+    override fun delete(slot: String) {
         (listOf(file(slot)) + (1..keptBackups).map { backup(slot, it) }).forEach { it.delete() }
     }
 

@@ -12,3 +12,8 @@ Viết lại bằng Kotlin, giữ libGDX 1.13, thay Ashley bằng Fleks, dùng K
 
 ## Hệ quả
 Giữ nguyên toàn bộ asset pipeline; code ngắn và null-safe; dùng chung ngôn ngữ với backend. Đội cần làm quen Kotlin; TeaVM + Fleks + KTX phải spike trước (ADR 0009).
+
+## Cập nhật 2026-09-25
+- Kotlin nâng lên 2.4.20 (Fleks 2.15 được build bằng Kotlin 2.4).
+- Fleks 2.15 phát bytecode Java 17. `game/domain`, `game/application`, `game/content` vẫn nhắm JVM 1.8; `game/client` nhắm JVM 17.
+- Rủi ro iOS: RoboVM 2.3.x chỉ hỗ trợ đầy đủ Java 8. Phải kiểm chứng ở P6; phương án dự phòng là chạy client trên iOS qua MobiVM bản mới hoặc thay Fleks bằng ECS nội bộ Java 8 cho riêng lớp world.

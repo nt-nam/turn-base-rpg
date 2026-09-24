@@ -127,6 +127,16 @@ data class EnemyRecord(
 )
 
 @Serializable
+data class MapRecord(
+    val id: String,
+    val name: String,
+    val region: String,
+    val asset: String,
+    val legacyName: String,
+    val recommendedLevel: Int,
+)
+
+@Serializable
 data class CellRecord(val lane: Int, val depth: Int)
 
 @Serializable
@@ -249,6 +259,7 @@ data class ContentBundle(
     val achievements: List<AchievementRecord>,
     val checkinTables: List<CheckinTableRecord>,
     val battleRules: List<BattleRulesRecord>,
+    val maps: List<MapRecord> = emptyList(),
     val localization: Map<String, Map<String, String>>,
     val assetMap: Map<String, String>,
 ) {
@@ -256,5 +267,5 @@ data class ContentBundle(
         currencies.map { it.id } + heroClasses.map { it.id } + statuses.map { it.id } + skills.map { it.id } +
             heroes.map { it.id } + enemies.map { it.id } + encounters.map { it.id } + items.map { it.id } +
             equipment.map { it.id } + quests.map { it.id } + achievements.map { it.id } + checkinTables.map { it.id } +
-            battleRules.map { it.id }
+            battleRules.map { it.id } + maps.map { it.id }
 }

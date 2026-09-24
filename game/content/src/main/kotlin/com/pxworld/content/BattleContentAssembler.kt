@@ -16,7 +16,7 @@ import com.pxworld.domain.stats.StatBlock
 import com.pxworld.domain.stats.StatFormula
 import com.pxworld.domain.stats.StatKind
 
-data class LineupSlot(val heroId: String, val level: Int, val star: Int, val cell: GridCell)
+data class LineupSlot(val heroId: String, val level: Int, val star: Int, val cell: GridCell, val flatBonus: StatBlock = StatBlock.EMPTY)
 
 class BattleContentAssembler(private val bundle: ContentBundle) {
 
@@ -55,7 +55,7 @@ class BattleContentAssembler(private val bundle: ContentBundle) {
         val encounter = encounters[encounterId] ?: throw IllegalArgumentException("unknown encounter $encounterId")
         val allies = lineup.map { slot ->
             val hero = heroes[slot.heroId] ?: throw IllegalArgumentException("unknown hero ${slot.heroId}")
-            combatant(hero.id, hero.classId, hero.baseStats, hero.skills, slot.level, slot.star, slot.cell)
+            combatant(hero.id, hero.classId, hero.baseStats, hero.skills, slot.level, slot.star, slot.cell, slot.flatBonus)
         }
         val foes = encounter.enemies.map { placed ->
             val enemy = enemies[placed.enemy] ?: throw IllegalArgumentException("unknown enemy ${placed.enemy}")
@@ -72,12 +72,13 @@ class BattleContentAssembler(private val bundle: ContentBundle) {
         level: Int,
         star: Int,
         cell: GridCell,
+        flatBonus: StatBlock = StatBlock.EMPTY,
     ): CombatantSetup = CombatantSetup(
         name = name,
         classId = classId,
         level = level,
         cell = cell,
-        stats = StatFormula.grow(statBlock(base), level, star),
+        stats = StatFormula.finalStats(statBlock(base), level, star, flatBonus, StatBlock.EMPTY),
         skills = skillIds.map { id -> skillDefinition(skills[id] ?: throw IllegalArgumentException("unknown skill $id")) },
     )
 

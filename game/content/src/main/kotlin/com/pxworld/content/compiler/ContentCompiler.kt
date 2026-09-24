@@ -71,7 +71,7 @@ object ContentCompilation {
                 }
                 return WinRate(outcomes.count { it == BattleOutcome.VICTORY }, outcomes.count { it == BattleOutcome.DRAW }, SIMULATIONS_PER_ENCOUNTER)
             }
-            val starter = bundle.heroes.single { it.starter }
+            val starter = bundle.heroes.first { it.starter }
             EncounterBalance(
                 encounterId = encounter.id,
                 recommendedLevel = encounter.recommendedLevel,

@@ -32,6 +32,22 @@ private object FakeCatalog : ContentCatalog {
     override fun encounter(encounterId: String) = EncounterSummary(encounterId, highestEnemyLevel = 2, enemyCount = 2, rewards = listOf(Grant(GrantKind.CURRENCY, Currencies.GOLD, 30)))
     override fun checkinRewards(tableId: String, day: Int) = listOf(Grant(GrantKind.CURRENCY, if (day % 2 == 0) Currencies.GEM else Currencies.GOLD, 100L * day))
     override fun checkinLength(tableId: String) = 3
+    override fun itemCategory(itemId: String) = itemId.substringAfter("item.").substringBefore("_")
+    override fun quests() = listOf(
+        QuestSummary("quest.side.hunt", "defeat_enemies", null, 3, listOf(Grant(GrantKind.CURRENCY, Currencies.GOLD, 50))),
+        QuestSummary("quest.side.food", "collect_item_category", "food", 2, listOf(Grant(GrantKind.CURRENCY, Currencies.GEM, 1))),
+        QuestSummary("quest.side.travel", "reach_map", "map.ashwaste_01", 1, listOf(Grant(GrantKind.ITEM, "item.food_t1", 1))),
+    )
+    override fun achievements() = listOf(
+        AchievementSummary(
+            "achievement.victor", Counters.BATTLES_WON,
+            listOf(AchievementTier(1, listOf(Grant(GrantKind.CURRENCY, Currencies.GEM, 10))), AchievementTier(3, listOf(Grant(GrantKind.CURRENCY, Currencies.GEM, 40)))),
+        ),
+    )
+    override fun startingGrants() = listOf(Grant(GrantKind.CURRENCY, Currencies.GOLD, 300))
+    override fun starterHeroes() = listOf("hero.aldric", "hero.selene")
+    override fun startingMap() = "map.dawnvillage_01"
+    override fun defaultCheckinTable() = "checkin.standard_30"
 }
 
 class GameRulesTest {
@@ -163,5 +179,53 @@ class GameRulesTest {
         assertThrows<IllegalArgumentException> {
             newGame().copy(inventory = Inventory(equipment = listOf(EquipmentInstance("e1", "equip.sword_000", EquipmentSlot.WEAPON, equippedBy = "ghost"))))
         }
+    }
+
+    private val quests = QuestTracker(FakeCatalog)
+
+    @Test
+    fun `new game starts with starter hero, starting grants and every quest tracked`() {
+        val state = NewGame(FakeCatalog, rules, quests).create("  Linh  ", "hero.selene")
+        assertEquals("Linh", state.profile.name)
+        assertEquals(listOf("hero.selene"), state.heroes.map { it.heroId })
+        assertEquals(300, state.wallet.balance(Currencies.GOLD))
+        assertEquals(LineupCapacity.STARTING, state.lineup.capacity)
+        assertEquals(3, state.quests.size)
+        assertThrows<GameRuleViolation> { NewGame(FakeCatalog, rules, quests).create("x", "hero.aldric") }
+        assertThrows<GameRuleViolation> { NewGame(FakeCatalog, rules, quests).create("Linh", "hero.nobody") }
+    }
+
+    @Test
+    fun `quest tracker reacts to battles, items and travel, then rewards can be claimed once`() {
+        var state = NewGame(FakeCatalog, rules, quests).create("Linh", "hero.aldric")
+        state = quests.react(rules.finishBattle(state, "encounter.test", BattleOutcome.VICTORY, enemiesDefeated = 2)).state
+        assertEquals(2, state.quests.single { it.questId == "quest.side.hunt" }.progress)
+        val completing = quests.react(rules.finishBattle(state, "encounter.test", BattleOutcome.DEFEAT, enemiesDefeated = 5))
+        assertTrue(completing.events.contains(GameEvent.QuestCompleted("quest.side.hunt")))
+        state = completing.state
+        assertEquals(3, state.quests.single { it.questId == "quest.side.hunt" }.progress)
+        state = quests.react(rules.grant(state, listOf(Grant(GrantKind.ITEM, "item.food_t2", 2)), LedgerReason("test"))).state
+        assertTrue(state.quests.single { it.questId == "quest.side.food" }.completed)
+        state = quests.react(rules.enterMap(state, "map.ashwaste_01", 10, 10, 0)).state
+        assertTrue(state.quests.single { it.questId == "quest.side.travel" }.completed)
+        val gold = state.wallet.balance(Currencies.GOLD)
+        state = rules.claimQuest(state, "quest.side.hunt").state
+        assertEquals(gold + 50, state.wallet.balance(Currencies.GOLD))
+        assertThrows<GameRuleViolation> { rules.claimQuest(state, "quest.side.hunt") }
+    }
+
+    @Test
+    fun `achievement tiers are claimed in order once their counter is reached`() {
+        var state = rules.finishBattle(newGame(), "encounter.test", BattleOutcome.VICTORY, 1).state
+        state = rules.claimAchievementTier(state, "achievement.victor").state
+        assertEquals(10, state.wallet.balance(Currencies.GEM))
+        assertThrows<GameRuleViolation> { rules.claimAchievementTier(state, "achievement.victor") }
+    }
+
+    @Test
+    fun `lineup capacity grows with profile level`() {
+        assertEquals(3, LineupCapacity.forProfileLevel(1))
+        assertEquals(4, LineupCapacity.forProfileLevel(6))
+        assertEquals(9, LineupCapacity.forProfileLevel(60))
     }
 }
