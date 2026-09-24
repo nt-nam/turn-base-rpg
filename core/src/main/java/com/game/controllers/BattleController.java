@@ -2,6 +2,7 @@ package com.game.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.game.managers.GameSessionManager;
+import com.game.models.entity.BattleResult;
 import com.game.models.entity.Equip;
 import com.game.models.entity.Hero;
 import com.game.models.entity.Item;
@@ -42,50 +43,58 @@ public class BattleController {
             }
         }
 
-        plusEXP(0.35f);
+        int expGained = plusEXP(0.35f);
         GameSessionManager.getInstance().profile.numberOfEnemies++;
-        
+
         if ("village_0".equals(GameSessionManager.getInstance().targetMapId)) {
             if (GameSessionManager.getInstance().missionList != null && !GameSessionManager.getInstance().missionList.isEmpty()) {
                  GameSessionManager.getInstance().missionList.get(0).progress = 1;
                  JsonSaver.saveObject(Constants.playerPath("mission.json"), GameSessionManager.getInstance().missionList);
             }
         }
-        
+
+        // Ghi ket qua tran de BattleResultScreen hien thi
+        GameSessionManager.getInstance().lastBattleResult =
+            new BattleResult(true, expGained, mapBattle.rewardList);
+
         if (hudView != null) {
             hudView.showPopupWin(mapBattle.rewardList);
         }
     }
 
     public void onBattleFail() {
-        plusEXP(0.15f);
+        int expGained = plusEXP(0.15f);
+        GameSessionManager.getInstance().lastBattleResult =
+            new BattleResult(false, expGained, null);
         if (hudView != null) {
             hudView.showPopupFail();
         }
     }
 
-    private void plusEXP(float per) {
+    private int plusEXP(float per) {
         GameSessionManager session = GameSessionManager.getInstance();
+        int expGained = (int) ((maxLevelEnemy * 100) * per);
         for (Hero he : session.heroList) {
             if (!he.grid.equals("empty")) {
                 Gdx.app.debug("BattleController", he.grid + " received exp");
-                he.exp += (int) ((maxLevelEnemy * 100) * per);
+                he.exp += expGained;
                 he.checkLevel();
             }
         }
-        session.profile.exp += (int) ((maxLevelEnemy * 100) * per);
-        
+        session.profile.exp += expGained;
+
         if (session.profile.exp >= session.profile.level * 100) {
             session.profile.exp -= session.profile.level * 100;
             session.profile.level++;
         }
-        
+
         if(session.achievementList != null && session.achievementList.size() > 2) {
             session.achievementList.get(2).number++;
             JsonSaver.saveObject(Constants.playerPath("achievement.json"), session.achievementList);
         }
-        
+
         JsonSaver.saveObject(Constants.playerPath("hero_full.json"), session.heroList);
         JsonSaver.saveObject(Constants.playerPath("info.json"), session.profile);
+        return expGained;
     }
 }

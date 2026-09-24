@@ -109,3 +109,15 @@ Dot 2 - tach Screen:
 - SelectPlayerScreen: tach `SelectPlayerAssets.load()` + `SelectPlayerLoader.selectAccount(engine, account)` (tao entity ECS + load profile/equip/hero/mission...).
 
 Con lai (dot sau, out of scope): tach cac widget PP lon (HerosPP 523, ShopPP 298, BagPP 318...) - static-heavy, rui ro cao khi khong chay GUI verify; smoke test GUI day du luong Battle can user chay tay.
+
+## 8. DOT 3 - Cai tien game (2026-09-24)
+Behavior-preserving cho phan refactor. Verify: :core:compileJava + :lwjgl3:compileJava OK; 46 tests 0 failures 0 errors (them 1 test reset); game khoi dong khong crash.
+
+- BattleResultScreen: man ket qua (CHIEN THANG/THAT BAI + EXP + reward), nut Tiep tuc -> WorldMap. POJO BattleResult + GameSessionManager.lastBattleResult. BattleController ghi ket qua (giu popup cu).
+- AgentControlSystem auto-action: HUNT_ENEMY tu vao battle khi cham enemy; GOTO_TELEPORT tu di map khi cham teleport.
+- GameSessionManager.reset(): implement day du cho new game + test GameSessionManagerResetTest.
+- DebugConfig.ENABLED: gate DebugDrawSystem (WorldMap) + SpriteDebugRenderSystem (Battle) - co lap debug.
+- QuestScreen: Quest Log hien missionList (title/desc/progress-target, mau xanh khi hoan thanh).
+- Refactor 2 widget PP nho (EquipDetailPP/BattleDetailPP): bo static mutable/dead code.
+
+Con lai (dot sau): tach cac widget PP lon con static-heavy (HerosPP/ShopPP/BagPP/RolePP/PotentialPP/SettingPP/RecruitPP/DailyPP); wire BattleResultScreen vao luong battle (hien la screen doc lap); smoke test GUI day du.

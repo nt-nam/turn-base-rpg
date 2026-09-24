@@ -121,7 +121,9 @@ public class BattleScreen extends BaseScreen {
         engine.addSystem(new LabelRenderSystem((OrthographicCamera) stage.getCamera(), Constants.BMF));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new SkillStateSystem(engine));
-        engine.addSystem(new SpriteDebugRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
+        if (com.game.utils.DebugConfig.ENABLED) {
+            engine.addSystem(new SpriteDebugRenderSystem(engine, (OrthographicCamera) stage.getCamera()));
+        }
         engine.addSystem(new TurnActionSystem());
     }
 

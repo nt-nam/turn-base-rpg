@@ -37,8 +37,6 @@ public class ActionQueueSystem extends IteratingSystem {
             position.x = startX;
             position.y = startY;
 
-//            System.out.println(action.actor.getComponent(AnimationStateComponent.class).requested.toString());
-//            System.out.println("actu");
             action.actor.getComponent(AnimationStateComponent.class).requested = AnimationStateComponent.State.ATTACK;
             action.target.getComponent(AnimationStateComponent.class).requested = AnimationStateComponent.State.HURT;
             // Add MoveToComponent to start the movement

@@ -106,30 +106,3 @@ public class JsonUtil {
     }
 }
 
-/*
-*create JsonValue
-*/
-/// JsonValue jsonValue = new JsonValue(JsonValue.ValueType.object);
-//jsonValue.addChild("characterId", new JsonValue(gridData.characterId));
-//jsonValue.addChild("grid", new JsonValue(gridData.grid));
-
-///JsonValue jsonValue = new JsonValue(JsonValue.ValueType.array);
-//jsonValue.add(new JsonValue("Banana"));
-//jsonValue.add(new JsonValue("Cherry"));
-//String firstItem = jsonValue.getString(0);  // Lấy giá trị đầu tiên (index 0)
-//String secondItem = jsonValue.getString(1);
-
-///JsonValue jsonValue = new JsonValue(JsonValue.ValueType.string);
-//jsonValue.set("Hello, World!");
-//System.out.println(jsonValue.asString());
-
-///JsonValue jsonValue = new JsonValue(JsonValue.ValueType.number);
-//jsonValue.set(100);  // Hoặc có thể là số thực như 10.5
-//System.out.println(jsonValue.asInt());
-
-///JsonValue jsonValue = new JsonValue(JsonValue.ValueType.boolean);
-//    jsonValue.set(true);
-//System.out.println(jsonValue.asBoolean());
-
-///JsonValue jsonValue = new JsonValue(JsonValue.ValueType.nullType);
-//System.out.println(jsonValue.isNull());

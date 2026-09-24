@@ -25,8 +25,6 @@ public class UIJoystick extends Group {
         this.x = x;
         this.y = y;
 
-        // Lấy TouchpadStyle từ skin
-//        touchpadStyle = skin.get("default", TouchpadStyle.class); // Đảm bảo bạn lấy đúng tên từ file skin
         Drawable background = new TextureRegionDrawable(MainGame.getAsM().getRegion(UI_POPUP, "js_bg"));
         TextureRegion knobRegion = MainGame.getAsM().getRegion(UI_POPUP, "js_knob");
 

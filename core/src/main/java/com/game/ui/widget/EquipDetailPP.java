@@ -9,13 +9,10 @@ import com.game.ui.OverlayUI;
 import com.game.ui.base.UIGroup;
 import com.game.ui.base.UIImage;
 import com.game.ui.base.UILabel;
-import com.game.models.entity.EquipBase;
 
 
 public class EquipDetailPP {
     private static UIGroup popup;
-    private static EquipBase equipBase;
-    private static int page = 0;
 
     public static void show(boolean b) {
         popup.setVisible(b);
@@ -45,14 +42,5 @@ public class EquipDetailPP {
         ).parent(popup);
 
         return popup;
-    }
-
-
-    private static void showItemDetail() {
-
-    }
-
-
-    public static void update(EquipBase equip) {
     }
 }

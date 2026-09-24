@@ -69,7 +69,10 @@ public class PlayerInputSystem extends EntitySystem {
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 dy -= SPEED * deltaTime;
             }
-            logicJoystick();
+            // Khi agent dang lai (agentDriving), KHONG doc joystick de tranh ghi de flag cua agent.
+            if (!GameSessionManager.getInstance().agentDriving) {
+                logicJoystick();
+            }
             if (GameSessionManager.getInstance().moveLeft) {
                 dx -= SPEED * deltaTime;
                 sprite.flipX = true;

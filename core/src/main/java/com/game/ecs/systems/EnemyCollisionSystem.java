@@ -67,10 +67,6 @@ public class EnemyCollisionSystem extends EntitySystem {
                     GameSessionManager.getInstance().profile.pos.y = playerPos.y;
                     GameSessionManager.getInstance().enemyMapId = triggerComponent.id+"";
                     WorldMapScreen.showBtnAttackBattle(true);
-
-//                    MainGame.getScM().showScreen(ScreenType.BATTLE);
-                    // Nếu muốn xoá trigger entity sau va chạm, bật dòng này:
-//                     getEngine().removeEntity(enemy);
                 }
                 return; // chỉ xử lý 1 enemy 1 lần
             }

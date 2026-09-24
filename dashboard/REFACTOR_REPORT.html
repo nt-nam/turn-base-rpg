@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LVpxW - Bao cao Refactor kien truc Screen + ECS</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2e3c; --text: #e4e7ee;
+    --muted: #9aa2b1; --green: #43a047; --amber: #e0a44a; --blue: #4a9de0;
+    --red: #e05a5a; --mono: 'Consolas','Monaco',monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.6; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 1.9rem; margin: 0 0 4px; }
+  h2 { font-size: 1.25rem; margin: 36px 0 12px; border-left: 4px solid var(--blue);
+    padding-left: 12px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 14px; margin: 20px 0; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px; text-align: center; }
+  .stat .num { font-size: 2rem; font-weight: 700; }
+  .stat .lbl { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+  .green { color: var(--green); } .amber { color: var(--amber); }
+  .blue { color: var(--blue); } .red { color: var(--red); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 18px 20px; margin: 14px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .92rem; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; }
+  code { font-family: var(--mono); background: #0b0d13; padding: 2px 6px;
+    border-radius: 4px; font-size: .88em; color: #c8d0e0; }
+  .badge { display:inline-block; padding: 2px 9px; border-radius: 20px; font-size: .78rem;
+    font-weight: 600; }
+  .b-done { background: rgba(67,160,71,.18); color: #7fd684; }
+  .b-open { background: rgba(224,164,74,.18); color: #f0c07a; }
+  ul.tight { margin: 6px 0; padding-left: 22px; } ul.tight li { margin: 3px 0; }
+  .foot { color: var(--muted); font-size: .82rem; margin-top: 40px; text-align:center; }
+  .arrow { color: var(--muted); }
+  .file { font-family: var(--mono); font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Bao cao Refactor — LVpxW</h1>
+  <p class="sub">Chuan hoa kien truc <strong>Screen + ECS</strong>, tach god class, don code &amp; logging.
+    Nhanh <code>refactor-v2-kiro</code> &middot; commit <code>6875378</code> &middot; cap nhat 2026-09-24</p>
+
+  <div class="grid">
+    <div class="stat"><div class="num green">45</div><div class="lbl">Unit test PASS</div></div>
+    <div class="stat"><div class="num green">0</div><div class="lbl">Test that bai</div></div>
+    <div class="stat"><div class="num blue">647 &rarr; 136</div><div class="lbl">LOC DataHelper</div></div>
+    <div class="stat"><div class="num green">51</div><div class="lbl">Log tho da don</div></div>
+    <div class="stat"><div class="num blue">18</div><div class="lbl">Lop moi tach ra</div></div>
+  </div>
+
+  <div class="card">
+    <strong>Trang thai verify (bang chung):</strong>
+    <ul class="tight">
+      <li><code>:core:compileJava</code> + <code>:lwjgl3:compileJava</code> &mdash; <span class="green">BUILD SUCCESSFUL</span></li>
+      <li><code>:lwjgl3:build</code> (dong goi desktop: jar + distZip/distTar) &mdash; <span class="green">BUILD SUCCESSFUL</span></li>
+      <li>Unit test: <span class="green">45 tests, 0 failures, 0 errors</span> (xac nhan qua XML testsuite)</li>
+      <li>Game chay that: Menu &rarr; NewPlayer &rarr; WorldMap (teleport nhieu map) &rarr; Battle &mdash; <span class="green">khong crash</span></li>
+    </ul>
+  </div>
+
+  <h2>1. Cac van de kien truc cu (truoc refactor)</h2>
+  <table>
+    <tr><th>#</th><th>Van de</th><th>Trang thai</th></tr>
+    <tr><td>P1</td><td><code>Engine</code> la static singleton dung chung moi Screen &rarr; ro ri entity/system</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P2</td><td>Vong doi Screen khong nhat quan (add system trong <code>show()</code>, cleanup trung o <code>hide()</code>+<code>dispose()</code>)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P3</td><td>Trang thai static mutable rai rac (BattleScreen/WorldMapScreen)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P4</td><td><code>loadingAsset()</code> + switch cung trong ScreenManager (vi pham Open/Closed)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P5</td><td>Logic nghiep vu nhoi trong tang View (Screen)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P6</td><td>God class <code>DataHelper</code> (647 LOC, 27 loader)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P7</td><td>8 unit test that bai co san (khong lien quan refactor)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P8</td><td>Log tho <code>System.out.println</code> rai rac (51 diem, 9 file)</td><td><span class="badge b-done">DA SUA</span></td></tr>
+    <tr><td>P9</td><td>Tang widget popup (<code>*PP</code>) dung static mutable state + factory static</td><td><span class="badge b-open">CON TON DONG</span></td></tr>
+  </table>
+
+  <h2>2. Dot 1 &mdash; Chuan hoa Screen + ECS</h2>
+  <div class="card">
+    <table>
+      <tr><th>Buoc</th><th>Noi dung</th></tr>
+      <tr><td>B1</td><td><code>BaseScreen.engine</code>: <code>static</code> &rarr; <code>final</code> field (bo trang thai chia se ngam)</td></tr>
+      <tr><td>B2</td><td>Them vong doi <code>onEnter()</code>/<code>onExit()</code>; don cleanup ECS ve <strong>1 diem duy nhat</strong></td></tr>
+      <tr><td>B3</td><td>Tach <code>WorldMapEntityBuilder</code> (setupEnemies/setupTeleportTriggers) khoi WorldMapScreen</td></tr>
+      <tr><td>B4</td><td>Bo static mutable o BattleScreen (isPause/skill/ENEMY_TEAM...) &amp; WorldMapScreen (map)</td></tr>
+      <tr><td>B5</td><td><code>ScreenManager</code>: thay 2 switch cung bang bang dang ky <code>EnumMap&lt;ScreenType, ScreenSpec&gt;</code> (factory + assetLoader)</td></tr>
+      <tr><td>B6</td><td>Doi <code>System.out.println</code> &rarr; <code>Gdx.app.debug/error</code> (tang Screen/System)</td></tr>
+    </table>
+  </div>
+
+  <h2>3. Sua test + tach god class + don logging</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><strong>Sua 8 test fail co san:</strong> <code>CalculateHelperTest</code> (gia tri ky vong go nham <code>xp(10)=50000</code> &rarr; <code>5000</code>);
+        <code>ListSkillComponent</code> guard null + test dung constructor rong. &rarr; <span class="green">45 pass</span></li>
+      <li><strong>Tach DataHelper</strong> (647 &rarr; 136 LOC facade) thanh 7 loader trong <code>com.game.utils.data</code>:
+        AccountProfileLoader, HeroLoader, ItemEquipLoader, SkillCharacterLoader, MissionRewardLoader, BattleMapLoader, JsonAccess.
+        Giu 27 method static facade &mdash; <strong>khong pha 60 caller</strong>.</li>
+      <li><strong>Don logging:</strong> 51 <code>System.out/err/printStackTrace</code> (9 file) &rarr; <code>Gdx.app.debug/error</code>.</li>
+    </ul>
+  </div>
+
+  <h2>4. Dot 2 &mdash; Tach cac Screen con lon</h2>
+  <div class="card">
+    <table>
+      <tr><th>Screen</th><th>Lop tach ra</th><th>Trach nhiem</th></tr>
+      <tr><td class="file">WorldMapScreen</td><td class="file">WorldMapAssets</td><td>preload asset + du lieu</td></tr>
+      <tr><td class="file">NewPlayerScreen</td><td class="file">NewPlayerAssets<br>NewPlayerAccountCreator</td><td>preload asset<br>persistence (profile/lineup/hero/accounts)</td></tr>
+      <tr><td class="file">SelectPlayerScreen</td><td class="file">SelectPlayerAssets<br>SelectPlayerLoader</td><td>preload asset<br>chon account + nap du lieu (ECS + DataHelper)</td></tr>
+    </table>
+    <p style="color:var(--muted);font-size:.88rem;margin:8px 0 0;">Sau tach: Screen chi lo hien thi/vong doi; logic asset-loading &amp; persistence nam o lop rieng, de test &amp; bao tri.</p>
+  </div>
+
+  <h2>5. Con ton dong (dot sau)</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><span class="badge b-open">P9</span> <strong>Tang widget PP</strong> (<code>HerosPP</code> 523 LOC, <code>BagPP</code> 318, <code>ShopPP</code> 298, RolePP, PotentialPP, SettingPP, RecruitPP, EquipDetailPP, BattleDetailPP, DailyPP...):
+        van dung static mutable state (<code>static popup/table/page/width/height</code>) + factory <code>pp()</code>/<code>show()</code> static.
+        <br><span style="color:var(--muted)">Ly do de lai: UI phuc tap, rui ro cao neu sua ma khong chay GUI kiem thu tung popup. Nen lam tung PP + kiem thu GUI song song.</span></li>
+      <li><strong>Smoke test GUI luong Battle day du</strong>: da xac nhan qua lan chay game that (Menu&rarr;Battle khong crash).</li>
+    </ul>
+  </div>
+
+  <h2>6. Static con lai &mdash; hop le (khong tinh la no ky thuat)</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><code>Constants</code>, <code>Color</code> &mdash; hang so <code>static final</code></li>
+      <li><code>Mappers</code> &mdash; <code>static final ComponentMapper</code> (chuan Ashley ECS)</li>
+      <li><code>MainGame</code> &mdash; service locator (assetManager/soundManager/scm/engine) qua getter lazy</li>
+      <li><code>DataHelper</code>/<code>JsonSaver</code>/<code>JsonUtil</code> &mdash; utility/facade</li>
+      <li><code>BattleConfig</code> &mdash; config toan cuc co <code>load()</code></li>
+      <li><code>WorldMapScreen.btnNextMap/showBtn*</code> &mdash; cau noi System&rarr;Screen co chu dinh</li>
+    </ul>
+  </div>
+
+  <p class="foot">
+    Behavior-preserving refactor &middot; moi buoc verify bang build + test.<br>
+    Bao cao tao boi Kiro &middot; tham chieu chi tiet: <code>dashboard/REFACTOR_PLAN.md</code>
+  </p>
+
+</div>
+</body>
+</html>

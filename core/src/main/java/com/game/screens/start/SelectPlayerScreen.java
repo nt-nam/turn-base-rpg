@@ -102,7 +102,6 @@ public class SelectPlayerScreen extends BaseScreen {
                         new UIImage(MainGame.getAsM().getRegion("atlas/characters/" + element.characterSelect + ".atlas", "idle")).pos(0, screenHeight * 0.11f).size(screenWidth * 0.2f, screenHeight * 0.4f),
                         new UILabel(element.id, BMF).size(screenWidth * 0.2f, screenHeight * 0.15f).pos(0, screenHeight * 0.43f).fontScale(1.5f).align(Align.center).warp(true).debug(false),
                         new UILabel("Cấp độ: " + element.level, BMF).pos(80, screenHeight * 0.05f).fontScale(1.5f).align(Align.center).debug(false)
-//                        new UILabel(acc.getString("characterSelect"), BMF).pos(50, screenHeight*0.2f).fontScale(1f)
                     )
                     .onClick(() -> {
                         SelectPlayerLoader.selectAccount(engine, element);

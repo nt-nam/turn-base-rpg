@@ -4,6 +4,7 @@ import com.game.ecs.component.EnemyTriggerComponent;
 import com.game.ecs.component.InfoComponent;
 import com.game.models.entity.Account;
 import com.game.models.entity.Achievement;
+import com.game.models.entity.BattleResult;
 import com.game.models.entity.CharacterBase;
 import com.game.models.entity.CheckMap;
 import com.game.models.entity.Equip;
@@ -60,6 +61,12 @@ public class GameSessionManager {
     public boolean moveRight = false;
     public boolean moveUp = false;
     public boolean moveDown = false;
+    /** true khi AgentControlSystem dang lai nhan vat -> PlayerInputSystem khong ghi de flag tu joystick. */
+    public boolean agentDriving = false;
+    /** Cau hinh: co bat agent gia lap nguoi choi khi spawn player khong. */
+    public boolean agentEnabled = false;
+    /** Cau hinh: hanh vi khoi tao cua agent (ten enum AgentControlComponent.Behavior). */
+    public String agentBehavior = "WANDER";
 
     public List<Account> accountList = new ArrayList<>();
     public List<ItemBase> itemBaseList = new ArrayList<>();
@@ -88,6 +95,9 @@ public class GameSessionManager {
 
     public EnemyTriggerComponent currentEnemy = null;
 
+    /** Ket qua tran dau gan nhat (cho BattleResultScreen hien thi). */
+    public BattleResult lastBattleResult = new BattleResult();
+
 
     // Quests/progress
     public Set<String> unlockedAreas = new HashSet<>();
@@ -103,8 +113,64 @@ public class GameSessionManager {
     public long playTime = 0;
     public long lastSaveTime = 0;
 
-    // --- Tiện ích reset (new game)
+    // --- Tien ich reset (new game)
     public void reset() {
+        // User/account
+        playerName = "";
+        profile = new Profile();
+        coin = 0;
+        exp = 0;
+        level = 1;
+
+        // Character selection
+        selectedCharacterId = "";
+        selectedPlayerSpawnIndex = 0;
+        skillCharacter = "orange";
+
+        // Position/state
+        targetMapId = "village_0";
+        enemyMapId = "";
+        playerX = -1;
+        playerY = -1;
+        playerDirection = "down";
+        pendingTeleport = null;
+        moveLeft = moveRight = moveUp = moveDown = false;
+        agentDriving = false;
+        agentEnabled = false;
+        agentBehavior = "WANDER";
+
+        // Danh sach du lieu
+        accountList.clear();
+        itemBaseList.clear();
+        equipBaseList.clear();
+        characterBaseList.clear();
+        skillBaseList.clear();
+        mapBattle = new MapBattle();
+        equipList.clear();
+        itemList.clear();
+        lineupList.clear();
+        heroList.clear();
+        heroEnemyList.clear();
+        checkMapList.clear();
+        achievementList.clear();
+        missionList.clear();
+        dailyRewardList.clear();
+        infoComponentList.clear();
+
+        // Stats/resources
+        currentHP = 100;
+        currentMP = 20;
+        partyMembers.clear();
+        currentEnemy = null;
+        lastBattleResult = new BattleResult();
+
+        // Quests/progress
+        unlockedAreas.clear();
+        achievements.clear();
+
+        // Misc
+        playTime = 0;
+        lastSaveTime = 0;
     }
 
     public boolean isRecruit() {
@@ -113,5 +179,20 @@ public class GameSessionManager {
             return true;
         }
         return false;
+    }
+
+    // --- API dieu khien Agent gia lap nguoi choi ---
+
+    /** Bat agent voi hanh vi cho truoc (vd "WANDER", "HUNT_ENEMY", "GOTO_TELEPORT", "IDLE"). */
+    public void enableAgent(String behavior) {
+        this.agentEnabled = true;
+        this.agentBehavior = behavior;
+    }
+
+    /** Tat agent, tra quyen dieu khien cho nguoi choi. */
+    public void disableAgent() {
+        this.agentEnabled = false;
+        this.agentDriving = false;
+        this.moveLeft = this.moveRight = this.moveUp = this.moveDown = false;
     }
 }

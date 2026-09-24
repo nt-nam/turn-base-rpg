@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Align;
 import com.game.MainGame;
 import com.game.ecs.component.TileMapComponent;
 import com.game.ecs.factory.WorldMapEntityBuilder;
+import com.game.ecs.systems.AgentControlSystem;
 import com.game.ecs.systems.AnimationStateSystem;
 import com.game.ecs.systems.CameraClampSystem;
 import com.game.ecs.systems.CollisionSystem;
@@ -105,20 +106,6 @@ public class WorldMapScreen extends BaseScreen {
                     GameSessionManager.getInstance().profile.gem += 100;
                     coinLB.setText(GameSessionManager.getInstance().profile.gem);
                 });
-
-        // energyLB = new UILabel(GameSessionManager.getInstance().profile.energy + "",
-        // BMF).pos(screenHeight * 0.1f, 0).size(screenWidth * 0.1f, screenHeight *
-        // 0.12f).align(Align.center);
-        // new UIGroup().name("energy").pos(screenWidth * 0.4f, screenHeight *
-        // 0.85f).size(screenWidth * 0.15f, screenHeight * 0.12f).child(
-        // new UIImage(new NinePatch(MainGame.getAsM().getRegion(UI_POPUP,
-        // "tile_origin"), 20, 20, 20, 20)).size(screenWidth * 0.15f, screenHeight *
-        // 0.12f),
-        // new UIImage(MainGame.getAsM().getRegion(UI_POPUP, "icon_n")).pos(screenHeight
-        // * 0.01f, screenHeight * 0.01f).size(screenHeight * 0.1f, screenHeight *
-        // 0.10f),
-        // energyLB
-        // ).parent(rootGroup).onClick(()->{});
 
     }
 
@@ -275,11 +262,14 @@ public class WorldMapScreen extends BaseScreen {
         engine.addEntity(mapEntity);
 
         engine.addSystem(new TileMapRenderSystem(camera));
-        // engine.addSystem(new DebugDrawSystem(map, camera, SCALE));
+        if (com.game.utils.DebugConfig.ENABLED) {
+            engine.addSystem(new com.game.ecs.systems.DebugDrawSystem(map, camera, SCALE));
+        }
         engine.addSystem(new CameraClampSystem(engine, camera));
         engine.addSystem(new SpriteRenderSystem(engine, camera));
         engine.addSystem(new TileMapPlayerSpawnSystem(engine, map,
                 GameSessionManager.getInstance().selectedPlayerSpawnIndex, camera));
+        engine.addSystem(new AgentControlSystem(engine)); // chay TRUOC PlayerInputSystem (gia lap input)
         engine.addSystem(new PlayerInputSystem(engine, joystick));
         engine.addSystem(new AnimationStateSystem(engine));
         engine.addSystem(new CollisionSystem(engine, map, SCALE));
@@ -305,6 +295,17 @@ public class WorldMapScreen extends BaseScreen {
     @Override
     protected void updateUI(float delta) {
         super.updateUI(delta);
+        // Phim tat G: bat/tat agent gia lap nguoi choi (mac dinh WANDER).
+        if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.G)) {
+            GameSessionManager gsm = GameSessionManager.getInstance();
+            if (gsm.agentEnabled) {
+                gsm.disableAgent();
+                Gdx.app.log("Agent", "TAT agent - tra quyen nguoi choi");
+            } else {
+                gsm.enableAgent("WANDER");
+                Gdx.app.log("Agent", "BAT agent - behavior WANDER");
+            }
+        }
         coinLB.setText(GameSessionManager.getInstance().profile.coin);
         gemLB.setText(GameSessionManager.getInstance().profile.gem);
     }

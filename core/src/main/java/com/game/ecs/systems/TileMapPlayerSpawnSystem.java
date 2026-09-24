@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.game.ecs.component.AnimationStateComponent;
+import com.game.ecs.component.AgentControlComponent;
 import com.game.ecs.component.CharacterComponent;
 import com.game.ecs.component.BoundComponent;
 import com.game.ecs.component.PlayerComponent;
@@ -62,6 +63,20 @@ public class TileMapPlayerSpawnSystem extends EntitySystem {
                     player.add(new SizeComponent(16*SCALE, 16*SCALE));
                     player.add(new AnimationStateComponent());
                     player.add(new BoundComponent(new Rectangle(30, 10, 16*SCALE, 5*SCALE)));
+
+                    // Gan agent gia lap nguoi choi (mac dinh IDLE = khong lai neu chua bat).
+                    AgentControlComponent agent = new AgentControlComponent();
+                    if (GameSessionManager.getInstance().agentEnabled) {
+                        try {
+                            agent.behavior = AgentControlComponent.Behavior
+                                    .valueOf(GameSessionManager.getInstance().agentBehavior);
+                        } catch (IllegalArgumentException e) {
+                            agent.behavior = AgentControlComponent.Behavior.WANDER;
+                        }
+                    } else {
+                        agent.behavior = AgentControlComponent.Behavior.IDLE;
+                    }
+                    player.add(agent);
 
                     engine.addEntity(player);
                     spawned = true;

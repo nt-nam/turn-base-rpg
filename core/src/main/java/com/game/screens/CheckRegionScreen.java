@@ -29,7 +29,6 @@ public class CheckRegionScreen extends BaseScreen {
     }
 
     public static void loadingAsset() {
-//        MainGame.getAsM().load(UI_WOOD, TextureAtlas.class);
         MainGame.getAsM().load(name, TextureAtlas.class);
         MainGame.getAsM().loadFont(BMF);
     }

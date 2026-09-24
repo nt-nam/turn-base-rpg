@@ -76,11 +76,6 @@ public class BagPP {
 
         DataHelper.loadEquipList(true);
         DataHelper.loadItemList(true);
-//        TextureRegion profile = MainGame.getAsM().getRegion(UI_POPUP, "tile_origin");
-//        new UIImage(profile).nine(profile, 30, 30, 30, 30)
-//            .name("origin")
-//            .parent(popup)
-//            .bounds(width * 0.01f, height * 0.05f, width * 0.38f, height * 0.9f);
 
         TextureRegion board = MainGame.getAsM().getRegion(UI_POPUP, "board");
         new UIImage(board).nine(board, 30, 30, 30, 30)

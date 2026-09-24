@@ -21,8 +21,6 @@ import com.game.models.entity.MapBattle;
 
 public class BattleDetailPP {
     private static UIGroup popup;
-    private static MapBattle mapBattle;
-    private static float sizeTile;
 
     public static void show(boolean b) {
         popup.setVisible(b);
@@ -31,8 +29,8 @@ public class BattleDetailPP {
     public static UIGroup pp(float width, float height) {
         popup = new UIGroup().name("battleDetail").size(width, width);
         String mapPath = "data/enemy/" + GameSessionManager.getInstance().profile.area + "_" + GameSessionManager.getInstance().enemyMapId + ".json";
-        mapBattle = DataHelper.loadMapBattle(mapPath);
-        sizeTile = height * 0.16f;
+        MapBattle mapBattle = DataHelper.loadMapBattle(mapPath);
+        float sizeTile = height * 0.16f;
         long battleScore = 0;
 
         Table table = new UITable().pos(width * 0.3f, height * 0.2f).size(width * 0.3f, height * 0.6f).debugAll();
@@ -41,7 +39,7 @@ public class BattleDetailPP {
             for (int i = 0; i < 3; i++) {
                 Hero hero = DataHelper.get(mapBattle.heroEnemyList, "grid", i + "," + (2-j));
                 if (hero != null) battleScore += hero.getBattleScore();
-                table.add(createItem(hero)).pad(10);
+                table.add(createItem(hero, sizeTile)).pad(10);
             }
             table.row();
         }
@@ -69,7 +67,7 @@ public class BattleDetailPP {
         return popup;
     }
 
-    private static UIGroup createItem(Hero hero) {
+    private static UIGroup createItem(Hero hero, float sizeTile) {
         UIGroup uiGroup = new UIGroup().name("").child(
             new UIImage(MainGame.getAsM().getRegion9patch(UI_POPUP, "tile_rarity" + (hero != null ? hero.star : 0), 20))
                 .name("bg")
