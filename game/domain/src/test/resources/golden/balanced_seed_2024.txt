@@ -1,0 +1,435 @@
+battle_started seed=2024 allies=[ally#0, ally#1, ally#2, ally#3, ally#4] enemies=[enemy#0, enemy#1, enemy#2, enemy#3, enemy#4]
+turn_started enemy#1 round=1
+skill_used enemy#1 skill=assassin.twin_fang targets=[ally#1]
+damage enemy#1 -> ally#1 amount=136 shield=0 critical=true matchup=850 hp=1412
+energy ally#1 value=35
+damage enemy#1 -> ally#1 amount=95 shield=0 critical=false matchup=850 hp=1317
+energy ally#1 value=45
+energy enemy#1 value=45
+turn_started enemy#2 round=1
+skill_used enemy#2 skill=assassin.twin_fang targets=[ally#0]
+damage enemy#2 -> ally#0 amount=89 shield=0 critical=false matchup=1000 hp=2147
+energy ally#0 value=35
+damage enemy#2 -> ally#0 amount=90 shield=0 critical=false matchup=1000 hp=2057
+energy ally#0 value=45
+energy enemy#2 value=45
+turn_started ally#4 round=1
+skill_used ally#4 skill=ranger.pinning_arrow targets=[enemy#1]
+damage ally#4 -> enemy#1 amount=216 shield=0 critical=false matchup=1000 hp=902
+energy enemy#1 value=55
+status_applied ally#4 -> enemy#1 status=defense_down stacks=1 turns=2
+energy ally#4 value=45
+turn_started enemy#4 round=1
+skill_used enemy#4 skill=ranger.pinning_arrow targets=[ally#1]
+damage enemy#4 -> ally#1 amount=222 shield=0 critical=false matchup=1250 hp=1095
+energy ally#1 value=55
+status_applied enemy#4 -> ally#1 status=defense_down stacks=1 turns=2
+energy enemy#4 value=45
+turn_started ally#3 round=1
+skill_used ally#3 skill=support.mend targets=[ally#1, ally#0]
+healed ally#3 -> ally#1 amount=240 hp=1335
+healed ally#3 -> ally#0 amount=179 hp=2236
+status_applied ally#3 -> ally#1 status=regen stacks=1 turns=3
+status_applied ally#3 -> ally#0 status=regen stacks=1 turns=3
+energy ally#3 value=45
+turn_started ally#2 round=1
+skill_used ally#2 skill=mage.flame_lance targets=[enemy#0, enemy#3]
+damage ally#2 -> enemy#0 amount=152 shield=0 critical=false matchup=1000 hp=1396
+energy enemy#0 value=35
+damage ally#2 -> enemy#3 amount=145 shield=0 critical=false matchup=1000 hp=887
+energy enemy#3 value=35
+status_applied ally#2 -> enemy#0 status=burn stacks=1 turns=3
+status_applied ally#2 -> enemy#3 status=burn stacks=1 turns=3
+energy ally#2 value=45
+turn_started enemy#3 round=1
+damage ally#2 -> enemy#3 amount=61 shield=0 critical=false matchup=1000 hp=826
+energy enemy#3 value=45
+skill_used enemy#3 skill=mage.flame_lance targets=[ally#0, ally#2]
+damage enemy#3 -> ally#0 amount=139 shield=0 critical=false matchup=1250 hp=2097
+energy ally#0 value=55
+damage enemy#3 -> ally#2 amount=142 shield=0 critical=false matchup=1000 hp=890
+energy ally#2 value=55
+status_applied enemy#3 -> ally#0 status=burn stacks=1 turns=3
+status_applied enemy#3 -> ally#2 status=burn stacks=1 turns=3
+energy enemy#3 value=65
+turn_started ally#1 round=2
+healed ally#3 -> ally#1 amount=77 hp=1412
+skill_used ally#1 skill=warrior.cleave targets=[enemy#0, enemy#1]
+damage ally#1 -> enemy#0 amount=109 shield=0 critical=false matchup=1000 hp=1287
+energy enemy#0 value=45
+damage ally#1 -> enemy#1 amount=265 shield=0 critical=true matchup=1250 hp=637
+energy enemy#1 value=65
+energy ally#1 value=75
+turn_started enemy#0 round=2
+damage ally#2 -> enemy#0 amount=92 shield=0 critical=false matchup=1000 hp=1195
+energy enemy#0 value=55
+skill_used enemy#0 skill=warrior.cleave targets=[ally#0, ally#1]
+damage enemy#0 -> ally#0 amount=91 shield=0 critical=false matchup=1000 hp=2006
+energy ally#0 value=65
+attack_missed enemy#0 -> ally#1
+energy enemy#0 value=75
+turn_started ally#0 round=2
+healed ally#3 -> ally#0 amount=111 hp=2117
+damage enemy#3 -> ally#0 amount=134 shield=0 critical=false matchup=1000 hp=1983
+energy ally#0 value=75
+skill_used ally#0 skill=tank.provoke targets=[ally#0]
+status_applied ally#0 -> ally#0 status=taunt stacks=1 turns=2
+status_applied ally#0 -> ally#0 status=shield stacks=1 turns=2
+energy ally#0 value=95
+turn_started enemy#1 round=2
+skill_used enemy#1 skill=assassin.stab targets=[ally#0]
+damage enemy#1 -> ally#0 amount=0 shield=119 critical=false matchup=1000 hp=1983
+energy enemy#1 value=85
+turn_started enemy#2 round=2
+skill_used enemy#2 skill=assassin.stab targets=[ally#0]
+status_expired ally#0 status=shield
+damage enemy#2 -> ally#0 amount=79 shield=86 critical=true matchup=1000 hp=1904
+energy ally#0 value=100
+energy enemy#2 value=65
+turn_started ally#4 round=2
+skill_used ally#4 skill=ranger.shot targets=[enemy#1]
+damage ally#4 -> enemy#1 amount=178 shield=0 critical=false matchup=1000 hp=459
+energy enemy#1 value=95
+energy ally#4 value=65
+turn_started enemy#4 round=2
+skill_used enemy#4 skill=ranger.shot targets=[ally#0]
+damage enemy#4 -> ally#0 amount=96 shield=0 critical=false matchup=850 hp=1808
+energy enemy#4 value=65
+turn_started ally#3 round=2
+skill_used ally#3 skill=support.chime targets=[enemy#0]
+damage ally#3 -> enemy#0 amount=78 shield=0 critical=false matchup=1000 hp=1117
+energy enemy#0 value=85
+energy ally#3 value=65
+turn_started ally#2 round=2
+damage enemy#3 -> ally#2 amount=61 shield=0 critical=false matchup=1000 hp=829
+energy ally#2 value=65
+skill_used ally#2 skill=mage.spark targets=[enemy#0]
+damage ally#2 -> enemy#0 amount=172 shield=0 critical=false matchup=1000 hp=945
+energy enemy#0 value=95
+energy ally#2 value=85
+turn_started enemy#3 round=2
+damage ally#2 -> enemy#3 amount=61 shield=0 critical=false matchup=1000 hp=765
+energy enemy#3 value=75
+skill_used enemy#3 skill=mage.spark targets=[ally#0]
+damage enemy#3 -> ally#0 amount=161 shield=0 critical=false matchup=1250 hp=1647
+energy enemy#3 value=95
+turn_started ally#1 round=3
+healed ally#3 -> ally#1 amount=77 hp=1489
+skill_used ally#1 skill=warrior.slash targets=[enemy#1]
+damage ally#1 -> enemy#1 amount=197 shield=0 critical=false matchup=1250 hp=262
+energy enemy#1 value=100
+energy ally#1 value=95
+status_expired ally#1 status=defense_down
+turn_started enemy#0 round=3
+damage ally#2 -> enemy#0 amount=92 shield=0 critical=false matchup=1000 hp=853
+energy enemy#0 value=100
+energy enemy#0 value=0
+skill_used enemy#0 skill=warrior.earthsplitter targets=[ally#0]
+damage enemy#0 -> ally#0 amount=227 shield=0 critical=false matchup=1000 hp=1420
+status_resisted enemy#0 -> ally#0 status=stun
+energy enemy#0 value=20
+turn_started enemy#1 round=3
+energy enemy#1 value=0
+skill_used enemy#1 skill=assassin.shadow_rain targets=[ally#2, ally#2, ally#1, ally#0]
+damage enemy#1 -> ally#2 amount=150 shield=0 critical=false matchup=1250 hp=679
+energy ally#2 value=95
+damage enemy#1 -> ally#2 amount=151 shield=0 critical=false matchup=1250 hp=528
+energy ally#2 value=100
+attack_missed enemy#1 -> ally#1
+damage enemy#1 -> ally#0 amount=156 shield=0 critical=true matchup=1000 hp=1264
+energy enemy#1 value=20
+status_expired enemy#1 status=defense_down
+turn_started enemy#2 round=3
+skill_used enemy#2 skill=assassin.twin_fang targets=[ally#0]
+damage enemy#2 -> ally#0 amount=84 shield=0 critical=false matchup=1000 hp=1180
+damage enemy#2 -> ally#0 amount=129 shield=0 critical=true matchup=1000 hp=1051
+energy enemy#2 value=85
+turn_started ally#0 round=3
+healed ally#3 -> ally#0 amount=111 hp=1162
+damage enemy#3 -> ally#0 amount=134 shield=0 critical=false matchup=1000 hp=1028
+energy ally#0 value=0
+skill_used ally#0 skill=tank.bulwark targets=[ally#0, ally#1, ally#2, ally#3, ally#4]
+status_applied ally#0 -> ally#0 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#1 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#2 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#3 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#4 status=shield stacks=1 turns=2
+energy ally#0 value=20
+status_expired ally#0 status=taunt
+turn_started ally#4 round=3
+skill_used ally#4 skill=ranger.pinning_arrow targets=[enemy#1]
+damage ally#4 -> enemy#1 amount=323 shield=0 critical=true matchup=1000 hp=0
+defeated enemy#1
+energy ally#4 value=85
+turn_started enemy#4 round=3
+skill_used enemy#4 skill=ranger.pinning_arrow targets=[ally#1]
+status_expired ally#1 status=shield
+damage enemy#4 -> ally#1 amount=127 shield=205 critical=true matchup=1250 hp=1362
+energy ally#1 value=100
+status_applied enemy#4 -> ally#1 status=defense_down stacks=1 turns=2
+energy enemy#4 value=85
+turn_started ally#3 round=3
+skill_used ally#3 skill=support.mend targets=[ally#0, ally#2]
+healed ally#3 -> ally#0 amount=240 hp=1268
+healed ally#3 -> ally#2 amount=240 hp=768
+status_applied ally#3 -> ally#0 status=regen stacks=1 turns=3
+status_applied ally#3 -> ally#2 status=regen stacks=1 turns=3
+energy ally#3 value=85
+turn_started ally#2 round=3
+damage enemy#3 -> ally#2 amount=61 shield=0 critical=false matchup=1000 hp=707
+healed ally#3 -> ally#2 amount=51 hp=758
+energy ally#2 value=0
+skill_used ally#2 skill=mage.meteor targets=[enemy#0, enemy#2, enemy#3, enemy#4]
+damage ally#2 -> enemy#0 amount=195 shield=0 critical=false matchup=1000 hp=658
+energy enemy#0 value=30
+damage ally#2 -> enemy#2 amount=168 shield=0 critical=false matchup=850 hp=950
+energy enemy#2 value=95
+damage ally#2 -> enemy#3 amount=186 shield=0 critical=false matchup=1000 hp=579
+energy enemy#3 value=100
+damage ally#2 -> enemy#4 amount=253 shield=0 critical=true matchup=1000 hp=951
+energy enemy#4 value=95
+status_resisted ally#2 -> enemy#0 status=silence
+status_resisted ally#2 -> enemy#2 status=silence
+status_applied ally#2 -> enemy#3 status=silence stacks=1 turns=2
+status_resisted ally#2 -> enemy#4 status=silence
+energy ally#2 value=20
+turn_started enemy#3 round=3
+damage ally#2 -> enemy#3 amount=61 shield=0 critical=false matchup=1000 hp=518
+skill_used enemy#3 skill=mage.spark targets=[ally#0]
+damage enemy#3 -> ally#0 amount=0 shield=163 critical=false matchup=1250 hp=1268
+status_expired enemy#3 status=burn
+turn_started ally#1 round=4
+healed ally#3 -> ally#1 amount=77 hp=1439
+energy ally#1 value=0
+skill_used ally#1 skill=warrior.earthsplitter targets=[enemy#0]
+damage ally#1 -> enemy#0 amount=412 shield=0 critical=true matchup=1000 hp=246
+energy enemy#0 value=40
+status_applied ally#1 -> enemy#0 status=stun stacks=1 turns=1
+energy ally#1 value=20
+status_expired ally#1 status=regen
+turn_started enemy#0 round=4
+damage ally#2 -> enemy#0 amount=92 shield=0 critical=false matchup=1000 hp=154
+energy enemy#0 value=50
+turn_skipped enemy#0 reason=stun
+status_expired enemy#0 status=burn
+status_expired enemy#0 status=stun
+turn_started enemy#2 round=4
+skill_used enemy#2 skill=assassin.stab targets=[ally#0]
+status_expired ally#0 status=shield
+damage enemy#2 -> ally#0 amount=126 shield=42 critical=true matchup=1000 hp=1142
+energy ally#0 value=30
+energy enemy#2 value=100
+turn_started ally#4 round=4
+skill_used ally#4 skill=ranger.shot targets=[enemy#0]
+damage ally#4 -> enemy#0 amount=272 shield=0 critical=true matchup=1250 hp=0
+defeated enemy#0
+energy ally#4 value=100
+status_expired ally#4 status=shield
+turn_started enemy#4 round=4
+skill_used enemy#4 skill=ranger.shot targets=[ally#1]
+damage enemy#4 -> ally#1 amount=199 shield=0 critical=false matchup=1250 hp=1240
+energy ally#1 value=30
+energy enemy#4 value=100
+turn_started ally#0 round=4
+damage enemy#3 -> ally#0 amount=134 shield=0 critical=false matchup=1000 hp=1008
+energy ally#0 value=40
+healed ally#3 -> ally#0 amount=111 hp=1119
+skill_used ally#0 skill=tank.bash targets=[enemy#2]
+damage ally#0 -> enemy#2 amount=74 shield=0 critical=false matchup=1000 hp=876
+energy ally#0 value=60
+status_expired ally#0 status=burn
+turn_started ally#3 round=4
+skill_used ally#3 skill=support.chime targets=[enemy#2]
+damage ally#3 -> enemy#2 amount=82 shield=0 critical=false matchup=1000 hp=794
+energy ally#3 value=100
+status_expired ally#3 status=shield
+turn_started ally#2 round=4
+damage enemy#3 -> ally#2 amount=61 shield=0 critical=false matchup=1000 hp=697
+energy ally#2 value=30
+healed ally#3 -> ally#2 amount=51 hp=748
+skill_used ally#2 skill=mage.flame_lance targets=[enemy#2]
+damage ally#2 -> enemy#2 amount=138 shield=0 critical=false matchup=850 hp=656
+status_resisted ally#2 -> enemy#2 status=burn
+energy ally#2 value=50
+status_expired ally#2 status=burn
+status_expired ally#2 status=shield
+turn_started enemy#3 round=4
+skill_used enemy#3 skill=mage.spark targets=[ally#0]
+damage enemy#3 -> ally#0 amount=161 shield=0 critical=false matchup=1250 hp=958
+energy ally#0 value=70
+status_expired enemy#3 status=silence
+turn_started enemy#2 round=4
+energy enemy#2 value=0
+skill_used enemy#2 skill=assassin.shadow_rain targets=[ally#1, ally#0, ally#2, ally#4]
+damage enemy#2 -> ally#1 amount=175 shield=0 critical=true matchup=850 hp=1065
+energy ally#1 value=40
+damage enemy#2 -> ally#0 amount=145 shield=0 critical=true matchup=1000 hp=813
+energy ally#0 value=80
+damage enemy#2 -> ally#2 amount=153 shield=0 critical=false matchup=1250 hp=595
+energy ally#2 value=60
+damage enemy#2 -> ally#4 amount=139 shield=0 critical=false matchup=1000 hp=1065
+energy enemy#2 value=20
+turn_started ally#1 round=5
+skill_used ally#1 skill=warrior.cleave targets=[enemy#2]
+damage ally#1 -> enemy#2 amount=157 shield=0 critical=false matchup=1250 hp=499
+energy enemy#2 value=30
+energy ally#1 value=60
+status_expired ally#1 status=defense_down
+turn_started ally#4 round=5
+energy ally#4 value=0
+skill_used ally#4 skill=ranger.arrow_storm targets=[enemy#4, enemy#2, enemy#3, enemy#3, enemy#3, enemy#4]
+damage ally#4 -> enemy#4 amount=123 shield=0 critical=true matchup=1000 hp=828
+damage ally#4 -> enemy#2 amount=95 shield=0 critical=false matchup=1000 hp=404
+energy enemy#2 value=40
+damage ally#4 -> enemy#3 amount=82 shield=0 critical=false matchup=1000 hp=436
+damage ally#4 -> enemy#3 amount=86 shield=0 critical=false matchup=1000 hp=350
+damage ally#4 -> enemy#3 amount=121 shield=0 critical=true matchup=1000 hp=229
+damage ally#4 -> enemy#4 amount=77 shield=0 critical=false matchup=1000 hp=751
+energy ally#4 value=20
+turn_started enemy#4 round=5
+energy enemy#4 value=0
+skill_used enemy#4 skill=ranger.arrow_storm targets=[ally#0, ally#1, ally#1, ally#3, ally#3, ally#2]
+damage enemy#4 -> ally#0 amount=82 shield=0 critical=true matchup=850 hp=731
+energy ally#0 value=90
+damage enemy#4 -> ally#1 amount=105 shield=0 critical=false matchup=1250 hp=960
+energy ally#1 value=70
+damage enemy#4 -> ally#1 amount=106 shield=0 critical=false matchup=1250 hp=854
+energy ally#1 value=80
+damage enemy#4 -> ally#3 amount=74 shield=0 critical=false matchup=1000 hp=1216
+damage enemy#4 -> ally#3 amount=72 shield=0 critical=false matchup=1000 hp=1144
+damage enemy#4 -> ally#2 amount=81 shield=0 critical=false matchup=1000 hp=514
+energy ally#2 value=70
+energy enemy#4 value=20
+turn_started ally#3 round=5
+energy ally#3 value=0
+skill_used ally#3 skill=support.dawn_hymn targets=[ally#0, ally#1, ally#2, ally#3, ally#4]
+healed ally#3 -> ally#0 amount=206 hp=937
+healed ally#3 -> ally#1 amount=206 hp=1060
+healed ally#3 -> ally#2 amount=206 hp=720
+healed ally#3 -> ally#3 amount=146 hp=1290
+healed ally#3 -> ally#4 amount=139 hp=1204
+status_applied ally#3 -> ally#0 status=attack_up stacks=1 turns=3
+status_applied ally#3 -> ally#1 status=attack_up stacks=1 turns=3
+status_applied ally#3 -> ally#2 status=attack_up stacks=1 turns=3
+status_applied ally#3 -> ally#3 status=attack_up stacks=1 turns=3
+status_applied ally#3 -> ally#4 status=attack_up stacks=1 turns=3
+energy ally#0 value=100
+energy ally#1 value=100
+energy ally#2 value=90
+energy ally#3 value=20
+energy ally#4 value=40
+energy ally#3 value=40
+turn_started enemy#2 round=5
+skill_used enemy#2 skill=assassin.twin_fang targets=[ally#0]
+damage enemy#2 -> ally#0 amount=84 shield=0 critical=false matchup=1000 hp=853
+damage enemy#2 -> ally#0 amount=84 shield=0 critical=false matchup=1000 hp=769
+energy enemy#2 value=60
+turn_started ally#0 round=5
+healed ally#3 -> ally#0 amount=111 hp=880
+energy ally#0 value=0
+skill_used ally#0 skill=tank.bulwark targets=[ally#0, ally#1, ally#2, ally#3, ally#4]
+status_applied ally#0 -> ally#0 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#1 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#2 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#3 status=shield stacks=1 turns=2
+status_applied ally#0 -> ally#4 status=shield stacks=1 turns=2
+energy ally#0 value=20
+turn_started ally#2 round=5
+healed ally#3 -> ally#2 amount=51 hp=771
+skill_used ally#2 skill=mage.spark targets=[enemy#2]
+attack_missed ally#2 -> enemy#2
+energy ally#2 value=100
+status_expired ally#2 status=regen
+turn_started enemy#3 round=5
+energy enemy#3 value=0
+skill_used enemy#3 skill=mage.meteor targets=[ally#0, ally#1, ally#2, ally#3, ally#4]
+damage enemy#3 -> ally#0 amount=0 shield=177 critical=false matchup=1250 hp=880
+status_expired ally#1 status=shield
+damage enemy#3 -> ally#1 amount=17 shield=267 critical=true matchup=1000 hp=1043
+damage enemy#3 -> ally#2 amount=0 shield=181 critical=false matchup=1000 hp=771
+damage enemy#3 -> ally#3 amount=0 shield=160 critical=false matchup=1000 hp=1290
+damage enemy#3 -> ally#4 amount=0 shield=193 critical=false matchup=1000 hp=1204
+status_resisted enemy#3 -> ally#0 status=silence
+status_resisted enemy#3 -> ally#1 status=silence
+status_resisted enemy#3 -> ally#2 status=silence
+status_applied enemy#3 -> ally#3 status=silence stacks=1 turns=2
+status_applied enemy#3 -> ally#4 status=silence stacks=1 turns=2
+energy enemy#3 value=20
+turn_started ally#1 round=6
+energy ally#1 value=0
+skill_used ally#1 skill=warrior.earthsplitter targets=[enemy#2]
+damage ally#1 -> enemy#2 amount=739 shield=0 critical=true matchup=1250 hp=0
+defeated enemy#2
+energy ally#1 value=20
+turn_started ally#4 round=6
+skill_used ally#4 skill=ranger.shot targets=[enemy#4]
+damage ally#4 -> enemy#4 amount=179 shield=0 critical=false matchup=1000 hp=572
+energy enemy#4 value=30
+energy ally#4 value=60
+turn_started enemy#4 round=6
+skill_used enemy#4 skill=ranger.pinning_arrow targets=[ally#1]
+damage enemy#4 -> ally#1 amount=206 shield=0 critical=false matchup=1250 hp=837
+energy ally#1 value=30
+status_applied enemy#4 -> ally#1 status=defense_down stacks=1 turns=2
+energy enemy#4 value=50
+turn_started ally#3 round=6
+skill_used ally#3 skill=support.chime targets=[enemy#3]
+damage ally#3 -> enemy#3 amount=95 shield=0 critical=false matchup=1000 hp=134
+energy enemy#3 value=30
+energy ally#3 value=60
+turn_started ally#2 round=6
+energy ally#2 value=0
+skill_used ally#2 skill=mage.meteor targets=[enemy#3, enemy#4]
+attack_missed ally#2 -> enemy#3
+damage ally#2 -> enemy#4 amount=226 shield=0 critical=false matchup=1000 hp=346
+energy enemy#4 value=60
+status_resisted ally#2 -> enemy#3 status=silence
+status_applied ally#2 -> enemy#4 status=silence stacks=1 turns=2
+energy ally#2 value=20
+status_expired ally#2 status=shield
+turn_started enemy#3 round=6
+skill_used enemy#3 skill=mage.flame_lance targets=[ally#0, ally#2]
+status_expired ally#0 status=shield
+damage enemy#3 -> ally#0 amount=54 shield=90 critical=false matchup=1250 hp=826
+energy ally#0 value=30
+damage enemy#3 -> ally#2 amount=143 shield=0 critical=false matchup=1000 hp=628
+energy ally#2 value=30
+status_applied enemy#3 -> ally#0 status=burn stacks=1 turns=3
+status_applied enemy#3 -> ally#2 status=burn stacks=1 turns=3
+energy enemy#3 value=50
+turn_started ally#0 round=6
+healed ally#3 -> ally#0 amount=111 hp=937
+damage enemy#3 -> ally#0 amount=134 shield=0 critical=false matchup=1000 hp=803
+energy ally#0 value=40
+skill_used ally#0 skill=tank.provoke targets=[ally#0]
+status_applied ally#0 -> ally#0 status=taunt stacks=1 turns=2
+status_applied ally#0 -> ally#0 status=shield stacks=1 turns=2
+energy ally#0 value=60
+status_expired ally#0 status=regen
+turn_started ally#1 round=7
+skill_used ally#1 skill=warrior.cleave targets=[enemy#3, enemy#4]
+damage ally#1 -> enemy#3 amount=147 shield=0 critical=false matchup=1000 hp=0
+defeated enemy#3
+damage ally#1 -> enemy#4 amount=115 shield=0 critical=false matchup=850 hp=231
+energy enemy#4 value=70
+energy ally#1 value=50
+turn_started ally#4 round=7
+skill_used ally#4 skill=ranger.shot targets=[enemy#4]
+damage ally#4 -> enemy#4 amount=165 shield=0 critical=false matchup=1000 hp=66
+energy enemy#4 value=80
+energy ally#4 value=80
+status_expired ally#4 status=shield
+status_expired ally#4 status=silence
+turn_started enemy#4 round=7
+skill_used enemy#4 skill=ranger.shot targets=[ally#0]
+damage enemy#4 -> ally#0 amount=0 shield=94 critical=false matchup=850 hp=803
+energy enemy#4 value=100
+turn_started ally#3 round=7
+skill_used ally#3 skill=support.chime targets=[enemy#4]
+damage ally#3 -> enemy#4 amount=85 shield=0 critical=false matchup=1000 hp=0
+defeated enemy#4
+energy ally#3 value=80
+status_expired ally#3 status=attack_up
+status_expired ally#3 status=shield
+status_expired ally#3 status=silence
+battle_ended outcome=VICTORY round=7

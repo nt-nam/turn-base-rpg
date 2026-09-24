@@ -14,6 +14,11 @@ buildscript {
   }
 }
 
+plugins {
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.kotlin.serialization) apply false
+}
+
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
@@ -27,7 +32,9 @@ allprojects {
   }
 }
 
-configure(subprojects.findAll { it.name != 'android' }) {
+def legacyModules = [':core', ':lwjgl3', ':html', ':ios']
+
+configure(subprojects.findAll { it.path in legacyModules }) {
   apply plugin: 'java-library'
   sourceCompatibility = 8
 
@@ -56,7 +63,7 @@ configure(subprojects.findAll { it.name != 'android' }) {
   }
 }
 
-subprojects {
+configure(subprojects.findAll { it.path in legacyModules || it.path == ':android' }) {
   version = "$projectVersion"
   ext.appName = 'RPG_TurnBased'
   repositories {

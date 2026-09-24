@@ -187,7 +187,7 @@ flowchart LR
 - **Sát thương:**
   `raw = ATK × skillPower‰ / 1000`; `mitigated = raw × K / (K + DEF)` với `K = 100 + 10×attackerLevel`; nhân khắc chế (1250/850/1000), nhân chí mạng (`CRIT_DMG`, mặc định 1500‰), nhân vị trí hàng (trước 1000, giữa 900, sau 800), dao động ±5% từ RNG; tối thiểu 1.
 - **Trúng/né:** `hit‰ = clamp(950 + (ACC − EVA)/2, 600, 1000)`.
-- **Năng lượng:** khởi đầu 25; +20 mỗi hành động; +10 khi bị đánh. Kỹ năng 2 tốn 40, tuyệt kỹ tốn 100.
+- **Năng lượng và hồi chiêu:** năng lượng khởi đầu 25; +20 mỗi hành động; +10 khi bị đánh; **chỉ tuyệt kỹ tiêu năng lượng (100)**. Kỹ năng thường dùng **hồi chiêu** tính theo lượt của chính đơn vị (mặc định 2). *(Sửa ở P1: thiết kế cũ cho kỹ năng tốn 40 năng lượng khiến tuyệt kỹ gần như không bao giờ được dùng; golden test đã phát hiện ra lỗi này.)*
 - **Trạng thái:** `stun, silence, taunt, shield, burn, poison, bleed, regen, atk_up, atk_down, def_up, def_down, spd_up, spd_down, crit_up, evasion_up, reflect, immune`. Mỗi trạng thái có `duration`, `stacks`, `dispellable`.
 - **Nhắm mục tiêu:** kỹ năng khai báo `targeting = FRONT_ROW | ROW | COLUMN | ALL | LOWEST_HP_ALLY | SELF | RANDOM(n)`.
 - **Kết thúc:** một phe hết quân, hoặc sau 30 lượt thì xử **hòa**, là kết quả riêng, không phải thua.

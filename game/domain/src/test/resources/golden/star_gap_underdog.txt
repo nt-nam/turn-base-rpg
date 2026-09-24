@@ -1,0 +1,103 @@
+battle_started seed=555 allies=[ally#0, ally#1] enemies=[enemy#0, enemy#1]
+turn_started ally#1 round=1
+skill_used ally#1 skill=ranger.pinning_arrow targets=[enemy#0]
+damage ally#1 -> enemy#0 amount=137 shield=0 critical=false matchup=1250 hp=1668
+energy enemy#0 value=35
+status_applied ally#1 -> enemy#0 status=defense_down stacks=1 turns=2
+energy ally#1 value=45
+turn_started enemy#1 round=1
+skill_used enemy#1 skill=ranger.pinning_arrow targets=[ally#0]
+damage enemy#1 -> ally#0 amount=251 shield=0 critical=false matchup=1250 hp=937
+energy ally#0 value=35
+status_applied enemy#1 -> ally#0 status=defense_down stacks=1 turns=2
+energy enemy#1 value=45
+turn_started ally#0 round=2
+skill_used ally#0 skill=warrior.cleave targets=[enemy#0]
+damage ally#0 -> enemy#0 amount=85 shield=0 critical=false matchup=1000 hp=1583
+energy enemy#0 value=45
+energy ally#0 value=55
+turn_started enemy#0 round=2
+skill_used enemy#0 skill=warrior.cleave targets=[ally#0]
+damage enemy#0 -> ally#0 amount=153 shield=0 critical=false matchup=1000 hp=784
+energy ally#0 value=65
+energy enemy#0 value=65
+turn_started ally#1 round=2
+skill_used ally#1 skill=ranger.shot targets=[enemy#0]
+damage ally#1 -> enemy#0 amount=139 shield=0 critical=false matchup=1250 hp=1444
+energy enemy#0 value=75
+energy ally#1 value=65
+turn_started enemy#1 round=2
+skill_used enemy#1 skill=ranger.shot targets=[ally#0]
+damage enemy#1 -> ally#0 amount=340 shield=0 critical=true matchup=1250 hp=444
+energy ally#0 value=75
+energy enemy#1 value=65
+turn_started ally#0 round=3
+skill_used ally#0 skill=warrior.slash targets=[enemy#0]
+attack_missed ally#0 -> enemy#0
+energy ally#0 value=95
+status_expired ally#0 status=defense_down
+turn_started enemy#0 round=3
+skill_used enemy#0 skill=warrior.slash targets=[ally#0]
+damage enemy#0 -> ally#0 amount=231 shield=0 critical=true matchup=1000 hp=213
+energy ally#0 value=100
+energy enemy#0 value=95
+status_expired enemy#0 status=defense_down
+turn_started ally#1 round=3
+skill_used ally#1 skill=ranger.pinning_arrow targets=[enemy#0]
+damage ally#1 -> enemy#0 amount=141 shield=0 critical=false matchup=1250 hp=1303
+energy enemy#0 value=100
+status_applied ally#1 -> enemy#0 status=defense_down stacks=1 turns=2
+energy ally#1 value=85
+turn_started enemy#1 round=3
+skill_used enemy#1 skill=ranger.pinning_arrow targets=[ally#0]
+damage enemy#1 -> ally#0 amount=261 shield=0 critical=false matchup=1250 hp=0
+defeated ally#0
+energy enemy#1 value=85
+turn_started enemy#0 round=4
+energy enemy#0 value=0
+skill_used enemy#0 skill=warrior.earthsplitter targets=[ally#1]
+damage enemy#0 -> ally#1 amount=267 shield=0 critical=false matchup=850 hp=657
+energy ally#1 value=95
+status_resisted enemy#0 -> ally#1 status=stun
+energy enemy#0 value=20
+turn_started ally#1 round=4
+skill_used ally#1 skill=ranger.shot targets=[enemy#0]
+damage ally#1 -> enemy#0 amount=130 shield=0 critical=false matchup=1250 hp=1173
+energy enemy#0 value=30
+energy ally#1 value=100
+turn_started enemy#1 round=4
+skill_used enemy#1 skill=ranger.shot targets=[ally#1]
+damage enemy#1 -> ally#1 amount=151 shield=0 critical=false matchup=1000 hp=506
+energy enemy#1 value=100
+turn_started enemy#0 round=5
+skill_used enemy#0 skill=warrior.cleave targets=[ally#1]
+attack_missed enemy#0 -> ally#1
+energy enemy#0 value=50
+status_expired enemy#0 status=defense_down
+turn_started ally#1 round=5
+energy ally#1 value=0
+skill_used ally#1 skill=ranger.arrow_storm targets=[enemy#0, enemy#0, enemy#1, enemy#1, enemy#1, enemy#1]
+damage ally#1 -> enemy#0 amount=64 shield=0 critical=false matchup=1250 hp=1109
+energy enemy#0 value=60
+damage ally#1 -> enemy#0 amount=68 shield=0 critical=false matchup=1250 hp=1041
+energy enemy#0 value=70
+damage ally#1 -> enemy#1 amount=49 shield=0 critical=false matchup=1000 hp=1355
+damage ally#1 -> enemy#1 amount=52 shield=0 critical=false matchup=1000 hp=1303
+damage ally#1 -> enemy#1 amount=52 shield=0 critical=false matchup=1000 hp=1251
+damage ally#1 -> enemy#1 amount=81 shield=0 critical=true matchup=1000 hp=1170
+energy ally#1 value=20
+turn_started enemy#1 round=5
+energy enemy#1 value=0
+skill_used enemy#1 skill=ranger.arrow_storm targets=[ally#1, ally#1, ally#1, ally#1, ally#1, ally#1]
+damage enemy#1 -> ally#1 amount=91 shield=0 critical=false matchup=1000 hp=415
+energy ally#1 value=30
+damage enemy#1 -> ally#1 amount=95 shield=0 critical=false matchup=1000 hp=320
+energy ally#1 value=40
+damage enemy#1 -> ally#1 amount=141 shield=0 critical=true matchup=1000 hp=179
+energy ally#1 value=50
+damage enemy#1 -> ally#1 amount=96 shield=0 critical=false matchup=1000 hp=83
+energy ally#1 value=60
+damage enemy#1 -> ally#1 amount=94 shield=0 critical=false matchup=1000 hp=0
+defeated ally#1
+energy enemy#1 value=20
+battle_ended outcome=DEFEAT round=5

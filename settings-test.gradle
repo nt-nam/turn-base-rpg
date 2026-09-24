@@ -1,5 +1,11 @@
-// settings-test.gradle
-// Dùng để chạy test mà KHÔNG cần Android plugin (yêu cầu Java 11+)
-// Chạy test bằng lệnh:
-//   .\gradlew.bat :core:test --settings-file settings-test.gradle
+dependencyResolutionManagement {
+  repositories {
+    mavenCentral()
+    google()
+  }
+}
+
+rootProject.name = 'pxworld'
+
 include 'core', 'lwjgl3'
+include ':game:domain'
