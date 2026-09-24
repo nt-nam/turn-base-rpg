@@ -560,7 +560,7 @@ Giả định đội 7 người: 2 client, 1 backend, 1 web, 1 game designer/cre
 
 **Tổng launch ≈ 41 tuần** với đội 7 người (P3 song song P2). **4 mùa mở rộng ≈ 48 tuần** với đội 12 người (thêm 2 client, 1 backend, 1 web, 1 artist). **Tổng ≈ 89 tuần.**
 
-**Chiến lược chuyển đổi:** dựng module mới song song trong cùng repo. Code cũ `core/` và `lwjgl3/` vẫn chạy được cho đến khi P2 đạt tiêu chí; sau đó xóa `core/` trong một PR riêng có tag `legacy-final` để giữ lịch sử.
+**Chiến lược chuyển đổi:** dựng module mới song song trong cùng repo. Code cũ `core/` và `lwjgl3/` vẫn chạy được cho đến khi P2 đạt tiêu chí; sau đó xóa `core/` trong một commit riêng ghi rõ "remove legacy core" (không dùng tag).
 
 ---
 
