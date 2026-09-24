@@ -97,4 +97,13 @@ class SaveAndImportTest {
         assertEquals(first, store.load("slot_y"))
         assertEquals(listOf("slot_y"), store.slots())
     }
+
+    @Test
+    fun `v2 saves written before the journal existed still load`() {
+        val fixture = File(legacySaves.parentFile, "save_v2_before_journal.save.json")
+        val state = SaveCodec.decode(fixture.readText())
+        assertEquals("Agent Tester", state.profile.name)
+        assertTrue(state.journal.visitedMaps.isEmpty())
+        assertEquals(state, SaveCodec.decode(SaveCodec.encode(state)))
+    }
 }

@@ -73,7 +73,32 @@ data class PlayerProfile(
 
 data class WorldPosition(val mapId: String, val x: Int = -1, val y: Int = -1, val spawnIndex: Int = 0)
 
-data class PlayerSettings(val musicEnabled: Boolean = true, val soundEnabled: Boolean = true, val locale: String = "vi")
+data class PlayerSettings(
+    val musicEnabled: Boolean = true,
+    val soundEnabled: Boolean = true,
+    val locale: String = "vi",
+    val textScalePercent: Int = 100,
+    val reducedMotion: Boolean = false,
+    val analyticsConsent: Boolean = false,
+    val battleSpeed: Int = 1,
+)
+
+data class RecruitRecord(val heroId: String, val epochMillis: Long)
+
+data class PlayerJournal(
+    val visitedMaps: Set<String> = emptySet(),
+    val seenEnemies: Set<String> = emptySet(),
+    val seenItems: Set<String> = emptySet(),
+    val recruitHistory: List<RecruitRecord> = emptyList(),
+    val lineupPresets: Map<String, Map<GridCell, String>> = emptyMap(),
+    val lastIdleClaimMillis: Long? = null,
+    val playSeconds: Long = 0,
+) {
+    companion object {
+        const val RECRUIT_HISTORY_SIZE: Int = 50
+        const val MAX_PRESETS: Int = 5
+    }
+}
 
 data class CheckinProgress(val tableId: String, val claimedDays: Int = 0, val lastClaimEpochDay: Long? = null)
 
@@ -99,6 +124,7 @@ data class GameState(
     val position: WorldPosition,
     val settings: PlayerSettings = PlayerSettings(),
     val stats: LifetimeStats = LifetimeStats(),
+    val journal: PlayerJournal = PlayerJournal(),
     val nextInstanceNumber: Long = 1,
 ) {
     init {

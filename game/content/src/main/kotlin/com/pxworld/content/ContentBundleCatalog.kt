@@ -57,6 +57,7 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
             highestEnemyLevel = record.enemies.maxOf { it.level },
             enemyCount = record.enemies.size,
             rewards = record.rewards.map(::grant),
+            enemyIds = record.enemies.map { it.enemy }.distinct(),
         )
     }
 

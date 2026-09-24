@@ -19,7 +19,7 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-private object FakeCatalog : ContentCatalog {
+internal object FakeCatalog : ContentCatalog {
     override fun heroExists(heroId: String) = heroId in setOf("hero.aldric", "hero.selene")
     override fun heroBaseStats(heroId: String) = StatBlock.of(StatKind.HP to 1000, StatKind.ATTACK to 150, StatKind.SPEED to 104)
     override fun recruitableHeroes() = listOf("hero.aldric", "hero.selene")
@@ -228,4 +228,8 @@ class GameRulesTest {
         assertEquals(4, LineupCapacity.forProfileLevel(6))
         assertEquals(9, LineupCapacity.forProfileLevel(60))
     }
+}
+
+internal object FakeCatalogHolder {
+    val value: ContentCatalog = FakeCatalog
 }

@@ -12,9 +12,11 @@ import com.pxworld.domain.progression.Inventory
 import com.pxworld.domain.progression.LifetimeStats
 import com.pxworld.domain.progression.Lineup
 import com.pxworld.domain.progression.OwnedHero
+import com.pxworld.domain.progression.PlayerJournal
 import com.pxworld.domain.progression.PlayerProfile
 import com.pxworld.domain.progression.PlayerSettings
 import com.pxworld.domain.progression.QuestProgress
+import com.pxworld.domain.progression.RecruitRecord
 import com.pxworld.domain.progression.WorldPosition
 import kotlinx.serialization.Serializable
 
@@ -37,6 +39,7 @@ data class SaveGameDocument(
     val settings: SettingsDocument,
     val counters: Map<String, Long>,
     val nextInstanceNumber: Long,
+    val journal: JournalDocument = JournalDocument(),
 )
 
 @Serializable
@@ -67,7 +70,29 @@ data class CheckinDocument(val tableId: String, val claimedDays: Int, val lastCl
 data class PositionDocument(val mapId: String, val x: Int, val y: Int, val spawnIndex: Int)
 
 @Serializable
-data class SettingsDocument(val musicEnabled: Boolean, val soundEnabled: Boolean, val locale: String)
+data class SettingsDocument(
+    val musicEnabled: Boolean,
+    val soundEnabled: Boolean,
+    val locale: String,
+    val textScalePercent: Int = 100,
+    val reducedMotion: Boolean = false,
+    val analyticsConsent: Boolean = false,
+    val battleSpeed: Int = 1,
+)
+
+@Serializable
+data class RecruitDocument(val heroId: String, val epochMillis: Long)
+
+@Serializable
+data class JournalDocument(
+    val visitedMaps: List<String> = emptyList(),
+    val seenEnemies: List<String> = emptyList(),
+    val seenItems: List<String> = emptyList(),
+    val recruitHistory: List<RecruitDocument> = emptyList(),
+    val lineupPresets: Map<String, Map<String, String>> = emptyMap(),
+    val lastIdleClaimMillis: Long? = null,
+    val playSeconds: Long = 0,
+)
 
 object SaveGameMapper {
 
@@ -78,22 +103,38 @@ object SaveGameMapper {
             LedgerEntryDocument(it.sequence, it.currency, it.delta, it.balanceAfter, it.reason.kind, it.reason.reference)
         },
         heroes = state.heroes.map { HeroDocument(it.instanceId, it.heroId, it.level, it.star, it.experience, it.locked) },
-        lineup = LineupDocument(
-            capacity = state.lineup.capacity,
-            cells = state.lineup.cells.entries
-                .sortedWith(compareBy({ it.key.depth }, { it.key.lane }))
-                .associate { (cell, hero) -> "${cell.lane},${cell.depth}" to hero },
-        ),
+        lineup = LineupDocument(capacity = state.lineup.capacity, cells = cellsToDocument(state.lineup.cells)),
         items = state.inventory.items.toSortedMap(),
         equipment = state.inventory.equipment.map { EquipmentDocument(it.instanceId, it.equipmentId, it.slot.name.lowercase(), it.level, it.equippedBy) },
         quests = state.quests.map { QuestDocument(it.questId, it.progress, it.completed, it.claimed) },
         claimedAchievementTiers = state.claimedAchievementTiers.toSortedMap(),
         checkin = CheckinDocument(state.checkin.tableId, state.checkin.claimedDays, state.checkin.lastClaimEpochDay),
         position = PositionDocument(state.position.mapId, state.position.x, state.position.y, state.position.spawnIndex),
-        settings = SettingsDocument(state.settings.musicEnabled, state.settings.soundEnabled, state.settings.locale),
+        settings = SettingsDocument(
+            state.settings.musicEnabled, state.settings.soundEnabled, state.settings.locale,
+            state.settings.textScalePercent, state.settings.reducedMotion, state.settings.analyticsConsent, state.settings.battleSpeed,
+        ),
         counters = state.stats.counters.toSortedMap(),
         nextInstanceNumber = state.nextInstanceNumber,
+        journal = JournalDocument(
+            visitedMaps = state.journal.visitedMaps.sorted(),
+            seenEnemies = state.journal.seenEnemies.sorted(),
+            seenItems = state.journal.seenItems.sorted(),
+            recruitHistory = state.journal.recruitHistory.map { RecruitDocument(it.heroId, it.epochMillis) },
+            lineupPresets = state.journal.lineupPresets.toSortedMap().mapValues { (_, cells) -> cellsToDocument(cells) },
+            lastIdleClaimMillis = state.journal.lastIdleClaimMillis,
+            playSeconds = state.journal.playSeconds,
+        ),
     )
+
+    private fun cellsToDocument(cells: Map<GridCell, String>): Map<String, String> =
+        cells.entries.sortedWith(compareBy({ it.key.depth }, { it.key.lane })).associate { (cell, hero) -> "${cell.lane},${cell.depth}" to hero }
+
+    private fun cellsFromDocument(cells: Map<String, String>): Map<GridCell, String> =
+        cells.entries.associate { (key, hero) ->
+            val (lane, depth) = key.split(",").map(String::toInt)
+            GridCell(lane, depth) to hero
+        }
 
     fun toState(document: SaveGameDocument): GameState = GameState(
         profile = PlayerProfile(document.profile.name, document.profile.level, document.profile.experience, document.profile.starterHeroId),
@@ -102,13 +143,7 @@ object SaveGameMapper {
             LedgerEntry(it.sequence, it.currency, it.delta, it.balanceAfter, LedgerReason(it.reasonKind, it.reasonReference))
         },
         heroes = document.heroes.map { OwnedHero(it.instanceId, it.heroId, it.level, it.star, it.experience, it.locked) },
-        lineup = Lineup(
-            cells = document.lineup.cells.entries.associate { (key, hero) ->
-                val (lane, depth) = key.split(",").map(String::toInt)
-                GridCell(lane, depth) to hero
-            },
-            capacity = document.lineup.capacity,
-        ),
+        lineup = Lineup(cells = cellsFromDocument(document.lineup.cells), capacity = document.lineup.capacity),
         inventory = Inventory(
             items = document.items,
             equipment = document.equipment.map {
@@ -119,7 +154,19 @@ object SaveGameMapper {
         claimedAchievementTiers = document.claimedAchievementTiers,
         checkin = CheckinProgress(document.checkin.tableId, document.checkin.claimedDays, document.checkin.lastClaimEpochDay),
         position = WorldPosition(document.position.mapId, document.position.x, document.position.y, document.position.spawnIndex),
-        settings = PlayerSettings(document.settings.musicEnabled, document.settings.soundEnabled, document.settings.locale),
+        settings = PlayerSettings(
+            document.settings.musicEnabled, document.settings.soundEnabled, document.settings.locale,
+            document.settings.textScalePercent, document.settings.reducedMotion, document.settings.analyticsConsent, document.settings.battleSpeed,
+        ),
+        journal = PlayerJournal(
+            visitedMaps = document.journal.visitedMaps.toSet(),
+            seenEnemies = document.journal.seenEnemies.toSet(),
+            seenItems = document.journal.seenItems.toSet(),
+            recruitHistory = document.journal.recruitHistory.map { RecruitRecord(it.heroId, it.epochMillis) },
+            lineupPresets = document.journal.lineupPresets.mapValues { (_, cells) -> cellsFromDocument(cells) },
+            lastIdleClaimMillis = document.journal.lastIdleClaimMillis,
+            playSeconds = document.journal.playSeconds,
+        ),
         stats = LifetimeStats(document.counters),
         nextInstanceNumber = document.nextInstanceNumber,
     )

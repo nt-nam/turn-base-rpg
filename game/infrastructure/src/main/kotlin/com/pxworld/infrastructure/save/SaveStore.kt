@@ -3,6 +3,11 @@ package com.pxworld.infrastructure.save
 import com.pxworld.application.SaveRepository
 import com.pxworld.domain.progression.GameState
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.intOrNull
 import java.io.File
 import java.io.FileOutputStream
 import java.nio.file.AtomicMoveNotSupportedException
@@ -20,25 +25,41 @@ object SaveCodec {
         prettyPrint = true
         encodeDefaults = true
         ignoreUnknownKeys = false
+        explicitNulls = true
     }
 
     fun encode(state: GameState): String {
-        val document = SaveGameMapper.toDocument(state)
-        val body = json.encodeToString(SaveGameDocument.serializer(), document)
-        return json.encodeToString(SaveEnvelope.serializer(), SaveEnvelope(SCHEMA_VERSION, sha256(body), document)) + "\n"
+        val body = json.encodeToJsonElement(SaveGameDocument.serializer(), SaveGameMapper.toDocument(state))
+        val envelope = JsonObject(
+            linkedMapOf(
+                "schemaVersion" to JsonPrimitive(SCHEMA_VERSION),
+                "checksum" to JsonPrimitive(sha256(body.toString())),
+                "state" to body,
+            ),
+        )
+        return json.encodeToString(JsonElement.serializer(), envelope) + "\n"
     }
 
     fun decode(text: String): GameState {
-        val envelope = try {
-            json.decodeFromString(SaveEnvelope.serializer(), text)
+        val root = try {
+            Json.parseToJsonElement(text) as? JsonObject ?: throw CorruptSave("save root is not an object")
         } catch (failure: IllegalArgumentException) {
             throw CorruptSave("unreadable save: ${failure.message}")
         }
-        if (envelope.schemaVersion != SCHEMA_VERSION) throw CorruptSave("unsupported save schema ${envelope.schemaVersion}")
-        val body = json.encodeToString(SaveGameDocument.serializer(), envelope.state)
-        if (sha256(body) != envelope.checksum) throw CorruptSave("checksum mismatch")
+        val version = (root["schemaVersion"] as? JsonPrimitive)?.intOrNull
+        if (version != SCHEMA_VERSION) throw CorruptSave("unsupported save schema $version")
+        val body = root["state"] ?: throw CorruptSave("save has no state")
+        val checksum = (root["checksum"] as? JsonPrimitive)?.contentOrNull
+        val document = try {
+            json.decodeFromJsonElement(SaveGameDocument.serializer(), body)
+        } catch (failure: IllegalArgumentException) {
+            throw CorruptSave("unreadable state: ${failure.message}")
+        }
+        val matchesStoredTree = sha256(body.toString()) == checksum
+        val matchesFirstFormat = sha256(json.encodeToString(JsonElement.serializer(), body)) == checksum
+        if (!matchesStoredTree && !matchesFirstFormat) throw CorruptSave("checksum mismatch")
         return try {
-            SaveGameMapper.toState(envelope.state)
+            SaveGameMapper.toState(document)
         } catch (violation: IllegalArgumentException) {
             throw CorruptSave("save violates game invariants: ${violation.message}")
         }

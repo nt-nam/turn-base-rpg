@@ -15,7 +15,7 @@ data class AchievementTier(val target: Long, val rewards: List<Grant>)
 
 data class AchievementSummary(val id: String, val counter: String, val tiers: List<AchievementTier>)
 
-data class EncounterSummary(val id: String, val highestEnemyLevel: Int, val enemyCount: Int, val rewards: List<Grant>)
+data class EncounterSummary(val id: String, val highestEnemyLevel: Int, val enemyCount: Int, val rewards: List<Grant>, val enemyIds: List<String> = emptyList())
 
 interface ContentCatalog {
     fun heroExists(heroId: String): Boolean

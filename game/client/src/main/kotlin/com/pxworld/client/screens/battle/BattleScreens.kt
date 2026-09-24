@@ -32,7 +32,6 @@ import com.pxworld.domain.battle.BattleSide
 import com.pxworld.domain.battle.BattleState
 import com.pxworld.domain.battle.Targeting
 import com.pxworld.domain.battle.UnitId
-import com.pxworld.domain.stats.StatBlock
 import com.pxworld.screens.GameScreenId
 
 data class BattleSummary(
@@ -134,7 +133,7 @@ class BattleMainScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(Ga
         val game = context.state
         val lineup = game.lineup.cells.map { (cell, instanceId) ->
             val hero = game.hero(instanceId)
-            val bonus = game.inventory.equippedOn(instanceId).fold(StatBlock.EMPTY) { total, equip -> total + context.services.catalog.equipmentStats(equip.equipmentId) }
+            val bonus = context.services.collection.equipmentBonus(game, instanceId)
             LineupSlot(hero.heroId, hero.level, hero.star, cell, bonus)
         }
         val setup = context.services.battles.battle(context.services.clock.nowMillis(), lineup, encounterId)

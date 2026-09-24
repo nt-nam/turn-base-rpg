@@ -33,9 +33,7 @@ class GameRules(private val catalog: ContentCatalog) {
 
     fun heroStats(state: GameState, heroInstanceId: String): StatBlock {
         val hero = state.hero(heroInstanceId)
-        val equipmentBonus = state.inventory.equippedOn(heroInstanceId)
-            .fold(StatBlock.EMPTY) { total, equip -> total + catalog.equipmentStats(equip.equipmentId) }
-        return StatFormula.finalStats(catalog.heroBaseStats(hero.heroId), hero.level, hero.star, equipmentBonus, StatBlock.EMPTY)
+        return StatFormula.finalStats(catalog.heroBaseStats(hero.heroId), hero.level, hero.star, CollectionRules(catalog, this).equipmentBonus(state, heroInstanceId), StatBlock.EMPTY)
     }
 
     fun equip(state: GameState, heroInstanceId: String, equipmentInstanceId: String): Transition {

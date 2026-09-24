@@ -1,0 +1,188 @@
+{
+    "schemaVersion": 2,
+    "checksum": "9c641cb1616501e4a7ccc8d7d5494441be3f6ca7ae0a47c6467224d42bb9c7bd",
+    "state": {
+        "profile": {
+            "name": "Agent Tester",
+            "level": 1,
+            "experience": 35,
+            "starterHeroId": "hero.aldric"
+        },
+        "wallet": {
+            "balances": {
+                "currency.gem": 970,
+                "currency.gold": 400
+            },
+            "nextSequence": 10
+        },
+        "ledgerTail": [
+            {
+                "sequence": 1,
+                "currency": "currency.gold",
+                "delta": 300,
+                "balanceAfter": 300,
+                "reasonKind": "new_game",
+                "reasonReference": ""
+            },
+            {
+                "sequence": 2,
+                "currency": "currency.gem",
+                "delta": 20,
+                "balanceAfter": 20,
+                "reasonKind": "new_game",
+                "reasonReference": ""
+            },
+            {
+                "sequence": 3,
+                "currency": "currency.gold",
+                "delta": 100,
+                "balanceAfter": 400,
+                "reasonKind": "checkin",
+                "reasonReference": "checkin.standard_30#1"
+            },
+            {
+                "sequence": 4,
+                "currency": "currency.gold",
+                "delta": -100,
+                "balanceAfter": 300,
+                "reasonKind": "shop_item",
+                "reasonReference": "item.food_t1"
+            },
+            {
+                "sequence": 5,
+                "currency": "currency.gold",
+                "delta": 100,
+                "balanceAfter": 400,
+                "reasonKind": "battle",
+                "reasonReference": "encounter.dawnvillage_01.e0"
+            },
+            {
+                "sequence": 6,
+                "currency": "currency.gem",
+                "delta": 5,
+                "balanceAfter": 25,
+                "reasonKind": "battle",
+                "reasonReference": "encounter.dawnvillage_01.e0"
+            },
+            {
+                "sequence": 7,
+                "currency": "currency.gem",
+                "delta": -5,
+                "balanceAfter": 20,
+                "reasonKind": "recruit",
+                "reasonReference": ""
+            },
+            {
+                "sequence": 8,
+                "currency": "currency.gem",
+                "delta": 1000,
+                "balanceAfter": 1020,
+                "reasonKind": "debug_cheat",
+                "reasonReference": "gem"
+            },
+            {
+                "sequence": 9,
+                "currency": "currency.gem",
+                "delta": -50,
+                "balanceAfter": 970,
+                "reasonKind": "shop_equipment",
+                "reasonReference": "equip.sword_000"
+            }
+        ],
+        "heroes": [
+            {
+                "instanceId": "hero-1",
+                "heroId": "hero.aldric",
+                "level": 1,
+                "star": 0,
+                "experience": 35,
+                "locked": false
+            },
+            {
+                "instanceId": "hero-2",
+                "heroId": "hero.selene",
+                "level": 1,
+                "star": 0,
+                "experience": 0,
+                "locked": false
+            }
+        ],
+        "lineup": {
+            "capacity": 3,
+            "cells": {
+                "1,0": "hero-1",
+                "0,2": "hero-2"
+            }
+        },
+        "items": {
+            "item.food_t1": 1
+        },
+        "equipment": [
+            {
+                "instanceId": "equip-3",
+                "equipmentId": "equip.sword_000",
+                "slot": "weapon",
+                "level": 1,
+                "equippedBy": "hero-1"
+            }
+        ],
+        "quests": [
+            {
+                "questId": "quest.side.defend_the_village",
+                "progress": 1,
+                "completed": true,
+                "claimed": false
+            },
+            {
+                "questId": "quest.side.the_hidden_stone",
+                "progress": 0,
+                "completed": false,
+                "claimed": false
+            },
+            {
+                "questId": "quest.side.forge_supplies",
+                "progress": 0,
+                "completed": false,
+                "claimed": false
+            },
+            {
+                "questId": "quest.side.monster_hunt",
+                "progress": 1,
+                "completed": false,
+                "claimed": false
+            },
+            {
+                "questId": "quest.side.dungeon_secret",
+                "progress": 0,
+                "completed": false,
+                "claimed": false
+            }
+        ],
+        "claimedAchievementTiers": {},
+        "checkin": {
+            "tableId": "checkin.standard_30",
+            "claimedDays": 1,
+            "lastClaimEpochDay": 20721
+        },
+        "position": {
+            "mapId": "map.dawnvillage_01",
+            "x": 224,
+            "y": 41,
+            "spawnIndex": 0
+        },
+        "settings": {
+            "musicEnabled": true,
+            "soundEnabled": true,
+            "locale": "en"
+        },
+        "counters": {
+            "battles_won": 1,
+            "enemies_defeated": 1,
+            "equipment_obtained": 1,
+            "gems_spent": 55,
+            "gold_earned": 500,
+            "heroes_recruited": 1
+        },
+        "nextInstanceNumber": 4
+    }
+}

@@ -1,5 +1,6 @@
 package com.pxworld.client.core
 
+import com.pxworld.application.CollectionRules
 import com.pxworld.application.GameRules
 import com.pxworld.application.GameStore
 import com.pxworld.application.NewGame
@@ -32,6 +33,7 @@ class GameServices(
     val catalog: ContentBundleCatalog = ContentBundleCatalog(content)
     val rules: GameRules = GameRules(catalog)
     val quests: QuestTracker = QuestTracker(catalog)
+    val collection: CollectionRules = CollectionRules(catalog, rules)
     val newGame: NewGame = NewGame(catalog, rules, quests)
     val battles: BattleContentAssembler = BattleContentAssembler(content)
 }
@@ -48,7 +50,7 @@ class GameSession(private val services: GameServices) {
     fun start(slot: String, state: GameState): GameStore {
         val prepared = services.quests.startAll(state)
         services.saves.save(slot, prepared)
-        return GameStore(slot, prepared, services.saves) { services.quests.react(it) }.also { store = it }
+        return GameStore(slot, prepared, services.saves) { services.collection.record(services.quests.react(it), services.clock.nowMillis()) }.also { store = it }
     }
 
     var lastBattle: com.pxworld.client.screens.battle.BattleSummary? = null
