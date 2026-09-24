@@ -11,6 +11,8 @@ import com.pxworld.client.core.GameClock
 import com.pxworld.client.core.GameServices
 import com.pxworld.content.ContentBundle
 import com.pxworld.content.ContentLoader
+import com.pxworld.infrastructure.legacy.LegacySaveMigration
+import com.pxworld.infrastructure.legacy.LegacyV1Importer
 import com.pxworld.infrastructure.replay.FileReplayStore
 import com.pxworld.infrastructure.save.FileSaveStore
 import java.io.File
@@ -51,16 +53,21 @@ data class DesktopOptions(
 
 fun loadContentPack(): ContentBundle {
     val stream = DesktopOptions::class.java.getResourceAsStream("/content-pack.json") ?: throw IllegalStateException("content-pack.json missing from resources")
-    return ContentLoader.json.decodeFromString(ContentBundle.serializer(), stream.bufferedReader(Charsets.UTF_8).use { it.readText() })
+    return ContentLoader.decodePack(stream.bufferedReader(Charsets.UTF_8).use { it.readText() })
 }
 
 fun main() {
     val options = DesktopOptions.fromEnvironment()
     var driver: StageAutomationDriver? = null
     val server = options.automationPort?.let { port -> AutomationServer(port, AutomationProtocol { driver }).also { it.start() } }
+    val content = loadContentPack()
+    val saves = FileSaveStore(options.saveDirectory)
+    val migration = LegacySaveMigration(LegacyV1Importer(content), saves)
+        .run(listOf(File("data"), File("lwjgl3/data"), File("../data")), File(options.saveDirectory, ".legacy-imports"))
+    if (migration.imported.isNotEmpty()) println("imported legacy saves: ${migration.imported}")
     val services = GameServices(
-        content = loadContentPack(),
-        saves = FileSaveStore(options.saveDirectory),
+        content = content,
+        saves = saves,
         clock = SystemClock,
         flavor = options.flavor,
         replays = FileReplayStore(File(options.saveDirectory, "replays")),

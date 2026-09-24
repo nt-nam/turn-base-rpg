@@ -17,6 +17,8 @@ object ContentLoader {
         prettyPrint = false
     }
 
+    fun decodePack(text: String): ContentBundle = json.decodeFromString(ContentBundle.serializer(), text)
+
     fun load(files: Map<String, String>): ContentBundle {
         fun <T> kind(directory: String, serializer: KSerializer<T>): List<T> =
             files.filterKeys { it.startsWith("$directory/") && it.endsWith(".json") }

@@ -106,4 +106,19 @@ class SaveAndImportTest {
         assertTrue(state.journal.visitedMaps.isEmpty())
         assertEquals(state, SaveCodec.decode(SaveCodec.encode(state)))
     }
+
+    @Test
+    fun `legacy folders are migrated once into the new save store`(@TempDir directory: File) {
+        val store = FileSaveStore(File(directory, "saves"))
+        val migration = com.pxworld.infrastructure.legacy.LegacySaveMigration(importer, store)
+        val root = File(directory, "legacy").apply { File(this, "select").mkdirs() }
+        legacySaves.listFiles { file -> file.isDirectory }.orEmpty().forEach { it.copyRecursively(File(root, "select/${it.name}")) }
+        val first = migration.run(listOf(root), File(directory, "markers"))
+        assertEquals(3, first.imported.size)
+        assertTrue(first.imported.all { it.startsWith("legacy_") })
+        assertEquals(first.imported.sorted(), store.slots())
+        val second = migration.run(listOf(root), File(directory, "markers"))
+        assertTrue(second.imported.isEmpty())
+        assertEquals(3, second.skipped.size)
+    }
 }
