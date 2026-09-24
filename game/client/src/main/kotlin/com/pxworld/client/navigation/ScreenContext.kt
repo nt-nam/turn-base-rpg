@@ -6,6 +6,7 @@ import com.pxworld.application.GameStore
 import com.pxworld.application.Transition
 import com.pxworld.client.core.AppPreferences
 import com.pxworld.client.core.AssetService
+import com.pxworld.client.core.AudioDirector
 import com.pxworld.client.core.DebugFlags
 import com.pxworld.client.core.LogBuffer
 import com.pxworld.client.core.GameServices
@@ -25,9 +26,10 @@ class ScreenContext(
     val batch: SpriteBatch,
     val preferences: AppPreferences,
     val logs: LogBuffer,
+    val audio: AudioDirector,
     val debugFlags: DebugFlags = DebugFlags(),
 ) {
-    val widgets: Widgets = Widgets(ui, text)
+    val widgets: Widgets = Widgets(ui, text) { audio.playSound(AudioDirector.CLICK) }
     val store: GameStore get() = session.requireStore
     val state: GameState get() = session.state
 

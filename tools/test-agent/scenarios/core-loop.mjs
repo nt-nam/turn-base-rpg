@@ -31,6 +31,7 @@ export async function run(agent, shot) {
   assert(gold(state) === 300 && gem(state) === 20, `starting grants 300 gold / 20 gems, got ${JSON.stringify(state.balances)}`);
   assert(state.heroes.length === 1 && state.heroes[0].hero === "hero.aldric", "starter hero");
   await agent.assertInvariants("new game");
+  assert((await agent.call("session.info")).music === "audio.music.world", "world music plays while exploring");
 
   await agent.tap(S("world.world_explore/menu"));
   await agent.waitScreen(S("world.pause_menu"));
@@ -71,6 +72,7 @@ export async function run(agent, shot) {
   await agent.waitScreen(S("battle.battle_main"));
   await sleep(600);
   await shot("10-battle");
+  assert((await agent.call("session.info")).music === "audio.music.battle", "battle music plays in battle");
 
   const battle = await agent.waitFor(async () => { const info = await agent.call("battle.state"); return info.awaitingPlayer ? info : null; }, 15_000, "player turn");
   const firstCommand = battle.commands[0];

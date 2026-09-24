@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport
 import com.pxworld.client.automation.StageAutomationDriver
 import com.pxworld.client.core.AppPreferences
 import com.pxworld.client.core.AssetService
+import com.pxworld.client.core.AudioDirector
 import com.pxworld.client.core.LogBuffer
 import com.pxworld.client.core.GameApi
 import com.pxworld.client.core.GameServices
@@ -37,6 +38,7 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         private set
     private var unsubscribe: (() -> Unit)? = null
     private lateinit var logs: LogBuffer
+    private lateinit var audio: AudioDirector
     private var playTimeAccumulator = 0f
 
     override fun create() {
@@ -49,7 +51,8 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         logs = LogBuffer(Gdx.app.applicationLogger).also { Gdx.app.applicationLogger = it }
         val preferences = AppPreferences.open(PREFERENCES)
         val localization = Localization(services.content.localization, preferences.locale?.takeIf { it in services.content.localization } ?: Localization.FALLBACK)
-        context = ScreenContext(services, assets, localization, ui, navigator, session, batch, preferences, logs)
+        audio = AudioDirector(services.content.audioCues, services.content.assetMap)
+        context = ScreenContext(services, assets, localization, ui, navigator, session, batch, preferences, logs, audio)
         navigator.context = context
         automation = StageAutomationDriver(this, stage, context)
         Gdx.input.inputProcessor = InputMultiplexer(stage, object : InputAdapter() {
@@ -93,6 +96,9 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
                 store.update { services.collection.addPlayTime(it, seconds) }
             }
         }
+        val settings = store?.state?.settings
+        audio.configure(settings?.musicEnabled ?: true, settings?.soundEnabled ?: true)
+        audio.playMusic(musicFor(navigator.visibleScreens().firstOrNull()?.id))
         ScreenUtils.clear(Tokens.background)
         navigator.update(delta)
         navigator.renderWorld(delta)
@@ -107,7 +113,14 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         navigator.resize(width, height)
     }
 
+    private fun musicFor(screen: GameScreenId?): String? = when {
+        screen == null -> null
+        screen.module == "battle" -> AudioDirector.BATTLE_MUSIC
+        else -> AudioDirector.WORLD_MUSIC
+    }
+
     override fun dispose() {
+        audio.dispose()
         unsubscribe?.invoke()
         stage.dispose()
         batch.dispose()

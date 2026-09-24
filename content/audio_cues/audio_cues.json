@@ -1,0 +1,32 @@
+[
+  {
+    "id": "audio.music.world",
+    "kind": "music",
+    "asset": "music:world",
+    "volumePercent": 60
+  },
+  {
+    "id": "audio.music.battle",
+    "kind": "music",
+    "asset": "music:battle",
+    "volumePercent": 70
+  },
+  {
+    "id": "audio.sfx.click",
+    "kind": "sound",
+    "asset": "sfx:click",
+    "volumePercent": 50
+  },
+  {
+    "id": "audio.sfx.hit",
+    "kind": "sound",
+    "asset": "sfx:hit",
+    "volumePercent": 60
+  },
+  {
+    "id": "audio.sfx.critical",
+    "kind": "sound",
+    "asset": "sfx:critical",
+    "volumePercent": 80
+  }
+]

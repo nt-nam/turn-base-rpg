@@ -75,6 +75,8 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
             "stack" to context.navigator.stackIds,
             "slot" to context.session.store?.slot,
             "player" to state?.profile?.name,
+            "music" to context.audio.playingCue,
+            "musicEnabled" to context.audio.musicEnabled,
             "width" to Gdx.graphics.width,
             "height" to Gdx.graphics.height,
         )

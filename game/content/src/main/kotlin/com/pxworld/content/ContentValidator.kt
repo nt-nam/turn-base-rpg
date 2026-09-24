@@ -55,6 +55,7 @@ object ContentValidator {
         expectPrefix(bundle.maps.map { it.id }, "map")
         expectPrefix(bundle.npcs.map { it.id }, "npc")
         expectPrefix(bundle.dialogues.map { it.id }, "dialogue")
+        expectPrefix(bundle.audioCues.map { it.id }, "audio")
 
         val classIds = bundle.heroClasses.map { it.id }.toSet()
         val statusIds = bundle.statuses.map { it.id }.toSet()
@@ -198,6 +199,12 @@ object ContentValidator {
         }
         bundle.maps.groupBy { it.legacyName }.filterValues { it.size > 1 }.forEach { (legacy, list) -> error(list.first().id, "legacy map $legacy is claimed by ${list.map { it.id }}") }
 
+        bundle.audioCues.forEach { cue ->
+            asset(cue.id, cue.asset)
+            if (cue.kind !in setOf("music", "sound")) error(cue.id, "kind must be music or sound")
+            if (cue.volumePercent !in 0..100) error(cue.id, "volumePercent must be 0..100")
+        }
+
         bundle.items.forEach { item ->
             text(item.id, item.name)
             asset(item.id, item.icon)
@@ -310,7 +317,7 @@ object ContentValidator {
         }
 
         val usedAssets = (bundle.currencies.map { it.icon } + bundle.skills.map { it.vfx } + bundle.heroes.map { it.sprite } +
-            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset } + bundle.npcs.map { it.sprite }).toSet()
+            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset } + bundle.npcs.map { it.sprite } + bundle.audioCues.map { it.asset }).toSet()
         (bundle.assetMap.keys - usedAssets).forEach { warning("assets", "asset key $it is mapped but never used") }
 
         missingTranslations.forEach { (locale, count) -> warning("localization.$locale", "$count keys have no $locale translation yet") }

@@ -276,6 +276,9 @@ data class BattleRulesRecord(
 )
 
 @Serializable
+data class AudioCueRecord(val id: String, val kind: String, val asset: String, val volumePercent: Int = 100)
+
+@Serializable
 data class ContentBundle(
     val currencies: List<CurrencyRecord>,
     val heroClasses: List<HeroClassRecord>,
@@ -293,6 +296,7 @@ data class ContentBundle(
     val maps: List<MapRecord> = emptyList(),
     val npcs: List<NpcRecord> = emptyList(),
     val dialogues: List<DialogueRecord> = emptyList(),
+    val audioCues: List<AudioCueRecord> = emptyList(),
     val localization: Map<String, Map<String, String>>,
     val assetMap: Map<String, String>,
 ) {
@@ -300,5 +304,5 @@ data class ContentBundle(
         currencies.map { it.id } + heroClasses.map { it.id } + statuses.map { it.id } + skills.map { it.id } +
             heroes.map { it.id } + enemies.map { it.id } + encounters.map { it.id } + items.map { it.id } +
             equipment.map { it.id } + quests.map { it.id } + achievements.map { it.id } + checkinTables.map { it.id } +
-            battleRules.map { it.id } + maps.map { it.id } + npcs.map { it.id } + dialogues.map { it.id }
+            battleRules.map { it.id } + maps.map { it.id } + npcs.map { it.id } + dialogues.map { it.id } + audioCues.map { it.id }
 }

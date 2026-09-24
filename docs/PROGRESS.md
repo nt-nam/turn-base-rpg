@@ -30,7 +30,7 @@
 
 ## Lỗi legacy đã sửa (có test hoặc kịch bản chứng minh)
 
-Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng · hòa bị tính là thua · trang bị không cộng chỉ số và không vào trận · điểm danh không trả quà · mua hàng không lưu · ghép sao xóa anh hùng trong đội hình · save ghi vào thư mục repo · `.gitignore` giấu 7 file loader · không có âm thanh/nhạc (chưa làm lại — xem bên dưới).
+Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng · hòa bị tính là thua · trang bị không cộng chỉ số và không vào trận · điểm danh không trả quà · mua hàng không lưu · ghép sao xóa anh hùng trong đội hình · save ghi vào thư mục repo · `.gitignore` giấu 7 file loader · không có âm thanh/nhạc (đã sửa: `AudioDirector` + `content/audio_cues`).
 
 ## Phát hiện và quyết định trong lúc làm
 
@@ -44,7 +44,7 @@ Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng 
 ## Việc còn lại gần nhất
 
 - [ ] P3: asset pipeline — Aseprite/TexturePacker, nén nền trận (38 MB), cắt tileset 6052×5837, font OFL thay Arial Unicode, `art/LICENSES.md`
-- [ ] Âm thanh: `AudioDirector` phát nhạc theo vùng/trận và SFX, tôn trọng cài đặt
+- [x] Âm thanh: `AudioDirector` phát nhạc theo khám phá/trận và SFX (click, trúng đòn, chí mạng), tôn trọng cài đặt — kiểm chứng bằng `core-loop`
 - [ ] Android: chạy thử trên thiết bị thật hoặc emulator có GPU
 - [ ] Spike TeaVM (web) và test kiến trúc (Konsist)
 - [ ] JSON Schema xuất cho Studio; `sim-cli` tách riêng

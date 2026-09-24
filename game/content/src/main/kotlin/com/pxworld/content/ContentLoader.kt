@@ -50,6 +50,7 @@ object ContentLoader {
             maps = kind("maps", MapRecord.serializer()),
             npcs = kind("npcs", NpcRecord.serializer()),
             dialogues = kind("dialogues", DialogueRecord.serializer()),
+            audioCues = kind("audio_cues", AudioCueRecord.serializer()),
             localization = localization,
             assetMap = assetMap,
         )

@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pxworld.client.core.Localization
 
-class Widgets(private val kit: UiKit, private val text: Localization) {
+class Widgets(private val kit: UiKit, private val text: Localization, private val onClickFeedback: () -> Unit = {}) {
 
     val skin get() = kit.skin
 
@@ -33,7 +33,10 @@ class Widgets(private val kit: UiKit, private val text: Localization) {
             pad(Tokens.SPACE_S, Tokens.SPACE_M, Tokens.SPACE_S, Tokens.SPACE_M)
             addListener(object : ChangeListener() {
                 override fun changed(event: ChangeEvent, actor: Actor) {
-                    if (!isDisabled) onClick()
+                    if (!isDisabled) {
+                        onClickFeedback()
+                        onClick()
+                    }
                 }
             })
         }

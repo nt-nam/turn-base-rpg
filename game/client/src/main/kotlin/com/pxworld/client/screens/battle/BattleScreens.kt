@@ -333,6 +333,7 @@ class BattleMainScreen(id: GameScreenId, context: ScreenContext, args: ScreenArg
                 SKILL_SECONDS
             }
             is BattleEvent.DamageDealt -> {
+                context.audio.playSound(if (event.critical) com.pxworld.client.core.AudioDirector.CRITICAL else com.pxworld.client.core.AudioDirector.HIT)
                 units[event.target]?.let { target ->
                     target.hp = event.remainingHp
                     if (event.remainingHp > 0) target.figure.play(SpriteSet.HURT)
