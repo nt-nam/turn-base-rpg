@@ -1,0 +1,13 @@
+{
+  "name": "pxworld-web",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "console:dev": "npm run dev -w @pxworld/console",
+    "console:build": "npm run build -w @pxworld/console",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}

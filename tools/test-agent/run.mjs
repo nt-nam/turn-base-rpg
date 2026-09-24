@@ -56,6 +56,14 @@ agent.close();
 console.log(`${report.status.toUpperCase()} ${mode} — visited ${report.coverage.visitedCount}/${report.coverage.registeredCount} registered screens (${report.coverage.launchPercent}% of launch catalog)`);
 if (report.error) console.log(report.error);
 console.log(`report: ${reportDir}`);
+if (args.upload) {
+  const upload = await fetch(`${args.upload.replace(/\/$/, "")}/qa/agent-runs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${args.token ?? process.env.PXWORLD_TOKEN ?? ""}` },
+    body: JSON.stringify(report),
+  });
+  console.log(upload.ok ? `uploaded as run ${(await upload.json()).id}` : `upload failed: ${upload.status} ${await upload.text()}`);
+}
 process.exit(report.status === "passed" ? 0 : 1);
 
 async function explore(client, capture) {

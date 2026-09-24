@@ -71,3 +71,6 @@ Thumbs.db
 ## Stray shell artifacts
 $PROFILE*
 tools/test-agent/reports/
+
+node_modules/
+web/apps/*/dist/
