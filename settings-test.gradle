@@ -8,4 +8,4 @@ dependencyResolutionManagement {
 rootProject.name = 'pxworld'
 
 include 'core', 'lwjgl3'
-include ':game:domain', ':game:screens', ':game:content'
+include ':game:domain', ':game:application', ':game:screens', ':game:content', ':game:infrastructure'

@@ -18,6 +18,7 @@ java {
 
 dependencies {
     api(project(":game:domain"))
+    api(project(":game:application"))
     implementation(libs.kotlinx.serialization.json)
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
