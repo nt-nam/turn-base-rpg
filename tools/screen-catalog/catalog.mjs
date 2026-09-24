@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { EXPANSION_SURFACES, SEASONS, expansionGroups, expansionMatrices } from "./expansion.mjs";
@@ -927,15 +927,16 @@ for (const r of rows) {
 
 const count = (pred) => rows.filter(pred).length;
 const here = dirname(fileURLToPath(import.meta.url));
-const outDir = resolve(here, "../../docs/screens");
-mkdirSync(outDir, { recursive: true });
+const root = resolve(here, "../..");
+const outDir = resolve(root, "docs/screens");
+const outputs = new Map();
 
 const csv = ["id,surface,module,name,purpose,roles,origin,season"]
   .concat(rows.map((r) => [r.id, r.surface, r.module, r.name, r.purpose, r.roles.join(" "), r.origin, r.season]
     .map((v) => `"${String(v).replaceAll('"', '""')}"`).join(",")))
   .join("\n");
-writeFileSync(resolve(outDir, "screens.csv"), csv + "\n", "utf8");
-writeFileSync(resolve(outDir, "screens.json"), JSON.stringify(rows, null, 2) + "\n", "utf8");
+outputs.set(resolve(outDir, "screens.csv"), csv + "\n");
+outputs.set(resolve(outDir, "screens.json"), JSON.stringify(rows, null, 2) + "\n");
 
 const md = [];
 md.push("# Danh mục màn hình (Screen Catalog)", "");
@@ -964,7 +965,69 @@ for (const r of rows) {
   }
   md.push(`| \`${r.id}\` | ${r.name} | ${r.purpose} | ${r.roles.join(", ")} | ${r.season} |`);
 }
-writeFileSync(resolve(outDir, "SCREEN_CATALOG.md"), md.join("\n") + "\n", "utf8");
+outputs.set(resolve(outDir, "SCREEN_CATALOG.md"), md.join("\n") + "\n");
+
+const constantName = (id) => id.split(".").slice(1).join("_").toUpperCase();
+const quote = (value) => JSON.stringify(value);
+
+const gameRows = rows.filter((r) => r.surface === "game");
+const kotlin = [
+  "package com.pxworld.screens",
+  "",
+  "enum class ReleaseSeason { LAUNCH, S1, S2, S3, S4 }",
+  "",
+  "enum class GameScreenId(val id: String, val module: String, val season: ReleaseSeason) {",
+  ...gameRows.map((r) => `    ${constantName(r.id)}(${quote(r.id)}, ${quote(r.module)}, ReleaseSeason.${r.season.toUpperCase()}),`),
+  "    ;",
+  "",
+  "    companion object {",
+  "        private val byId: Map<String, GameScreenId> = values().associateBy { it.id }",
+  "",
+  "        fun fromId(id: String): GameScreenId = byId[id] ?: throw IllegalArgumentException(\"unknown game screen $id\")",
+  "    }",
+  "}",
+  "",
+].join("\n");
+outputs.set(resolve(root, "game/screens/src/main/kotlin/com/pxworld/screens/GameScreenId.kt"), kotlin);
+
+const webRows = rows.filter((r) => r.surface !== "game");
+const typescript = [
+  "export type Season = \"launch\" | \"s1\" | \"s2\" | \"s3\" | \"s4\";",
+  "",
+  "export interface ScreenDescriptor {",
+  "  readonly id: string;",
+  "  readonly surface: string;",
+  "  readonly module: string;",
+  "  readonly roles: readonly string[];",
+  "  readonly season: Season;",
+  "}",
+  "",
+  "export const webScreens = [",
+  ...webRows.map((r) => `  { id: ${quote(r.id)}, surface: ${quote(r.surface)}, module: ${quote(r.module)}, roles: ${quote(r.roles)}, season: ${quote(r.season)} },`),
+  "] as const satisfies readonly ScreenDescriptor[];",
+  "",
+  "export type WebScreenId = (typeof webScreens)[number][\"id\"];",
+  "",
+].join("\n");
+outputs.set(resolve(root, "web/packages/screen-catalog/src/screenIds.ts"), typescript);
+
+const checkOnly = process.argv.includes("--check");
+const stale = [];
+for (const [path, content] of outputs) {
+  const current = existsSync(path) ? readFileSync(path, "utf8") : null;
+  if (current === content) continue;
+  if (checkOnly) {
+    stale.push(path);
+    continue;
+  }
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content, "utf8");
+}
+if (stale.length > 0) {
+  console.error("Screen catalog outputs are stale. Run: node tools/screen-catalog/catalog.mjs");
+  for (const path of stale) console.error(`  ${path}`);
+  process.exit(1);
+}
 
 console.log(`total=${rows.length} unique=${count((r) => r.origin === "unique")} matrix=${count((r) => r.origin === "matrix")}`);
 for (const key of Object.keys(SURFACES)) console.log(`  ${key}: ${count((r) => r.surface === key)}`);
