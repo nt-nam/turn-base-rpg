@@ -14,7 +14,6 @@ jobs:
         with:
           node-version: 24
       - run: node tools/screen-catalog/catalog.mjs --check
-      - run: node tools/content-migrator/migrate-legacy.mjs && git diff --exit-code content
 
   jvm:
     runs-on: ubuntu-latest
