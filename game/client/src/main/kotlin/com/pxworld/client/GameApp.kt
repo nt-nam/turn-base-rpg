@@ -1,0 +1,110 @@
+package com.pxworld.client
+
+import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.InputAdapter
+import com.badlogic.gdx.InputMultiplexer
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.utils.ScreenUtils
+import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.pxworld.client.automation.StageAutomationDriver
+import com.pxworld.client.core.AssetService
+import com.pxworld.client.core.GameApi
+import com.pxworld.client.core.GameServices
+import com.pxworld.client.core.GameSession
+import com.pxworld.client.core.Localization
+import com.pxworld.client.navigation.Navigator
+import com.pxworld.client.navigation.ScreenContext
+import com.pxworld.client.screens.DefaultScreens
+import com.pxworld.client.ui.Tokens
+import com.pxworld.client.ui.UiKit
+import com.pxworld.screens.GameScreenId
+
+class GameApp(private val services: GameServices) : ApplicationAdapter(), GameApi {
+
+    private lateinit var batch: SpriteBatch
+    private lateinit var stage: Stage
+    private lateinit var assets: AssetService
+    private lateinit var ui: UiKit
+    private lateinit var navigator: Navigator
+    lateinit var context: ScreenContext
+        private set
+    lateinit var automation: StageAutomationDriver
+        private set
+    private var unsubscribe: (() -> Unit)? = null
+
+    override fun create() {
+        batch = SpriteBatch()
+        stage = Stage(ExtendViewport(Tokens.VIRTUAL_WIDTH, Tokens.VIRTUAL_HEIGHT), batch)
+        assets = AssetService(services.content.assetMap)
+        ui = UiKit(Gdx.files.internal(FONT))
+        navigator = Navigator(stage, DefaultScreens.registry())
+        val session = GameSession(services)
+        context = ScreenContext(services, assets, Localization(services.content.localization, Localization.FALLBACK), ui, navigator, session, batch)
+        navigator.context = context
+        automation = StageAutomationDriver(this, stage, context)
+        Gdx.input.inputProcessor = InputMultiplexer(stage, object : InputAdapter() {
+            override fun keyDown(keycode: Int): Boolean {
+                if (keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK) {
+                    navigator.back()
+                    return true
+                }
+                if (keycode == Input.Keys.F1 && services.flavor.debugTools) {
+                    navigator.open(GameScreenId.DEBUG_DEBUG_MENU)
+                    return true
+                }
+                return false
+            }
+        })
+        Gdx.input.setCatchKey(Input.Keys.BACK, true)
+        navigator.reset(GameScreenId.BOOT_SPLASH)
+        services.onReady(this)
+    }
+
+    fun watchStore() {
+        unsubscribe?.invoke()
+        unsubscribe = context.session.store?.subscribe { state, events -> navigator.broadcast(state, events) }
+    }
+
+    private var watchedStore: Any? = null
+
+    override fun render() {
+        val store = context.session.store
+        if (store !== watchedStore) {
+            watchedStore = store
+            watchStore()
+        }
+        val delta = Gdx.graphics.deltaTime.coerceAtMost(MAX_FRAME_SECONDS)
+        ScreenUtils.clear(Tokens.background)
+        navigator.update(delta)
+        navigator.renderWorld(delta)
+        stage.viewport.apply()
+        stage.act(delta)
+        stage.draw()
+        automation.drainRenderThreadWork()
+    }
+
+    override fun resize(width: Int, height: Int) {
+        stage.viewport.update(width, height, true)
+        navigator.resize(width, height)
+    }
+
+    override fun dispose() {
+        unsubscribe?.invoke()
+        stage.dispose()
+        batch.dispose()
+        ui.dispose()
+        assets.dispose()
+    }
+
+    override fun onRenderThread(block: () -> Unit) {
+        Gdx.app.postRunnable(block)
+    }
+
+    companion object {
+        const val FONT: String = "font/arial_uni_30.fnt"
+        const val MAX_FRAME_SECONDS: Float = 1f / 20f
+    }
+}

@@ -111,6 +111,7 @@ fun main(arguments: Array<String>) {
     outputDir.mkdirs()
     val packFile = File(outputDir, "content-pack-${hash.take(12)}.json")
     packFile.writeText(pack)
+    File(outputDir, "content-pack.json").writeText(pack)
     File(outputDir, "manifest.json").writeText(
         """{"version":"${hash.take(12)}","sha256":"$hash","file":"${packFile.name}","records":${bundle.allIds().size},"bytes":${pack.toByteArray().size}}""" + "\n",
     )
