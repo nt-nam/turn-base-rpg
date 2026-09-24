@@ -1,56 +1,51 @@
 # Tiến độ viết lại
 
-> Cập nhật: 2026-09-25 · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md) · Điểm quay lại code cũ: tag `legacy-baseline`
+> Cập nhật: 2026-09-25 · Nhánh: `rewrite` · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md)
 
 ## Trạng thái theo phase
 
 | Phase | Trạng thái | Bằng chứng |
 |---|---|---|
-| P0 Nền móng | **Gần xong** | Version catalog, module Kotlin, `.gitignore` sửa, ADR 0001–0013, CI (`.github/workflows/ci.yml`), codegen `GameScreenId` (600) + `screenIds.ts` (1.494) với `--check` |
-| P1 Domain + nội dung | **Lõi xong** | `game/domain` 35 test (6 golden); `content/` migrate 298 bản ghi, 0 lỗi validate; `compileContent` + mô phỏng cân bằng; `game/application` 12 test; save v2 + importer 6 test trên 3 save thật |
-| P2 Vertical slice client | Chưa bắt đầu | — |
-| P3 Asset pipeline | Chưa bắt đầu | Bản đồ asset legacy đã có trong `content/assets/legacy_asset_map.json` (validator kiểm tra từng region atlas) |
+| P0 Nền móng | **Xong** | `build-logic` convention plugins, version catalog (Kotlin 2.4.20), ADR 0001–0013, CI (JVM + desktop agent + Android), codegen `GameScreenId` + `screenIds.ts` có `--check` |
+| P1 Domain + nội dung | **Xong phần lõi** | Battle engine tất định (35 test, 6 golden); `content/` 331 bản ghi, 0 lỗi; compiler + mô phỏng cân bằng; luật game 24 test; save v2 tương thích tiến + importer legacy |
+| P2 Vertical slice client | **Đạt tiêu chí trên desktop** | 128 màn launch chạy thật; chương 1 chơi hết bằng test agent; save legacy tự nhập; Android APK build được |
+| P3 Asset pipeline | Chưa bắt đầu | APK 75 MB — việc nén/cắt asset nằm ở đây |
 | P4–P8, S1–S4 | Chưa bắt đầu | — |
 
-**Test:** 109 test xanh — domain 35, application 12, screens 3, content 7, infrastructure 6, legacy core 46.
+## Tiêu chí P2 (MASTER_PLAN §15)
 
-## Còn thiếu trong P0/P1
+| Tiêu chí | Kết quả |
+|---|---|
+| Chơi được từ tạo nhân vật đến hết chương 1 trên desktop | **Đạt** — kịch bản `chapter1` của test agent PASSED (gặp trưởng làng → thắng kẻ đột nhập → thợ rèn → lữ khách → Hoang Mạc Tro) |
+| … và trên Android | **Một phần** — APK debug build được (`:game:platform-android:assembleDebug`); chưa chạy thử vì emulator trên máy này crash (thiếu OpenGL phần mềm) |
+| Scenario lõi xanh trong CI | **Đã cấu hình** — job `desktop-agent` chạy `core-loop`, `chapter1`, explorer dưới xvfb; chưa push nên chưa có lượt chạy CI thật |
+| Save cũ import được | **Đạt** — `LegacySaveMigration` chạy khi desktop khởi động, test trên 3 save thật |
 
-- [ ] `build-logic/` convention plugins (hiện mỗi module lặp lại khối cấu hình Kotlin)
-- [ ] Test kiến trúc (Konsist) cho luật phụ thuộc §4.1
-- [ ] Spike TeaVM + Fleks + KTX (ADR 0009)
-- [ ] JSON Schema xuất ra cho Studio (hiện schema nằm ở kiểu Kotlin parse chặt)
-- [ ] `QuestTracker` + `AchievementTracker` lắng nghe `GameEvent`
-- [ ] `sim-cli` riêng cho mô phỏng hàng loạt (hiện nằm trong `compileContent`)
-- [ ] Trạng thái `reflect` và `immune` (16/18 trạng thái đã có)
+## Số liệu
 
-## Lỗi legacy đã sửa trong code mới (có test)
+- **Màn hình:** 128/357 màn game của launch đã chạy thật (35,9%); explorer phủ 125–127 màn/lượt, 0 lỗi, invariant giữ trên mọi màn.
+- **Test JVM:** domain 35 · application 24 · screens 3 · content 7 · infrastructure 8 · client 2 · legacy core 46.
+- **Test agent:** `core-loop` PASSED, `chapter1` PASSED, explorer PASSED.
+- **Chuỗi UI:** 529 key × 2 ngôn ngữ (vi, en), kiểm tra tự động.
 
-| Lỗi cũ | Sửa ở | Test |
-|---|---|---|
-| Không bao giờ chí mạng | `BattleEngine.strike` | `critical hits happen when crit rate is positive` |
-| Kỹ năng 2/3 gần như không dùng | Hồi chiêu + năng lượng chỉ cho tuyệt kỹ | `skills and ultimates are actually cast` |
-| Hòa bị tính là thua | `BattleOutcome.DRAW` | `stalemate ends in a draw…` |
-| Trang bị không cộng chỉ số | `GameRules.heroStats` | `equipment bonuses reach hero stats`, `imported equipment now actually raises hero stats` |
-| Điểm danh không cộng quà | `GameRules.claimCheckin` | `check-in actually grants its reward…` |
-| Mua hàng không lưu tiền | Mua là một transition state → save | `shop purchase debits wallet…` |
-| Ghép sao xóa anh hùng đang trong đội hình | `GameRules.raiseStar` | `star raise refuses to consume a hero standing in the lineup` |
-| Save ghi vào thư mục repo, hỏng là mất | `FileSaveStore` ghi nguyên tử + 3 backup | `file store rotates backups and recovers…` |
-| Luật `.gitignore` giấu 7 file loader khỏi git | Neo `/data/` | commit `4eadbaf` |
+## Lỗi legacy đã sửa (có test hoặc kịch bản chứng minh)
 
-## Phát hiện trong lúc làm (đã cập nhật plan)
+Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng · hòa bị tính là thua · trang bị không cộng chỉ số và không vào trận · điểm danh không trả quà · mua hàng không lưu · ghép sao xóa anh hùng trong đội hình · save ghi vào thư mục repo · `.gitignore` giấu 7 file loader · không có âm thanh/nhạc (chưa làm lại — xem bên dưới).
 
-1. Thiết kế năng lượng ở plan v1 (kỹ năng tốn 40) làm tuyệt kỹ gần như không bao giờ được dùng — golden test phát hiện, đổi sang hồi chiêu (§4.5).
-2. `evasion_up`/`crit_up` theo ‰ vô tác dụng khi chỉ số gốc = 0 — thêm `StatBonus` cộng phẳng.
-3. Dữ liệu cũ có vòng khắc chế 2-lớp phong phú hơn vòng tròn trong plan — giữ thiết kế của creator; `class.mage` có `weakAgainst` mâu thuẫn (ghi trong `content/MIGRATION_REPORT.md`).
-4. Cân bằng: starter một mình thắng 4% ở `encounter.dawnvillage_01.e1` — xem `content/BALANCE_NOTES.md`.
+## Phát hiện và quyết định trong lúc làm
 
-## Cần người duyệt
+1. Kỹ năng tốn năng lượng làm tuyệt kỹ gần như không dùng được → hồi chiêu cho kỹ năng, năng lượng chỉ cho tuyệt kỹ.
+2. Fleks 2.15 cần Kotlin 2.4 và phát bytecode Java 17 → client nhắm JVM 17; rủi ro iOS/RoboVM ghi trong ADR 0001.
+3. Checksum save phải tính trên cây JSON đã lưu, không mã hóa lại — nếu không mọi bản lưu cũ sẽ bị báo hỏng khi thêm trường mới.
+4. Migrator từng xóa sạch `content/` → nay từ chối chạy khi `content/` tồn tại.
+5. Automation phải cuộn tới control và kiểm tra bị che trước khi chạm, và bấm ở khung hình sau (ScrollPane chỉ cập nhật vị trí khi vẽ).
+6. `local.properties` trỏ tới Android SDK không tồn tại → đã sửa cục bộ thành `E:/Android/Sdk` (file không nằm trong git).
 
-- Tên 6 anh hùng khởi đầu tôi đặt: Aldric (Warrior), Nyx (Assassin), Selene (Mage), Fenn (Ranger), Mirae (Support), Borin (Tank).
-- Quy đổi chỉ số legacy → mới (hp×10, atk×10, def×10, speed = 80 + agi×3, crit×20‰) và bộ kỹ năng mới trong `content/skills/`.
-- Phần thưởng nhiệm vụ trước đây là khóa treo (`reward_00x`) đã được gán vật phẩm cụ thể — danh sách trong `content/MIGRATION_REPORT.md`.
+## Việc còn lại gần nhất
 
-## Bước tiếp theo: P2
-
-`game/client` (libGDX + KTX + Fleks), `GameApp` composition root, `Navigator` theo `GameScreenId`, ui kit, 110 màn lõi, `game/platform-desktop`, automation protocol + scenario runner đầu tiên.
+- [ ] P3: asset pipeline — Aseprite/TexturePacker, nén nền trận (38 MB), cắt tileset 6052×5837, font OFL thay Arial Unicode, `art/LICENSES.md`
+- [ ] Âm thanh: `AudioDirector` phát nhạc theo vùng/trận và SFX, tôn trọng cài đặt
+- [ ] Android: chạy thử trên thiết bị thật hoặc emulator có GPU
+- [ ] Spike TeaVM (web) và test kiến trúc (Konsist)
+- [ ] JSON Schema xuất cho Studio; `sim-cli` tách riêng
+- [ ] Cân bằng: xem `content/BALANCE_NOTES.md`
