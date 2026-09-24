@@ -20,7 +20,9 @@ object ContentValidator {
     val STAT_NAMES: Set<String> = setOf(
         "hp", "attack", "defense", "speed", "critRate", "critDamage", "accuracy", "evasion", "effectHit", "effectResistance",
     )
-    private val OBJECTIVE_KINDS = setOf("win_encounter", "collect_item", "collect_item_category", "defeat_enemies", "reach_map")
+    private val OBJECTIVE_KINDS = setOf("win_encounter", "collect_item", "collect_item_category", "defeat_enemies", "reach_map", "talk_to_npc")
+    private val DIALOGUE_ACTIONS = setOf("open_shop", "open_recruit", "open_bag")
+    private val QUEST_CATEGORIES = setOf("main", "side")
     private val ACHIEVEMENT_COUNTERS = setOf(
         "heroes_recruited", "enemies_defeated", "battles_won", "gold_earned", "gems_spent", "equipment_obtained",
     )
@@ -51,6 +53,8 @@ object ContentValidator {
         expectPrefix(bundle.checkinTables.map { it.id }, "checkin")
         expectPrefix(bundle.battleRules.map { it.id }, "balance")
         expectPrefix(bundle.maps.map { it.id }, "map")
+        expectPrefix(bundle.npcs.map { it.id }, "npc")
+        expectPrefix(bundle.dialogues.map { it.id }, "dialogue")
 
         val classIds = bundle.heroClasses.map { it.id }.toSet()
         val statusIds = bundle.statuses.map { it.id }.toSet()
@@ -229,8 +233,56 @@ object ContentValidator {
                 "collect_item_category" -> if (objective.target !in itemCategories) error(quest.id, "unknown item category ${objective.target}")
                 "reach_map" -> if (objective.target !in mapIds) error(quest.id, "unknown map ${objective.target}")
                 "defeat_enemies" -> if (objective.target != null && objective.target !in enemyIds) error(quest.id, "unknown enemy ${objective.target}")
+                "talk_to_npc" -> if (bundle.npcs.none { it.id == objective.target }) error(quest.id, "unknown npc ${objective.target}")
             }
             rewards(quest.id, quest.rewards)
+            if (quest.category !in QUEST_CATEGORIES) error(quest.id, "category must be one of $QUEST_CATEGORIES")
+            quest.requires?.let { required -> if (bundle.quests.none { it.id == required }) error(quest.id, "requires unknown quest $required") }
+        }
+        val questRequirements = bundle.quests.associate { it.id to it.requires }
+        bundle.quests.forEach { quest ->
+            val seen = mutableSetOf(quest.id)
+            var cursor = quest.requires
+            while (cursor != null) {
+                if (!seen.add(cursor)) {
+                    error(quest.id, "quest requirement cycle through $cursor")
+                    break
+                }
+                cursor = questRequirements[cursor]
+            }
+        }
+
+        val dialogueIds = bundle.dialogues.map { it.id }.toSet()
+        bundle.npcs.forEach { npc ->
+            text(npc.id, npc.name)
+            asset(npc.id, npc.sprite)
+            if (npc.placements.isEmpty()) warning(npc.id, "is not placed on any map")
+            npc.placements.forEach { if (it.map !in mapIds) error(npc.id, "placed on unknown map ${it.map}") }
+            if (npc.dialogues.isEmpty()) error(npc.id, "needs at least one dialogue")
+            if (npc.dialogues.last().whenQuestActive != null) error(npc.id, "last dialogue rule must be unconditional")
+            npc.dialogues.forEach { rule ->
+                if (rule.dialogue !in dialogueIds) error(npc.id, "unknown dialogue ${rule.dialogue}")
+                rule.whenQuestActive?.let { questId -> if (bundle.quests.none { it.id == questId }) error(npc.id, "unknown quest $questId") }
+            }
+        }
+        bundle.npcs.flatMap { npc -> npc.placements.map { it to npc.id } }.groupBy({ it.first }, { it.second })
+            .filterValues { it.size > 1 }.forEach { (placement, owners) -> error(owners.first(), "placement ${placement.map}/${placement.objectName} claimed by $owners") }
+        val npcIds = bundle.npcs.map { it.id }.toSet()
+        bundle.dialogues.forEach { dialogue ->
+            val nodeIds = dialogue.nodes.map { it.id }.toSet()
+            if (dialogue.start !in nodeIds) error(dialogue.id, "start node ${dialogue.start} missing")
+            if (nodeIds.size != dialogue.nodes.size) error(dialogue.id, "duplicate node ids")
+            dialogue.nodes.forEach { node ->
+                text(dialogue.id, node.text)
+                if (node.speaker != "player" && node.speaker !in npcIds) error(dialogue.id, "unknown speaker ${node.speaker}")
+                if (node.next != null && node.choices.isNotEmpty()) error(dialogue.id, "node ${node.id} has both next and choices")
+                node.next?.let { if (it !in nodeIds) error(dialogue.id, "node ${node.id} points to missing $it") }
+                node.choices.forEach { choice ->
+                    text(dialogue.id, choice.text)
+                    choice.next?.let { if (it !in nodeIds) error(dialogue.id, "choice points to missing $it") }
+                    choice.action?.let { if (it !in DIALOGUE_ACTIONS) error(dialogue.id, "unknown action $it") }
+                }
+            }
         }
 
         bundle.achievements.forEach { achievement ->
@@ -258,7 +310,7 @@ object ContentValidator {
         }
 
         val usedAssets = (bundle.currencies.map { it.icon } + bundle.skills.map { it.vfx } + bundle.heroes.map { it.sprite } +
-            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset }).toSet()
+            bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset } + bundle.npcs.map { it.sprite }).toSet()
         (bundle.assetMap.keys - usedAssets).forEach { warning("assets", "asset key $it is mapped but never used") }
 
         missingTranslations.forEach { (locale, count) -> warning("localization.$locale", "$count keys have no $locale translation yet") }

@@ -1,0 +1,90 @@
+[
+  {
+    "id": "npc.dawn_elder",
+    "name": "npc.dawn_elder.name",
+    "sprite": "sprite:npc/elder",
+    "placements": [
+      {
+        "map": "map.dawnvillage_01",
+        "object": "village chief"
+      },
+      {
+        "map": "map.dawnvillage_02",
+        "object": "village chief"
+      }
+    ],
+    "dialogues": [
+      {
+        "dialogue": "dialogue.elder_alarm",
+        "whenQuestActive": "quest.main.ch1_01"
+      },
+      {
+        "dialogue": "dialogue.elder_relic"
+      }
+    ]
+  },
+  {
+    "id": "npc.dawn_smith",
+    "name": "npc.dawn_smith.name",
+    "sprite": "sprite:npc/smith",
+    "placements": [
+      {
+        "map": "map.dawnvillage_01",
+        "object": "blacksmith"
+      },
+      {
+        "map": "map.dawnvillage_03",
+        "object": "blacksmith"
+      }
+    ],
+    "dialogues": [
+      {
+        "dialogue": "dialogue.smith_blade",
+        "whenQuestActive": "quest.main.ch1_03"
+      },
+      {
+        "dialogue": "dialogue.smith_idle"
+      }
+    ]
+  },
+  {
+    "id": "npc.dawn_traveler",
+    "name": "npc.dawn_traveler.name",
+    "sprite": "sprite:npc/wanderer",
+    "placements": [
+      {
+        "map": "map.dawnvillage_01",
+        "object": "traveler"
+      }
+    ],
+    "dialogues": [
+      {
+        "dialogue": "dialogue.traveler_news",
+        "whenQuestActive": "quest.main.ch1_04"
+      },
+      {
+        "dialogue": "dialogue.traveler_idle"
+      }
+    ]
+  },
+  {
+    "id": "npc.dawn_merchant",
+    "name": "npc.dawn_merchant.name",
+    "sprite": "sprite:npc/wanderer",
+    "placements": [
+      {
+        "map": "map.dawnvillage_01",
+        "object": "merchant"
+      },
+      {
+        "map": "map.dawnvillage_04",
+        "object": "blacksmith"
+      }
+    ],
+    "dialogues": [
+      {
+        "dialogue": "dialogue.merchant_trade"
+      }
+    ]
+  }
+]

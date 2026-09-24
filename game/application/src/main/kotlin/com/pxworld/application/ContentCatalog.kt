@@ -9,7 +9,7 @@ data class Grant(val kind: GrantKind, val id: String, val quantity: Long)
 
 data class Price(val currency: String, val amount: Long)
 
-data class QuestSummary(val id: String, val objectiveKind: String, val target: String?, val count: Int, val rewards: List<Grant>)
+data class QuestSummary(val id: String, val objectiveKind: String, val target: String?, val count: Int, val rewards: List<Grant>, val requires: String? = null, val category: String = "side")
 
 data class AchievementTier(val target: Long, val rewards: List<Grant>)
 

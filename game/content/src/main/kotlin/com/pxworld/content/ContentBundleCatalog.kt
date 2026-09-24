@@ -69,7 +69,7 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
     override fun itemCategory(itemId: String): String? = items[itemId]?.category
 
     override fun quests(): List<QuestSummary> = bundle.quests.map { quest ->
-        QuestSummary(quest.id, quest.objective.kind, quest.objective.target, quest.objective.count, quest.rewards.map(::grant))
+        QuestSummary(quest.id, quest.objective.kind, quest.objective.target, quest.objective.count, quest.rewards.map(::grant), quest.requires, quest.category)
     }
 
     override fun achievements(): List<AchievementSummary> = bundle.achievements.map { achievement ->

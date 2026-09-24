@@ -47,6 +47,13 @@ class PlayerControlled(val steering: Steering) : Component<PlayerControlled> {
 class Steering {
     val analog = Vector2()
     var target: Vector2? = null
+    val route = ArrayDeque<Vector2>()
+
+    fun follow(points: List<Vector2>) {
+        route.clear()
+        route.addAll(points)
+        target = route.removeFirstOrNull()
+    }
 
     fun direction(from: Vector2): Vector2 {
         val keyboard = Vector2(
@@ -57,17 +64,19 @@ class Steering {
         )
         if (!keyboard.isZero) {
             target = null
+            route.clear()
             return keyboard.nor()
         }
         if (!analog.isZero) {
             target = null
+            route.clear()
             return Vector2(analog).limit(1f)
         }
         val goal = target ?: return Vector2.Zero.cpy()
         val delta = Vector2(goal).sub(from)
         if (delta.len() < ARRIVAL_DISTANCE) {
-            target = null
-            return Vector2.Zero.cpy()
+            target = route.removeFirstOrNull()
+            return if (target == null) Vector2.Zero.cpy() else direction(from)
         }
         return delta.nor()
     }

@@ -203,7 +203,38 @@ data class QuestRecord(
     val category: String,
     val objective: ObjectiveRecord,
     val rewards: List<RewardRecord>,
+    val requires: String? = null,
 )
+
+@Serializable
+data class NpcPlacementRecord(val map: String, @SerialName("object") val objectName: String)
+
+@Serializable
+data class NpcDialogueRuleRecord(val dialogue: String, val whenQuestActive: String? = null)
+
+@Serializable
+data class NpcRecord(
+    val id: String,
+    val name: String,
+    val sprite: String,
+    val placements: List<NpcPlacementRecord>,
+    val dialogues: List<NpcDialogueRuleRecord>,
+)
+
+@Serializable
+data class DialogueChoiceRecord(val text: String, val next: String? = null, val action: String? = null)
+
+@Serializable
+data class DialogueNodeRecord(
+    val id: String,
+    val speaker: String,
+    val text: String,
+    val next: String? = null,
+    val choices: List<DialogueChoiceRecord> = emptyList(),
+)
+
+@Serializable
+data class DialogueRecord(val id: String, val start: String, val nodes: List<DialogueNodeRecord>)
 
 @Serializable
 data class AchievementTierRecord(val target: Int, val rewards: List<RewardRecord>)
@@ -260,6 +291,8 @@ data class ContentBundle(
     val checkinTables: List<CheckinTableRecord>,
     val battleRules: List<BattleRulesRecord>,
     val maps: List<MapRecord> = emptyList(),
+    val npcs: List<NpcRecord> = emptyList(),
+    val dialogues: List<DialogueRecord> = emptyList(),
     val localization: Map<String, Map<String, String>>,
     val assetMap: Map<String, String>,
 ) {
@@ -267,5 +300,5 @@ data class ContentBundle(
         currencies.map { it.id } + heroClasses.map { it.id } + statuses.map { it.id } + skills.map { it.id } +
             heroes.map { it.id } + enemies.map { it.id } + encounters.map { it.id } + items.map { it.id } +
             equipment.map { it.id } + quests.map { it.id } + achievements.map { it.id } + checkinTables.map { it.id } +
-            battleRules.map { it.id } + maps.map { it.id }
+            battleRules.map { it.id } + maps.map { it.id } + npcs.map { it.id } + dialogues.map { it.id }
 }

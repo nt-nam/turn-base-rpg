@@ -32,9 +32,11 @@ class QuestTracker(private val catalog: ContentCatalog) {
         var state = startAll(transition.state)
         val extra = mutableListOf<GameEvent>()
         for (event in transition.events) {
+            val completedIds = state.quests.filter { it.completed }.map { it.questId }.toSet()
             val updated = state.quests.map { progress ->
                 val quest = quests[progress.questId]
                 if (quest == null || progress.completed) return@map progress
+                if (quest.requires != null && quest.requires !in completedIds) return@map progress
                 val gained = contribution(quest, event)
                 if (gained == 0) return@map progress
                 val value = minOf(quest.count, progress.progress + gained)
@@ -53,8 +55,16 @@ class QuestTracker(private val catalog: ContentCatalog) {
         "collect_item" -> if (event is GameEvent.ItemsGained && event.itemId == quest.target) event.quantity.toInt() else 0
         "collect_item_category" -> if (event is GameEvent.ItemsGained && catalog.itemCategory(event.itemId) == quest.target) event.quantity.toInt() else 0
         "reach_map" -> if (event is GameEvent.MapEntered && event.mapId == quest.target) 1 else 0
+        "talk_to_npc" -> if (event is GameEvent.NpcTalked && event.npcId == quest.target) 1 else 0
         else -> 0
     }
+}
+
+fun GameState.isQuestActive(questId: String, catalog: ContentCatalog): Boolean {
+    val quest = catalog.quests().firstOrNull { it.id == questId } ?: return false
+    val progress = quests.firstOrNull { it.questId == questId } ?: return false
+    val prerequisiteDone = quest.requires == null || quests.any { it.questId == quest.requires && it.completed }
+    return prerequisiteDone && !progress.completed
 }
 
 class NewGame(private val catalog: ContentCatalog, private val rules: GameRules, private val quests: QuestTracker) {

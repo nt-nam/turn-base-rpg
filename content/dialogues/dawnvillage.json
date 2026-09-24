@@ -1,0 +1,134 @@
+[
+  {
+    "id": "dialogue.elder_alarm",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_elder",
+        "text": "dialogue.elder_alarm.a",
+        "next": "b"
+      },
+      {
+        "id": "b",
+        "speaker": "npc.dawn_elder",
+        "text": "dialogue.elder_alarm.b",
+        "choices": [
+          {
+            "text": "dialogue.elder_alarm.choice.accept"
+          },
+          {
+            "text": "dialogue.elder_alarm.choice.ask",
+            "next": "c"
+          }
+        ]
+      },
+      {
+        "id": "c",
+        "speaker": "npc.dawn_elder",
+        "text": "dialogue.elder_alarm.c",
+        "next": "b"
+      }
+    ]
+  },
+  {
+    "id": "dialogue.elder_relic",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_elder",
+        "text": "dialogue.elder_relic.a"
+      }
+    ]
+  },
+  {
+    "id": "dialogue.smith_blade",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_smith",
+        "text": "dialogue.smith_blade.a",
+        "next": "b"
+      },
+      {
+        "id": "b",
+        "speaker": "npc.dawn_smith",
+        "text": "dialogue.smith_blade.b"
+      }
+    ]
+  },
+  {
+    "id": "dialogue.smith_idle",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_smith",
+        "text": "dialogue.smith_idle.a",
+        "choices": [
+          {
+            "text": "dialogue.smith_idle.choice.bag",
+            "action": "open_bag"
+          },
+          {
+            "text": "dialogue.smith_idle.choice.bye"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dialogue.traveler_news",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_traveler",
+        "text": "dialogue.traveler_news.a",
+        "next": "b"
+      },
+      {
+        "id": "b",
+        "speaker": "npc.dawn_traveler",
+        "text": "dialogue.traveler_news.b"
+      }
+    ]
+  },
+  {
+    "id": "dialogue.traveler_idle",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_traveler",
+        "text": "dialogue.traveler_idle.a"
+      }
+    ]
+  },
+  {
+    "id": "dialogue.merchant_trade",
+    "start": "a",
+    "nodes": [
+      {
+        "id": "a",
+        "speaker": "npc.dawn_merchant",
+        "text": "dialogue.merchant_trade.a",
+        "choices": [
+          {
+            "text": "dialogue.merchant_trade.choice.shop",
+            "action": "open_shop"
+          },
+          {
+            "text": "dialogue.merchant_trade.choice.recruit",
+            "action": "open_recruit"
+          },
+          {
+            "text": "dialogue.merchant_trade.choice.bye"
+          }
+        ]
+      }
+    ]
+  }
+]

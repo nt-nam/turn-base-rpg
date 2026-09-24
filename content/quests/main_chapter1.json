@@ -1,0 +1,101 @@
+[
+  {
+    "id": "quest.main.ch1_01",
+    "name": "quest.main.ch1_01.name",
+    "description": "quest.main.ch1_01.description",
+    "category": "main",
+    "objective": {
+      "kind": "talk_to_npc",
+      "target": "npc.dawn_elder",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 100
+      }
+    ]
+  },
+  {
+    "id": "quest.main.ch1_02",
+    "name": "quest.main.ch1_02.name",
+    "description": "quest.main.ch1_02.description",
+    "category": "main",
+    "objective": {
+      "kind": "win_encounter",
+      "target": "encounter.dawnvillage_01.e0",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 5
+      }
+    ],
+    "requires": "quest.main.ch1_01"
+  },
+  {
+    "id": "quest.main.ch1_03",
+    "name": "quest.main.ch1_03.name",
+    "description": "quest.main.ch1_03.description",
+    "category": "main",
+    "objective": {
+      "kind": "talk_to_npc",
+      "target": "npc.dawn_smith",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "equipment",
+        "id": "equip.sword_001",
+        "quantity": 1
+      }
+    ],
+    "requires": "quest.main.ch1_02"
+  },
+  {
+    "id": "quest.main.ch1_04",
+    "name": "quest.main.ch1_04.name",
+    "description": "quest.main.ch1_04.description",
+    "category": "main",
+    "objective": {
+      "kind": "talk_to_npc",
+      "target": "npc.dawn_traveler",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.food_t2",
+        "quantity": 2
+      }
+    ],
+    "requires": "quest.main.ch1_03"
+  },
+  {
+    "id": "quest.main.ch1_05",
+    "name": "quest.main.ch1_05.name",
+    "description": "quest.main.ch1_05.description",
+    "category": "main",
+    "objective": {
+      "kind": "reach_map",
+      "target": "map.ashwaste_01",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 20
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 300
+      }
+    ],
+    "requires": "quest.main.ch1_04"
+  }
+]

@@ -173,6 +173,8 @@ class GameRules(private val catalog: ContentCatalog) {
         return Transition(moved, events)
     }
 
+    fun talkTo(state: GameState, npcId: String): Transition = Transition(state, listOf(GameEvent.NpcTalked(npcId)))
+
     fun claimQuest(state: GameState, questId: String): Transition {
         val progress = state.quests.firstOrNull { it.questId == questId } ?: throw GameRuleViolation("quest $questId not started")
         if (!progress.completed) throw GameRuleViolation("quest $questId is not complete")

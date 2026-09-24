@@ -46,6 +46,9 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
     private var player: Entity? = null
     private var nearbyTeleport: TeleportTrigger? = null
     private var nearbyEncounter: EncounterTrigger? = null
+    private var nearbyNpc: String? = null
+    private val placedNpcs = mutableListOf<Pair<String, com.pxworld.client.world.NpcSpot>>()
+    private val objective = com.badlogic.gdx.scenes.scene2d.ui.Label("", context.ui.skin, "small")
     private var positionSaveTimer = 0f
     private val topBar = Table()
     private val actions = Table()
@@ -82,6 +85,19 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
                 add(RenderSystem())
             }
         }
+        placedNpcs.clear()
+        context.services.content.npcs.forEach { npc ->
+            npc.placements.filter { it.map == mapId }.forEach { placement ->
+                layout.npcSpots.firstOrNull { it.objectName == placement.objectName }?.let { spot ->
+                    placedNpcs += npc.id to spot
+                    runtime.entity {
+                        it += Transform(com.badlogic.gdx.math.Vector2(spot.x, spot.y))
+                        it += Motion(speed = 0f)
+                        it += Appearance(context.assets.sprite(npc.sprite), 34f)
+                    }
+                }
+            }
+        }
         player = runtime.entity {
             it += Transform(start)
             it += Motion()
@@ -99,6 +115,8 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
         refreshTopBar()
         content.top()
         content.add(topBar).growX().colspan(2).row()
+        objective.name = testId("objective")
+        content.add(objective).left().pad(Tokens.SPACE_XS, Tokens.SPACE_M, 0f, 0f).colspan(2).row()
         content.add().expand().colspan(2).row()
         val touchpad = Touchpad(6f, Touchpad.TouchpadStyle(context.ui.tinted(Tokens.scrim, rounded = true), context.ui.tinted(Tokens.accent, rounded = true).also {
             it.minWidth = 48f
@@ -118,6 +136,7 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
 
     private fun refreshTopBar() {
         val state = context.state
+        objective.setText(Dialogues.activeMainQuest(context)?.let { text("ui.world.objective", Dialogues.objectiveText(context, it)) } ?: "")
         topBar.clearChildren()
         topBar.add(ui.label(state.profile.name, "heading", testId("player_name"))).padRight(Tokens.SPACE_M)
         topBar.add(ui.label(text("ui.world.level", state.profile.level), "small")).padRight(Tokens.SPACE_M)
@@ -131,6 +150,12 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
 
     private fun refreshActions() {
         actions.clearChildren()
+        nearbyNpc?.let { npcId ->
+            val npc = Dialogues.npc(context, npcId)
+            actions.add(ui.button(testId("talk"), text("ui.world.talk", text(npc.name))) {
+                context.navigator.open(GameScreenId.WORLD_NPC_DIALOGUE, ScreenArgs.of("npc" to npcId))
+            }).height(Tokens.BUTTON_HEIGHT).padBottom(Tokens.SPACE_S).row()
+        }
         nearbyEncounter?.let { encounter ->
             val encounterId = encounterIdFor(encounter)
             actions.add(ui.button(testId("inspect_enemy"), text("ui.world.inspect_enemy"), enabled = encounterId != null) {
@@ -148,9 +173,11 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
         val footprint = with(runtime) { entity[Body].footprint(entity[Transform].position) }
         val teleport = layout.teleports.firstOrNull { it.bounds.overlaps(footprint) }
         val encounter = layout.encounters.firstOrNull { it.bounds.overlaps(footprint) }
-        if (teleport != nearbyTeleport || encounter != nearbyEncounter) {
+        val npc = placedNpcs.firstOrNull { (_, spot) -> spot.bounds.overlaps(footprint) }?.first
+        if (teleport != nearbyTeleport || encounter != nearbyEncounter || npc != nearbyNpc) {
             nearbyTeleport = teleport
             nearbyEncounter = encounter
+            nearbyNpc = npc
             refreshActions()
         }
         positionSaveTimer += delta
@@ -170,6 +197,10 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
     }
 
     override fun onStateChanged(state: GameState, events: List<GameEvent>) {
+        events.filterIsInstance<GameEvent.QuestCompleted>().forEach { completed ->
+            val quest = context.services.content.quests.firstOrNull { it.id == completed.questId }
+            if (quest != null) context.navigator.toast(text(if (quest.id == CHAPTER_FINALE) "ui.chapter.complete" else "ui.result.quest_completed", text(quest.name)))
+        }
         if (state.position.mapId != mapId && state.position.x < 0) {
             loadMap(state.position.mapId, state.position.spawnIndex, restoreSavedPosition = false)
             context.navigator.open(GameScreenId.WORLD_MAP_TRANSITION, ScreenArgs.of("map" to state.position.mapId))
@@ -189,11 +220,17 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
     }
 
     fun steerTo(x: Float, y: Float) {
-        steering.target = Vector2(x, y)
+        val from = playerPosition ?: return
+        val route = com.pxworld.client.world.Pathfinder(layout, 12f, 6f).route(from, Vector2(x, y))
+        if (route.isEmpty()) steering.target = Vector2(x, y) else steering.follow(route + Vector2(x, y))
     }
 
-    fun triggers(): Map<String, Any> = mapOf(
+    fun triggers(): Map<String, Any?> = mapOf(
         "teleports" to layout.teleports.map { mapOf("label" to it.label, "target" to it.targetLegacyMap, "x" to it.bounds.x + it.bounds.width / 2, "y" to it.bounds.y + it.bounds.height / 2) },
+        "nearbyNpc" to nearbyNpc,
+        "nearbyEncounter" to nearbyEncounter?.let { encounterIdFor(it) },
+        "nearbyTeleport" to nearbyTeleport?.targetLegacyMap,
+        "npcs" to placedNpcs.map { (npcId, spot) -> mapOf("npc" to npcId, "x" to spot.x, "y" to spot.y) },
         "encounters" to layout.encounters.map { mapOf("encounter" to (encounterIdFor(it) ?: ""), "x" to it.bounds.x + it.bounds.width / 2, "y" to it.bounds.y + it.bounds.height / 2) },
     )
 
@@ -225,6 +262,7 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
         const val VIEW_WIDTH: Float = 480f
         const val VIEW_HEIGHT: Float = 270f
         const val POSITION_SAVE_SECONDS: Float = 5f
+        const val CHAPTER_FINALE: String = "quest.main.ch1_05"
     }
 }
 

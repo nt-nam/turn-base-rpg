@@ -1,6 +1,7 @@
 package com.pxworld.client.core
 
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -50,7 +51,16 @@ class AssetService(private val assetMap: Map<String, String>) : Disposable {
     }
 
     fun sprite(key: String): SpriteSet = spriteSets.getOrPut(key) {
-        val atlas = atlas(resolve(key).substringBefore("#"))
+        val reference = resolve(key)
+        if (reference.endsWith(".png")) {
+            if (!manager.isLoaded(reference, Texture::class.java)) {
+                manager.load(reference, Texture::class.java)
+                manager.finishLoadingAsset<Texture>(reference)
+            }
+            val still = TextureRegion(manager.get(reference, Texture::class.java))
+            return@getOrPut SpriteSet(mapOf(SpriteSet.IDLE to Animation<TextureRegion>(FRAME_SECONDS, still)))
+        }
+        val atlas = atlas(reference.substringBefore("#"))
         val grouped = atlas.regions.groupBy { it.name }
         SpriteSet(grouped.mapValues { (_, regions) ->
             Animation<TextureRegion>(FRAME_SECONDS, GdxArray(regions.sortedBy { it.index }.toTypedArray<TextureRegion>()), Animation.PlayMode.LOOP)

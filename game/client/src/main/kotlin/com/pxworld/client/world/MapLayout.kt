@@ -46,6 +46,14 @@ data class TeleportTrigger(val bounds: Rectangle, val targetLegacyMap: String, v
 
 data class EncounterTrigger(val bounds: Rectangle, val objectId: Int)
 
+data class NpcSpot(val objectName: String, val x: Float, val y: Float) {
+    val bounds: Rectangle get() = Rectangle(x - TALK_RADIUS, y - TALK_RADIUS, TALK_RADIUS * 2, TALK_RADIUS * 2)
+
+    companion object {
+        const val TALK_RADIUS: Float = 22f
+    }
+}
+
 class MapLayout(map: TiledMap) {
 
     val widthPixels: Float
@@ -54,6 +62,7 @@ class MapLayout(map: TiledMap) {
     val spawns: List<SpawnPoint>
     val teleports: List<TeleportTrigger>
     val encounters: List<EncounterTrigger>
+    val npcSpots: List<NpcSpot>
 
     init {
         val properties = map.properties
@@ -77,6 +86,10 @@ class MapLayout(map: TiledMap) {
         }
         encounters = layer("enemies").map { enemy ->
             EncounterTrigger(triggerBounds(enemy), enemy.properties.get("id", 0, Int::class.java))
+        }
+        npcSpots = layer("npc").mapNotNull { npc ->
+            val name = npc.properties.get("name", "", String::class.java)
+            if (name.isEmpty()) null else anchor(npc).let { NpcSpot(name, it.x, it.y) }
         }
     }
 

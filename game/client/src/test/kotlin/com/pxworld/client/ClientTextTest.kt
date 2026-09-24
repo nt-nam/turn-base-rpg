@@ -31,7 +31,7 @@ class ClientTextTest {
         "ui.bag.action." to "assign compare upgrade".split(" "),
         "ui.recruit.link." to "rates history pity".split(" "),
         "ui.outcome." to "victory defeat draw".split(" "),
-        "ui.quests.objective." to "win_encounter collect_item collect_item_category defeat_enemies reach_map".split(" "),
+        "ui.quests.objective." to "win_encounter collect_item collect_item_category defeat_enemies reach_map talk_to_npc".split(" "),
         "ui.region." to "dawnvillage mistgarden ashwaste".split(" "),
         "ui.counter." to "heroes_recruited enemies_defeated battles_won gold_earned gems_spent equipment_obtained".split(" "),
         "ui.result." to "rewards breakdown level_ups quests replays".split(" "),

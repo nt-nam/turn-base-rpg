@@ -51,6 +51,8 @@ jobs:
       - run: chmod +x gradlew tools/test-agent/run-desktop.sh
       - name: core loop scenario
         run: xvfb-run -a -s "-screen 0 1280x720x24" tools/test-agent/run-desktop.sh "$PWD/agent-reports/scenario"
+      - name: chapter 1 playthrough
+        run: SCENARIO=chapter1 xvfb-run -a -s "-screen 0 1280x720x24" tools/test-agent/run-desktop.sh "$PWD/agent-reports/chapter1"
       - name: explorer coverage
         run: MODE=explore xvfb-run -a -s "-screen 0 1280x720x24" tools/test-agent/run-desktop.sh "$PWD/agent-reports/explore"
       - uses: actions/upload-artifact@v4

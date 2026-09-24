@@ -48,6 +48,8 @@ object ContentLoader {
             checkinTables = kind("checkin_tables", CheckinTableRecord.serializer()),
             battleRules = kind("balance", BattleRulesRecord.serializer()),
             maps = kind("maps", MapRecord.serializer()),
+            npcs = kind("npcs", NpcRecord.serializer()),
+            dialogues = kind("dialogues", DialogueRecord.serializer()),
             localization = localization,
             assetMap = assetMap,
         )

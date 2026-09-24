@@ -31,7 +31,9 @@ import com.pxworld.client.screens.onboarding.HeroCreateNameScreen
 import com.pxworld.client.screens.progression.AchievementListScreen
 import com.pxworld.client.screens.progression.QuestListScreen
 import com.pxworld.client.screens.settings.SettingsHomeScreen
+import com.pxworld.client.screens.world.DialogueChoiceScreen
 import com.pxworld.client.screens.world.EncounterPreviewScreen
+import com.pxworld.client.screens.world.NpcDialogueScreen
 import com.pxworld.client.screens.world.PauseMenuScreen
 import com.pxworld.client.screens.world.WorldExploreScreen
 import com.pxworld.client.screens.battle.BattlePauseScreen
@@ -138,6 +140,8 @@ object DefaultScreens {
             GameScreenId.WORLD_WORLD_EXPLORE to ::WorldExploreScreen,
             GameScreenId.WORLD_ENCOUNTER_PREVIEW to ::EncounterPreviewScreen,
             GameScreenId.WORLD_PAUSE_MENU to ::PauseMenuScreen,
+            GameScreenId.WORLD_NPC_DIALOGUE to ::NpcDialogueScreen,
+            GameScreenId.WORLD_DIALOGUE_CHOICE to ::DialogueChoiceScreen,
             GameScreenId.BATTLE_BATTLE_MAIN to ::BattleMainScreen,
             GameScreenId.BATTLE_BATTLE_VICTORY to { context, args -> BattleResultScreen(GameScreenId.BATTLE_BATTLE_VICTORY, context, args) },
             GameScreenId.BATTLE_BATTLE_DEFEAT to { context, args -> BattleResultScreen(GameScreenId.BATTLE_BATTLE_DEFEAT, context, args) },
