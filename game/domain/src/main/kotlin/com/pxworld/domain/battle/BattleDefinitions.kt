@@ -91,6 +91,7 @@ data class SkillDefinition(
 
 sealed interface StatusKind {
     data class StatModifier(val stat: StatKind, val permille: Int) : StatusKind
+    data class StatBonus(val stat: StatKind, val amount: Int) : StatusKind
     object Stun : StatusKind {
         override fun toString(): String = "Stun"
     }

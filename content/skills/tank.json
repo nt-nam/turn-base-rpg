@@ -1,0 +1,73 @@
+[
+  {
+    "id": "skill.tank.shield_slam",
+    "name": "skill.tank.shield_slam.name",
+    "description": "skill.tank.shield_slam.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 800,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:green/attack"
+  },
+  {
+    "id": "skill.tank.provoke",
+    "name": "skill.tank.provoke.name",
+    "description": "skill.tank.provoke.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 3,
+    "targeting": {
+      "kind": "self"
+    },
+    "effects": [
+      {
+        "kind": "apply_status",
+        "status": "status.taunt",
+        "chance": 1000,
+        "onSelf": false
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.shield",
+        "chance": 1000,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:green/heal"
+  },
+  {
+    "id": "skill.tank.iron_wall",
+    "name": "skill.tank.iron_wall.name",
+    "description": "skill.tank.iron_wall.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "all_allies"
+    },
+    "effects": [
+      {
+        "kind": "apply_status",
+        "status": "status.shield",
+        "chance": 1000,
+        "onSelf": false
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.defense_up",
+        "chance": 1000,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:green/explode"
+  }
+]

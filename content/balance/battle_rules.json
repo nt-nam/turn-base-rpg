@@ -1,0 +1,25 @@
+[
+  {
+    "id": "balance.battle_rules",
+    "maxRounds": 30,
+    "timeUnitsPerRound": 10000,
+    "referenceSpeed": 100,
+    "startingEnergy": 25,
+    "maxEnergy": 100,
+    "energyPerAction": 20,
+    "energyWhenHit": 10,
+    "baseHitPermille": 950,
+    "minimumHitPermille": 600,
+    "criticalRateCapPermille": 750,
+    "damageVariancePermille": 50,
+    "defenseConstantBase": 100,
+    "defenseConstantPerLevel": 10,
+    "damageTakenByDepthPermille": [
+      1000,
+      900,
+      800
+    ],
+    "matchupAdvantagePermille": 1250,
+    "matchupDisadvantagePermille": 850
+  }
+]

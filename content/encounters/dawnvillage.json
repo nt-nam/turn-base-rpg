@@ -1,0 +1,62 @@
+[
+  {
+    "id": "encounter.dawnvillage_01.e0",
+    "name": "encounter.dawnvillage_01.e0.name",
+    "map": "map.dawnvillage_01",
+    "mapObjectId": 0,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 2,
+          "depth": 1
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 100
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "id": "encounter.dawnvillage_01.e1",
+    "name": "encounter.dawnvillage_01.e1.name",
+    "map": "map.dawnvillage_01",
+    "mapObjectId": 1,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_warrior",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 100
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 5
+      }
+    ]
+  }
+]

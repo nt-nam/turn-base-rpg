@@ -1,0 +1,116 @@
+[
+  {
+    "id": "quest.side.defend_the_village",
+    "name": "quest.side.defend_the_village.name",
+    "description": "quest.side.defend_the_village.description",
+    "category": "side",
+    "objective": {
+      "kind": "win_encounter",
+      "target": "encounter.dawnvillage_01.e0",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.food_t1",
+        "quantity": 5
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 150
+      }
+    ]
+  },
+  {
+    "id": "quest.side.the_hidden_stone",
+    "name": "quest.side.the_hidden_stone.name",
+    "description": "quest.side.the_hidden_stone.description",
+    "category": "side",
+    "objective": {
+      "kind": "collect_item",
+      "target": "item.gemstore_t1",
+      "count": 5
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.diamond_t1",
+        "quantity": 1
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 100
+      }
+    ]
+  },
+  {
+    "id": "quest.side.forge_supplies",
+    "name": "quest.side.forge_supplies.name",
+    "description": "quest.side.forge_supplies.description",
+    "category": "side",
+    "objective": {
+      "kind": "collect_item_category",
+      "target": "metal",
+      "count": 10
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.metal_t2",
+        "quantity": 2
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 50
+      }
+    ]
+  },
+  {
+    "id": "quest.side.monster_hunt",
+    "name": "quest.side.monster_hunt.name",
+    "description": "quest.side.monster_hunt.description",
+    "category": "side",
+    "objective": {
+      "kind": "defeat_enemies",
+      "count": 15
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.food_t2",
+        "quantity": 3
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 200
+      }
+    ]
+  },
+  {
+    "id": "quest.side.dungeon_secret",
+    "name": "quest.side.dungeon_secret.name",
+    "description": "quest.side.dungeon_secret.description",
+    "category": "side",
+    "objective": {
+      "kind": "reach_map",
+      "target": "map.ashwaste_06",
+      "count": 1
+    },
+    "rewards": [
+      {
+        "kind": "item",
+        "id": "item.key_t1",
+        "quantity": 1
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 500
+      }
+    ]
+  }
+]

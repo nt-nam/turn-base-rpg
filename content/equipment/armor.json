@@ -1,0 +1,462 @@
+[
+  {
+    "id": "equip.armor_008",
+    "name": "equip.armor_008.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_008",
+    "stats": {
+      "hp": 200,
+      "defense": 150
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_009",
+    "name": "equip.armor_009.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_009",
+    "stats": {
+      "hp": 220,
+      "defense": 160
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 120,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_010",
+    "name": "equip.armor_010.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_010",
+    "stats": {
+      "hp": 240,
+      "defense": 170,
+      "speed": -15
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 130,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_011",
+    "name": "equip.armor_011.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_011",
+    "stats": {
+      "hp": 260,
+      "defense": 180
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 140,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_012",
+    "name": "equip.armor_012.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_012",
+    "stats": {
+      "hp": 280,
+      "defense": 190
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 150,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_013",
+    "name": "equip.armor_013.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_013",
+    "stats": {
+      "hp": 300,
+      "defense": 200,
+      "speed": -18
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 170,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_014",
+    "name": "equip.armor_014.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_014",
+    "stats": {
+      "hp": 320,
+      "defense": 210
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 180,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_023",
+    "name": "equip.armor_023.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_023",
+    "stats": {
+      "hp": 350,
+      "defense": 220
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 190,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_024",
+    "name": "equip.armor_024.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_024",
+    "stats": {
+      "hp": 370,
+      "defense": 230,
+      "speed": -21
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 210,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_025",
+    "name": "equip.armor_025.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_025",
+    "stats": {
+      "hp": 390,
+      "defense": 240
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 230,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_026",
+    "name": "equip.armor_026.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_026",
+    "stats": {
+      "hp": 410,
+      "defense": 250
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 290,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_038",
+    "name": "equip.armor_038.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_038",
+    "stats": {
+      "hp": 450,
+      "defense": 270,
+      "speed": -24
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 310,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_039",
+    "name": "equip.armor_039.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_039",
+    "stats": {
+      "hp": 470,
+      "defense": 280
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 220,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_040",
+    "name": "equip.armor_040.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_040",
+    "stats": {
+      "hp": 490,
+      "defense": 290
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 330,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_041",
+    "name": "equip.armor_041.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_041",
+    "stats": {
+      "hp": 510,
+      "defense": 300,
+      "speed": -27
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 34,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_042",
+    "name": "equip.armor_042.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_042",
+    "stats": {
+      "hp": 530,
+      "defense": 310
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_043",
+    "name": "equip.armor_043.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_043",
+    "stats": {
+      "hp": 550,
+      "defense": 320
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_044",
+    "name": "equip.armor_044.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_044",
+    "stats": {
+      "hp": 570,
+      "defense": 330,
+      "speed": -30
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_053",
+    "name": "equip.armor_053.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_053",
+    "stats": {
+      "hp": 600,
+      "defense": 350
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_054",
+    "name": "equip.armor_054.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_054",
+    "stats": {
+      "hp": 620,
+      "defense": 360
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_055",
+    "name": "equip.armor_055.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_055",
+    "stats": {
+      "hp": 640,
+      "defense": 370,
+      "speed": -33
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_068",
+    "name": "equip.armor_068.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_068",
+    "stats": {
+      "hp": 700,
+      "defense": 400
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_069",
+    "name": "equip.armor_069.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_069",
+    "stats": {
+      "hp": 720,
+      "defense": 410
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_070",
+    "name": "equip.armor_070.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_070",
+    "stats": {
+      "hp": 740,
+      "defense": 420,
+      "speed": -36
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_071",
+    "name": "equip.armor_071.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_071",
+    "stats": {
+      "hp": 760,
+      "defense": 430
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_072",
+    "name": "equip.armor_072.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_072",
+    "stats": {
+      "hp": 780,
+      "defense": 440
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_073",
+    "name": "equip.armor_073.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_073",
+    "stats": {
+      "hp": 800,
+      "defense": 450,
+      "speed": -39
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_083",
+    "name": "equip.armor_083.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_083",
+    "stats": {
+      "hp": 850,
+      "defense": 470
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_084",
+    "name": "equip.armor_084.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_084",
+    "stats": {
+      "hp": 870,
+      "defense": 480
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.armor_085",
+    "name": "equip.armor_085.name",
+    "slot": "armor",
+    "icon": "icon:item/armor_085",
+    "stats": {
+      "hp": 890,
+      "defense": 490,
+      "speed": -42
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  }
+]

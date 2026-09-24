@@ -1,0 +1,1213 @@
+[
+  {
+    "id": "equip.sword_000",
+    "name": "equip.sword_000.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_000",
+    "stats": {
+      "attack": 100,
+      "critRate": 100
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 50,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_001",
+    "name": "equip.sword_001.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_001",
+    "stats": {
+      "attack": 120,
+      "critRate": 120
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 60,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_002",
+    "name": "equip.sword_002.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_002",
+    "stats": {
+      "attack": 140,
+      "critRate": 140,
+      "speed": 9
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 70,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_003",
+    "name": "equip.sword_003.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_003",
+    "stats": {
+      "attack": 160,
+      "critRate": 160
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 80,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_015",
+    "name": "equip.sword_015.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_015",
+    "stats": {
+      "attack": 200,
+      "critRate": 200,
+      "speed": 15
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 90,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_016",
+    "name": "equip.sword_016.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_016",
+    "stats": {
+      "attack": 220,
+      "critRate": 220
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_017",
+    "name": "equip.sword_017.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_017",
+    "stats": {
+      "attack": 240,
+      "critRate": 240,
+      "hp": 100
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 110,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_018",
+    "name": "equip.sword_018.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_018",
+    "stats": {
+      "attack": 260,
+      "critRate": 260
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 120,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_030",
+    "name": "equip.sword_030.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_030",
+    "stats": {
+      "attack": 300,
+      "critRate": 300,
+      "speed": 24
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 130,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_031",
+    "name": "equip.sword_031.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_031",
+    "stats": {
+      "attack": 320,
+      "critRate": 320
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 140,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_032",
+    "name": "equip.sword_032.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_032",
+    "stats": {
+      "attack": 340,
+      "critRate": 340,
+      "hp": 150
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 150,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_033",
+    "name": "equip.sword_033.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_033",
+    "stats": {
+      "attack": 360,
+      "critRate": 360
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 160,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_045",
+    "name": "equip.sword_045.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_045",
+    "stats": {
+      "attack": 400,
+      "critRate": 400,
+      "speed": 30
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 170,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_046",
+    "name": "equip.sword_046.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_046",
+    "stats": {
+      "attack": 420,
+      "critRate": 420
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 180,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_047",
+    "name": "equip.sword_047.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_047",
+    "stats": {
+      "attack": 440,
+      "critRate": 440,
+      "hp": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 190,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_048",
+    "name": "equip.sword_048.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_048",
+    "stats": {
+      "attack": 460,
+      "critRate": 460
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 200,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_060",
+    "name": "equip.sword_060.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_060",
+    "stats": {
+      "attack": 500,
+      "critRate": 500,
+      "speed": 36
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 210,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_061",
+    "name": "equip.sword_061.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_061",
+    "stats": {
+      "attack": 520,
+      "critRate": 520
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 220,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_062",
+    "name": "equip.sword_062.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_062",
+    "stats": {
+      "attack": 540,
+      "critRate": 540,
+      "hp": 250
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 230,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_063",
+    "name": "equip.sword_063.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_063",
+    "stats": {
+      "attack": 560,
+      "critRate": 560
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 340,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_064",
+    "name": "equip.sword_064.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_064",
+    "stats": {
+      "attack": 580,
+      "critRate": 580,
+      "speed": 45
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 230,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_065",
+    "name": "equip.sword_065.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_065",
+    "stats": {
+      "attack": 600,
+      "critRate": 600
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 330,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_075",
+    "name": "equip.sword_075.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_075",
+    "stats": {
+      "attack": 650,
+      "critRate": 640,
+      "hp": 300
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 350,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_076",
+    "name": "equip.sword_076.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_076",
+    "stats": {
+      "attack": 670,
+      "critRate": 660
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 400,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_077",
+    "name": "equip.sword_077.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_077",
+    "stats": {
+      "attack": 690,
+      "critRate": 680,
+      "speed": 54
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 500,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_078",
+    "name": "equip.sword_078.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_078",
+    "stats": {
+      "attack": 710,
+      "critRate": 700
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 600,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_079",
+    "name": "equip.sword_079.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_079",
+    "stats": {
+      "attack": 730,
+      "critRate": 720,
+      "hp": 350
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 700,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_080",
+    "name": "equip.sword_080.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_080",
+    "stats": {
+      "attack": 750,
+      "critRate": 740
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 800,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sword_081",
+    "name": "equip.sword_081.name",
+    "slot": "weapon",
+    "icon": "icon:item/sword_081",
+    "stats": {
+      "attack": 770,
+      "critRate": 760,
+      "speed": 60
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 900,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.spear_105",
+    "name": "equip.spear_105.name",
+    "slot": "weapon",
+    "icon": "icon:item/spear_105",
+    "stats": {
+      "attack": 500,
+      "critRate": 400,
+      "speed": 30
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.spear_106",
+    "name": "equip.spear_106.name",
+    "slot": "weapon",
+    "icon": "icon:item/spear_106",
+    "stats": {
+      "attack": 520,
+      "critRate": 420
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.spear_107",
+    "name": "equip.spear_107.name",
+    "slot": "weapon",
+    "icon": "icon:item/spear_107",
+    "stats": {
+      "attack": 540,
+      "critRate": 440,
+      "hp": 150
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.spear_108",
+    "name": "equip.spear_108.name",
+    "slot": "weapon",
+    "icon": "icon:item/spear_108",
+    "stats": {
+      "attack": 560,
+      "critRate": 460
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.trident_120",
+    "name": "equip.trident_120.name",
+    "slot": "weapon",
+    "icon": "icon:item/trident_120",
+    "stats": {
+      "attack": 600,
+      "critRate": 500,
+      "speed": 36
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.trident_121",
+    "name": "equip.trident_121.name",
+    "slot": "weapon",
+    "icon": "icon:item/trident_121",
+    "stats": {
+      "attack": 620,
+      "critRate": 520
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.trident_122",
+    "name": "equip.trident_122.name",
+    "slot": "weapon",
+    "icon": "icon:item/trident_122",
+    "stats": {
+      "attack": 640,
+      "critRate": 540,
+      "hp": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.trident_150",
+    "name": "equip.trident_150.name",
+    "slot": "weapon",
+    "icon": "icon:item/trident_150",
+    "stats": {
+      "attack": 700,
+      "critRate": 600,
+      "speed": 45
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_135",
+    "name": "equip.knife_135.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_135",
+    "stats": {
+      "attack": 400,
+      "critRate": 600,
+      "speed": 45
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_136",
+    "name": "equip.knife_136.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_136",
+    "stats": {
+      "attack": 420,
+      "critRate": 620
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_137",
+    "name": "equip.knife_137.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_137",
+    "stats": {
+      "attack": 440,
+      "critRate": 640,
+      "speed": 51
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_138",
+    "name": "equip.knife_138.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_138",
+    "stats": {
+      "attack": 460,
+      "critRate": 660
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_139",
+    "name": "equip.knife_139.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_139",
+    "stats": {
+      "attack": 480,
+      "critRate": 680,
+      "speed": 54
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.knife_140",
+    "name": "equip.knife_140.name",
+    "slot": "weapon",
+    "icon": "icon:item/knife_140",
+    "stats": {
+      "attack": 500,
+      "critRate": 700
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sickle_151",
+    "name": "equip.sickle_151.name",
+    "slot": "weapon",
+    "icon": "icon:item/sickle_151",
+    "stats": {
+      "attack": 450,
+      "critRate": 500,
+      "speed": 36
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.sickle_152",
+    "name": "equip.sickle_152.name",
+    "slot": "weapon",
+    "icon": "icon:item/sickle_152",
+    "stats": {
+      "attack": 470,
+      "critRate": 520
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_180",
+    "name": "equip.axe_180.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_180",
+    "stats": {
+      "attack": 600,
+      "critRate": 400,
+      "hp": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_181",
+    "name": "equip.axe_181.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_181",
+    "stats": {
+      "attack": 620,
+      "critRate": 420
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_182",
+    "name": "equip.axe_182.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_182",
+    "stats": {
+      "attack": 640,
+      "critRate": 440,
+      "hp": 220
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_183",
+    "name": "equip.axe_183.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_183",
+    "stats": {
+      "attack": 660,
+      "critRate": 460
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_184",
+    "name": "equip.axe_184.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_184",
+    "stats": {
+      "attack": 680,
+      "critRate": 480,
+      "hp": 240
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_195",
+    "name": "equip.axe_195.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_195",
+    "stats": {
+      "attack": 700,
+      "critRate": 500,
+      "hp": 250
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_196",
+    "name": "equip.axe_196.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_196",
+    "stats": {
+      "attack": 720,
+      "critRate": 520
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_197",
+    "name": "equip.axe_197.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_197",
+    "stats": {
+      "attack": 740,
+      "critRate": 540,
+      "hp": 270
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_198",
+    "name": "equip.axe_198.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_198",
+    "stats": {
+      "attack": 760,
+      "critRate": 560
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_199",
+    "name": "equip.axe_199.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_199",
+    "stats": {
+      "attack": 780,
+      "critRate": 580,
+      "hp": 290
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_210",
+    "name": "equip.axe_210.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_210",
+    "stats": {
+      "attack": 800,
+      "critRate": 600,
+      "hp": 300
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_211",
+    "name": "equip.axe_211.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_211",
+    "stats": {
+      "attack": 820,
+      "critRate": 620
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_212",
+    "name": "equip.axe_212.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_212",
+    "stats": {
+      "attack": 840,
+      "critRate": 640,
+      "hp": 320
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_213",
+    "name": "equip.axe_213.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_213",
+    "stats": {
+      "attack": 860,
+      "critRate": 660
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_214",
+    "name": "equip.axe_214.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_214",
+    "stats": {
+      "attack": 880,
+      "critRate": 680,
+      "hp": 340
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.axe_215",
+    "name": "equip.axe_215.name",
+    "slot": "weapon",
+    "icon": "icon:item/axe_215",
+    "stats": {
+      "attack": 900,
+      "critRate": 700
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_240",
+    "name": "equip.bow_240.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_240",
+    "stats": {
+      "attack": 500,
+      "critRate": 600,
+      "speed": 45
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_241",
+    "name": "equip.bow_241.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_241",
+    "stats": {
+      "attack": 520,
+      "critRate": 620
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_242",
+    "name": "equip.bow_242.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_242",
+    "stats": {
+      "attack": 540,
+      "critRate": 640,
+      "speed": 51
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_243",
+    "name": "equip.bow_243.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_243",
+    "stats": {
+      "attack": 560,
+      "critRate": 660
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_244",
+    "name": "equip.bow_244.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_244",
+    "stats": {
+      "attack": 580,
+      "critRate": 680,
+      "speed": 54
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_245",
+    "name": "equip.bow_245.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_245",
+    "stats": {
+      "attack": 600,
+      "critRate": 700
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.bow_246",
+    "name": "equip.bow_246.name",
+    "slot": "weapon",
+    "icon": "icon:item/bow_246",
+    "stats": {
+      "attack": 620,
+      "critRate": 720,
+      "speed": 60
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_270",
+    "name": "equip.scepter_270.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_270",
+    "stats": {
+      "effectHit": 400,
+      "attack": 300,
+      "critRate": 300
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_271",
+    "name": "equip.scepter_271.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_271",
+    "stats": {
+      "effectHit": 410,
+      "attack": 310
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_272",
+    "name": "equip.scepter_272.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_272",
+    "stats": {
+      "effectHit": 420,
+      "attack": 320,
+      "critRate": 320
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_273",
+    "name": "equip.scepter_273.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_273",
+    "stats": {
+      "effectHit": 430,
+      "attack": 330
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_285",
+    "name": "equip.scepter_285.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_285",
+    "stats": {
+      "effectHit": 450,
+      "attack": 350,
+      "critRate": 340
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_286",
+    "name": "equip.scepter_286.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_286",
+    "stats": {
+      "effectHit": 460,
+      "attack": 360
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_287",
+    "name": "equip.scepter_287.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_287",
+    "stats": {
+      "effectHit": 470,
+      "attack": 370,
+      "critRate": 360
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_288",
+    "name": "equip.scepter_288.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_288",
+    "stats": {
+      "effectHit": 480,
+      "attack": 380
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_289",
+    "name": "equip.scepter_289.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_289",
+    "stats": {
+      "effectHit": 490,
+      "attack": 390,
+      "critRate": 380
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scepter_290",
+    "name": "equip.scepter_290.name",
+    "slot": "weapon",
+    "icon": "icon:item/scepter_290",
+    "stats": {
+      "effectHit": 500,
+      "attack": 400
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  }
+]

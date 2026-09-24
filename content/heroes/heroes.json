@@ -1,0 +1,158 @@
+[
+  {
+    "id": "hero.aldric",
+    "name": "hero.aldric.name",
+    "title": "hero.aldric.title",
+    "description": "hero.aldric.description",
+    "classId": "class.warrior",
+    "baseStats": {
+      "hp": 1000,
+      "attack": 150,
+      "defense": 120,
+      "speed": 104,
+      "critRate": 40,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.warrior.slash",
+      "skill.warrior.shield_bash",
+      "skill.warrior.dawn_cleave"
+    ],
+    "sprite": "sprite:hero/aldric",
+    "starter": true
+  },
+  {
+    "id": "hero.nyx",
+    "name": "hero.nyx.name",
+    "title": "hero.nyx.title",
+    "description": "hero.nyx.description",
+    "classId": "class.assassin",
+    "baseStats": {
+      "hp": 600,
+      "attack": 200,
+      "defense": 50,
+      "speed": 128,
+      "critRate": 160,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.assassin.backstab",
+      "skill.assassin.shadow_step",
+      "skill.assassin.deathmark"
+    ],
+    "sprite": "sprite:hero/nyx",
+    "starter": false
+  },
+  {
+    "id": "hero.selene",
+    "name": "hero.selene.name",
+    "title": "hero.selene.title",
+    "description": "hero.selene.description",
+    "classId": "class.mage",
+    "baseStats": {
+      "hp": 700,
+      "attack": 250,
+      "defense": 60,
+      "speed": 107,
+      "critRate": 60,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.mage.fireball",
+      "skill.mage.arcane_storm",
+      "skill.mage.sunfall"
+    ],
+    "sprite": "sprite:hero/selene",
+    "starter": false
+  },
+  {
+    "id": "hero.fenn",
+    "name": "hero.fenn.name",
+    "title": "hero.fenn.title",
+    "description": "hero.fenn.description",
+    "classId": "class.ranger",
+    "baseStats": {
+      "hp": 650,
+      "attack": 220,
+      "defense": 40,
+      "speed": 122,
+      "critRate": 120,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.ranger.piercing_arrow",
+      "skill.ranger.volley",
+      "skill.ranger.arrow_rain"
+    ],
+    "sprite": "sprite:hero/fenn",
+    "starter": false
+  },
+  {
+    "id": "hero.mirae",
+    "name": "hero.mirae.name",
+    "title": "hero.mirae.title",
+    "description": "hero.mirae.description",
+    "classId": "class.support",
+    "baseStats": {
+      "hp": 750,
+      "attack": 80,
+      "defense": 60,
+      "speed": 110,
+      "critRate": 20,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.support.lamp_strike",
+      "skill.support.mend",
+      "skill.support.swift_hymn"
+    ],
+    "sprite": "sprite:hero/mirae",
+    "starter": false
+  },
+  {
+    "id": "hero.borin",
+    "name": "hero.borin.name",
+    "title": "hero.borin.title",
+    "description": "hero.borin.description",
+    "classId": "class.tank",
+    "baseStats": {
+      "hp": 1200,
+      "attack": 70,
+      "defense": 200,
+      "speed": 95,
+      "critRate": 20,
+      "critDamage": 1500,
+      "accuracy": 0,
+      "evasion": 0,
+      "effectHit": 0,
+      "effectResistance": 0
+    },
+    "skills": [
+      "skill.tank.shield_slam",
+      "skill.tank.provoke",
+      "skill.tank.iron_wall"
+    ],
+    "sprite": "sprite:hero/borin",
+    "starter": false
+  }
+]

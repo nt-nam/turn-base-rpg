@@ -1,0 +1,77 @@
+[
+  {
+    "id": "skill.mage.fireball",
+    "name": "skill.mage.fireball.name",
+    "description": "skill.mage.fireball.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 1000,
+        "hits": 1
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.burn",
+        "chance": 300,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:yellow/attack"
+  },
+  {
+    "id": "skill.mage.arcane_storm",
+    "name": "skill.mage.arcane_storm.name",
+    "description": "skill.mage.arcane_storm.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 3,
+    "targeting": {
+      "kind": "all_enemies"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 550,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:yellow/explode"
+  },
+  {
+    "id": "skill.mage.sunfall",
+    "name": "skill.mage.sunfall.name",
+    "description": "skill.mage.sunfall.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "all_enemies"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 1200,
+        "hits": 1
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.burn",
+        "chance": 800,
+        "onSelf": false
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.silence",
+        "chance": 350,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:yellow/ultimate"
+  }
+]

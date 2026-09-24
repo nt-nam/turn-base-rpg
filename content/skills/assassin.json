@@ -1,0 +1,77 @@
+[
+  {
+    "id": "skill.assassin.backstab",
+    "name": "skill.assassin.backstab.name",
+    "description": "skill.assassin.backstab.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 1000,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:pink/attack"
+  },
+  {
+    "id": "skill.assassin.shadow_step",
+    "name": "skill.assassin.shadow_step.name",
+    "description": "skill.assassin.shadow_step.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 2,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "apply_status",
+        "status": "status.evasion_up",
+        "chance": 1000,
+        "onSelf": true
+      },
+      {
+        "kind": "damage",
+        "power": 650,
+        "hits": 2
+      }
+    ],
+    "vfx": "vfx:pink/attack_big"
+  },
+  {
+    "id": "skill.assassin.deathmark",
+    "name": "skill.assassin.deathmark.name",
+    "description": "skill.assassin.deathmark.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "apply_status",
+        "status": "status.crit_up",
+        "chance": 1000,
+        "onSelf": true
+      },
+      {
+        "kind": "damage",
+        "power": 700,
+        "hits": 3
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.bleed",
+        "chance": 700,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:pink/ultimate"
+  }
+]

@@ -1,0 +1,151 @@
+[
+  {
+    "id": "status.stun",
+    "name": "status.stun.name",
+    "kind": "stun",
+    "durationTurns": 1,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.silence",
+    "name": "status.silence.name",
+    "kind": "silence",
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.taunt",
+    "name": "status.taunt.name",
+    "kind": "taunt",
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.shield",
+    "name": "status.shield.name",
+    "kind": "shield",
+    "magnitude": 1500,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.burn",
+    "name": "status.burn.name",
+    "kind": "damage_over_time",
+    "magnitude": 60,
+    "durationTurns": 3,
+    "maxStacks": 3,
+    "dispellable": true
+  },
+  {
+    "id": "status.poison",
+    "name": "status.poison.name",
+    "kind": "damage_over_time",
+    "magnitude": 40,
+    "durationTurns": 4,
+    "maxStacks": 5,
+    "dispellable": true
+  },
+  {
+    "id": "status.bleed",
+    "name": "status.bleed.name",
+    "kind": "damage_over_time",
+    "magnitude": 80,
+    "durationTurns": 2,
+    "maxStacks": 2,
+    "dispellable": true
+  },
+  {
+    "id": "status.regen",
+    "name": "status.regen.name",
+    "kind": "heal_over_time",
+    "magnitude": 50,
+    "durationTurns": 3,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.attack_up",
+    "name": "status.attack_up.name",
+    "kind": "stat_modifier",
+    "stat": "attack",
+    "magnitude": 300,
+    "durationTurns": 3,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.attack_down",
+    "name": "status.attack_down.name",
+    "kind": "stat_modifier",
+    "stat": "attack",
+    "magnitude": -250,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.defense_up",
+    "name": "status.defense_up.name",
+    "kind": "stat_modifier",
+    "stat": "defense",
+    "magnitude": 400,
+    "durationTurns": 3,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.defense_down",
+    "name": "status.defense_down.name",
+    "kind": "stat_modifier",
+    "stat": "defense",
+    "magnitude": -300,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.speed_up",
+    "name": "status.speed_up.name",
+    "kind": "stat_modifier",
+    "stat": "speed",
+    "magnitude": 250,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.speed_down",
+    "name": "status.speed_down.name",
+    "kind": "stat_modifier",
+    "stat": "speed",
+    "magnitude": -250,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.crit_up",
+    "name": "status.crit_up.name",
+    "kind": "stat_bonus",
+    "stat": "critRate",
+    "magnitude": 250,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  },
+  {
+    "id": "status.evasion_up",
+    "name": "status.evasion_up.name",
+    "kind": "stat_bonus",
+    "stat": "evasion",
+    "magnitude": 300,
+    "durationTurns": 2,
+    "maxStacks": 1,
+    "dispellable": true
+  }
+]

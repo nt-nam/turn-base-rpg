@@ -1,0 +1,314 @@
+[
+  {
+    "id": "encounter.ashwaste_01.e0",
+    "name": "encounter.ashwaste_01.e0.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 0,
+    "recommendedLevel": 5,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 5,
+        "star": 3,
+        "cell": {
+          "lane": 1,
+          "depth": 1
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 100
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 5
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_01.e1",
+    "name": "encounter.ashwaste_01.e1.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 1,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 10
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_01.e2",
+    "name": "encounter.ashwaste_01.e2.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 2,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      },
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 2
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_01.e3",
+    "name": "encounter.ashwaste_01.e3.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 3,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_tank",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      },
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 30
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_01.e4",
+    "name": "encounter.ashwaste_01.e4.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 4,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_assassin",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      },
+      {
+        "enemy": "enemy.bandit_tank",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 40
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_01.e5",
+    "name": "encounter.ashwaste_01.e5.name",
+    "map": "map.ashwaste_01",
+    "mapObjectId": 5,
+    "recommendedLevel": 1,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_mage",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 2
+        }
+      },
+      {
+        "enemy": "enemy.bandit_warrior",
+        "level": 1,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 50
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_02.e1",
+    "name": "encounter.ashwaste_02.e1.name",
+    "map": "map.ashwaste_02",
+    "mapObjectId": 1,
+    "recommendedLevel": 3,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_ranger",
+        "level": 3,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 1
+        }
+      },
+      {
+        "enemy": "enemy.bandit_ranger",
+        "level": 3,
+        "star": 0,
+        "cell": {
+          "lane": 2,
+          "depth": 1
+        }
+      },
+      {
+        "enemy": "enemy.bandit_warrior",
+        "level": 3,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 0
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 80
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 2
+      }
+    ]
+  },
+  {
+    "id": "encounter.ashwaste_02.e2",
+    "name": "encounter.ashwaste_02.e2.name",
+    "map": "map.ashwaste_02",
+    "mapObjectId": 2,
+    "recommendedLevel": 4,
+    "enemies": [
+      {
+        "enemy": "enemy.bandit_tank",
+        "level": 4,
+        "star": 0,
+        "cell": {
+          "lane": 1,
+          "depth": 0
+        }
+      },
+      {
+        "enemy": "enemy.bandit_mage",
+        "level": 4,
+        "star": 0,
+        "cell": {
+          "lane": 0,
+          "depth": 2
+        }
+      },
+      {
+        "enemy": "enemy.bandit_mage",
+        "level": 4,
+        "star": 0,
+        "cell": {
+          "lane": 2,
+          "depth": 2
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "kind": "currency",
+        "id": "currency.gold",
+        "quantity": 120
+      },
+      {
+        "kind": "currency",
+        "id": "currency.gem",
+        "quantity": 3
+      }
+    ]
+  }
+]

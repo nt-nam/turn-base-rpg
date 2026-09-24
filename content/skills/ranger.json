@@ -1,0 +1,66 @@
+[
+  {
+    "id": "skill.ranger.piercing_arrow",
+    "name": "skill.ranger.piercing_arrow.name",
+    "description": "skill.ranger.piercing_arrow.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "enemy_lane"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 800,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:green/attack"
+  },
+  {
+    "id": "skill.ranger.volley",
+    "name": "skill.ranger.volley.name",
+    "description": "skill.ranger.volley.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 2,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 650,
+        "hits": 2
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.defense_down",
+        "chance": 800,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:green/attack_big"
+  },
+  {
+    "id": "skill.ranger.arrow_rain",
+    "name": "skill.ranger.arrow_rain.name",
+    "description": "skill.ranger.arrow_rain.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "random_enemies",
+      "count": 5
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 750,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:green/ultimate"
+  }
+]

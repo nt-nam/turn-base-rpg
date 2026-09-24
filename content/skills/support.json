@@ -1,0 +1,74 @@
+[
+  {
+    "id": "skill.support.lamp_strike",
+    "name": "skill.support.lamp_strike.name",
+    "description": "skill.support.lamp_strike.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 700,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:blue/attack"
+  },
+  {
+    "id": "skill.support.mend",
+    "name": "skill.support.mend.name",
+    "description": "skill.support.mend.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 2,
+    "targeting": {
+      "kind": "lowest_hp_allies",
+      "count": 2
+    },
+    "effects": [
+      {
+        "kind": "heal",
+        "power": 1600
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.regen",
+        "chance": 1000,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:blue/heal"
+  },
+  {
+    "id": "skill.support.swift_hymn",
+    "name": "skill.support.swift_hymn.name",
+    "description": "skill.support.swift_hymn.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "all_allies"
+    },
+    "effects": [
+      {
+        "kind": "heal",
+        "power": 1000
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.speed_up",
+        "chance": 1000,
+        "onSelf": false
+      },
+      {
+        "kind": "gain_energy",
+        "amount": 15
+      }
+    ],
+    "vfx": "vfx:blue/ultimate"
+  }
+]

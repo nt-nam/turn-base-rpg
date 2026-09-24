@@ -1,0 +1,32 @@
+[
+  {
+    "id": "currency.gold",
+    "name": "currency.gold.name",
+    "description": "currency.gold.description",
+    "icon": "icon:currency/gold"
+  },
+  {
+    "id": "currency.gem",
+    "name": "currency.gem.name",
+    "description": "currency.gem.description",
+    "icon": "icon:currency/gem"
+  },
+  {
+    "id": "currency.energy",
+    "name": "currency.energy.name",
+    "description": "currency.energy.description",
+    "icon": "icon:currency/energy"
+  },
+  {
+    "id": "currency.guild_token",
+    "name": "currency.guild_token.name",
+    "description": "currency.guild_token.description",
+    "icon": "icon:currency/guild_token"
+  },
+  {
+    "id": "currency.event_token",
+    "name": "currency.event_token.name",
+    "description": "currency.event_token.description",
+    "icon": "icon:currency/event_token"
+  }
+]

@@ -1,0 +1,71 @@
+[
+  {
+    "id": "skill.warrior.slash",
+    "name": "skill.warrior.slash.name",
+    "description": "skill.warrior.slash.description",
+    "slot": "basic",
+    "energyCost": 0,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 1000,
+        "hits": 1
+      }
+    ],
+    "vfx": "vfx:orange/attack"
+  },
+  {
+    "id": "skill.warrior.shield_bash",
+    "name": "skill.warrior.shield_bash.name",
+    "description": "skill.warrior.shield_bash.description",
+    "slot": "skill",
+    "energyCost": 0,
+    "cooldownTurns": 2,
+    "targeting": {
+      "kind": "single_enemy"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 900,
+        "hits": 1
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.defense_up",
+        "chance": 1000,
+        "onSelf": true
+      }
+    ],
+    "vfx": "vfx:orange/attack_big"
+  },
+  {
+    "id": "skill.warrior.dawn_cleave",
+    "name": "skill.warrior.dawn_cleave.name",
+    "description": "skill.warrior.dawn_cleave.description",
+    "slot": "ultimate",
+    "energyCost": 100,
+    "cooldownTurns": 0,
+    "targeting": {
+      "kind": "enemy_row"
+    },
+    "effects": [
+      {
+        "kind": "damage",
+        "power": 1800,
+        "hits": 1
+      },
+      {
+        "kind": "apply_status",
+        "status": "status.stun",
+        "chance": 500,
+        "onSelf": false
+      }
+    ],
+    "vfx": "vfx:orange/ultimate"
+  }
+]

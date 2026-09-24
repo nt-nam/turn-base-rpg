@@ -1,0 +1,50 @@
+[
+  {
+    "id": "class.warrior",
+    "name": "class.warrior.name",
+    "role": "bruiser",
+    "counters": [
+      "class.assassin",
+      "class.mage"
+    ]
+  },
+  {
+    "id": "class.assassin",
+    "name": "class.assassin.name",
+    "role": "burst",
+    "counters": [
+      "class.ranger",
+      "class.support"
+    ]
+  },
+  {
+    "id": "class.mage",
+    "name": "class.mage.name",
+    "role": "caster",
+    "counters": [
+      "class.ranger",
+      "class.assassin"
+    ]
+  },
+  {
+    "id": "class.ranger",
+    "name": "class.ranger.name",
+    "role": "marksman",
+    "counters": [
+      "class.warrior",
+      "class.tank"
+    ]
+  },
+  {
+    "id": "class.support",
+    "name": "class.support.name",
+    "role": "healer",
+    "counters": []
+  },
+  {
+    "id": "class.tank",
+    "name": "class.tank.name",
+    "role": "guardian",
+    "counters": []
+  }
+]

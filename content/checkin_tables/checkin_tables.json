@@ -1,0 +1,308 @@
+[
+  {
+    "id": "checkin.standard_30",
+    "name": "checkin.standard_30.name",
+    "days": [
+      {
+        "day": 1,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 100
+          }
+        ]
+      },
+      {
+        "day": 2,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 500
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 150
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 20
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 700
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 200
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 25
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 800
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 250
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 30
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 1000
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 300
+          }
+        ]
+      },
+      {
+        "day": 14,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 35
+          }
+        ]
+      },
+      {
+        "day": 15,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 1200
+          }
+        ]
+      },
+      {
+        "day": 16,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 350
+          }
+        ]
+      },
+      {
+        "day": 17,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "day": 18,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 1500
+          }
+        ]
+      },
+      {
+        "day": 19,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 400
+          }
+        ]
+      },
+      {
+        "day": 20,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 50
+          }
+        ]
+      },
+      {
+        "day": 21,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 1800
+          }
+        ]
+      },
+      {
+        "day": 22,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 450
+          }
+        ]
+      },
+      {
+        "day": 23,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 60
+          }
+        ]
+      },
+      {
+        "day": 24,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 2000
+          }
+        ]
+      },
+      {
+        "day": 25,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 500
+          }
+        ]
+      },
+      {
+        "day": 26,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 70
+          }
+        ]
+      },
+      {
+        "day": 27,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 2200
+          }
+        ]
+      },
+      {
+        "day": 28,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 550
+          }
+        ]
+      },
+      {
+        "day": 29,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 80
+          }
+        ]
+      },
+      {
+        "day": 30,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gold",
+            "quantity": 2500
+          }
+        ]
+      }
+    ]
+  }
+]

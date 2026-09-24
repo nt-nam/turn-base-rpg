@@ -1,0 +1,676 @@
+[
+  {
+    "id": "item.cup_t1",
+    "name": "item.cup_t1.name",
+    "category": "cup",
+    "tier": 1,
+    "icon": "icon:item/cup_323",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.cup_t2",
+    "name": "item.cup_t2.name",
+    "category": "cup",
+    "tier": 2,
+    "icon": "icon:item/cup_324",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.cup_t3",
+    "name": "item.cup_t3.name",
+    "category": "cup",
+    "tier": 3,
+    "icon": "icon:item/cup_325",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.cup_t4",
+    "name": "item.cup_t4.name",
+    "category": "cup",
+    "tier": 4,
+    "icon": "icon:item/cup_326",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.shovel_t1",
+    "name": "item.shovel_t1.name",
+    "category": "shovel",
+    "tier": 1,
+    "icon": "icon:item/shovel_338",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.shovel_t2",
+    "name": "item.shovel_t2.name",
+    "category": "shovel",
+    "tier": 2,
+    "icon": "icon:item/shovel_339",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.shovel_t3",
+    "name": "item.shovel_t3.name",
+    "category": "shovel",
+    "tier": 3,
+    "icon": "icon:item/shovel_340",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.shovel_t4",
+    "name": "item.shovel_t4.name",
+    "category": "shovel",
+    "tier": 4,
+    "icon": "icon:item/shovel_341",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.food_t1",
+    "name": "item.food_t1.name",
+    "category": "food",
+    "tier": 1,
+    "icon": "icon:item/food_315",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 100
+    }
+  },
+  {
+    "id": "item.food_t2",
+    "name": "item.food_t2.name",
+    "category": "food",
+    "tier": 2,
+    "icon": "icon:item/food_316",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 200,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 200
+    }
+  },
+  {
+    "id": "item.food_t3",
+    "name": "item.food_t3.name",
+    "category": "food",
+    "tier": 3,
+    "icon": "icon:item/food_317",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 300,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 300
+    }
+  },
+  {
+    "id": "item.food_t4",
+    "name": "item.food_t4.name",
+    "category": "food",
+    "tier": 4,
+    "icon": "icon:item/food_318",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 400,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 400
+    }
+  },
+  {
+    "id": "item.food_t5",
+    "name": "item.food_t5.name",
+    "category": "food",
+    "tier": 5,
+    "icon": "icon:item/food_319",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 500,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 500
+    }
+  },
+  {
+    "id": "item.food_t6",
+    "name": "item.food_t6.name",
+    "category": "food",
+    "tier": 6,
+    "icon": "icon:item/food_320",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 600,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 600
+    }
+  },
+  {
+    "id": "item.food_t7",
+    "name": "item.food_t7.name",
+    "category": "food",
+    "tier": 7,
+    "icon": "icon:item/food_321",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 700,
+      "listed": true
+    },
+    "use": {
+      "kind": "hero_exp",
+      "amount": 700
+    }
+  },
+  {
+    "id": "item.metal_t1",
+    "name": "item.metal_t1.name",
+    "category": "metal",
+    "tier": 1,
+    "icon": "icon:item/metal_330",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 1
+  },
+  {
+    "id": "item.metal_t2",
+    "name": "item.metal_t2.name",
+    "category": "metal",
+    "tier": 2,
+    "icon": "icon:item/metal_331",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 2
+  },
+  {
+    "id": "item.metal_t3",
+    "name": "item.metal_t3.name",
+    "category": "metal",
+    "tier": 3,
+    "icon": "icon:item/metal_332",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 3
+  },
+  {
+    "id": "item.metal_t4",
+    "name": "item.metal_t4.name",
+    "category": "metal",
+    "tier": 4,
+    "icon": "icon:item/metal_333",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 4
+  },
+  {
+    "id": "item.metal_t5",
+    "name": "item.metal_t5.name",
+    "category": "metal",
+    "tier": 5,
+    "icon": "icon:item/metal_334",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 5
+  },
+  {
+    "id": "item.metal_t6",
+    "name": "item.metal_t6.name",
+    "category": "metal",
+    "tier": 6,
+    "icon": "icon:item/metal_335",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 6
+  },
+  {
+    "id": "item.water_t1",
+    "name": "item.water_t1.name",
+    "category": "water",
+    "tier": 1,
+    "icon": "icon:item/water_345",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 50
+  },
+  {
+    "id": "item.water_t2",
+    "name": "item.water_t2.name",
+    "category": "water",
+    "tier": 2,
+    "icon": "icon:item/water_346",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 200
+  },
+  {
+    "id": "item.water_t3",
+    "name": "item.water_t3.name",
+    "category": "water",
+    "tier": 3,
+    "icon": "icon:item/water_347",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 800
+  },
+  {
+    "id": "item.water_t4",
+    "name": "item.water_t4.name",
+    "category": "water",
+    "tier": 4,
+    "icon": "icon:item/water_348",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 3200
+  },
+  {
+    "id": "item.water_t5",
+    "name": "item.water_t5.name",
+    "category": "water",
+    "tier": 5,
+    "icon": "icon:item/water_349",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 12800
+  },
+  {
+    "id": "item.water_t6",
+    "name": "item.water_t6.name",
+    "category": "water",
+    "tier": 6,
+    "icon": "icon:item/water_350",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 51200
+  },
+  {
+    "id": "item.diamond_t1",
+    "name": "item.diamond_t1.name",
+    "category": "diamond",
+    "tier": 1,
+    "icon": "icon:item/diamond_360",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 1
+  },
+  {
+    "id": "item.diamond_t2",
+    "name": "item.diamond_t2.name",
+    "category": "diamond",
+    "tier": 2,
+    "icon": "icon:item/diamond_361",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 2
+  },
+  {
+    "id": "item.diamond_t3",
+    "name": "item.diamond_t3.name",
+    "category": "diamond",
+    "tier": 3,
+    "icon": "icon:item/diamond_362",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 3
+  },
+  {
+    "id": "item.diamond_t4",
+    "name": "item.diamond_t4.name",
+    "category": "diamond",
+    "tier": 4,
+    "icon": "icon:item/diamond_363",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 4
+  },
+  {
+    "id": "item.diamond_t5",
+    "name": "item.diamond_t5.name",
+    "category": "diamond",
+    "tier": 5,
+    "icon": "icon:item/diamond_364",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 5
+  },
+  {
+    "id": "item.gemstore_t1",
+    "name": "item.gemstore_t1.name",
+    "category": "gemstore",
+    "tier": 1,
+    "icon": "icon:item/gemstore_375",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 1
+  },
+  {
+    "id": "item.gemstore_t2",
+    "name": "item.gemstore_t2.name",
+    "category": "gemstore",
+    "tier": 2,
+    "icon": "icon:item/gemstore_376",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 2
+  },
+  {
+    "id": "item.gemstore_t3",
+    "name": "item.gemstore_t3.name",
+    "category": "gemstore",
+    "tier": 3,
+    "icon": "icon:item/gemstore_377",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 3
+  },
+  {
+    "id": "item.gemstore_t4",
+    "name": "item.gemstore_t4.name",
+    "category": "gemstore",
+    "tier": 4,
+    "icon": "icon:item/gemstore_378",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 4
+  },
+  {
+    "id": "item.gemstore_t5",
+    "name": "item.gemstore_t5.name",
+    "category": "gemstore",
+    "tier": 5,
+    "icon": "icon:item/gemstore_379",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 5
+  },
+  {
+    "id": "item.gem_t1",
+    "name": "item.gem_t1.name",
+    "category": "gem",
+    "tier": 1,
+    "icon": "icon:item/gem_390",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 1
+  },
+  {
+    "id": "item.gem_t2",
+    "name": "item.gem_t2.name",
+    "category": "gem",
+    "tier": 2,
+    "icon": "icon:item/gem_391",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 2
+  },
+  {
+    "id": "item.gem_t3",
+    "name": "item.gem_t3.name",
+    "category": "gem",
+    "tier": 3,
+    "icon": "icon:item/gem_392",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 3
+  },
+  {
+    "id": "item.gem_t4",
+    "name": "item.gem_t4.name",
+    "category": "gem",
+    "tier": 4,
+    "icon": "icon:item/gem_393",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 4
+  },
+  {
+    "id": "item.gem_t5",
+    "name": "item.gem_t5.name",
+    "category": "gem",
+    "tier": 5,
+    "icon": "icon:item/gem_394",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    },
+    "materialValue": 5
+  },
+  {
+    "id": "item.flour_t1",
+    "name": "item.flour_t1.name",
+    "category": "flour",
+    "tier": 1,
+    "icon": "icon:item/flour_405",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.flour_t2",
+    "name": "item.flour_t2.name",
+    "category": "flour",
+    "tier": 2,
+    "icon": "icon:item/flour_406",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.flour_t3",
+    "name": "item.flour_t3.name",
+    "category": "flour",
+    "tier": 3,
+    "icon": "icon:item/flour_407",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.flour_t4",
+    "name": "item.flour_t4.name",
+    "category": "flour",
+    "tier": 4,
+    "icon": "icon:item/flour_408",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.flour_t5",
+    "name": "item.flour_t5.name",
+    "category": "flour",
+    "tier": 5,
+    "icon": "icon:item/flour_409",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.key_t1",
+    "name": "item.key_t1.name",
+    "category": "key",
+    "tier": 1,
+    "icon": "icon:item/key_420",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.key_t2",
+    "name": "item.key_t2.name",
+    "category": "key",
+    "tier": 2,
+    "icon": "icon:item/key_421",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.key_t3",
+    "name": "item.key_t3.name",
+    "category": "key",
+    "tier": 3,
+    "icon": "icon:item/key_422",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.egg_t1",
+    "name": "item.egg_t1.name",
+    "category": "egg",
+    "tier": 1,
+    "icon": "icon:item/egg_423",
+    "shop": {
+      "currency": "currency.gold",
+      "price": 100,
+      "listed": false
+    }
+  },
+  {
+    "id": "item.arrowbox_t1",
+    "name": "item.arrowbox_t1.name",
+    "category": "arrowbox",
+    "tier": 1,
+    "icon": "icon:item/arrowbox_293"
+  }
+]

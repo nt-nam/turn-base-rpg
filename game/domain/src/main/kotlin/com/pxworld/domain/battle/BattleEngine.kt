@@ -86,11 +86,16 @@ object BattleEngine {
     }
 
     internal fun effectiveStat(rules: BattleRules, combatant: Combatant, kind: StatKind): Int {
-        val modifierPermille = combatant.statuses.sumOf { active ->
-            val statusKind = rules.status(active.statusId).kind
-            if (statusKind is StatusKind.StatModifier && statusKind.stat == kind) statusKind.permille * active.stacks else 0
+        var modifierPermille = 0
+        var flatBonus = 0
+        for (active in combatant.statuses) {
+            when (val statusKind = rules.status(active.statusId).kind) {
+                is StatusKind.StatModifier -> if (statusKind.stat == kind) modifierPermille += statusKind.permille * active.stacks
+                is StatusKind.StatBonus -> if (statusKind.stat == kind) flatBonus += statusKind.amount * active.stacks
+                else -> Unit
+            }
         }
-        val value = (combatant.setup.stats[kind].toLong() * (PERMILLE + modifierPermille) / PERMILLE).toInt()
+        val value = ((combatant.setup.stats[kind] + flatBonus).toLong() * (PERMILLE + modifierPermille) / PERMILLE).toInt()
         return if (kind == StatKind.SPEED) value.coerceAtLeast(1) else value.coerceAtLeast(0)
     }
 

@@ -1,0 +1,230 @@
+[
+  {
+    "id": "achievement.recruiter",
+    "name": "achievement.recruiter.name",
+    "description": "achievement.recruiter.description",
+    "counter": "heroes_recruited",
+    "tiers": [
+      {
+        "target": 5,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 20,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 50,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "achievement.slayer",
+    "name": "achievement.slayer.name",
+    "description": "achievement.slayer.description",
+    "counter": "enemies_defeated",
+    "tiers": [
+      {
+        "target": 50,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 500,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 5000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "achievement.victor",
+    "name": "achievement.victor.name",
+    "description": "achievement.victor.description",
+    "counter": "battles_won",
+    "tiers": [
+      {
+        "target": 10,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 100,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 1000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "achievement.treasurer",
+    "name": "achievement.treasurer.name",
+    "description": "achievement.treasurer.description",
+    "counter": "gold_earned",
+    "tiers": [
+      {
+        "target": 10000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 100000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 1000000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "achievement.patron",
+    "name": "achievement.patron.name",
+    "description": "achievement.patron.description",
+    "counter": "gems_spent",
+    "tiers": [
+      {
+        "target": 100,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 1000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 10000,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "achievement.armorer",
+    "name": "achievement.armorer.name",
+    "description": "achievement.armorer.description",
+    "counter": "equipment_obtained",
+    "tiers": [
+      {
+        "target": 10,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "target": 50,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 40
+          }
+        ]
+      },
+      {
+        "target": 200,
+        "rewards": [
+          {
+            "kind": "currency",
+            "id": "currency.gem",
+            "quantity": 90
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,447 @@
+[
+  {
+    "id": "equip.ring_113",
+    "name": "equip.ring_113.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_113",
+    "stats": {
+      "speed": 45,
+      "critRate": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_114",
+    "name": "equip.ring_114.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_114",
+    "stats": {
+      "speed": 48,
+      "critRate": 220
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_115",
+    "name": "equip.ring_115.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_115",
+    "stats": {
+      "speed": 51,
+      "critRate": 240,
+      "effectHit": 100
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_116",
+    "name": "equip.ring_116.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_116",
+    "stats": {
+      "speed": 54,
+      "critRate": 260
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_117",
+    "name": "equip.ring_117.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_117",
+    "stats": {
+      "speed": 57,
+      "critRate": 280
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_118",
+    "name": "equip.ring_118.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_118",
+    "stats": {
+      "speed": 60,
+      "critRate": 300,
+      "effectHit": 120
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_119",
+    "name": "equip.ring_119.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_119",
+    "stats": {
+      "speed": 63,
+      "critRate": 320
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_158",
+    "name": "equip.ring_158.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_158",
+    "stats": {
+      "speed": 75,
+      "critRate": 400,
+      "effectHit": 150
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_159",
+    "name": "equip.ring_159.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_159",
+    "stats": {
+      "speed": 78,
+      "critRate": 420
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_160",
+    "name": "equip.ring_160.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_160",
+    "stats": {
+      "speed": 81,
+      "critRate": 440,
+      "effectHit": 170
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_161",
+    "name": "equip.ring_161.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_161",
+    "stats": {
+      "speed": 84,
+      "critRate": 460
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_162",
+    "name": "equip.ring_162.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_162",
+    "stats": {
+      "speed": 87,
+      "critRate": 480
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.ring_163",
+    "name": "equip.ring_163.name",
+    "slot": "jewelry",
+    "icon": "icon:item/ring_163",
+    "stats": {
+      "speed": 90,
+      "critRate": 500,
+      "effectHit": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_128",
+    "name": "equip.necklace_128.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_128",
+    "stats": {
+      "hp": 300,
+      "effectHit": 200
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_129",
+    "name": "equip.necklace_129.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_129",
+    "stats": {
+      "hp": 320,
+      "effectHit": 210
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_130",
+    "name": "equip.necklace_130.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_130",
+    "stats": {
+      "hp": 340,
+      "effectHit": 220,
+      "speed": 30
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_131",
+    "name": "equip.necklace_131.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_131",
+    "stats": {
+      "hp": 360,
+      "effectHit": 230
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_132",
+    "name": "equip.necklace_132.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_132",
+    "stats": {
+      "hp": 380,
+      "effectHit": 240
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_133",
+    "name": "equip.necklace_133.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_133",
+    "stats": {
+      "hp": 400,
+      "effectHit": 250,
+      "speed": 36
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_173",
+    "name": "equip.necklace_173.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_173",
+    "stats": {
+      "hp": 450,
+      "effectHit": 300,
+      "speed": 45
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_174",
+    "name": "equip.necklace_174.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_174",
+    "stats": {
+      "hp": 470,
+      "effectHit": 310
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_175",
+    "name": "equip.necklace_175.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_175",
+    "stats": {
+      "hp": 490,
+      "effectHit": 320,
+      "speed": 51
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.necklace_176",
+    "name": "equip.necklace_176.name",
+    "slot": "jewelry",
+    "icon": "icon:item/necklace_176",
+    "stats": {
+      "hp": 510
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_143",
+    "name": "equip.scarf_143.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_143",
+    "stats": {
+      "speed": 60,
+      "hp": 150
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_144",
+    "name": "equip.scarf_144.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_144",
+    "stats": {
+      "speed": 63,
+      "hp": 160
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_145",
+    "name": "equip.scarf_145.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_145",
+    "stats": {
+      "speed": 66,
+      "hp": 170,
+      "defense": 100
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_146",
+    "name": "equip.scarf_146.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_146",
+    "stats": {
+      "speed": 69,
+      "hp": 180
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_147",
+    "name": "equip.scarf_147.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_147",
+    "stats": {
+      "speed": 72,
+      "hp": 190
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  },
+  {
+    "id": "equip.scarf_148",
+    "name": "equip.scarf_148.name",
+    "slot": "jewelry",
+    "icon": "icon:item/scarf_148",
+    "stats": {
+      "speed": 75,
+      "hp": 200,
+      "defense": 120
+    },
+    "shop": {
+      "currency": "currency.gem",
+      "price": 100,
+      "listed": true
+    }
+  }
+]
