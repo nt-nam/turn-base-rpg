@@ -42,7 +42,7 @@ object Tokens {
     const val VIRTUAL_HEIGHT: Float = 720f
 }
 
-class UiKit(fontFile: FileHandle) : Disposable {
+class UiKit(titleFile: FileHandle, bodyFile: FileHandle, smallFile: FileHandle) : Disposable {
 
     val skin = Skin()
     private val textures = mutableListOf<Texture>()
@@ -64,9 +64,9 @@ class UiKit(fontFile: FileHandle) : Disposable {
         NinePatch(Texture(pixmap).also { textures += it; pixmap.dispose() }, radius, radius, radius, radius)
     }
 
-    val titleFont: BitmapFont = font(fontFile, TITLE_SCALE)
-    val bodyFont: BitmapFont = font(fontFile, BODY_SCALE)
-    val smallFont: BitmapFont = font(fontFile, SMALL_SCALE)
+    val titleFont: BitmapFont = font(titleFile, TITLE_SCALE)
+    val bodyFont: BitmapFont = font(bodyFile, BODY_SCALE)
+    val smallFont: BitmapFont = font(smallFile, SMALL_SCALE)
 
     var textScalePercent: Int = 100
         private set
@@ -142,8 +142,8 @@ class UiKit(fontFile: FileHandle) : Disposable {
 
     companion object {
         const val TITLE_SCALE: Float = 1.0f
-        const val BODY_SCALE: Float = 0.68f
-        const val SMALL_SCALE: Float = 0.54f
+        const val BODY_SCALE: Float = 1.0f
+        const val SMALL_SCALE: Float = 1.0f
     }
 
     override fun dispose() {

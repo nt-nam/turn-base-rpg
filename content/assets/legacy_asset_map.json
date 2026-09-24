@@ -1,4 +1,11 @@
 {
+  "bg:battle/autumn": "backgrounds/battle_autumn.jpg",
+  "bg:battle/spring": "backgrounds/battle_spring.jpg",
+  "bg:battle/summer": "backgrounds/battle_summer.jpg",
+  "bg:battle/winter": "backgrounds/battle_winter.jpg",
+  "font:body": "fonts/pxworld_body.fnt",
+  "font:small": "fonts/pxworld_small.fnt",
+  "font:title": "fonts/pxworld_title.fnt",
   "icon:currency/energy": "atlas/ui/popup.atlas#icon_speed",
   "icon:currency/event_token": "atlas/ui/popup.atlas#icon_star",
   "icon:currency/gem": "atlas/ui/popup.atlas#gem_pink",

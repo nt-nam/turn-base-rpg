@@ -134,6 +134,7 @@ data class MapRecord(
     val asset: String,
     val legacyName: String,
     val recommendedLevel: Int,
+    val battleBackground: String? = null,
 )
 
 @Serializable

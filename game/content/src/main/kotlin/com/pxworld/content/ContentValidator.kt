@@ -23,6 +23,8 @@ object ContentValidator {
     private val OBJECTIVE_KINDS = setOf("win_encounter", "collect_item", "collect_item_category", "defeat_enemies", "reach_map", "talk_to_npc")
     private val DIALOGUE_ACTIONS = setOf("open_shop", "open_recruit", "open_bag")
     private val QUEST_CATEGORIES = setOf("main", "side")
+    const val UI_FONT_PREFIX: String = "font:"
+    val UI_FONTS: List<String> = listOf("font:title", "font:body", "font:small")
     private val ACHIEVEMENT_COUNTERS = setOf(
         "heroes_recruited", "enemies_defeated", "battles_won", "gold_earned", "gems_spent", "equipment_obtained",
     )
@@ -196,6 +198,7 @@ object ContentValidator {
         bundle.maps.forEach { map ->
             text(map.id, map.name)
             asset(map.id, map.asset)
+            map.battleBackground?.let { asset(map.id, it) }
         }
         bundle.maps.groupBy { it.legacyName }.filterValues { it.size > 1 }.forEach { (legacy, list) -> error(list.first().id, "legacy map $legacy is claimed by ${list.map { it.id }}") }
 
@@ -309,6 +312,8 @@ object ContentValidator {
             table.days.forEach { rewards(table.id, it.rewards) }
         }
 
+        UI_FONTS.forEach { asset("ui", it) }
+
         if (bundle.battleRules.size != 1) error("balance", "exactly one balance.battle_rules record is required")
         bundle.battleRules.forEach { rules ->
             if (rules.damageTakenByDepthPermille.size != GridCell.GRID_SIZE) error(rules.id, "damageTakenByDepthPermille needs ${GridCell.GRID_SIZE} values")
@@ -318,7 +323,7 @@ object ContentValidator {
 
         val usedAssets = (bundle.currencies.map { it.icon } + bundle.skills.map { it.vfx } + bundle.heroes.map { it.sprite } +
             bundle.enemies.map { it.sprite } + bundle.items.map { it.icon } + bundle.equipment.map { it.icon } + bundle.maps.map { it.asset } + bundle.npcs.map { it.sprite } + bundle.audioCues.map { it.asset }).toSet()
-        (bundle.assetMap.keys - usedAssets).forEach { warning("assets", "asset key $it is mapped but never used") }
+        (bundle.assetMap.keys - usedAssets - bundle.maps.mapNotNull { it.battleBackground }.toSet()).filterNot { it.startsWith(UI_FONT_PREFIX) }.forEach { warning("assets", "asset key $it is mapped but never used") }
 
         missingTranslations.forEach { (locale, count) -> warning("localization.$locale", "$count keys have no $locale translation yet") }
 

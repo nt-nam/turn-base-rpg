@@ -108,6 +108,8 @@ async function explore(client, capture) {
     "game.progression.achievement_detail": { achievement: "achievement.victor" },
     "game.battle.retry_confirm": encounterId && { encounter: encounterId },
     "game.world.map_transition": { map: "map.dawnvillage_01" },
+    "game.world.npc_dialogue": { npc: "npc.dawn_elder", dialogue: "dialogue.elder_relic", node: "a" },
+    "game.world.dialogue_choice": { npc: "npc.dawn_merchant", dialogue: "dialogue.merchant_trade", node: "a" },
     "game.heroes.hero_overview": firstHero && { hero: firstHero },
     "game.heroes.hero_star_up": firstHero && { hero: firstHero },
     "game.inventory.equipment_detail": state.equipment?.[0] && { equipment: state.equipment[0].instance },

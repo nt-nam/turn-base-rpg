@@ -23,12 +23,8 @@ android {
         isCoreLibraryDesugaringEnabled = true
     }
 
-    sourceSets["main"].assets.srcDirs(rootProject.file("assets"), layout.buildDirectory.dir("generated/content"))
+    sourceSets["main"].assets.srcDirs(project(":tools:asset-pipeline").layout.buildDirectory.dir("assets"), layout.buildDirectory.dir("generated/content"))
     sourceSets["main"].jniLibs.srcDirs(layout.buildDirectory.dir("natives"))
-
-    androidResources {
-        ignoreAssetsPattern = "!LaserSprites:!assets.txt"
-    }
 
     packaging {
         resources {
@@ -76,5 +72,5 @@ val bundleContentPack = tasks.register<Copy>("bundleContentPack") {
 }
 
 tasks.named("preBuild") {
-    dependsOn(copyNatives, bundleContentPack)
+    dependsOn(copyNatives, bundleContentPack, ":tools:asset-pipeline:buildAssets")
 }

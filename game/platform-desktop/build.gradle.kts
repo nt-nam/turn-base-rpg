@@ -32,13 +32,13 @@ val bundleContentPack = tasks.register<Copy>("bundleContentPack") {
 }
 
 sourceSets.main {
-    resources.srcDir(rootProject.layout.projectDirectory.dir("assets"))
+    resources.srcDir(project(":tools:asset-pipeline").layout.buildDirectory.dir("assets"))
     resources.srcDir(generatedResources)
     resources.srcDir(rootProject.layout.projectDirectory.dir("lwjgl3/src/main/resources"))
 }
 
 tasks.processResources {
-    dependsOn(bundleContentPack)
+    dependsOn(bundleContentPack, ":tools:asset-pipeline:buildAssets")
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 

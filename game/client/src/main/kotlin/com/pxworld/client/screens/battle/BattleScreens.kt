@@ -176,8 +176,14 @@ class BattleMainScreen(id: GameScreenId, context: ScreenContext, args: ScreenArg
         refreshControls()
     }
 
+    private val backdrop: com.badlogic.gdx.scenes.scene2d.utils.Drawable? = run {
+        val mapId = context.services.content.encounters.firstOrNull { it.id == encounterId }?.map
+        val key = context.services.content.maps.firstOrNull { it.id == mapId }?.battleBackground
+        key?.takeIf { context.assets.has(it) }?.let { com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable(context.assets.texture(it)) }
+    }
+
     override fun build(content: Table) {
-        content.background = context.ui.tinted(Tokens.background)
+        content.background = backdrop ?: context.ui.tinted(Tokens.background)
         val top = Table().pad(Tokens.SPACE_S)
         top.background = context.ui.tinted(Tokens.surface)
         val title = text(context.services.content.encounters.first { it.id == encounterId }.name)

@@ -17,10 +17,16 @@ import kotlin.system.exitProcess
 
 class LegacyAssetExistence(private val assetsRoot: File) : AssetExistence {
 
+    companion object {
+        val GENERATED_PREFIXES: List<String> = listOf("fonts/", "backgrounds/")
+    }
+
+
     private val atlasRegions = mutableMapOf<String, Set<String>>()
 
     override fun exists(legacyReference: String): Boolean {
         val path = legacyReference.substringBefore("#")
+        if (GENERATED_PREFIXES.any { path.startsWith(it) }) return true
         val file = File(assetsRoot, path)
         if (!file.isFile) return false
         val region = legacyReference.substringAfter("#", missingDelimiterValue = "")

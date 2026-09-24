@@ -116,7 +116,11 @@ class WorldExploreScreen(context: ScreenContext, args: ScreenArgs) : GameScreen(
         content.top()
         content.add(topBar).growX().colspan(2).row()
         objective.name = testId("objective")
-        content.add(objective).left().pad(Tokens.SPACE_XS, Tokens.SPACE_M, 0f, 0f).colspan(2).row()
+        val objectiveBox = com.badlogic.gdx.scenes.scene2d.ui.Container(objective).apply {
+            background = context.ui.tinted(Tokens.scrim, rounded = true)
+            pad(Tokens.SPACE_XS, Tokens.SPACE_S, Tokens.SPACE_XS, Tokens.SPACE_S)
+        }
+        content.add(objectiveBox).left().pad(Tokens.SPACE_XS, Tokens.SPACE_M, 0f, 0f).colspan(2).row()
         content.add().expand().colspan(2).row()
         val touchpad = Touchpad(6f, Touchpad.TouchpadStyle(context.ui.tinted(Tokens.scrim, rounded = true), context.ui.tinted(Tokens.accent, rounded = true).also {
             it.minWidth = 48f

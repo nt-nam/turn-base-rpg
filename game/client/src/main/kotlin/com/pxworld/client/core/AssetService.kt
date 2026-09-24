@@ -81,6 +81,15 @@ class AssetService(private val assetMap: Map<String, String>) : Disposable {
         Animation<TextureRegion>(FRAME_SECONDS * 0.6f, GdxArray(frames.toTypedArray<TextureRegion>()), Animation.PlayMode.NORMAL)
     }
 
+    fun texture(key: String): Texture {
+        val path = resolve(key)
+        if (!manager.isLoaded(path, Texture::class.java)) {
+            manager.load(path, Texture::class.java)
+            manager.finishLoadingAsset<Texture>(path)
+        }
+        return manager.get(path, Texture::class.java)
+    }
+
     fun map(key: String): TiledMap {
         val path = resolve(key)
         if (!manager.isLoaded(path, TiledMap::class.java)) {

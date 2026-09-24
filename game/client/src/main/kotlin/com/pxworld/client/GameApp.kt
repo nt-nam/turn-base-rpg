@@ -45,7 +45,7 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         batch = SpriteBatch()
         stage = Stage(ExtendViewport(Tokens.VIRTUAL_WIDTH, Tokens.VIRTUAL_HEIGHT), batch)
         assets = AssetService(services.content.assetMap)
-        ui = UiKit(Gdx.files.internal(FONT))
+        ui = UiKit(font("font:title"), font("font:body"), font("font:small"))
         navigator = Navigator(stage, DefaultScreens.registry())
         val session = GameSession(services)
         logs = LogBuffer(Gdx.app.applicationLogger).also { Gdx.app.applicationLogger = it }
@@ -72,6 +72,8 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         navigator.reset(GameScreenId.BOOT_SPLASH)
         services.onReady(this)
     }
+
+    private fun font(key: String) = Gdx.files.internal(assets.resolve(key))
 
     fun watchStore() {
         unsubscribe?.invoke()
@@ -133,7 +135,6 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
     }
 
     companion object {
-        const val FONT: String = "font/arial_uni_30.fnt"
         const val MAX_FRAME_SECONDS: Float = 1f / 20f
         const val PLAY_TIME_FLUSH_SECONDS: Float = 60f
         const val PREFERENCES: String = "pxworld"
