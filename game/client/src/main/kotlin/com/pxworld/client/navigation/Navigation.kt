@@ -90,6 +90,14 @@ class Navigator(private val stage: Stage, private val registry: ScreenRegistry) 
         push(id, args)
     }
 
+    fun replaceFrom(screen: GameScreen, id: GameScreenId, args: ScreenArgs = ScreenArgs.EMPTY): Boolean {
+        val index = stack.indexOf(screen)
+        if (index < 0) return false
+        while (stack.size > index) stack.removeLast().let { it.onHide(); it.dispose() }
+        push(id, args)
+        return true
+    }
+
     fun back() {
         if (stack.size <= 1) return
         stack.removeLast().let { it.onHide(); it.dispose() }

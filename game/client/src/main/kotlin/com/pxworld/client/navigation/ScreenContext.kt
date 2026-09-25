@@ -1,6 +1,7 @@
 package com.pxworld.client.navigation
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.pxworld.application.CloudSync
 import com.pxworld.application.GameRuleViolation
 import com.pxworld.application.GameStore
 import com.pxworld.application.Transition
@@ -28,6 +29,7 @@ class ScreenContext(
     val logs: LogBuffer,
     val audio: AudioDirector,
     val debugFlags: DebugFlags = DebugFlags(),
+    val cloud: CloudSync? = null,
 ) {
     val widgets: Widgets = Widgets(ui, text) { audio.playSound(AudioDirector.CLICK) }
     val store: GameStore get() = session.requireStore

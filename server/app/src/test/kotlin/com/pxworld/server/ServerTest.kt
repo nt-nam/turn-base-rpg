@@ -145,6 +145,9 @@ class ServerTest {
         assertEquals(HttpStatusCode.Forbidden, client.send("GET", "/admin/players?q=p", qa).status)
         assertEquals(HttpStatusCode.Forbidden, client.send("POST", "/content/promote", qa, """{"env":"prod","version":"x"}""").status)
         assertEquals(HttpStatusCode.OK, client.send("GET", "/admin/players?q=p", admin).status)
+        val orphan = services.tokens.issue(AccountRow("missing-account", null, null, "Ghost", Services.KIND_PLAYER, setOf(Roles.PLAYER), null, clock), clock)
+        assertEquals(HttpStatusCode.Unauthorized, client.send("GET", "/saves", orphan).status)
+        assertEquals(HttpStatusCode.Unauthorized, client.send("GET", "/me", orphan).status)
     }
 
     @Test

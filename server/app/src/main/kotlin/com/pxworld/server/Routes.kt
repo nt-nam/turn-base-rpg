@@ -63,7 +63,7 @@ fun Application.routes(services: Services) {
 
     fun ApplicationCall.activeCaller(): Caller {
         val caller = caller()
-        val account = repositories.account(caller.accountId) ?: throw Forbidden("account no longer exists")
+        val account = repositories.account(caller.accountId) ?: throw Unauthenticated("account no longer exists")
         ensureNotBanned(account)
         return caller
     }
@@ -138,7 +138,7 @@ fun Application.routes(services: Services) {
         authenticate(AUTH) {
             get("/me") {
                 val caller = call.caller()
-                call.respond(repositories.account(caller.accountId)?.view() ?: throw Forbidden("account no longer exists"))
+                call.respond(repositories.account(caller.accountId)?.view() ?: throw Unauthenticated("account no longer exists"))
             }
 
             route("/saves") {

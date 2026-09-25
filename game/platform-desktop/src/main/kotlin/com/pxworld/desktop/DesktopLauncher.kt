@@ -30,6 +30,7 @@ data class DesktopOptions(
     val automationPort: Int?,
     val width: Int,
     val height: Int,
+    val cloudUrl: String?,
 ) {
     companion object {
         fun fromEnvironment(read: (String) -> String? = System::getenv): DesktopOptions {
@@ -44,10 +45,12 @@ data class DesktopOptions(
                 automationPort = port.takeIf { flavor.automation && it > 0 },
                 width = read("PXWORLD_WIDTH")?.toIntOrNull() ?: 1280,
                 height = read("PXWORLD_HEIGHT")?.toIntOrNull() ?: 720,
+                cloudUrl = read("PXWORLD_API_URL")?.takeIf { it.isNotBlank() && it != "off" } ?: DEFAULT_CLOUD_URL.takeIf { flavor == BuildFlavor.DEV && read("PXWORLD_API_URL") != "off" },
             )
         }
 
         const val DEFAULT_AUTOMATION_PORT: Int = 47017
+        const val DEFAULT_CLOUD_URL: String = "http://localhost:8080"
     }
 }
 
@@ -72,6 +75,7 @@ fun main() {
         flavor = options.flavor,
         replays = FileReplayStore(File(options.saveDirectory, "replays")),
         onReady = { api -> driver = (api as GameApp).automation },
+        cloudUrl = options.cloudUrl,
     )
     val configuration = Lwjgl3ApplicationConfiguration().apply {
         setTitle("PXWORLD · ${options.flavor.name.lowercase()} · ${options.environment}")

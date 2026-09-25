@@ -109,6 +109,8 @@ class FileSaveStore(private val directory: File, private val keptBackups: Int = 
 
     override fun export(slot: String): String = file(slot).takeIf { it.isFile }?.readText() ?: SaveCodec.encode(load(slot))
 
+    override fun decode(exported: String): GameState = SaveCodec.decode(exported)
+
     override fun delete(slot: String) {
         (listOf(file(slot)) + (1..keptBackups).map { backup(slot, it) }).forEach { it.delete() }
     }

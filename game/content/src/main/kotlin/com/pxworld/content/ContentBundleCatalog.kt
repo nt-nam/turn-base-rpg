@@ -27,6 +27,14 @@ class ContentBundleCatalog(private val bundle: ContentBundle) : ContentCatalog {
 
     override fun heroExists(heroId: String): Boolean = heroId in heroes
 
+    override fun grantKindOf(id: String): GrantKind? = when {
+        bundle.currencies.any { it.id == id } -> GrantKind.CURRENCY
+        id in items -> GrantKind.ITEM
+        id in equipment -> GrantKind.EQUIPMENT
+        id in heroes -> GrantKind.HERO
+        else -> null
+    }
+
     override fun heroBaseStats(heroId: String): StatBlock =
         BattleContentAssembler.statBlock(requireNotNull(heroes[heroId]) { "unknown hero $heroId" }.baseStats)
 

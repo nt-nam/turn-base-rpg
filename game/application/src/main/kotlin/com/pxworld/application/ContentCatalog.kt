@@ -37,4 +37,5 @@ interface ContentCatalog {
     fun starterHeroes(): List<String>
     fun startingMap(): String
     fun defaultCheckinTable(): String
+    fun grantKindOf(id: String): GrantKind?
 }

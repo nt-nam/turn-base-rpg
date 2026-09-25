@@ -48,6 +48,13 @@ internal object FakeCatalog : ContentCatalog {
     override fun starterHeroes() = listOf("hero.aldric", "hero.selene")
     override fun startingMap() = "map.dawnvillage_01"
     override fun defaultCheckinTable() = "checkin.standard_30"
+    override fun grantKindOf(id: String) = when {
+        id.startsWith("currency.") -> GrantKind.CURRENCY
+        id.startsWith("item.") -> GrantKind.ITEM
+        id.startsWith("equip.") -> GrantKind.EQUIPMENT
+        heroExists(id) -> GrantKind.HERO
+        else -> null
+    }
 }
 
 class GameRulesTest {

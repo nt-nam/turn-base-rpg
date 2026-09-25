@@ -8,6 +8,7 @@ interface SaveRepository {
     fun save(slot: String, state: GameState)
     fun delete(slot: String)
     fun export(slot: String): String
+    fun decode(exported: String): GameState
 }
 
 fun interface GameStoreListener {

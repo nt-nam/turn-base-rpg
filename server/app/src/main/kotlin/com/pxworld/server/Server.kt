@@ -79,6 +79,7 @@ fun Application.pxworld(services: Services) {
         }
     }
     install(StatusPages) {
+        exception<Unauthenticated> { call, cause -> call.respond(HttpStatusCode.Unauthorized, ErrorView(cause.message ?: "authentication required")) }
         exception<Forbidden> { call, cause -> call.respond(HttpStatusCode.Forbidden, ErrorView(cause.message ?: "forbidden")) }
         exception<ContentRejected> { call, cause -> call.respond(HttpStatusCode.UnprocessableEntity, ErrorView("content rejected", cause.validation)) }
         exception<IllegalArgumentException> { call, cause -> call.respond(HttpStatusCode.BadRequest, ErrorView(cause.message ?: "bad request")) }

@@ -16,6 +16,7 @@ class SettingsHomeScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
         val inGame = context.session.store != null
         val hub = Table()
         listOf(
+            Triple("account", GameScreenId.SETTINGS_SETTINGS_ACCOUNT, false),
             Triple("audio", GameScreenId.SETTINGS_SETTINGS_AUDIO, true),
             Triple("graphics", GameScreenId.SETTINGS_SETTINGS_GRAPHICS, false),
             Triple("controls", GameScreenId.SETTINGS_SETTINGS_CONTROLS, false),

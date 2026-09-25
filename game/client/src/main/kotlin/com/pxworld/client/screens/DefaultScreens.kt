@@ -30,6 +30,11 @@ import com.pxworld.client.screens.onboarding.HeroCreateConfirmScreen
 import com.pxworld.client.screens.onboarding.HeroCreateNameScreen
 import com.pxworld.client.screens.progression.AchievementListScreen
 import com.pxworld.client.screens.progression.QuestListScreen
+import com.pxworld.client.screens.settings.AccountScreen
+import com.pxworld.client.screens.settings.CloudRestoreScreen
+import com.pxworld.client.screens.settings.LoginEmailScreen
+import com.pxworld.client.screens.settings.MailInboxScreen
+import com.pxworld.client.screens.settings.SaveConflictScreen
 import com.pxworld.client.screens.settings.SettingsHomeScreen
 import com.pxworld.client.screens.world.DialogueChoiceScreen
 import com.pxworld.client.screens.world.EncounterPreviewScreen
@@ -163,6 +168,11 @@ object DefaultScreens {
             GameScreenId.PROGRESSION_QUEST_SIDE to ::QuestListScreen,
             GameScreenId.PROGRESSION_ACHIEVEMENT_LIST to ::AchievementListScreen,
             GameScreenId.SETTINGS_SETTINGS_HOME to ::SettingsHomeScreen,
+            GameScreenId.SETTINGS_SETTINGS_ACCOUNT to ::AccountScreen,
+            GameScreenId.BOOT_LOGIN_EMAIL to ::LoginEmailScreen,
+            GameScreenId.BOOT_SAVE_CONFLICT to ::SaveConflictScreen,
+            GameScreenId.BOOT_CLOUD_RESTORE to ::CloudRestoreScreen,
+            GameScreenId.SOCIAL_MAIL_INBOX to ::MailInboxScreen,
             GameScreenId.DEBUG_DEBUG_MENU to ::DebugMenuScreen,
             GameScreenId.DEBUG_DEBUG_SCREEN_JUMP to ::DebugScreenJumpScreen,
             GameScreenId.DEBUG_DEBUG_CHEATS to ::DebugCheatsScreen,

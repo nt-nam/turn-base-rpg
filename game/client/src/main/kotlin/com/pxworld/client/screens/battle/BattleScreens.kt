@@ -439,7 +439,7 @@ class BattleMainScreen(id: GameScreenId, context: ScreenContext, args: ScreenArg
             BattleOutcome.DEFEAT -> GameScreenId.BATTLE_BATTLE_DEFEAT
             BattleOutcome.DRAW -> GameScreenId.BATTLE_BATTLE_DRAW
         }
-        arena.addAction(Actions.sequence(Actions.delay(RESULT_DELAY_SECONDS), Actions.run { context.navigator.replace(result, ScreenArgs.of("encounter" to encounterId)) }))
+        arena.addAction(Actions.sequence(Actions.delay(RESULT_DELAY_SECONDS), Actions.run { context.navigator.replaceFrom(this, result, ScreenArgs.of("encounter" to encounterId)) }))
     }
 
     override fun onStateChanged(state: com.pxworld.domain.progression.GameState, events: List<GameEvent>) {}

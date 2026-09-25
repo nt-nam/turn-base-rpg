@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.ktx.graphics)
     implementation(libs.ktx.assets)
     implementation(libs.fleks)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(libs.gdx.backend.headless)
     testImplementation(variantOf(libs.gdx.platform) { classifier("natives-desktop") })
 }

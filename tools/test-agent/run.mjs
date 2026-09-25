@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { AutomationClient, sleep } from "./automation-client.mjs";
+import { AutomationClient, assert, sleep } from "./automation-client.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
@@ -72,6 +72,8 @@ async function explore(client, capture) {
   const primeMerge = async () => {
     await client.call("screen.open", { screenId: "game.debug.debug_cheats" });
     await client.tap("game.debug.debug_cheats/hero");
+    await client.tap("game.debug.debug_cheats/food");
+    await client.tap("game.debug.debug_cheats/equipment");
     await client.call("screen.back");
   };
   await client.call("app.resetFirstRun");
@@ -85,6 +87,7 @@ async function explore(client, capture) {
   }
   if ((await client.screen()) === "game.world.world_explore") await primeMerge();
   const state = await client.state();
+  client.trace.push(`explore start: slot=${state.loaded ? (await client.call("session.info")).slot : "none"} heroes=${state.heroes?.length ?? 0} items=${Object.keys(state.items ?? {}).length} equipment=${state.equipment?.length ?? 0}`);
   const world = state.loaded ? await client.call("world.info").catch(() => null) : null;
   const firstHero = state.heroes?.[0]?.instance;
   const firstEquipment = state.equipment?.[0]?.instance;
@@ -116,6 +119,7 @@ async function explore(client, capture) {
     "game.progression.achievement_detail": { achievement: "achievement.victor" },
     "game.battle.retry_confirm": encounterId && { encounter: encounterId },
     "game.world.map_transition": { map: "map.dawnvillage_01" },
+    "game.boot.save_conflict": state.loaded && { slot: (await client.call("session.info")).slot, revision: "1", updatedAt: "0" },
     "game.world.npc_dialogue": { npc: "npc.dawn_elder", dialogue: "dialogue.elder_relic", node: "a" },
     "game.world.dialogue_choice": { npc: "npc.dawn_merchant", dialogue: "dialogue.merchant_trade", node: "a" },
     "game.heroes.hero_overview": firstHero && { hero: firstHero },
@@ -148,6 +152,7 @@ async function explore(client, capture) {
       continue;
     }
     try {
+      if (screenId === "game.battle.battle_main") await client.call("screen.reset", { screenId: "game.world.world_explore" });
       await client.call("screen.open", { screenId, args: argsFor[screenId] ?? {} });
       if (screenId === "game.battle.replay_viewer") {
         await client.waitFor(async () => (await client.screen()) !== "game.battle.replay_viewer" || (await client.tree()).some((node) => node.testId.includes("toast")), 60_000, "replay finished").catch(() => {});
@@ -167,7 +172,10 @@ async function explore(client, capture) {
           await sleep(100);
         }
         await client.call("battle.auto", { enabled: true });
-        await client.waitFor(async () => (await client.screen()).startsWith("game.battle.battle_") && (await client.screen()) !== "game.battle.battle_main", 90_000, "battle result");
+        const results = ["game.battle.battle_victory", "game.battle.battle_defeat", "game.battle.battle_draw"];
+        await client.waitFor(async () => ((await client.call("session.info")).stack ?? []).some((id) => results.includes(id)), 90_000, "battle result");
+        const stack = (await client.call("session.info")).stack ?? [];
+        assert(!stack.includes("game.battle.battle_main"), `finished battle left the stack: ${stack.join(" > ")}`);
         await client.settle();
         await client.call("screen.back");
         continue;
@@ -189,7 +197,8 @@ async function explore(client, capture) {
       }
       await client.assertInvariants(`explore ${screenId}`);
     } catch (error) {
-      client.trace.push(`explore error on ${screenId}: ${error.message}`);
+      const info = await client.call("session.info").catch(() => ({}));
+      client.trace.push(`explore error on ${screenId}: ${error.message} (stack: ${(info.stack ?? []).join(" > ")})`);
     }
   }
 }

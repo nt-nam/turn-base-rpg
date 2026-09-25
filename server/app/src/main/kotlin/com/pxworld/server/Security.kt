@@ -70,6 +70,8 @@ class Tokens(secret: String, private val issuer: String, private val lifetimeMil
 
 class Forbidden(message: String) : RuntimeException(message)
 
+class Unauthenticated(message: String) : RuntimeException(message)
+
 data class Caller(val accountId: String, val roles: Set<String>) {
     fun has(role: String): Boolean = role in roles || Roles.ADMIN in roles
     val isStaff: Boolean get() = roles.any { it in Roles.STAFF }

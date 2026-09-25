@@ -9,7 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.pxworld.application.CloudResult
+import com.pxworld.application.CloudSync
+import com.pxworld.application.TelemetryBuffer
+import com.pxworld.application.TelemetryEvent
+import com.pxworld.application.TelemetryMapping
 import com.pxworld.client.automation.StageAutomationDriver
+import com.pxworld.client.core.HttpCloudGateway
+import com.pxworld.client.core.PreferencesCredentialStore
 import com.pxworld.client.core.AppPreferences
 import com.pxworld.client.core.AssetService
 import com.pxworld.client.core.AudioDirector
@@ -40,6 +47,10 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
     private lateinit var logs: LogBuffer
     private lateinit var audio: AudioDirector
     private var playTimeAccumulator = 0f
+    private var cloud: CloudSync? = null
+    private val telemetry = TelemetryBuffer()
+    private var telemetryAccumulator = 0f
+    private var telemetryInFlight = false
 
     override fun create() {
         batch = SpriteBatch()
@@ -52,7 +63,10 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         val preferences = AppPreferences.open(PREFERENCES)
         val localization = Localization(services.content.localization, preferences.locale?.takeIf { it in services.content.localization } ?: Localization.FALLBACK)
         audio = AudioDirector(services.content.audioCues, services.content.assetMap)
-        context = ScreenContext(services, assets, localization, ui, navigator, session, batch, preferences, logs, audio)
+        cloud = services.cloudUrl?.let { url ->
+            CloudSync(HttpCloudGateway(url, { Gdx.app.postRunnable(it) }), services.saves, PreferencesCredentialStore(Gdx.app.getPreferences(PreferencesCredentialStore.preferencesFor(url))), { it() })
+        }
+        context = ScreenContext(services, assets, localization, ui, navigator, session, batch, preferences, logs, audio, cloud = cloud)
         navigator.context = context
         automation = StageAutomationDriver(this, stage, context)
         Gdx.input.inputProcessor = InputMultiplexer(stage, object : InputAdapter() {
@@ -77,7 +91,10 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
 
     fun watchStore() {
         unsubscribe?.invoke()
-        unsubscribe = context.session.store?.subscribe { state, events -> navigator.broadcast(state, events) }
+        unsubscribe = context.session.store?.subscribe { state, events ->
+            events.mapNotNull(TelemetryMapping::of).forEach(::track)
+            navigator.broadcast(state, events)
+        }
     }
 
     private var watchedStore: Any? = null
@@ -87,7 +104,10 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         if (store !== watchedStore) {
             watchedStore = store
             watchStore()
-            store?.let { ui.applyTextScale(it.state.settings.textScalePercent) }
+            store?.let {
+                ui.applyTextScale(it.state.settings.textScalePercent)
+                track(TelemetryEvent("session.start", mapOf("flavor" to services.flavor.name.lowercase())))
+            }
         }
         val delta = Gdx.graphics.deltaTime.coerceAtMost(MAX_FRAME_SECONDS)
         if (store != null) {
@@ -108,6 +128,24 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         stage.act(delta)
         stage.draw()
         automation.drainRenderThreadWork()
+        flushTelemetry(delta)
+    }
+
+    private fun track(event: TelemetryEvent) {
+        if (cloud != null && context.preferences.analyticsConsent) telemetry.record(event)
+    }
+
+    private fun flushTelemetry(delta: Float) {
+        val sync = cloud ?: return
+        telemetryAccumulator += delta
+        if (telemetryAccumulator < TELEMETRY_FLUSH_SECONDS || telemetryInFlight || telemetry.size == 0) return
+        telemetryAccumulator = 0f
+        val batch = telemetry.drain(TELEMETRY_BATCH)
+        telemetryInFlight = true
+        sync.report(services.clientVersion, batch) { result ->
+            telemetryInFlight = false
+            if (result !is CloudResult.Ok) telemetry.restore(batch)
+        }
     }
 
     override fun resize(width: Int, height: Int) {
@@ -138,5 +176,7 @@ class GameApp(private val services: GameServices) : ApplicationAdapter(), GameAp
         const val MAX_FRAME_SECONDS: Float = 1f / 20f
         const val PLAY_TIME_FLUSH_SECONDS: Float = 60f
         const val PREFERENCES: String = "pxworld"
+        const val TELEMETRY_FLUSH_SECONDS: Float = 30f
+        const val TELEMETRY_BATCH: Int = 50
     }
 }

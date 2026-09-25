@@ -25,13 +25,15 @@ interface GameClock {
     fun nowMillis(): Long
 }
 
-class GameServices(
+class GameServices @JvmOverloads constructor(
     val content: ContentBundle,
     val saves: SaveRepository,
     val clock: GameClock,
     val flavor: BuildFlavor,
     val replays: ReplayRepository = InMemoryReplays(),
     val onReady: (GameApi) -> Unit = {},
+    val cloudUrl: String? = null,
+    val clientVersion: String = "dev",
 ) {
     val catalog: ContentBundleCatalog = ContentBundleCatalog(content)
     val rules: GameRules = GameRules(catalog)
