@@ -89,6 +89,13 @@ export interface AgentRun {
   createdAt: number;
 }
 
+export interface ContentDiff {
+  from: string;
+  to: string;
+  kinds: { kind: string; added: string[]; removed: string[]; changed: { id: string; fields: string[] }[] }[];
+  tables: { table: string; added: number; removed: number; changed: number; sample: string[] }[];
+}
+
 export type ContentRecord = Record<string, unknown> & { id: string };
 
 import type { Schema } from "./pages/SchemaForm";
@@ -156,6 +163,10 @@ export const api = {
   createStaff: (email: string, password: string, displayName: string, roles: string[]) =>
     request<Account>("POST", "/admin/staff", { email, password, displayName, roles }),
   releases: () => request<Release[]>("GET", "/content/releases"),
+  diff: (from: string, to: string) => request<ContentDiff>("GET", `/content/releases/${q(from)}/diff/${q(to)}`),
+  saveHistory: (id: string, slot: string) => request<SaveMeta[]>("GET", `/admin/players/${q(id)}/saves/${q(slot)}/history`),
+  restoreSave: (id: string, slot: string, revision: number, reason: string) =>
+    request<SaveMeta>("POST", `/admin/players/${q(id)}/saves/${q(slot)}/restore`, { revision, reason }),
   channels: () => request<Record<string, string>>("GET", "/content/channels"),
   publish: () => request<{ id: string }>("POST", "/content/releases"),
   promote: (env: string, version: string) => request<unknown>("POST", "/content/promote", { env, version }),

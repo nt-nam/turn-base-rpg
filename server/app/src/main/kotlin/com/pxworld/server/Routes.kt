@@ -40,6 +40,7 @@ import kotlinx.serialization.json.jsonPrimitive
 @Serializable data class GrantRequest(val subject: String, val grants: Map<String, Long>, val reason: String)
 @Serializable data class SanctionRequest(val hours: Int, val reason: String)
 @Serializable data class LiftRequest(val reason: String)
+@Serializable data class RestoreRequest(val revision: Long, val reason: String)
 @Serializable data class StaffRequest(val email: String, val password: String, val displayName: String, val roles: List<String>)
 @Serializable data class PlayerDetailView(val account: AccountView, val saves: List<SaveMetaView>, val mail: List<MailRow>, val audit: List<AuditRow>)
 @Serializable data class DashboardView(val env: String, val contentVersion: String?, val accounts: Int, val players: Int, val saves: Int, val telemetryLastDay: Map<String, Int>, val battleValidations: Int, val rejectedBattles: Int, val agentRuns: Int)
@@ -192,6 +193,14 @@ fun Application.routes(services: Services) {
                     call.requireRole(Roles.LIVEOPS, Roles.DEV, Roles.CREATOR, Roles.QA)
                     call.respond(repositories.releases())
                 }
+                get("/releases/{from}/diff/{to}") {
+                    call.requireRole(Roles.LIVEOPS, Roles.DEV, Roles.CREATOR, Roles.QA)
+                    val from = call.parameters["from"].orEmpty()
+                    val to = call.parameters["to"].orEmpty()
+                    val before = repositories.releaseBody(from) ?: throw IllegalArgumentException("unknown release $from")
+                    val after = repositories.releaseBody(to) ?: throw IllegalArgumentException("unknown release $to")
+                    call.respond(ContentDiff.between(from, to, before, after))
+                }
                 get("/channels") {
                     call.requireRole(Roles.LIVEOPS, Roles.DEV, Roles.CREATOR, Roles.QA)
                     call.respond(repositories.channels())
@@ -252,6 +261,25 @@ fun Application.routes(services: Services) {
                     val mailId = repositories.addMail(account.id, request.subject, grants)
                     repositories.audit(caller.accountId, "player.grant", "account:${account.id}", request.reason, grants)
                     call.respond(HttpStatusCode.Created, IdView(mailId))
+                }
+                get("/players/{id}/saves/{slot}/history") {
+                    call.requireRole(Roles.SUPPORT)
+                    val account = call.targetAccount(repositories)
+                    call.respond(repositories.saveHistory(account.id, call.slot()).map { it.meta() })
+                }
+                post("/players/{id}/saves/{slot}/restore") {
+                    val caller = call.requireRole(Roles.SUPPORT)
+                    val account = call.targetAccount(repositories)
+                    val slot = call.slot()
+                    val request = call.receive<RestoreRequest>()
+                    require(request.reason.isNotBlank()) { "a reason is required" }
+                    val source = repositories.saveHistory(account.id, slot).firstOrNull { it.revision == request.revision }
+                        ?: throw IllegalArgumentException("revision ${request.revision} is not kept")
+                    val current = repositories.save(account.id, slot)?.revision ?: 0L
+                    val restored = repositories.putSave(account.id, slot, current, source.body) ?: error("save changed during restore, retry")
+                    val payload = JsonObject(mapOf("slot" to JsonPrimitive(slot), "from" to JsonPrimitive(request.revision), "to" to JsonPrimitive(restored.revision))).toString()
+                    repositories.audit(caller.accountId, "player.save_restore", "account:${account.id}", request.reason, payload)
+                    call.respond(restored.meta())
                 }
                 post("/players/{id}/sanction") {
                     val caller = call.requireRole(Roles.SUPPORT)

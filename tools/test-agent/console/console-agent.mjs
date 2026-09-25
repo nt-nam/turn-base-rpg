@@ -193,7 +193,8 @@ try {
   const admin = await api("POST", "/auth/login", null, { email: adminEmail, password: adminPassword });
   const suffix = Date.now().toString(36);
   const player = await api("POST", "/auth/register", null, { email: `agent-player-${suffix}@example.com`, password: "agent-password", displayName: `AgentPlayer${suffix}` });
-  await api("PUT", "/saves/main", player.token, { expectedRevision: 0, body: JSON.stringify({ agent: true }) });
+  await api("PUT", "/saves/main", player.token, { expectedRevision: 0, body: JSON.stringify({ agent: true, gold: 900 }) });
+  await api("PUT", "/saves/main", player.token, { expectedRevision: 1, body: JSON.stringify({ agent: true, gold: 0 }) });
   await api("POST", "/telemetry", player.token, { clientVersion: "console-agent", events: [{ name: "session.start" }] });
 
   await browser.open(`${consoleUrl}/#/`);
@@ -240,22 +241,21 @@ try {
     await agent.expectText("player.lift");
   });
 
+  await agent.step("save history restore", async () => {
+    await agent.click("Lịch sử");
+    await agent.browser.waitFor(`document.querySelector("input[name=restore-reason]")`, "save history");
+    await agent.fill("input[name=restore-reason]", "console agent restore");
+    await agent.click("Khôi phục");
+    await agent.expectText("Đã khôi phục revision 1 thành revision 3.");
+    await agent.shot("save-history");
+    const restored = await api("GET", "/saves/main", player.token);
+    if (JSON.parse(restored.body).gold !== 900) throw new Error(`restore did not bring back revision 1: ${restored.body}`);
+  });
+
   await agent.step("audit log", async () => {
     await agent.go("/audit");
     await agent.screen("console.operations.audit_log");
     await agent.expectText("player.sanction");
-  });
-
-  await agent.step("content publish and promote", async () => {
-    await agent.go("/content");
-    await agent.screen("console.operations.deployments");
-    await agent.click("Đóng gói content hiện tại");
-    await agent.expectText("Đã đóng gói content");
-    await agent.click("qa");
-    await agent.expectText("đã lên qa.");
-    await agent.shot("content");
-    const manifest = await api("GET", "/content/manifest?env=qa");
-    if (!manifest.version) throw new Error("qa channel has no release after promotion");
   });
 
   await agent.step("studio edit with validation", async () => {
@@ -280,6 +280,25 @@ try {
     await agent.click("Biểu mẫu");
     const restored = await agent.browser.evaluate(`document.querySelector(".schema-form input[aria-label='$.name']").value`);
     if (restored === "text.agent.missing") throw new Error("undo did not restore the form");
+    const price = Number(await agent.browser.evaluate(`document.querySelector(".schema-form input[aria-label='$.shop.price']").value`));
+    await agent.fill(".schema-form input[aria-label='$.shop.price']", price + 1);
+    await agent.click("Lưu");
+    await agent.expectText("Đã lưu.");
+  });
+
+  await agent.step("content publish and promote", async () => {
+    await agent.go("/content");
+    await agent.screen("console.operations.deployments");
+    await agent.click("Đóng gói content hiện tại");
+    await agent.expectText("Đã đóng gói content");
+    await agent.browser.waitFor(`document.querySelector("[data-screen-id='console.operations.content_release_diff'] .diff")`, "release diff");
+    await agent.expectText("~ item.cup_t1 shop");
+    await agent.shot("release-diff");
+    await agent.click("qa");
+    await agent.expectText("đã lên qa.");
+    await agent.shot("content");
+    const manifest = await api("GET", "/content/manifest?env=qa");
+    if (!manifest.version) throw new Error("qa channel has no release after promotion");
   });
 
   await agent.step("qa runs", async () => {

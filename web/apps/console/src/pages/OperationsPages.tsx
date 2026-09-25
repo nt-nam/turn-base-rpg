@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { api } from "../api";
+import { api, type Release } from "../api";
 import { Roles } from "../session";
 import { Page, Status, useAction, useLoad, when } from "../ui";
 import { AuditTable } from "./PlayerDetailPage";
@@ -61,6 +61,7 @@ export function ContentReleasesPage({ canPromote, canPublish }: { canPromote: bo
           </div>
         )}
       </Status>
+      {releases.data && releases.data.length > 1 && <ReleaseDiff releases={releases.data} channels={channels.data ?? {}} />}
       <h2>Bản phát hành</h2>
       <Status state={releases}>
         {(rows) => (
@@ -120,6 +121,78 @@ export function ContentReleasesPage({ canPromote, canPublish }: { canPromote: bo
         )}
       </Status>
     </Page>
+  );
+}
+
+function ReleaseDiff({ releases, channels }: { releases: Release[]; channels: Record<string, string> }) {
+  const [from, setFrom] = useState(channels.prod ?? releases[releases.length - 1].version);
+  const [to, setTo] = useState(releases[0].version);
+  const state = useLoad(() => api.diff(from, to), [from, to]);
+  const pick = (value: string, change: (next: string) => void, label: string) => (
+    <select value={value} onChange={(event) => change(event.target.value)} aria-label={label}>
+      {releases.map((release) => (
+        <option key={release.version} value={release.version}>
+          {release.version}
+          {Object.entries(channels)
+            .filter(([, version]) => version === release.version)
+            .map(([env]) => ` · ${env}`)
+            .join("")}
+        </option>
+      ))}
+    </select>
+  );
+  return (
+    <section className="card" data-screen-id="console.operations.content_release_diff">
+      <h2>So sánh hai bản</h2>
+      <div className="field-row">
+        {pick(from, setFrom, "Bản gốc")}
+        <span>→</span>
+        {pick(to, setTo, "Bản mới")}
+      </div>
+      <Status state={state}>
+        {(diff) =>
+          diff.kinds.length === 0 && diff.tables.length === 0 ? (
+            <p className="muted">Hai bản giống hệt nhau.</p>
+          ) : (
+            <div className="diff">
+              {diff.kinds.map((kind) => (
+                <div key={kind.kind}>
+                  <h3>
+                    {kind.kind} <span className="muted">+{kind.added.length} −{kind.removed.length} ~{kind.changed.length}</span>
+                  </h3>
+                  <ul className="plain">
+                    {kind.added.map((id) => (
+                      <li key={`a${id}`} className="diff-added">
+                        + <code>{id}</code>
+                      </li>
+                    ))}
+                    {kind.removed.map((id) => (
+                      <li key={`r${id}`} className="diff-removed">
+                        − <code>{id}</code>
+                      </li>
+                    ))}
+                    {kind.changed.map((record) => (
+                      <li key={`c${record.id}`}>
+                        ~ <code>{record.id}</code> <span className="muted">{record.fields.join(", ")}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {diff.tables.map((table) => (
+                <p key={table.table}>
+                  <code>{table.table}</code>{" "}
+                  <span className="muted">
+                    +{table.added} −{table.removed} ~{table.changed}
+                    {table.sample.length > 0 && ` · ${table.sample.slice(0, 5).join(", ")}`}
+                  </span>
+                </p>
+              ))}
+            </div>
+          )
+        }
+      </Status>
+    </section>
   );
 }
 

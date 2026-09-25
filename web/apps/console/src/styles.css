@@ -243,6 +243,7 @@ th {
 
 .stats {
   display: grid;
+  margin-bottom: var(--gap);
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 12px;
 }
@@ -649,4 +650,17 @@ button.icon {
   .object-row {
     grid-template-columns: 1fr;
   }
+}
+
+.diff h3 {
+  font-size: 0.95rem;
+  margin: 12px 0 4px;
+}
+
+.diff-added {
+  color: var(--ok);
+}
+
+.diff-removed {
+  color: var(--bad);
 }

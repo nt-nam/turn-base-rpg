@@ -168,8 +168,15 @@ class ServerTest {
         assertEquals(HttpStatusCode.Forbidden, client.send("POST", "/auth/login", body = """{"email":"mail@example.com","password":"long-password"}""").status)
         clock += 3 * 60 * 60 * 1000L
         assertEquals(HttpStatusCode.OK, client.send("GET", "/saves", player).status)
+        client.send("PUT", "/saves/main", player, """{"expectedRevision":0,"body":"{\"gold\":10}"}""")
+        client.send("PUT", "/saves/main", player, """{"expectedRevision":1,"body":"{\"gold\":0}"}""")
+        val history = ApiJson.parseToJsonElement(client.send("GET", "/admin/players/$accountId/saves/main/history", support).bodyAsText()).jsonArray
+        assertEquals(listOf("2", "1"), history.map { it.jsonObject.text("revision") })
+        assertEquals(HttpStatusCode.BadRequest, client.send("POST", "/admin/players/$accountId/saves/main/restore", support, """{"revision":1,"reason":""}""").status)
+        assertEquals("3", client.send("POST", "/admin/players/$accountId/saves/main/restore", support, """{"revision":1,"reason":"lost progress ticket"}""").json().text("revision"))
+        assertEquals("{\"gold\":10}", client.send("GET", "/saves/main", player).json().text("body"))
         val audit = ApiJson.parseToJsonElement(client.send("GET", "/admin/audit?target=account:$accountId", support).bodyAsText()).jsonArray
-        assertEquals(listOf("player.sanction", "player.grant"), audit.map { it.jsonObject.text("action") })
+        assertEquals(listOf("player.save_restore", "player.sanction", "player.grant"), audit.map { it.jsonObject.text("action") })
     }
 
     @Test
@@ -197,6 +204,13 @@ class ServerTest {
         assertEquals(HttpStatusCode.Forbidden, client.send("POST", "/content/promote", creator, """{"env":"prod","version":"$version"}""").status)
         assertEquals(version, client.send("POST", "/content/promote", liveops, """{"env":"prod","version":"$version"}""").json().text("version"))
         assertEquals(version, client.send("GET", "/content/manifest?env=prod").json().text("version"))
+        val packVersion = client.send("GET", "/content/manifest?env=dev").json().text("version")
+        val diff = client.send("GET", "/content/releases/$packVersion/diff/$version", creator).json()
+        val diffKinds = diff.getValue("kinds").jsonArray.map { it.jsonObject }
+        assertEquals(listOf("items"), diffKinds.map { it.text("kind") })
+        val changed = diffKinds.single().getValue("changed").jsonArray.single().jsonObject
+        assertEquals(item.text("id"), changed.text("id"))
+        assertEquals(listOf("shop"), changed.getValue("fields").jsonArray.map { it.jsonPrimitive.content })
     }
 
     @Test

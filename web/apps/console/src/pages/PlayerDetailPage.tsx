@@ -6,6 +6,7 @@ import { banState } from "./PlayersPage";
 
 export function PlayerDetailPage({ id, viewer }: { id: string; viewer: Account }) {
   const state = useLoad(() => api.player(id), [id]);
+  const [historySlot, setHistorySlot] = useState<string>();
   return (
     <Page screen="console.players.player_overview" title="Hồ sơ người chơi" actions={<a href="#/players">← Tìm kiếm</a>}>
       <Status state={state}>
@@ -39,6 +40,7 @@ export function PlayerDetailPage({ id, viewer }: { id: string; viewer: Account }
                         <th className="num">Revision</th>
                         <th className="num">Kích thước</th>
                         <th>Cập nhật</th>
+                        {hasAny(viewer, Roles.support) && <th />}
                       </tr>
                     </thead>
                     <tbody>
@@ -48,11 +50,17 @@ export function PlayerDetailPage({ id, viewer }: { id: string; viewer: Account }
                           <td className="num">{save.revision}</td>
                           <td className="num">{(save.bytes / 1024).toFixed(1)} KB</td>
                           <td>{when(save.updatedAt)}</td>
+                          {hasAny(viewer, Roles.support) && (
+                            <td>
+                              <button onClick={() => setHistorySlot(historySlot === save.slot ? undefined : save.slot)}>Lịch sử</button>
+                            </td>
+                          )}
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 )}
+                {historySlot && <SaveHistory id={id} slot={historySlot} onRestored={state.reload} />}
                 <h2>Thư</h2>
                 {detail.mail.length === 0 ? (
                   <p className="muted">Không có thư.</p>
@@ -78,6 +86,63 @@ export function PlayerDetailPage({ id, viewer }: { id: string; viewer: Account }
         )}
       </Status>
     </Page>
+  );
+}
+
+function SaveHistory({ id, slot, onRestored }: { id: string; slot: string; onRestored: () => void }) {
+  const history = useLoad(() => api.saveHistory(id, slot), [id, slot]);
+  const [reason, setReason] = useState("");
+  const action = useAction();
+  return (
+    <div className="card" data-screen-id="console.players.player_saves">
+      <h2>Lịch sử save "{slot}"</h2>
+      <label>
+        Lý do khôi phục (bắt buộc, ghi vào audit)
+        <input name="restore-reason" value={reason} onChange={(event) => setReason(event.target.value)} />
+      </label>
+      <Status state={history}>
+        {(rows) => (
+          <table>
+            <thead>
+              <tr>
+                <th className="num">Revision</th>
+                <th className="num">Kích thước</th>
+                <th>Lúc</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, index) => (
+                <tr key={row.revision}>
+                  <td className="num">{row.revision}</td>
+                  <td className="num">{(row.bytes / 1024).toFixed(1)} KB</td>
+                  <td>{when(row.updatedAt)}</td>
+                  <td>
+                    {index > 0 && (
+                      <button
+                        disabled={action.busy || !reason.trim()}
+                        onClick={() =>
+                          action.run(async () => {
+                            const restored = await api.restoreSave(id, slot, row.revision, reason);
+                            setReason("");
+                            history.reload();
+                            onRestored();
+                            return `Đã khôi phục revision ${row.revision} thành revision ${restored.revision}.`;
+                          })
+                        }
+                      >
+                        Khôi phục
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </Status>
+      {action.feedback}
+    </div>
   );
 }
 
