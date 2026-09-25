@@ -21,7 +21,7 @@ Cột "Mức tối thiểu" là mức cần có để nhận một WP dùng kỹ
 | **K-SEC** | JWT, PBKDF2, RBAC, audit, OWASP cơ bản | Không log token; biết khi nào trả 401 hay 403 | `server/app/.../Security.kt` |
 | **K-WEB** | React 19, TypeScript strict, Vite | Viết trang có loading/error state, kiểu chặt, không `any` | `web/apps/console/src/**` |
 | **K-CDP** | Điều khiển trình duyệt qua Chrome DevTools Protocol, Node ESM | Thêm được bước vào console agent | `tools/test-agent/console/console-agent.mjs` |
-| **K-AUTO** | Automation protocol JSON-RPC, viết kịch bản test agent | Viết kịch bản mới từ thao tác `ui.tap`, `screen.current` | `tools/test-agent/run.mjs`, `scenarios/*.mjs`, `StageAutomationDriver.kt` |
+| **K-AUTO** | Automation protocol JSON-RPC, viết kịch bản test agent | Viết kịch bản mới từ `ui.tap`, `screen.tree`, `screen.open` | `tools/test-agent/run.mjs`, `scenarios/*.mjs`, `StageAutomationDriver.kt` |
 | **K-CI** | Gradle (Kotlin DSL, convention plugin), GitHub Actions | Thêm module hoặc job mà không phá build khác | `build-logic/**`, `.github/workflows/ci.yml` |
 | **K-OPS** | Docker, Kubernetes/Helm, PostgreSQL vận hành, observability | Dựng môi trường staging | MASTER_PLAN §8.4 |
 | **K-GD** | Thiết kế game: vòng lặp, kinh tế, độ khó, cân bằng bằng số liệu | Đọc bảng mô phỏng và chỉnh số để đạt dải mục tiêu | `content/BALANCE_NOTES.md`, `content/balance/`, `sim-cli` (WP-A2) |

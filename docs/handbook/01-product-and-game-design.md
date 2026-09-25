@@ -51,7 +51,19 @@
 
 ## 5. Nhân vật và chiến đấu
 **6 lớp:** Warrior, Assassin, Mage, Ranger, Support, Tank.
-**Vòng khắc chế:** `Warrior ▶ Assassin ▶ Mage ▶ Tank ▶ Ranger ▶ Warrior`. Bên khắc gây ×1.25, bên bị khắc gây ×0.85. Support không khắc ai và không bị khắc, đổi lại có hồi máu và buff.
+**Vòng khắc chế (thiết kế đích):** `Warrior ▶ Assassin ▶ Mage ▶ Tank ▶ Ranger ▶ Warrior`. Bên khắc gây ×1.25, bên bị khắc gây ×0.85. Support không khắc ai và không bị khắc, đổi lại có hồi máu và buff.
+
+> **Hiện trạng content lệch thiết kế.** Trường `counters` trong `content/hero_classes/hero_classes.json` vẫn giữ nguyên dữ liệu legacy sau khi migrate:
+>
+> | Lớp | Khắc |
+> |---|---|
+> | warrior | assassin, mage |
+> | assassin | ranger, support |
+> | mage | ranger, assassin |
+> | ranger | warrior, tank |
+> | support, tank | không khắc lớp nào |
+>
+> Chuẩn hoá về vòng đích là WP-C0 (xem [05 §9](05-work-packages.md)). Làm WP-C0 trước WP-A3, vì đổi khắc chế làm thay đổi mọi tỉ lệ thắng.
 
 **Roster:** hiện có 6 anh hùng, mỗi lớp 1 người: `hero.aldric` (warrior), `hero.nyx`, `hero.selene`, `hero.fenn`, `hero.mirae`, `hero.borin`. Launch cần 18, mỗi lớp 3 (WP-C4).
 

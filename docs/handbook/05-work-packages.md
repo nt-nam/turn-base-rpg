@@ -89,7 +89,7 @@ flowchart LR
 ### 1.4 Thứ tự làm đề xuất
 | Đợt | WP | Kết quả đợt |
 |---|---|---|
-| **A** | A1–A7 | Hàng đợi cũ xong, repo sạch legacy, Android đạt P2 |
+| **A** | C0, A1–A7 | Hàng đợi cũ xong, repo sạch legacy, Android đạt P2 |
 | **B** | B1–B9, X2 | Đạt tiêu chí P4: ≥ 330 màn, Studio đẩy content dev→qa |
 | **C** | C1–C14, X3 | Đạt P5: chương 2–4, 620 màn, cân bằng trong dải |
 | **D** | D1–D5, X1 | Đạt P6: 4 nền tảng smoke, pilot 100 người |
@@ -106,7 +106,7 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 | Trường | Giá trị |
 |---|---|
 | Phase | P2 (tiêu chí "chơi hết chương 1 trên Android") |
-| Trạng thái | **Đang làm** — nhánh `rewrite-android` |
+| Trạng thái | **Đạt P2 trên nhánh, chưa merge** — `rewrite-android` (`c7cfc4e`, `e7ca5d6`, `c93bf11`, WIP `d5794ee`) |
 | Kỹ năng | K-AND, K-GDX, K-AUTO, K-CI |
 | Phụ thuộc | — |
 | Ước lượng | 3 |
@@ -140,6 +140,19 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 
 **Cách test:** khởi động emulator bằng lệnh ở [07-setup-and-environments.md](07-setup-and-environments.md), rồi chạy hai lệnh ở phần nghiệm thu. Báo cáo nằm ở `report.json`, ảnh và `logcat.txt` trong thư mục `--out`.
 
+**Kết quả đã đo (2026-09-26, emulator đã boot sẵn, APK build với `-Ppxworld.apiUrl=`):**
+- `core-loop`: PASSED, 32 màn.
+- `chapter1`: PASSED, 19 màn.
+- Explorer: PASSED, 133/133 màn, 0 lỗi.
+
+**Còn lại:** khi script tự boot emulator, lần chụp ảnh đầu bị timeout 10 s vì PNG 2400×1080 được mã hoá trên render thread. Commit `d5794ee` chuyển việc mã hoá ra khỏi render thread nhưng **chưa được chạy lại**. Tiếp tục bằng:
+1. `KEEP_EMULATOR=1 tools/test-agent/run-android.sh <out>`.
+2. Chạy `SKIP_BUILD=1 SCENARIO=chapter1 …` và `SKIP_BUILD=1 MODE=explore …`.
+3. Chạy `:game:client:test :tools:architecture:test`.
+4. Theo dõi lần chạy đầu tiên của job CI `android-agent`.
+
+Chi tiết: `tools/test-agent/ANDROID.md` và ADR 0015 trên nhánh.
+
 **Rủi ro:** emulator trên Windows cần `-gpu swiftshader_indirect -feature -Vulkan`. Khi render bằng phần mềm, trận đấu chậm, nên timeout của kịch bản có thể phải nới. Nếu nới, phải ghi lý do.
 
 ---
@@ -148,7 +161,7 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 | Trường | Giá trị |
 |---|---|
 | Phase | P1 (nợ) |
-| Trạng thái | **Đang làm** — nhánh `rewrite-sim` |
+| Trạng thái | **Xong trên nhánh, chưa merge** — `rewrite-sim` (`db5b15c`) |
 | Kỹ năng | K-KT, K-DOM, K-GD |
 | Phụ thuộc | — |
 | Ước lượng | 2 |
@@ -162,8 +175,10 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 4. Viết unit test cho phần đọc tham số, phần tổng hợp và tính tất định (cùng seed thì ra cùng kết quả).
 5. Thêm `:tools:sim-cli:test` vào job `jvm` của CI.
 
+**Đã đo:** content 19/19, sim-cli 13/13, architecture 12/12 test xanh. Bảng cân bằng của `compileContent` giống hệt trước khi refactor. Cú pháp thật: `--heroes heroId[:level[:stars]][@lane-depth][+equipmentId…]`. Mã thoát 2 khi tham số sai, 1 khi không đọc được content. Muốn thử nhanh thì chạy `:tools:sim-cli:installDist` một lần, rồi gọi `tools/sim-cli/build/install/sim-cli/bin/sim-cli`: file này đọc `content/` lúc chạy nên sửa content không cần build lại.
+
 **Nghiệm thu**
-- [ ] `./gradlew --settings-file settings-test.gradle :tools:sim-cli:run --args="--encounter encounter.dawnvillage_01.e1 --heroes hero.aldric:1:1 --seeds 200"` in bảng có tỉ lệ thắng.
+- [x] `./gradlew --settings-file settings-test.gradle :tools:sim-cli:run --args="--encounter encounter.dawnvillage_01.e1 --heroes hero.aldric:1:1 --seeds 200"` in bảng có tỉ lệ thắng.
 - [ ] Chạy hai lần với cùng tham số cho output giống hệt từng byte.
 - [ ] ID không tồn tại thì mã thoát ≠ 0 và có thông báo rõ.
 - [ ] Không có lời gọi `Random()` hoặc `System.currentTimeMillis` trong lõi mô phỏng (test kiến trúc xanh).
@@ -174,7 +189,7 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 | Trường | Giá trị |
 |---|---|
 | Phase | P1/P5 |
-| Trạng thái | **Đang làm** — nhánh `rewrite-sim` |
+| Trạng thái | **Đang dở** — nhánh `rewrite-sim`, commit WIP `1428621` (mới có số đo) |
 | Kỹ năng | K-GD, K-DOM, K-KT |
 | Phụ thuộc | WP-A2 |
 | Ước lượng | 4 |
@@ -182,8 +197,9 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 **Mục tiêu:** mỗi encounter có một **vai trò** (`tutorial`/`normal`/`gate`/`boss`), một **dải tỉ lệ thắng mục tiêu** và một **đội hình tham chiếu theo tiến trình**. Đội hình tham chiếu là roster, cấp và sao mà người chơi thật có ở thời điểm gặp encounter. Content compiler báo lỗi khi tỉ lệ thắng nằm ngoài dải.
 
 **Các bước**
-1. Dò đường chơi chương 1 (quest → dialogue → NPC chiêu mộ → encounter → thưởng XP) và lập preset đội hình dưới dạng **dữ liệu** trong `content/balance/`.
-2. Ghi vai trò vào encounter và dải mục tiêu vào balance data. Chính sách ghi trong ADR 0014.
+0. Làm **WP-C0** (chuẩn hoá vòng khắc chế) trước, vì khắc chế làm thay đổi mọi số đo.
+1. Tạo content kind mới `content/progression_lineups` (ID `lineup.*`), có các trường `follows`, `completes` và `heroes` (kèm ô và trang bị). **Không** đặt vào `content/balance/`, vì thư mục đó đang được đọc với kiểu `BattleRulesRecord`. **Không** đặt tên `lineupPresets`, vì tên này đã dùng cho đội hình người chơi lưu trong `PlayerJournal`. Validator kiểm tra ngân sách: XP có được, ngọc cho chiêu mộ, trang bị, sức chứa đội hình (3 ô tới cấp hồ sơ 6).
+2. Thêm trường bắt buộc `EncounterRecord.balance { role, lineups }`. Encounter `tutorial` liệt kê một đội hình solo cho **mỗi** starter chọn được. Dải mục tiêu viết trong code (`content.balance`) và trong ADR 0014. Có thêm kiểm tra thiếu cấp: ở −2 cấp, gate và boss phải rơi dưới ngưỡng dưới.
 3. `compileContent` hoặc `ContentTest` đánh giá mọi encounter theo dải.
 4. Chỉ chỉnh số liệu content (quái, cấp, sao, đội hình), **không** sửa công thức trong `game/domain`. File golden phải giữ nguyên từng byte.
 5. Cập nhật `content/BALANCE_NOTES.md`.
@@ -193,13 +209,31 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 - [ ] `git diff rewrite -- game/domain/src/test/resources` trống.
 - [ ] `core-loop` và `chapter1` vẫn PASSED. Kịch bản phản ánh cách chơi thật, nên nếu lệch thì chỉnh preset, không chỉnh kịch bản.
 
+**Số đo đã có (commit `1428621`, chi tiết trong `content/BALANCE_NOTES.md` trên nhánh):**
+- Starter solo đấu `dawnvillage_01.e0` ở cấp 1: aldric 99%, selene 59%, nyx 44,5%, fenn 16,5%, mirae 0%, borin 0%. Mọi starter đều được chọn, nên cần một quái tutorial yếu hơn (đã thử `enemy.bandit_prowler`: 5/6 starter đạt 100%, mirae 91,5%).
+- `ashwaste_01` quá dễ: đội 3 người cấp 3 thắng 100% mọi trận, kể cả gate.
+- `ashwaste_02.e1` ở cấp 3 dao động từ 30% (nyx+fenn) đến 100% (borin+selene).
+- Ước lượng tài nguyên: khi tới ashwaste, người chơi có khoảng 3 anh hùng cấp 3.
+- `chapter1` phụ thuộc vào việc aldric solo thắng `dawnvillage_01.e0` trong 3 lần thử, vì game lấy seed trận từ đồng hồ. Tỉ lệ này phải giữ ≥ 95%.
+
+**Vai trò dự kiến:**
+
+| Encounter | Vai trò |
+|---|---|
+| dawnvillage_01.e0 | tutorial |
+| dawnvillage_01.e1 | normal (chưa được đặt lên map) |
+| ashwaste_01.e0 | gate |
+| ashwaste_01.e1–e5 | normal |
+| ashwaste_02.e1 | normal |
+| ashwaste_02.e2 | boss (encounter cuối của content hiện có) |
+
 ---
 
 ### WP-A4 · Telemetry explorer trong Console
 | Trường | Giá trị |
 |---|---|
 | Phase | P4 |
-| Trạng thái | **Đang làm** — nhánh `rewrite-telemetry` |
+| Trạng thái | **Xong trên nhánh, chưa merge** — `rewrite-telemetry` (`02836fa`, `c8bd4af`, `6932eb3`) |
 | Kỹ năng | K-KTOR, K-WEB, K-CDP |
 | Phụ thuộc | — |
 | Ước lượng | 3 |
@@ -210,10 +244,22 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 - `GET /admin/telemetry/summary?from&to&bucket&name&clientVersion`
 - `GET /admin/telemetry/events?from&to&name&accountId&limit&cursor`
 
+**Đã đo:**
+- `ServerTest` 10/10, `ArchitectureTest` 11/11.
+- Console build xanh; `catalog --check` đạt.
+- Console agent PASSED 11/11 bước, 18 màn.
+- Chạy thử trên PostgreSQL 18 thật, dùng index-only scan.
+
+Chi tiết triển khai:
+- Màn: `console.analytics.report_builder`.
+- Migration: `V2__telemetry_time_indexes.sql`. Khi merge nhớ kiểm tra trùng số V2 với nhánh khác.
+- Vai trò được xem: `staff_liveops`, `staff_dev`, `staff_qa`, và admin.
+- Còn thiếu: token màu riêng cho biểu đồ (dark mode chưa đạt kiểm tra độ sáng); UI chưa có bộ lọc theo `accountId`.
+
 **Nghiệm thu**
-- [ ] Test server gồm: lọc khoảng thời gian, bucket có điền 0, lọc tên, phân trang, lỗi 400 khi tham số sai, 403 khi sai vai trò.
-- [ ] Trang Console dùng `WebScreenId` có sẵn trong catalog; bộ lọc nằm trong URL hash (tải lại trang vẫn giữ).
-- [ ] Console agent có bước telemetry, toàn kịch bản PASSED.
+- [x] Test server gồm: lọc khoảng thời gian, bucket có điền 0, lọc tên, phân trang, lỗi 400 khi tham số sai, 403 khi sai vai trò.
+- [x] Trang Console dùng `WebScreenId` có sẵn trong catalog; bộ lọc nằm trong URL hash (tải lại trang vẫn giữ).
+- [x] Console agent có bước telemetry, toàn kịch bản PASSED.
 
 ---
 
@@ -221,12 +267,21 @@ Các WP trong cùng một đợt chạy song song được, trừ khi có mũi t
 | Trường | Giá trị |
 |---|---|
 | Phase | P6 (spike sớm) |
-| Trạng thái | **Đang làm** — nhánh `rewrite-web` |
+| Trạng thái | **Đang dở, nghiêng về go** — nhánh `rewrite-web`, WIP `73a3771` (module chỉ bật khi có `-Ppxworld.web=true`) |
 | Kỹ năng | K-TEAVM, K-GDX, K-CDP |
 | Phụ thuộc | — |
 | Ước lượng | 3 (time-box) |
 
 **Mục tiêu:** trả lời **go/no-go** có bằng chứng cho câu hỏi: game client thật có chạy trong trình duyệt qua gdx-teavm không? Bằng chứng gồm: build được, smoke test headless tới `boot.legal_notice`, kích thước bundle, thời gian tới màn đầu, và danh sách chặn cụ thể nếu có.
+
+**Đã đo:**
+- Phiên bản: gdx-teavm `backend-teavm:1.2.0` (bản cuối dùng libGDX 1.13.1), TeaVM 0.12.0, `jMultiplatform` 0.1.3.
+- Toàn bộ client biên dịch sang JS: 3.400 lớp, khoảng 128 s ở chế độ ADVANCED.
+- `app.js` nặng 5,9 MB, còn 1,0 MB sau gzip. Asset 11,8 MB.
+- `EmulationTest` 5/5 xanh.
+- Có 5 API JDK bị thiếu, đã giả lập trong `game/platform-web/src/emulation/java`: `ConcurrentLinkedQueue`, `MessageDigest`, `Normalizer`, `Long/Integer.toUnsignedString`, `Runtime.maxMemory`.
+
+**Đang chặn:** game dừng trước màn đầu vì lỗi `Class cannot be created (missing no-arg constructor): GlyphLayout$GlyphRun`. TeaVM đã bỏ constructor này vì không ai gọi trực tiếp, nên `ReflectionPool` không tạo được đối tượng. Cách sửa tiếp theo: đăng ký giữ lại `GlyphLayout$GlyphRun`, `InputEvent`, `ChangeListener$ChangeEvent`, `FocusListener$FocusEvent` và các action scene2d mà client dùng, qua `TeaReflectionSupplier.addReflectionClass` hoặc `classesToPreserve`. Sau đó chạy `node tools/test-agent/web/web-smoke.mjs`.
 
 **Nghiệm thu**
 - [ ] ADR 0009 ghi kết quả (phiên bản, số đo, quyết định).
@@ -608,8 +663,74 @@ Nghiệm thu chung đợt E: 1.029 màn launch được explorer (game) và cons
 ---
 
 ## 9. WP phát sinh
-Thêm WP mới vào đây theo [templates/work-package.md](templates/work-package.md), rồi đưa vào đợt phù hợp khi chủ dự án duyệt.
 
-| ID | Tiêu đề | Người đề xuất | Ngày | Trạng thái |
-|---|---|---|---|---|
-| | | | | |
+Mức độ theo [06-testing.md](06-testing.md): S1 chặn · S2 nghiêm trọng · S3 vừa · S4 nhẹ. Cột "Nguồn" cho biết tài liệu nào mô tả chi tiết. Danh sách này được gom từ báo cáo của các agent ngày 2026-09-26.
+
+### 9.1 Thiết kế và nội dung
+| ID | Việc | Mức | Nguồn |
+|---|---|---|---|
+| **WP-C0** | Chuẩn hoá `counters` trong `content/hero_classes` về vòng `Warrior ▶ Assassin ▶ Mage ▶ Tank ▶ Ranger ▶ Warrior`, Support trung lập. Sau đó chạy lại mô phỏng và kịch bản `chapter1` | S2 | [01 §5](01-product-and-game-design.md) |
+| P-01 | `ContentTest` ghim số bản ghi (6 hero, 166 equipment…), nên thêm bất kỳ content nào cũng làm test đỏ. Đổi sang kiểm tra bất biến | S3 | 08 |
+| P-02 | Nhiều giá trị đang hard-code trong code: giá chiêu mộ, map bắt đầu, quà khởi đầu, pool chiêu mộ = mọi hero, chương cuối = `quest.main.ch1_05`, nhạc, 4 nền trận. Chuyển sang content | S3 | 08 |
+| P-03 | Tên vùng là chuỗi UI (`ui.region.*`), nên thêm vùng mới phải sửa test client. Chuyển tên vùng vào content | S4 | 08 |
+| P-04 | Client dựng lại ID encounter theo mẫu `encounter.<map>.e<TiledId>` và bỏ qua `mapObjectId` | S3 | 08 |
+| P-05 | Validator chưa kiểm teleport trong map Tiled; mọi đường dẫn `backgrounds/` đều được coi là tồn tại | S3 | 08 |
+| P-06 | Bảng tiếng Anh thiếu nhiều key: `en` có 180 key so với 392 của `vi`. Thiếu tiếng Anh hiện chỉ là cảnh báo | S3 | 08 |
+| P-07 | `equip.armor_041` giá 34 ngọc cho +510 HP / +300 DEF, có dấu hiệu khai thác được. Rà lại kinh tế | S3 | WP-A3 |
+| P-08 | Importer save legacy ánh xạ mỗi lớp về anh hùng *cuối cùng* của lớp đó. Thêm anh hùng sẽ đổi kết quả import save cũ | S2 | 08 |
+| P-09 | Map `map.ashwaste_01` hiển thị thành các sọc đen, trên cả desktop lẫn Android. Là lỗi content hoặc art, không phải lỗi nền tảng | S2 | WP-A1 |
+
+### 9.2 Client game
+| ID | Việc | Mức | Nguồn |
+|---|---|---|---|
+| P-10 | Du hành bằng bản đồ vùng không nạp lại map (`backTo(world)` chỉ dựng lại màn), sau 5 s vị trí cũ bị ghi đè. Explorer không bấm `travel` nên không bắt được | S2 | 08 |
+| P-11 | Screen Jump trong menu debug crash với màn cần tham số (ví dụ `npc_dialogue`) | S3 | 08 |
+| P-12 | Replay chạy trên content hiện tại; content đổi thì lệnh cũ có thể thành không hợp lệ và làm crash trình xem replay. Replay cần mang phiên bản content | S2 | 08, 10 |
+| P-13 | Quest `defeat_enemies` đếm mọi quái, bỏ qua loại quái mục tiêu | S2 | 08 |
+| P-14 | Màn điểm danh coi mọi phần thưởng là tiền tệ, nên phần thưởng vật phẩm hiện ID thô | S3 | 08 |
+| P-15 | Màn debug chỉ bị chặn ở lối vào; build PILOT bật automation nên vẫn mở được màn cheat. Build release PILOT cũng mở automation trên loopback. Cần quyết định bằng ADR | S2 | 08, WP-A1 |
+| P-16 | `DebugFlags` và `reducedMotion` bật tắt được nhưng không có code nào đọc | S4 | 06, 08 |
+| P-17 | "Chơi tiếp" nạp save đứng đầu theo thứ tự chữ cái, không phải save mới nhất | S2 | 06 |
+| P-18 | Preferences dùng chung `~/.prefs/pxworld` cho mọi môi trường, flavor và test agent | S3 | 06 |
+| P-19 | Client không gọi `/battles/validate` và `/content/manifest`; promote content trên Console không đổi được game | S2 | 06, 10 |
+| P-20 | Thông báo từ chối của luật game hiện cho người chơi là chữ tiếng Anh dành cho dev | S3 | 08 |
+| P-21 | Desktop luôn báo phiên bản client là "dev" | S4 | 08 |
+
+### 9.3 Server và Console
+| ID | Việc | Mức | Nguồn |
+|---|---|---|---|
+| P-30 | Token sống 12 giờ và không có refresh. Tài khoản khách không có mật khẩu, nên sau 12 giờ mất quyền vào save cloud và thư | S1 | 10 §11.3 |
+| P-31 | Staff bị xoá hoặc hạ quyền vẫn giữ quyền tới 12 giờ, vì `requireRole` chỉ đọc JWT. Chưa có API liệt kê, sửa hay khoá staff | S1 | 10 §11.3 |
+| P-32 | `/telemetry` kiểm tên sự kiện trong lúc đang ghi, nên lỗi giữa lô để lại phần đầu đã ghi. Client gửi lại cả lô, gây trùng | S2 | 10 §11.3 |
+| P-33 | Token hết hạn trên `/telemetry` trả 401 nhưng `CloudSync.report` không xoá thông tin đăng nhập, nên client thử lại mãi mãi | S2 | 10 §11.3 |
+| P-34 | Replay sai định dạng: `actor` thiếu `#` gây 500; ô ngoài lưới trả 400 trước khi kiểm, và không ghi vào `battle_validations` | S2 | 10 §11.3 |
+| P-35 | `POST /mail/{id}/claim` trả về `claimed: false` vì dùng bản ghi trước khi cập nhật | S3 | 10 §11.3 |
+| P-36 | Chưa kiểm độ dài: reason, subject, tên staff, clientVersion. `/admin/staff` cũng không kiểm email như `/auth/register` | S2 | 10 §11.3 |
+| P-37 | Server chưa có kênh `pilot` (chỉ có dev/qa/staging/prod) | S3 | 10 |
+| P-38 | Xác thực replay chạy trên content đang sửa được của server, không phải release client đã chơi | S2 | 10 |
+| P-39 | Support tặng được mọi ID content, nhưng game chỉ áp tiền tệ, vật phẩm, trang bị và anh hùng; phần còn lại bị bỏ qua lặng lẽ | S3 | 10 |
+| P-40 | `/metrics` công khai; login, đăng ký khách và telemetry không giới hạn tần suất | S2 | 10 |
+| P-41 | Studio: không sửa được localization, nên bản ghi mới cần chuỗi mới bị từ chối; bản ghi mới rơi vào file đầu tiên của loại; ID mặc định sai (`heroe.new`) | S3 | 08, 10 |
+| P-42 | ADR 0008 và MASTER_PLAN D8 ghi pnpm, nhưng repo dùng npm workspaces. Sửa tài liệu | S4 | 10 |
+
+### 9.4 Công cụ và test
+| ID | Việc | Mức | Nguồn |
+|---|---|---|---|
+| P-50 | Explorer vẫn báo PASSED khi từng màn lỗi (lỗi chỉ ghi vào `trace`). Phải fail. Nhánh `rewrite-android` đã cho explorer tự tạo game mới khi không có save; vẫn cần kiểm tra lại trên CI | S1 | 06, 08 |
+| P-51 | `run-console.sh` build bằng `settings.gradle` đầy đủ, nên cần Android SDK. Đổi sang `settings-test.gradle` | S3 | 06, 10 |
+| P-52 | File `.sh` được commit không có quyền thực thi (100644) | S4 | 06 |
+| P-53 | `bug-reports/` và `exports/` được ghi ra thư mục làm việc và chưa có trong `.gitignore` | S4 | 06 |
+| P-54 | Instance game thứ hai chạy mà không có automation khi cổng 47017 đã bị chiếm (chỉ log lỗi), nên agent có thể điều khiển nhầm instance cũ. Phải thoát kèm lỗi | S3 | 06 |
+| P-55 | Automation protocol thiếu so với MASTER_PLAN §13.2: `screen.current`, `ui.drag`, `input.key`, `world.interact`, `state.loadFixture/snapshot`, `time.advance`, `rng.seed`, `log.tail`. MCP server chưa có | S3 | 06 |
+| P-56 | `invariants.check` mới kiểm số dư âm, ledger và key UI chưa dịch. Thiếu: ID treo, HP trong khoảng, hero trùng ô, trang bị gắn hai hero, save round-trip | S2 | 06 |
+| P-57 | Chưa có công cụ đo coverage, chưa chạy test trên PostgreSQL thật trong CI, chưa có screenshot diff | S3 | 06 |
+| P-58 | Hoàn thiện handbook: `03-engineering-rules.md`, `06-testing.md` và `09-recipes-content.md` mới có khung (tiêu đề và dòng "chưa viết"). Nội dung cần viết đã được liệt kê trong khung từng file | S2 | handbook |
+| P-59 | Screenshot của automation dùng `java.nio.file.Paths` (API 26+) trong khi `minSdk` là 24. Cần thử trên emulator API 24 | S3 | 08 |
+| P-60 | Gradle 9 được cho là sẽ bỏ `--settings-file` (chưa xác minh — kiểm tra release notes của Gradle). Nếu đúng, chuyển sang composite build hoặc cờ property trước khi nâng Gradle | S4 | 06 |
+
+| P-61 | CI chỉ chạy khi có pull request hoặc push lên `main`. Nhánh `rewrite` chưa có trên remote, nên chưa có lần chạy CI thật nào. Thêm `rewrite` vào trigger rồi push khi chủ dự án đồng ý | S1 | 02 |
+| P-62 | Code hiện đang vi phạm luật: `java.nio.file.Paths` viết đủ tên ở `StageAutomationDriver.kt` (test kiến trúc không bắt được tên đầy đủ), `println` ở `AutomationServer` và `DesktopLauncher`, 4 chỗ `!!`, 2 comment trong TypeScript của Console, chuỗi `data-screen-id` trong Console không được kiểm kiểu | S3 | 02 |
+| P-63 | MASTER_PLAN và ADR 0002 lệch code: không có Presenter, Intent, StateFlow, `DomainEvent`, `ScreenSpec` hay `AssetBundle`; test kiến trúc tự viết thay vì Konsist; server dùng JVM 17, không phải 21. Cập nhật tài liệu cho khớp code, hoặc viết ADR nếu muốn đổi code | S3 | 02 |
+| P-64 | Audit không nằm cùng transaction với thay đổi mà nó ghi lại; upload agent run không được audit | S2 | 02 |
+
+Thêm WP mới theo [templates/work-package.md](templates/work-package.md).

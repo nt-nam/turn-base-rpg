@@ -49,7 +49,7 @@ Luật đầy đủ có ở tài liệu 02 và 03. Nếu chỉ nhớ được 10
 | **ScreenId** | ID một màn trong catalog, ví dụ `game.battle.battle_main`. Code sinh `GameScreenId` (Kotlin) và `WebScreenId` (TypeScript) |
 | **Content kind** | Một loại dữ liệu nội dung (heroes, encounters…), đăng ký trong `ContentKinds` |
 | **Content pack** | File JSON đã kiểm tra và đóng gói từ `content/`, được game nạp lúc chạy |
-| **Release / channel** | Bản content đã đóng gói trên server, được đẩy qua các kênh `dev → qa → staging → pilot → prod` |
+| **Release / channel** | Bản content đã đóng gói trên server, được đẩy qua các kênh `dev → qa → staging → prod`. Kênh `pilot` có trong kế hoạch nhưng chưa có (P-37). Game hiện dùng content đóng gói sẵn trong build, chưa tải release được promote (P-19) |
 | **Flavor** | Cấu hình build client: `DEV`, `QA`, `PILOT`, `RELEASE` (bật hay tắt debug và automation) |
 | **Automation protocol** | WebSocket JSON-RPC trong client (cổng 47017) cho test agent điều khiển game |
 | **Test agent** | `tools/test-agent`: kịch bản tất định (`core-loop`, `chapter1`, `cloud`), explorer (ghé mọi màn), console agent (trình duyệt headless) |
