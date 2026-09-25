@@ -17,6 +17,10 @@ android {
         versionName = "2.0.0-dev"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -33,8 +37,14 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "PXWORLD_API_URL", "\"${providers.gradleProperty("pxworld.apiUrl").getOrElse("http://10.0.2.2:8080")}\"")
+            buildConfigField("String", "PXWORLD_FLAVOR", "\"QA\"")
+        }
         getByName("release") {
             isMinifyEnabled = false
+            buildConfigField("String", "PXWORLD_API_URL", "\"${providers.gradleProperty("pxworld.releaseApiUrl").getOrElse("")}\"")
+            buildConfigField("String", "PXWORLD_FLAVOR", "\"PILOT\"")
         }
     }
 }

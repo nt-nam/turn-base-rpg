@@ -36,7 +36,9 @@ public class AndroidLauncher extends AndroidApplication {
                 new SystemClock(),
                 BuildConfigFlavor.current(),
                 new FileReplayStore(new File(saves, "replays"), 30),
-                api -> Unit.INSTANCE
+                api -> Unit.INSTANCE,
+                BuildConfig.PXWORLD_API_URL.isEmpty() ? null : BuildConfig.PXWORLD_API_URL,
+                "android-" + BuildConfig.VERSION_NAME
         );
         AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
         configuration.useImmersiveMode = true;
@@ -71,7 +73,7 @@ public class AndroidLauncher extends AndroidApplication {
 
     private static final class BuildConfigFlavor {
         static BuildFlavor current() {
-            return BuildFlavor.PILOT;
+            return BuildFlavor.valueOf(BuildConfig.PXWORLD_FLAVOR);
         }
     }
 }
