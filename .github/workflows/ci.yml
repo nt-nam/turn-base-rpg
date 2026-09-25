@@ -25,7 +25,7 @@ jobs:
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
       - run: chmod +x gradlew
-      - run: ./gradlew --settings-file settings-test.gradle :game:domain:test :game:application:test :game:screens:test :game:content:test :game:infrastructure:test :game:content:compileContent :game:client:test :server:app:test :tools:architecture:test :core:test :lwjgl3:compileJava
+      - run: ./gradlew --settings-file settings-test.gradle :game:domain:test :game:application:test :game:screens:test :game:content:test :game:infrastructure:test :game:content:compileContent :game:client:test :server:app:test :tools:architecture:test :tools:sim-cli:test :core:test :lwjgl3:compileJava
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

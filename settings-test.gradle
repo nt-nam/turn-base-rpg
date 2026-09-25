@@ -13,3 +13,4 @@ rootProject.name = 'pxworld'
 
 include 'core', 'lwjgl3'
 include ':game:domain', ':game:application', ':game:screens', ':game:content', ':game:infrastructure', ':game:client', ':game:automation', ':game:platform-desktop', ':tools:asset-pipeline', ':server:app', ':tools:architecture'
+include ':tools:sim-cli'

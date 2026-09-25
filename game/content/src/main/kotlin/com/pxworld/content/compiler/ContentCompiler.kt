@@ -1,15 +1,16 @@
 package com.pxworld.content.compiler
 
 import com.pxworld.content.AssetExistence
-import com.pxworld.content.BattleContentAssembler
 import com.pxworld.content.ContentBundle
 import com.pxworld.content.ContentIssue
 import com.pxworld.content.ContentLoader
 import com.pxworld.content.ContentValidator
 import com.pxworld.content.IssueSeverity
 import com.pxworld.content.LineupSlot
-import com.pxworld.domain.battle.BattleEngine
-import com.pxworld.domain.battle.BattleOutcome
+import com.pxworld.content.balance.EncounterSimulator
+import com.pxworld.content.balance.Formation
+import com.pxworld.content.balance.SeedRange
+import com.pxworld.content.balance.SimulationResult
 import com.pxworld.domain.battle.GridCell
 import java.io.File
 import java.security.MessageDigest
@@ -42,13 +43,17 @@ data class WinRate(val victories: Int, val draws: Int, val simulations: Int) {
     val permille: Int get() = victories * 1000 / simulations
 
     override fun toString(): String = "${permille / 10}.${permille % 10}%".padStart(6) + " (draws $draws)"
+
+    companion object {
+        fun of(result: SimulationResult): WinRate = WinRate(result.victories, result.draws, result.battles)
+    }
 }
 
 data class EncounterBalance(val encounterId: String, val recommendedLevel: Int, val fullTeam: WinRate, val starterAlone: WinRate)
 
 object ContentCompilation {
 
-    const val SIMULATIONS_PER_ENCOUNTER: Int = 200
+    const val SIMULATIONS_PER_ENCOUNTER: Int = SeedRange.DEFAULT_COUNT
     const val MINIMUM_WIN_RATE_PERMILLE: Int = 600
 
     fun readTree(contentDir: File): Map<String, String> =
@@ -57,32 +62,20 @@ object ContentCompilation {
             .associate { it.relativeTo(contentDir).invariantSeparatorsPath to it.readText() }
 
     fun referenceLineup(bundle: ContentBundle, level: Int): List<LineupSlot> {
-        val formation = mapOf(
-            "class.tank" to GridCell(lane = 1, depth = 0),
-            "class.warrior" to GridCell(lane = 0, depth = 0),
-            "class.assassin" to GridCell(lane = 2, depth = 0),
-            "class.ranger" to GridCell(lane = 0, depth = 1),
-            "class.mage" to GridCell(lane = 1, depth = 2),
-            "class.support" to GridCell(lane = 2, depth = 2),
-        )
-        return bundle.heroes.mapNotNull { hero -> formation[hero.classId]?.let { LineupSlot(hero.id, level, 0, it) } }
+        val cells = Formation.place(bundle.heroes.map { it.classId })
+        return bundle.heroes.zip(cells) { hero, cell -> LineupSlot(hero.id, level, 0, cell) }
     }
 
     fun simulate(bundle: ContentBundle): List<EncounterBalance> {
-        val assembler = BattleContentAssembler(bundle)
+        val simulator = EncounterSimulator(bundle)
+        val starter = bundle.heroes.first { it.starter }
         return bundle.encounters.map { encounter ->
-            fun winRate(lineup: List<LineupSlot>): WinRate {
-                val outcomes = (1..SIMULATIONS_PER_ENCOUNTER).map { seed ->
-                    BattleEngine.runAuto(assembler.battle(seed.toLong(), lineup, encounter.id)).finalState.outcome
-                }
-                return WinRate(outcomes.count { it == BattleOutcome.VICTORY }, outcomes.count { it == BattleOutcome.DRAW }, SIMULATIONS_PER_ENCOUNTER)
-            }
-            val starter = bundle.heroes.first { it.starter }
+            val starterAlone = listOf(LineupSlot(starter.id, encounter.recommendedLevel, 0, GridCell(lane = 1, depth = 0)))
             EncounterBalance(
                 encounterId = encounter.id,
                 recommendedLevel = encounter.recommendedLevel,
-                fullTeam = winRate(referenceLineup(bundle, encounter.recommendedLevel)),
-                starterAlone = winRate(listOf(LineupSlot(starter.id, encounter.recommendedLevel, 0, GridCell(lane = 1, depth = 0)))),
+                fullTeam = WinRate.of(simulator.simulate(encounter.id, referenceLineup(bundle, encounter.recommendedLevel))),
+                starterAlone = WinRate.of(simulator.simulate(encounter.id, starterAlone)),
             )
         }
     }
