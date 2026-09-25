@@ -84,6 +84,13 @@ async function explore(client, capture) {
   if (await client.node("game.boot.main_menu/continue")) {
     await client.tap("game.boot.main_menu/continue");
     await client.waitScreen("game.world.world_explore");
+  } else {
+    await client.tap("game.boot.main_menu/new_game");
+    await client.tap("game.onboarding.hero_create_class/pick/aldric");
+    await client.type("game.onboarding.hero_create_name/name", "Explorer");
+    await client.tap("game.onboarding.hero_create_name/next");
+    await client.tap("game.onboarding.hero_create_confirm/start");
+    await client.waitScreen("game.world.world_explore");
   }
   if ((await client.screen()) === "game.world.world_explore") await primeMerge();
   const state = await client.state();

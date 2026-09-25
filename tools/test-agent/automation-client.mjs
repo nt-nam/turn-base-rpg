@@ -1,3 +1,5 @@
+import { writeFileSync } from "node:fs";
+
 export class AutomationClient {
   constructor(url) {
     this.url = url;
@@ -29,6 +31,11 @@ export class AutomationClient {
         resolve();
       };
       socket.onerror = () => reject(new Error("socket error"));
+      socket.onclose = () => {
+        if (this.socket !== socket) return;
+        for (const waiter of this.pending.values()) waiter.reject(new Error("connection to the game closed"));
+        this.pending.clear();
+      };
       socket.onmessage = (message) => {
         const payload = JSON.parse(message.data);
         const waiter = this.pending.get(payload.id);
@@ -43,6 +50,10 @@ export class AutomationClient {
   call(method, params = {}) {
     const id = this.nextId++;
     return new Promise((resolve, reject) => {
+      if (this.socket?.readyState !== WebSocket.OPEN) {
+        reject(new Error(`connection to the game is not open (${method})`));
+        return;
+      }
       this.pending.set(id, { resolve, reject });
       this.socket.send(JSON.stringify({ jsonrpc: "2.0", id, method, params }));
     });
@@ -136,8 +147,10 @@ export class AutomationClient {
     if (problems.length) throw new Error(`invariants broken after ${step}: ${problems.join("; ")}`);
   }
 
-  screenshot(path) {
-    return this.call("capture.screenshot", { path });
+  async screenshot(path) {
+    const image = await this.call("capture.screenshot");
+    writeFileSync(path, Buffer.from(image.base64, "base64"));
+    return path;
   }
 
   close() {
