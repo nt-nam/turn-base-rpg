@@ -24,7 +24,6 @@ import com.pxworld.domain.battle.BattleCommand
 import com.pxworld.domain.battle.BattleSide
 import com.pxworld.domain.battle.UnitId
 import com.pxworld.screens.GameScreenId
-import java.io.File
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.TimeUnit
@@ -248,11 +247,10 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         val width = Gdx.graphics.backBufferWidth
         val height = Gdx.graphics.backBufferHeight
         val pixmap = Pixmap.createFromFrameBuffer(0, 0, width, height)
-        val file = File(target).absoluteFile
-        file.parentFile?.mkdirs()
-        PixmapIO.writePNG(FileHandle(file), pixmap, 6, true)
+        val handle = Gdx.files.absolute(java.nio.file.Paths.get(target).toAbsolutePath().toString())
+        PixmapIO.writePNG(handle, pixmap, 6, true)
         pixmap.dispose()
-        file.path
+        handle.path()
     }
 
     private fun scrollIntoView(actor: Actor) {

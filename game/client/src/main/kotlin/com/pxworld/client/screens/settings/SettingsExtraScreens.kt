@@ -12,7 +12,6 @@ import com.pxworld.client.ui.Tokens
 import com.pxworld.domain.progression.GameState
 import com.pxworld.domain.progression.PlayerSettings
 import com.pxworld.screens.GameScreenId
-import java.io.File
 
 private fun ScreenContext.updateSettings(change: (PlayerSettings) -> PlayerSettings) {
     act { state: GameState -> Transition(state.copy(settings = change(state.settings)), emptyList()) }
@@ -123,9 +122,9 @@ class DataDownloadScreen(context: ScreenContext, args: ScreenArgs) : StandardScr
         content.add(ui.label(text("ui.privacy.download_explain"), "body", wrap = true)).width(760f).padBottom(Tokens.SPACE_M).row()
         content.add(ui.button(testId("export"), text("ui.privacy.export")) {
             val slot = context.store.slot
-            val target = File(System.getProperty("user.home"), "pxworld-export-$slot.json")
-            target.writeText(context.services.saves.export(slot))
-            exported = target.absolutePath
+            val target = Gdx.files.local("exports/pxworld-export-$slot.json")
+            target.writeString(context.services.saves.export(slot), false, "UTF-8")
+            exported = target.file().absolutePath
             rebuild()
         }).width(280f).height(Tokens.BUTTON_HEIGHT).row()
         exported?.let { content.add(ui.label(text("ui.privacy.exported", it), "positive", testId("path"), wrap = true)).width(760f).padTop(Tokens.SPACE_M) }
@@ -173,8 +172,7 @@ class BugReportScreen(context: ScreenContext, args: ScreenArgs) : StandardScreen
         content.add(ui.label(text("ui.bug.explain"), "muted", wrap = true)).width(760f).padBottom(Tokens.SPACE_S).row()
         content.add(field).width(760f).height(Tokens.BUTTON_HEIGHT).padBottom(Tokens.SPACE_S).row()
         content.add(ui.button(testId("submit"), text("ui.bug.submit"), enabled = true) {
-            val directory = File(System.getProperty("user.home"), ".pxworld/bug-reports").apply { mkdirs() }
-            val file = File(directory, "report-${context.services.clock.nowMillis()}.txt")
+            val file = Gdx.files.local("bug-reports/report-${context.services.clock.nowMillis()}.txt")
             val body = buildString {
                 appendLine("description: ${field.text}")
                 appendLine("screen: ${context.navigator.stackIds}")
@@ -183,8 +181,8 @@ class BugReportScreen(context: ScreenContext, args: ScreenArgs) : StandardScreen
                 appendLine("--- log ---")
                 context.logs.entries.takeLast(LOG_LINES).forEach(::appendLine)
             }
-            file.writeText(body)
-            saved = file.absolutePath
+            file.writeString(body, false, "UTF-8")
+            saved = file.file().absolutePath
             draft = ""
             rebuild()
         }).width(240f).height(Tokens.BUTTON_HEIGHT).row()
