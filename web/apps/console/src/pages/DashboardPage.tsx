@@ -1,7 +1,8 @@
 import { api } from "../api";
 import { Page, Stat, Status, useLoad } from "../ui";
+import { telemetryPath } from "./TelemetryPage";
 
-export function DashboardPage() {
+export function DashboardPage({ canExploreTelemetry }: { canExploreTelemetry: boolean }) {
   const state = useLoad(api.dashboard, []);
   return (
     <Page screen="console.dashboards.overview" title="Tổng quan" actions={<button onClick={state.reload}>Làm mới</button>}>
@@ -21,7 +22,7 @@ export function DashboardPage() {
                 <Stat label="Trận bị từ chối" value={`${data.rejectedBattles} (${rejectRate}%)`} tone={rejectRate > 5 ? "warn" : undefined} />
                 <Stat label="Lượt chạy agent" value={data.agentRuns} />
               </div>
-              <h2>Telemetry 24 giờ qua</h2>
+              <h2>{canExploreTelemetry ? <a href={`#${telemetryPath({ range: "24h" })}`}>Telemetry 24 giờ qua</a> : "Telemetry 24 giờ qua"}</h2>
               {events.length === 0 ? (
                 <p className="muted">Chưa có sự kiện.</p>
               ) : (
@@ -36,7 +37,13 @@ export function DashboardPage() {
                     {events.map(([name, count]) => (
                       <tr key={name}>
                         <td>
-                          <code>{name}</code>
+                          {canExploreTelemetry ? (
+                            <a href={`#${telemetryPath({ range: "24h", name })}`}>
+                              <code>{name}</code>
+                            </a>
+                          ) : (
+                            <code>{name}</code>
+                          )}
                         </td>
                         <td className="num">{count}</td>
                       </tr>
