@@ -62,7 +62,7 @@ class AutomationProtocol(private val driver: () -> StageAutomationDriver?) {
             "battle.auto" -> automation.battleAuto(params["enabled"]?.jsonPrimitive?.booleanOrNull ?: true)
             "state.get" -> automation.gameState()
             "invariants.check" -> automation.invariants()
-            "capture.screenshot" -> automation.screenshot(text("path"))
+            "capture.screenshot" -> automation.screenshot(optionalText("path"))
             else -> throw IllegalArgumentException("unknown method $method")
         }
     }
@@ -119,5 +119,9 @@ class AutomationServer(port: Int, private val protocol: AutomationProtocol) : We
 
     override fun onStart() {
         println("automation server listening on ${address.hostString}:${address.port}")
+    }
+
+    companion object {
+        const val DEFAULT_PORT: Int = 47017
     }
 }
