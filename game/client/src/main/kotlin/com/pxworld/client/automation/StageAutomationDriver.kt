@@ -245,9 +245,9 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         problems
     }
 
-    fun screenshot(target: String?): Any = call {
-        val pixmap = Pixmap.createFromFrameBuffer(0, 0, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight)
-        try {
+    fun screenshot(target: String?): Any {
+        val pixmap = call { Pixmap.createFromFrameBuffer(0, 0, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight) }
+        return try {
             if (target == null) inlinePng(pixmap) else writePng(pixmap, target)
         } finally {
             pixmap.dispose()

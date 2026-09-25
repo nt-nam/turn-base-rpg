@@ -17,6 +17,6 @@ Tiêu chí P2 trên Android là "chơi được từ tạo nhân vật đến h�
 
 ## Hệ quả
 - Một bộ scenario dùng chung cho mọi nền tảng, không có nhánh riêng cho Android.
-- Ảnh chụp đi qua WebSocket. Một ảnh 2400×1080 nặng khoảng 50 KB–1.5 MB, việc mã hoá chạy trên render thread trong giới hạn 10 giây của mỗi lệnh automation.
+- Ảnh chụp đi qua WebSocket. Một ảnh 2400×1080 nặng khoảng 50 KB–1.5 MB. Render thread chỉ đọc framebuffer; việc mã hoá PNG chạy trên thread của automation. Lý do là trên emulator vừa boot, mã hoá ngay trên render thread đã vượt giới hạn 10 giây của mỗi lệnh automation, đồng thời làm game đứng hình trong lúc đó.
 - Bản release (PILOT) cũng mở automation trên loopback. Muốn gỡ khỏi bản phát hành thì đặt `PILOT.automation = false` hoặc tách flavor Gradle, và cập nhật ADR này.
 - Nếu `Navigator` không dựng được một màn hình (ví dụ màn cần game đã nạp nhưng chưa có game), màn đó bị gỡ khỏi stack và lỗi trả về cho người gọi. Trước đây màn hỏng nằm lại trong stack và làm crash render thread ở lần `back()` kế tiếp.

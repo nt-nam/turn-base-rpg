@@ -30,5 +30,6 @@ Thư mục báo cáo gồm `report.json`, ảnh chụp (game gửi PNG qua autom
 - Trong Git Bash, MSYS tự đổi các tham số bắt đầu bằng `/` thành đường dẫn Windows. Vì vậy mọi lệnh adb đều chạy với `MSYS_NO_PATHCONV=1`, và APK được truyền bằng đường dẫn tương đối.
 - Nếu không đóng `adb forward` thì cổng host vẫn bị giữ. Script tự gỡ forward khi thoát.
 - Trên AVD `Medium_Phone_API_36.0` (2400×1080, swiftshader), `core-loop` chạy khoảng 2 phút và `chapter1` khoảng 2 phút 10 giây, đều không phải nâng timeout. Ảnh chụp màn battle nặng khoảng 1.5 MB.
+- Trong vài phút đầu sau khi boot, emulator rất chậm vì hệ thống còn chạy việc nền. Lúc đó mã hoá PNG 2400×1080 ngay trên render thread đã vượt giới hạn 10 giây của một lệnh automation (`TimeoutException` ở ảnh chụp đầu tiên). Vì vậy giờ game chỉ đọc framebuffer trên render thread, còn việc mã hoá chạy trên thread của automation.
 - Cài mới thì không có save legacy để nhập như trên máy dev desktop. Vì vậy explorer tự tạo game mới khi menu chính không có nút "Tiếp tục".
 - Bản đồ `map.ashwaste_01` hiện thành các dải đen xen kẽ, cả trên Android lẫn desktop. Đây là lỗi dữ liệu bản đồ hoặc art, không phải lỗi của nền tảng.
