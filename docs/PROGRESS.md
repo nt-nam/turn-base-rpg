@@ -1,6 +1,6 @@
 # Tiến độ viết lại
 
-> Cập nhật: 2026-09-25 · Nhánh: `rewrite` · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md)
+> Cập nhật: 2026-09-26 · Nhánh: `rewrite` · Handbook bàn giao: [handbook/README.md](handbook/README.md) · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md)
 
 ## Trạng thái theo phase
 
@@ -52,6 +52,8 @@ Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng 
 
 ## Việc còn lại gần nhất
 
+Kế hoạch chi tiết, tiêu chí nghiệm thu và lệnh test của từng việc nằm ở [handbook/05-work-packages.md](handbook/05-work-packages.md).
+
 - [x] P3: asset pipeline — nén nền trận, cắt tileset, font OFL, `art/LICENSES.md`
 - [x] P4: màn cloud save trong game (đăng nhập, đồng bộ, xử lý 409), gửi telemetry từ client, nhận thư trong game
 - [x] Android: URL máy chủ và flavor qua BuildConfig (debug → `10.0.2.2:8080`, cleartext chỉ ở debug)
@@ -59,21 +61,45 @@ Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng 
 - [x] Test kiến trúc: `:tools:architecture` (tự quét import, không dùng Konsist)
 - [x] JSON Schema: `content/schemas` sinh từ record, Studio có biểu mẫu sinh từ schema
 - [x] Âm thanh: `AudioDirector` phát nhạc theo khám phá/trận và SFX, tôn trọng cài đặt
-- [ ] **Android runtime (đang làm dở):** APK debug đã cài và chạy trên emulator, hiện màn `boot.legal_notice` (chưa có crash). Việc tiếp theo: bật `AutomationServer` trong `AndroidLauncher` khi flavor cho phép automation, `adb forward tcp:47017 tcp:47017`, chạy `core-loop` trên Android.
-- [ ] Lọc telemetry theo thời gian trong Console
-- [ ] `sim-cli` tách riêng: chạy đội hình tuỳ ý (`--encounter --heroes --seeds`), in tỉ lệ thắng, số vòng, sát thương theo đơn vị
-- [ ] Cân bằng: mô phỏng hiện chỉ so "đủ 6 lớp" với "starter một mình"; cần đội hình theo tiến trình chương (xem `content/BALANCE_NOTES.md`)
-- [ ] Spike TeaVM (web client) — P6
-- [ ] Xoá `core/` và `lwjgl3/` trong một commit riêng "remove legacy core" sau khi Android đạt tiêu chí P2
+- [x] Handbook bàn giao `docs/handbook/` và 6 project skill trong `.claude/skills/`
+- [ ] WP-A1 Android runtime — **đạt trên nhánh `rewrite-android`, chưa merge**
+- [ ] WP-A2 `sim-cli` — **xong trên nhánh `rewrite-sim`, chưa merge**
+- [ ] WP-A3 Cân bằng theo tiến trình — **đang dở trên `rewrite-sim`** (mới có số đo)
+- [ ] WP-A4 Telemetry explorer — **xong trên nhánh `rewrite-telemetry`, chưa merge**
+- [ ] WP-A5 Spike TeaVM — **đang dở trên `rewrite-web`** (biên dịch được, chưa boot)
+- [ ] WP-A6 Xoá `core/`, `lwjgl3/`, `android/`, `ios/`, `html/` — chờ merge A1
+- [ ] WP-A7 Merge đợt A và chạy hồi quy toàn phần
 
-## Điểm tạm dừng (2026-09-25)
+## Điểm tạm dừng (2026-09-26)
 
-Làm tiếp từ mục **Android runtime** ở trên. Emulator trên máy này chỉ khởi động được với:
+Người dùng cho tạm dừng. Mọi việc đã commit, không tag, chưa push. Có 4 nhánh chưa merge, mỗi nhánh nằm trong một worktree riêng ở `D:/code/libgdx/LVpxW-wt/<tên>`. Mỗi worktree đã có sẵn `local.properties`.
+
+| Nhánh | Worktree | Commit | Trạng thái | Việc tiếp theo |
+|---|---|---|---|---|
+| `rewrite-android` | `LVpxW-wt/android` | `c7cfc4e` `e7ca5d6` `c93bf11` WIP `d5794ee` | `core-loop`, `chapter1` PASSED; explorer 133/133 trên emulator. Có sửa lỗi `Navigator.push` giữ lại màn build lỗi | Chạy lại khi emulator boot nguội với `d5794ee` (xem WP-A1) |
+| `rewrite-sim` | `LVpxW-wt/sim` | `db5b15c`, WIP `1428621` | `sim-cli` xong (13 test); số đo cân bằng đã ghi | WP-C0, rồi WP-A3 theo thiết kế ghi trong 05 |
+| `rewrite-telemetry` | `LVpxW-wt/telemetry` | `02836fa` `c8bd4af` `6932eb3` | Xong: `ServerTest` 10/10, console agent 11/11 | Merge |
+| `rewrite-web` | `LVpxW-wt/web` | WIP `73a3771` | Biên dịch JS được; chặn ở reflection `GlyphLayout$GlyphRun` | Đăng ký lớp cho reflection, chạy `web-smoke.mjs` (xem WP-A5) |
+
+**Khi merge (WP-A7) cần chú ý:**
+- Xung đột dự kiến ở `ci.yml`, `settings*.gradle`, `libs.versions.toml`, `ArchitectureTest.kt`, `StageAutomationDriver.kt` (android và web cùng sửa), `automation-client.mjs` và `run.mjs`.
+- ADR: 0015 có trên `rewrite-android`; 0014 được dành cho cân bằng. Thêm các ADR mới vào `docs/adr/README.md`.
+- Sau merge chạy lại toàn bộ desktop agent, vì các nhánh sửa file client dùng chung.
+
+**Dọn dẹp chờ người dùng quyết định:** trong `.claude/worktrees/` còn 4 worktree bị tạo nhầm từ `main` (đã được ignore, không ảnh hưởng build). Lệnh dọn của Claude bị chặn, nên để người dùng tự dọn.
+
+**Phát hiện quan trọng** (danh sách đầy đủ ở [05 §9](handbook/05-work-packages.md)):
+- S1:
+  - Token 12 giờ không có refresh, nên tài khoản khách mất cloud save (P-30).
+  - Staff bị thu hồi vẫn còn quyền tới 12 giờ (P-31).
+  - Explorer báo PASSED dù từng màn lỗi (P-50).
+  - CI chưa từng chạy trên nhánh `rewrite` (P-61).
+- Vòng khắc chế trong content khác thiết kế (WP-C0).
+
+**Số liệu hiệu chỉnh:** 579 key UI (không phải 529); content có 9 test. Sau khi merge nhánh sim sẽ là 19 test.
+
+Emulator trên máy này chỉ khởi động được với:
 
 ```
 E:/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36.0 -no-window -gpu swiftshader_indirect -feature -Vulkan -no-snapshot -no-audio -no-boot-anim
 ```
-
-(không có `-feature -Vulkan` thì emulator crash khi dò Vulkan). Sau khi khởi động: `adb install -r game/platform-android/build/outputs/apk/debug/platform-android-debug.apk`, `adb shell am start -n com.game.pxworld/com.pxworld.android.AndroidLauncher`. Lần đầu Android hiện hộp thoại hệ thống "Viewing full screen" che game.
-
-Kiểm chứng gần nhất: JVM test xanh (gồm server, application, content, client, architecture); test agent `core-loop`, `chapter1`, `cloud`, explorer 133/133 và `console` 10/10 đều PASSED.
