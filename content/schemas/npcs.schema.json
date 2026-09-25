@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "npcs file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "sprite": {
+        "type": "string"
+      },
+      "placements": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "map": {
+              "type": "string"
+            },
+            "object": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "map",
+            "object"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "dialogues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "dialogue": {
+              "type": "string"
+            },
+            "whenQuestActive": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "dialogue"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "sprite",
+      "placements",
+      "dialogues"
+    ],
+    "additionalProperties": false
+  }
+}

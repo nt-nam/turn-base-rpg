@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "achievements file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "counter": {
+        "type": "string"
+      },
+      "tiers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "integer"
+            },
+            "rewards": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "currency",
+                      "item",
+                      "equipment",
+                      "hero"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "id",
+                  "quantity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "target",
+            "rewards"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "description",
+      "counter",
+      "tiers"
+    ],
+    "additionalProperties": false
+  }
+}

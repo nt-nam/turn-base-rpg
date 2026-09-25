@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "maps file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "region": {
+        "type": "string"
+      },
+      "asset": {
+        "type": "string"
+      },
+      "legacyName": {
+        "type": "string"
+      },
+      "recommendedLevel": {
+        "type": "integer"
+      },
+      "battleBackground": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "region",
+      "asset",
+      "legacyName",
+      "recommendedLevel"
+    ],
+    "additionalProperties": false
+  }
+}

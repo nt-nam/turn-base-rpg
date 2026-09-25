@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "enemies file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "classId": {
+        "type": "string"
+      },
+      "baseStats": {
+        "type": "object",
+        "properties": {
+          "hp": {
+            "type": "integer"
+          },
+          "attack": {
+            "type": "integer"
+          },
+          "defense": {
+            "type": "integer"
+          },
+          "speed": {
+            "type": "integer"
+          },
+          "critRate": {
+            "type": "integer"
+          },
+          "critDamage": {
+            "type": "integer"
+          },
+          "accuracy": {
+            "type": "integer"
+          },
+          "evasion": {
+            "type": "integer"
+          },
+          "effectHit": {
+            "type": "integer"
+          },
+          "effectResistance": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "hp",
+          "attack",
+          "defense",
+          "speed"
+        ],
+        "additionalProperties": false
+      },
+      "skills": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "sprite": {
+        "type": "string"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "classId",
+      "baseStats",
+      "skills",
+      "sprite"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -179,6 +179,9 @@ class ServerTest {
         val liveops = client.staff(admin, "liveops@pxworld.local", Roles.LIVEOPS)
         val kinds = ApiJson.parseToJsonElement(client.send("GET", "/studio/kinds", creator).bodyAsText()).jsonArray.map { it.jsonPrimitive.content }
         assertTrue("items" in kinds && "localization" !in kinds, kinds.toString())
+        val schema = client.send("GET", "/studio/kinds/items/schema", creator).json()
+        assertTrue("shop" in schema.getValue("properties").jsonObject, schema.toString())
+        assertEquals(HttpStatusCode.BadRequest, client.send("GET", "/studio/kinds/nope/schema", creator).status)
         val item = client.send("GET", "/studio/kinds/items", creator).json().getValue("records").jsonArray.first().jsonObject
         val broken = JsonObject(item + ("name" to JsonPrimitive("text.missing.key")))
         val rejected = client.send("PUT", "/studio/kinds/items", creator, broken.toString())

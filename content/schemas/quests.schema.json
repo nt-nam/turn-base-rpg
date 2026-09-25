@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "quests file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "objective": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "count"
+        ],
+        "additionalProperties": false
+      },
+      "rewards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "currency",
+                "item",
+                "equipment",
+                "hero"
+              ]
+            },
+            "id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "quantity"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "requires": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "description",
+      "category",
+      "objective",
+      "rewards"
+    ],
+    "additionalProperties": false
+  }
+}

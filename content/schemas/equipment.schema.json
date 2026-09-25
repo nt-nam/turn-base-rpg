@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "equipment file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "slot": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "stats": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      },
+      "shop": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "listed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "currency",
+          "price",
+          "listed"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "slot",
+      "icon",
+      "stats",
+      "shop"
+    ],
+    "additionalProperties": false
+  }
+}

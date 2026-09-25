@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { webScreens, type WebScreenId } from "@pxworld/screen-catalog";
 import { api, type ContentRecord } from "../api";
 import { Notice, Page, Status, messageOf, useAction, useLoad } from "../ui";
+import { ObjectField, defaultFor, unwrap, type Schema } from "./SchemaForm";
 
 const registered = new Set<string>(webScreens.map((screen) => screen.id));
 const entityScreen = (kind: string, view: "list" | "editor"): WebScreenId => {
@@ -31,6 +32,7 @@ export function StudioHomePage() {
 
 export function StudioKindPage({ kind, selected }: { kind: string; selected?: string }) {
   const state = useLoad(() => api.records(kind), [kind]);
+  const schema = useLoad(() => api.schema(kind), [kind]);
   const [filter, setFilter] = useState("");
   const records = useMemo(
     () => (state.data?.records ?? []).filter((record) => JSON.stringify(record).toLowerCase().includes(filter.toLowerCase())),
@@ -61,9 +63,9 @@ export function StudioKindPage({ kind, selected }: { kind: string; selected?: st
             </aside>
             <div className="record-editor">
               {selected === "__new" ? (
-                <RecordEditor kind={kind} initial={{ id: `${kind.replace(/s$/, "")}.new` }} onSaved={state.reload} />
+                <RecordEditor kind={kind} schema={schema.data} initial={{ ...(schema.data ? (defaultFor(schema.data) as object) : {}), id: `${kind.replace(/s$/, "")}.new` }} onSaved={state.reload} />
               ) : current ? (
-                <RecordEditor key={current.id} kind={kind} initial={current} onSaved={state.reload} />
+                <RecordEditor key={current.id} kind={kind} schema={schema.data} initial={current} onSaved={state.reload} />
               ) : (
                 <p className="muted">Chọn một bản ghi ở bên trái.</p>
               )}
@@ -75,13 +77,23 @@ export function StudioKindPage({ kind, selected }: { kind: string; selected?: st
   );
 }
 
-function RecordEditor({ kind, initial, onSaved }: { kind: string; initial: ContentRecord; onSaved: () => void }) {
+function RecordEditor({ kind, schema, initial, onSaved }: { kind: string; schema?: Schema; initial: ContentRecord; onSaved: () => void }) {
   const original = useMemo(() => JSON.stringify(initial, null, 2), [initial]);
   const [text, setText] = useState(original);
+  const [mode, setMode] = useState<"form" | "json">("form");
+  const formValue = useMemo(() => {
+    try {
+      return JSON.parse(text) as Record<string, unknown>;
+    } catch {
+      return undefined;
+    }
+  }, [text]);
   const [parseError, setParseError] = useState<string>();
   const action = useAction();
 
   useEffect(() => setText(original), [original]);
+  const { setResult } = action;
+  useEffect(() => setResult(undefined), [text, setResult]);
 
   const parsed = (): unknown => {
     try {
@@ -108,7 +120,24 @@ function RecordEditor({ kind, initial, onSaved }: { kind: string; initial: Conte
   const dirty = text !== original;
   return (
     <div className="editor">
-      <textarea spellCheck={false} value={text} onChange={(event) => setText(event.target.value)} aria-label="JSON bản ghi" />
+      <div className="tabs" role="tablist">
+        <button role="tab" aria-selected={mode === "form"} className={mode === "form" ? "tab-active" : ""} onClick={() => setMode("form")} disabled={!schema}>
+          Biểu mẫu
+        </button>
+        <button role="tab" aria-selected={mode === "json"} className={mode === "json" ? "tab-active" : ""} onClick={() => setMode("json")}>
+          JSON
+        </button>
+      </div>
+      {mode === "form" && schema && formValue ? (
+        <div className="schema-form">
+          <ObjectField schema={unwrap(schema).schema} value={formValue} onChange={(next) => setText(JSON.stringify(next, null, 2))} path="$" />
+        </div>
+      ) : (
+        <>
+          {mode === "form" && schema && <Notice tone="info">JSON đang lỗi nên không hiện được biểu mẫu; sửa ở tab JSON.</Notice>}
+          <textarea spellCheck={false} value={text} onChange={(event) => setText(event.target.value)} aria-label="JSON bản ghi" />
+        </>
+      )}
       {parseError && <Notice tone="error">JSON lỗi: {parseError}</Notice>}
       <div className="buttons">
         <button onClick={() => submit(true)} disabled={action.busy}>

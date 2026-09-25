@@ -329,6 +329,11 @@ fun Application.routes(services: Services) {
                     val kind = call.parameters["kind"].orEmpty()
                     call.respond(StudioRecordsView(kind, services.content.records(kind)))
                 }
+                get("/kinds/{kind}/schema") {
+                    call.requireRole(Roles.CREATOR, Roles.DEV)
+                    val kind = com.pxworld.content.ContentKinds.byDirectory(call.parameters["kind"].orEmpty()) ?: throw IllegalArgumentException("unknown kind")
+                    call.respond(com.pxworld.content.ContentSchema.record(kind))
+                }
                 put("/kinds/{kind}") {
                     val caller = call.requireRole(Roles.CREATOR, Roles.DEV)
                     val kind = call.parameters["kind"].orEmpty()

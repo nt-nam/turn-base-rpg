@@ -91,6 +91,8 @@ export interface AgentRun {
 
 export type ContentRecord = Record<string, unknown> & { id: string };
 
+import type { Schema } from "./pages/SchemaForm";
+
 export class ApiError extends Error {
   constructor(
     readonly status: number,
@@ -159,6 +161,7 @@ export const api = {
   promote: (env: string, version: string) => request<unknown>("POST", "/content/promote", { env, version }),
   kinds: () => request<string[]>("GET", "/studio/kinds"),
   records: (kind: string) => request<{ kind: string; records: ContentRecord[] }>("GET", `/studio/kinds/${q(kind)}`),
+  schema: (kind: string) => request<Schema>("GET", `/studio/kinds/${q(kind)}/schema`),
   upsert: (kind: string, record: unknown, dryRun: boolean) =>
     request<Validation>("PUT", `/studio/kinds/${q(kind)}${dryRun ? "?dryRun=true" : ""}`, record),
   agentRuns: () => request<AgentRun[]>("GET", "/qa/agent-runs"),

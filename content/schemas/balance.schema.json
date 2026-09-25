@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "balance file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "maxRounds": {
+        "type": "integer"
+      },
+      "timeUnitsPerRound": {
+        "type": "integer"
+      },
+      "referenceSpeed": {
+        "type": "integer"
+      },
+      "startingEnergy": {
+        "type": "integer"
+      },
+      "maxEnergy": {
+        "type": "integer"
+      },
+      "energyPerAction": {
+        "type": "integer"
+      },
+      "energyWhenHit": {
+        "type": "integer"
+      },
+      "baseHitPermille": {
+        "type": "integer"
+      },
+      "minimumHitPermille": {
+        "type": "integer"
+      },
+      "criticalRateCapPermille": {
+        "type": "integer"
+      },
+      "damageVariancePermille": {
+        "type": "integer"
+      },
+      "defenseConstantBase": {
+        "type": "integer"
+      },
+      "defenseConstantPerLevel": {
+        "type": "integer"
+      },
+      "damageTakenByDepthPermille": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "matchupAdvantagePermille": {
+        "type": "integer"
+      },
+      "matchupDisadvantagePermille": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "maxRounds",
+      "timeUnitsPerRound",
+      "referenceSpeed",
+      "startingEnergy",
+      "maxEnergy",
+      "energyPerAction",
+      "energyWhenHit",
+      "baseHitPermille",
+      "minimumHitPermille",
+      "criticalRateCapPermille",
+      "damageVariancePermille",
+      "defenseConstantBase",
+      "defenseConstantPerLevel",
+      "damageTakenByDepthPermille",
+      "matchupAdvantagePermille",
+      "matchupDisadvantagePermille"
+    ],
+    "additionalProperties": false
+  }
+}

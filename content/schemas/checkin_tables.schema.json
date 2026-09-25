@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "checkin_tables file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "days": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "day": {
+              "type": "integer"
+            },
+            "rewards": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "currency",
+                      "item",
+                      "equipment",
+                      "hero"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "id",
+                  "quantity"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "day",
+            "rewards"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "days"
+    ],
+    "additionalProperties": false
+  }
+}

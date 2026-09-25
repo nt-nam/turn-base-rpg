@@ -265,16 +265,21 @@ try {
     await agent.screen("studio.content_entities.items.list");
     await agent.browser.evaluate(`document.querySelector('.record-list li a').click()`);
     await agent.screen("studio.content_entities.items.editor");
+    await agent.browser.waitFor(`document.querySelector(".schema-form input[aria-label='$.name']")`, "schema form");
     await agent.click("Kiểm tra");
     await agent.expectText("Hợp lệ.");
-    const original = await agent.browser.evaluate(`document.querySelector('.editor textarea').value`);
-    const broken = JSON.parse(original);
-    broken.name = "text.agent.missing";
-    await agent.fill(".editor textarea", JSON.stringify(broken, null, 2));
+    await agent.fill(".schema-form input[aria-label='$.name']", "text.agent.missing");
+    await agent.shot("studio-form");
     await agent.click("Kiểm tra");
     await agent.expectText("content rejected");
     await agent.shot("studio-rejected");
+    await agent.click("JSON");
+    const edited = JSON.parse(await agent.browser.evaluate(`document.querySelector('.editor textarea').value`));
+    if (edited.name !== "text.agent.missing") throw new Error("form edit did not reach the JSON view");
     await agent.click("Hoàn tác");
+    await agent.click("Biểu mẫu");
+    const restored = await agent.browser.evaluate(`document.querySelector(".schema-form input[aria-label='$.name']").value`);
+    if (restored === "text.agent.missing") throw new Error("undo did not restore the form");
   });
 
   await agent.step("qa runs", async () => {

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "skills file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "slot": {
+        "type": "string",
+        "enum": [
+          "basic",
+          "skill",
+          "ultimate"
+        ]
+      },
+      "energyCost": {
+        "type": "integer"
+      },
+      "cooldownTurns": {
+        "type": "integer"
+      },
+      "targeting": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "single_enemy",
+              "enemy_row",
+              "enemy_lane",
+              "all_enemies",
+              "single_ally",
+              "all_allies",
+              "self",
+              "lowest_hp_allies",
+              "random_enemies"
+            ]
+          },
+          "count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "kind"
+        ],
+        "additionalProperties": false
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "damage",
+                "heal",
+                "apply_status",
+                "gain_energy"
+              ]
+            },
+            "power": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hits": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "chance": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "onSelf": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "amount": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "vfx": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "description",
+      "slot",
+      "energyCost",
+      "cooldownTurns",
+      "targeting",
+      "effects",
+      "vfx"
+    ],
+    "additionalProperties": false
+  }
+}

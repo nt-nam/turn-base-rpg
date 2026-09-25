@@ -25,3 +25,11 @@ tasks.register<JavaExec>("compileContent") {
         repositoryRoot.dir("assets").asFile.absolutePath,
     )
 }
+
+tasks.register<JavaExec>("exportSchemas") {
+    group = "content"
+    description = "Writes JSON Schemas for every content kind to content/schemas, derived from the record types."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("com.pxworld.content.compiler.SchemaExportKt")
+    args(repositoryRoot.dir("content/schemas").asFile.absolutePath)
+}

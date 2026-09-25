@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "items file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "category": {
+        "type": "string"
+      },
+      "tier": {
+        "type": "integer"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "shop": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "currency": {
+                "type": "string"
+              },
+              "price": {
+                "type": "integer"
+              },
+              "listed": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "currency",
+              "price",
+              "listed"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "use": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "kind",
+              "amount"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "materialValue": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "category",
+      "tier",
+      "icon"
+    ],
+    "additionalProperties": false
+  }
+}

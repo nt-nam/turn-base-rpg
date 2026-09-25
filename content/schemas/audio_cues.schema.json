@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "audio_cues file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string"
+      },
+      "asset": {
+        "type": "string"
+      },
+      "volumePercent": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id",
+      "kind",
+      "asset"
+    ],
+    "additionalProperties": false
+  }
+}

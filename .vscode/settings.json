@@ -1,3 +1,107 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "/content/achievements/*.json"
+            ],
+            "url": "./content/schemas/achievements.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/audio_cues/*.json"
+            ],
+            "url": "./content/schemas/audio_cues.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/balance/*.json"
+            ],
+            "url": "./content/schemas/balance.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/checkin_tables/*.json"
+            ],
+            "url": "./content/schemas/checkin_tables.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/currencies/*.json"
+            ],
+            "url": "./content/schemas/currencies.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/dialogues/*.json"
+            ],
+            "url": "./content/schemas/dialogues.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/encounters/*.json"
+            ],
+            "url": "./content/schemas/encounters.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/enemies/*.json"
+            ],
+            "url": "./content/schemas/enemies.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/equipment/*.json"
+            ],
+            "url": "./content/schemas/equipment.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/heroes/*.json"
+            ],
+            "url": "./content/schemas/heroes.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/hero_classes/*.json"
+            ],
+            "url": "./content/schemas/hero_classes.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/items/*.json"
+            ],
+            "url": "./content/schemas/items.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/maps/*.json"
+            ],
+            "url": "./content/schemas/maps.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/npcs/*.json"
+            ],
+            "url": "./content/schemas/npcs.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/quests/*.json"
+            ],
+            "url": "./content/schemas/quests.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/skills/*.json"
+            ],
+            "url": "./content/schemas/skills.schema.json"
+        },
+        {
+            "fileMatch": [
+                "/content/statuses/*.json"
+            ],
+            "url": "./content/schemas/statuses.schema.json"
+        }
+    ]
 }

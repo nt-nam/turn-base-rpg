@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "encounters file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "map": {
+        "type": "string"
+      },
+      "mapObjectId": {
+        "type": "integer"
+      },
+      "recommendedLevel": {
+        "type": "integer"
+      },
+      "enemies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "enemy": {
+              "type": "string"
+            },
+            "level": {
+              "type": "integer"
+            },
+            "star": {
+              "type": "integer"
+            },
+            "cell": {
+              "type": "object",
+              "properties": {
+                "lane": {
+                  "type": "integer"
+                },
+                "depth": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "lane",
+                "depth"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "enemy",
+            "level",
+            "star",
+            "cell"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "rewards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "currency",
+                "item",
+                "equipment",
+                "hero"
+              ]
+            },
+            "id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "quantity"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "map",
+      "mapObjectId",
+      "recommendedLevel",
+      "enemies",
+      "rewards"
+    ],
+    "additionalProperties": false
+  }
+}

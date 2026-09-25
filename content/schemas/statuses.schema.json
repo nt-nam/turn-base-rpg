@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "statuses file",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "stun",
+          "silence",
+          "taunt",
+          "shield",
+          "damage_over_time",
+          "heal_over_time",
+          "stat_modifier",
+          "stat_bonus"
+        ]
+      },
+      "stat": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "magnitude": {
+        "type": "integer"
+      },
+      "durationTurns": {
+        "type": "integer"
+      },
+      "maxStacks": {
+        "type": "integer"
+      },
+      "dispellable": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "kind",
+      "durationTurns"
+    ],
+    "additionalProperties": false
+  }
+}
