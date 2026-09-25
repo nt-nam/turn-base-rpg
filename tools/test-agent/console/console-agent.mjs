@@ -174,6 +174,15 @@ class ConsoleAgent {
     await this.browser.evaluate(`[...document.querySelectorAll(${js(`${scope} button, ${scope} a`)})].find((node) => node.textContent.trim() === ${js(text)} && !node.disabled).click()`);
   }
 
+  async choose(selector, value) {
+    await this.browser.waitFor(`[...document.querySelectorAll(${js(`${selector} option`)})].some((option) => option.value === ${js(value)})`, `option ${value} in ${selector}`);
+    await this.browser.evaluate(`(() => {
+      const node = document.querySelector(${js(selector)});
+      Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, "value").set.call(node, ${js(value)});
+      node.dispatchEvent(new Event("change", { bubbles: true }));
+    })()`);
+  }
+
   async expectText(text, timeout) {
     await this.browser.waitFor(`document.body.innerText.includes(${js(text)})`, `text "${text}"`, timeout);
   }
@@ -196,6 +205,12 @@ try {
   await api("PUT", "/saves/main", player.token, { expectedRevision: 0, body: JSON.stringify({ agent: true, gold: 900 }) });
   await api("PUT", "/saves/main", player.token, { expectedRevision: 1, body: JSON.stringify({ agent: true, gold: 0 }) });
   await api("POST", "/telemetry", player.token, { clientVersion: "console-agent", events: [{ name: "session.start" }] });
+  const probeName = `agent.probe_${suffix}`;
+  const echoName = `agent.echo_${suffix}`;
+  const probeCount = 60;
+  const echoCount = 5;
+  await api("POST", "/telemetry", player.token, { clientVersion: "console-agent", events: Array.from({ length: probeCount }, (_, index) => ({ name: probeName, payload: { index, agent: true } })) });
+  await api("POST", "/telemetry", null, { events: Array.from({ length: echoCount }, (_, index) => ({ name: echoName, payload: { index } })) });
 
   await browser.open(`${consoleUrl}/#/`);
 
@@ -208,6 +223,49 @@ try {
     await agent.screen("console.dashboards.overview");
     await agent.expectText("session.start");
     await agent.shot("dashboard");
+  });
+
+  await agent.step("telemetry explorer", async () => {
+    const totalCell = (name) => `document.querySelector(${js(`.telemetry-totals tr[data-name="${name}"] td.num`)})?.textContent`;
+    const seriesCount = (name) => `document.querySelector(${js(`.chart [data-series="${name}"]`)})?.dataset.count`;
+    const eventRows = `document.querySelectorAll(".telemetry-events tbody tr").length`;
+    const settled = (hashPart) => `location.hash.includes(${js(hashPart)}) && !document.querySelector(".telemetry-results.refreshing") && document.querySelector(".telemetry-events")`;
+
+    await agent.click("Telemetry 24 giờ qua");
+    await agent.screen("console.analytics.report_builder");
+    await agent.browser.waitFor(settled("range=24h"), "24h preset from the dashboard link");
+    await agent.browser.waitFor(`${totalCell(probeName)} === ${js(String(probeCount))} && ${totalCell(echoName)} === ${js(String(echoCount))}`, "seeded totals in the 24h table");
+    await agent.browser.waitFor(`${seriesCount(probeName)} === ${js(String(probeCount))} && ${seriesCount(echoName)} === ${js(String(echoCount))}`, "seeded series in the chart");
+    await agent.shot("telemetry-24h");
+
+    await agent.click("7 ngày");
+    await agent.browser.waitFor(`${settled("range=7d")} && Number(document.querySelector(".chart").dataset.buckets) >= 168`, "7d preset with hourly buckets");
+    await agent.click("1 giờ");
+    await agent.browser.waitFor(`${settled("range=1h")} && [60, 61].includes(Number(document.querySelector(".chart").dataset.buckets))`, "1h preset with minute buckets");
+    await agent.browser.waitFor(`${seriesCount(probeName)} === ${js(String(probeCount))}`, "seeded series in the 1h chart");
+
+    await agent.choose("select[name=name]", probeName);
+    await agent.browser.waitFor(settled(`name=${encodeURIComponent(probeName)}`), "name filter in the hash");
+    await agent.browser.waitFor(
+      `document.querySelectorAll(".telemetry-totals tbody tr").length === 1 && ${totalCell(probeName)} === ${js(String(probeCount))} && document.querySelector(".chart").dataset.total === ${js(String(probeCount))}`,
+      "totals and chart narrowed to the probe event",
+    );
+    const bars = await agent.browser.evaluate(`document.querySelectorAll(${js(`.chart [data-series="${probeName}"] path, .chart [data-series="${probeName}"] rect`)}).length`);
+    if (bars < 1) throw new Error("filtered chart drew no bars for the probe event");
+    await agent.shot("telemetry-filtered");
+
+    await agent.browser.waitFor(`${eventRows} === 50`, "first page of raw events");
+    await agent.click("Tải thêm");
+    await agent.browser.waitFor(`${eventRows} === ${probeCount} && ![...document.querySelectorAll("button")].some((node) => node.textContent.trim() === "Tải thêm")`, "second page completes the raw events");
+    const names = await agent.browser.evaluate(`[...document.querySelectorAll(".telemetry-events tbody tr td:nth-child(2)")].map((cell) => cell.textContent.trim())`);
+    if (names.some((name) => name !== probeName)) throw new Error(`raw events ignored the name filter: ${[...new Set(names)].join(", ")}`);
+    await agent.browser.evaluate(`(() => { const payload = document.querySelector(".telemetry-events details"); payload.open = true; payload.scrollIntoView({ block: "center" }); })()`);
+    await agent.browser.waitFor(`document.querySelector(".telemetry-events details[open] pre")?.textContent.includes('"agent": true')`, "expanded JSON payload");
+    await agent.shot("telemetry-events");
+
+    await agent.browser.evaluate(`location.reload()`);
+    await agent.screen("console.analytics.report_builder");
+    await agent.browser.waitFor(`document.querySelector("select[name=name]")?.value === ${js(probeName)} && ${totalCell(probeName)} === ${js(String(probeCount))}`, "filter restored from the hash after reload");
   });
 
   await agent.step("player search and detail", async () => {
