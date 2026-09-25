@@ -101,9 +101,9 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
 
     fun registeredScreens(): List<String> = call { context.navigator.registered.map { it.id }.sorted() }
 
-    fun tree(): List<UiNode> = call { treeNow() }
+    fun tree(): List<UiNode> = call { visibleNodes() }
 
-    private fun treeNow(): List<UiNode> {
+    fun visibleNodes(): List<UiNode> {
         val nodes = mutableListOf<UiNode>()
         fun visit(actor: Actor) {
             if (!actor.isVisible) return
@@ -131,6 +131,8 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         stage.root.children.forEach(::visit)
         return nodes
     }
+
+    fun screenCenter(node: UiNode): Vector2 = stage.stageToScreenCoordinates(Vector2(node.x + node.width / 2, node.y + node.height / 2))
 
     fun tap(testId: String): Boolean {
         call {
@@ -238,7 +240,7 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         state.ledgerTail.groupBy { it.currency }.forEach { (currency, entries) ->
             if (entries.last().balanceAfter != state.wallet.balance(currency)) problems += "ledger tail for $currency disagrees with wallet"
         }
-        val missing = treeNow().filter { it.text != null && it.text.startsWith("ui.") }
+        val missing = visibleNodes().filter { it.text != null && it.text.startsWith("ui.") }
         missing.forEach { problems += "untranslated key ${it.text} at ${it.testId}" }
         problems
     }
