@@ -153,7 +153,14 @@ class Navigator(private val stage: Stage, private val registry: ScreenRegistry) 
     private fun push(id: GameScreenId, args: ScreenArgs) {
         val screen = registry.create(id, context, args)
         stack += screen
-        screen.rebuild()
+        try {
+            screen.rebuild()
+        } catch (failure: RuntimeException) {
+            stack.remove(screen)
+            screen.dispose()
+            attachVisible()
+            throw failure
+        }
         screen.onShow()
         attachVisible()
     }
