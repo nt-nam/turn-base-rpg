@@ -54,10 +54,26 @@ Chí mạng không bao giờ xảy ra · kỹ năng 2/3 gần như không dùng 
 
 - [x] P3: asset pipeline — nén nền trận, cắt tileset, font OFL, `art/LICENSES.md`
 - [x] P4: màn cloud save trong game (đăng nhập, đồng bộ, xử lý 409), gửi telemetry từ client, nhận thư trong game
-- [ ] Android: cấu hình URL máy chủ qua BuildConfig (hiện Android chưa bật cloud)
-- [ ] P4 tiếp: Console — so sánh bản content, lịch sử save từng revision, lọc telemetry theo thời gian
-- [x] Âm thanh: `AudioDirector` phát nhạc theo khám phá/trận và SFX (click, trúng đòn, chí mạng), tôn trọng cài đặt — kiểm chứng bằng `core-loop`
-- [ ] Android: chạy thử trên thiết bị thật hoặc emulator có GPU
-- [ ] Spike TeaVM (web) và test kiến trúc (Konsist)
-- [ ] JSON Schema xuất cho Studio; `sim-cli` tách riêng
-- [ ] Cân bằng: xem `content/BALANCE_NOTES.md`
+- [x] Android: URL máy chủ và flavor qua BuildConfig (debug → `10.0.2.2:8080`, cleartext chỉ ở debug)
+- [x] Console: so sánh hai bản content, lịch sử save và khôi phục revision (có audit)
+- [x] Test kiến trúc: `:tools:architecture` (tự quét import, không dùng Konsist)
+- [x] JSON Schema: `content/schemas` sinh từ record, Studio có biểu mẫu sinh từ schema
+- [x] Âm thanh: `AudioDirector` phát nhạc theo khám phá/trận và SFX, tôn trọng cài đặt
+- [ ] **Android runtime (đang làm dở):** APK debug đã cài và chạy trên emulator, hiện màn `boot.legal_notice` (chưa có crash). Việc tiếp theo: bật `AutomationServer` trong `AndroidLauncher` khi flavor cho phép automation, `adb forward tcp:47017 tcp:47017`, chạy `core-loop` trên Android.
+- [ ] Lọc telemetry theo thời gian trong Console
+- [ ] `sim-cli` tách riêng: chạy đội hình tuỳ ý (`--encounter --heroes --seeds`), in tỉ lệ thắng, số vòng, sát thương theo đơn vị
+- [ ] Cân bằng: mô phỏng hiện chỉ so "đủ 6 lớp" với "starter một mình"; cần đội hình theo tiến trình chương (xem `content/BALANCE_NOTES.md`)
+- [ ] Spike TeaVM (web client) — P6
+- [ ] Xoá `core/` và `lwjgl3/` trong một commit riêng "remove legacy core" sau khi Android đạt tiêu chí P2
+
+## Điểm tạm dừng (2026-09-25)
+
+Làm tiếp từ mục **Android runtime** ở trên. Emulator trên máy này chỉ khởi động được với:
+
+```
+E:/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36.0 -no-window -gpu swiftshader_indirect -feature -Vulkan -no-snapshot -no-audio -no-boot-anim
+```
+
+(không có `-feature -Vulkan` thì emulator crash khi dò Vulkan). Sau khi khởi động: `adb install -r game/platform-android/build/outputs/apk/debug/platform-android-debug.apk`, `adb shell am start -n com.game.pxworld/com.pxworld.android.AndroidLauncher`. Lần đầu Android hiện hộp thoại hệ thống "Viewing full screen" che game.
+
+Kiểm chứng gần nhất: JVM test xanh (gồm server, application, content, client, architecture); test agent `core-loop`, `chapter1`, `cloud`, explorer 133/133 và `console` 10/10 đều PASSED.
