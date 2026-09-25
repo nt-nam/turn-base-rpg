@@ -22,9 +22,11 @@ import io.ktor.server.testing.ApplicationTestBuilder
 import io.ktor.server.testing.testApplication
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.long
 import java.io.File
 import java.nio.file.Files
 import java.util.UUID
@@ -227,5 +229,143 @@ class ServerTest {
         val dashboard = client.send("GET", "/admin/dashboard", admin).json()
         assertEquals(JsonObject(mapOf("battle.end" to JsonPrimitive(1), "session.start" to JsonPrimitive(1))), dashboard.getValue("telemetryLastDay"))
         assertTrue(client.send("GET", "/metrics").bodyAsText().contains("pxworld_agent_runs_total 1"))
+    }
+
+    private val telemetryBase: Long = Math.floorDiv(clock, HOUR) * HOUR - 6 * HOUR
+
+    private suspend fun HttpClient.emit(at: Long, token: String?, clientVersion: String?, vararg names: String) {
+        clock = at
+        val version = clientVersion?.let { "\"clientVersion\":\"$it\"," }.orEmpty()
+        val events = names.withIndex().joinToString(",") { (index, name) -> """{"name":"$name","payload":{"index":$index}}""" }
+        assertEquals(HttpStatusCode.Accepted, send("POST", "/telemetry", token, """{$version"events":[$events]}""").status)
+    }
+
+    private fun JsonObject.series(): Map<String, List<Int>> =
+        getValue("series").jsonArray.associate { entry -> entry.jsonObject.text("name") to entry.jsonObject.getValue("counts").jsonArray.map { it.jsonPrimitive.int } }
+
+    private fun JsonObject.counts(key: String, label: String): List<Pair<String?, Int>> =
+        getValue(key).jsonArray.map { entry -> entry.jsonObject[label]?.jsonPrimitive?.content to entry.jsonObject.getValue("count").jsonPrimitive.int }
+
+    @Test
+    fun telemetrySummaryBucketsByUtcBoundariesWithZeroFillAndFilters() = serve {
+        val base = telemetryBase
+        val admin = client.admin()
+        clock = base - HOUR
+        val alice = client.token("/auth/register", """{"email":"alice@example.com","password":"long-password","displayName":"Alice"}""")
+        val bob = client.token("/auth/register", """{"email":"bob@example.com","password":"long-password","displayName":"Bob"}""")
+        client.emit(base - 1, null, "1.0.0", "session.start")
+        client.emit(base + 5 * MINUTE, null, "1.0.0", "session.start")
+        client.emit(base + 5 * MINUTE, alice, "1.0.0", "battle.end")
+        client.emit(base + 7 * MINUTE, alice, "1.1.0", "battle.end")
+        client.emit(base + 150 * MINUTE, bob, "1.1.0", "battle.end")
+        client.emit(base + 150 * MINUTE, null, null, "session.start")
+        client.emit(base + 3 * HOUR, bob, "1.1.0", "battle.end")
+        val range = "from=$base&to=${base + 3 * HOUR}"
+
+        val hourly = client.send("GET", "/admin/telemetry/summary?$range&bucket=hour", admin).json()
+        assertEquals("hour", hourly.text("bucket"))
+        assertEquals(listOf(base, base + HOUR, base + 2 * HOUR), hourly.getValue("bucketStarts").jsonArray.map { it.jsonPrimitive.long })
+        assertEquals(mapOf("battle.end" to listOf(2, 0, 1), "session.start" to listOf(1, 0, 1)), hourly.series())
+        assertEquals(listOf<Pair<String?, Int>>("battle.end" to 3, "session.start" to 2), hourly.counts("totals", "name"))
+        assertEquals(listOf("5", "2", "2"), listOf("total", "distinctAccounts", "anonymousEvents").map { hourly.text(it) })
+        assertEquals(listOf("1.0.0" to 2, "1.1.0" to 2, null to 1), hourly.counts("clientVersions", "clientVersion"))
+
+        val battles = client.send("GET", "/admin/telemetry/summary?$range&bucket=hour&name=battle.end", admin).json()
+        assertEquals(mapOf("battle.end" to listOf(2, 0, 1)), battles.series())
+        assertEquals(listOf("3", "2", "0"), listOf("total", "distinctAccounts", "anonymousEvents").map { battles.text(it) })
+        assertEquals(listOf<Pair<String?, Int>>("battle.end" to 3, "session.start" to 2), battles.counts("availableNames", "name"))
+        assertEquals(listOf("1.1.0" to 2, "1.0.0" to 1), battles.counts("clientVersions", "clientVersion"))
+
+        val latest = client.send("GET", "/admin/telemetry/summary?$range&bucket=hour&clientVersion=1.1.0", admin).json()
+        assertEquals(mapOf("battle.end" to listOf(1, 0, 1)), latest.series())
+        assertEquals(listOf("1.0.0" to 2, "1.1.0" to 2, null to 1), latest.counts("availableClientVersions", "clientVersion"))
+
+        val minutes = client.send("GET", "/admin/telemetry/summary?from=${base + 5 * MINUTE + 30_000}&to=${base + 8 * MINUTE}", admin).json()
+        assertEquals("minute", minutes.text("bucket"))
+        assertEquals((5..7).map { base + it * MINUTE }, minutes.getValue("bucketStarts").jsonArray.map { it.jsonPrimitive.long })
+        assertEquals(mapOf("battle.end" to listOf(0, 0, 1)), minutes.series())
+
+        val twoDays = client.send("GET", "/admin/telemetry/summary?from=${base - DAY}&to=${base + DAY}", admin).json()
+        assertEquals("hour", twoDays.text("bucket"))
+        assertEquals(48, twoDays.getValue("bucketStarts").jsonArray.size)
+        val monthEnd = base + 3 * HOUR + 1
+        val month = client.send("GET", "/admin/telemetry/summary?from=${monthEnd - 30 * DAY}&to=$monthEnd", admin).json()
+        assertEquals("day", month.text("bucket"))
+        assertEquals(0L, month.getValue("bucketStarts").jsonArray.first().jsonPrimitive.long % DAY)
+        assertEquals(7, month.series().values.sumOf { it.sum() })
+    }
+
+    @Test
+    fun telemetryEventsPageNewestFirstWithStableCursor() = serve {
+        val base = telemetryBase
+        val admin = client.admin()
+        clock = base - HOUR
+        val alice = client.token("/auth/register", """{"email":"pager@example.com","password":"long-password","displayName":"Pager"}""")
+        val aliceId = client.send("GET", "/me", alice).json().text("id")
+        client.emit(base, alice, "2.0.0", "page.probe", "page.probe", "page.probe")
+        client.emit(base + 1_000, null, null, "page.probe", "page.probe")
+        client.emit(base + 2_000, null, null, "other.event")
+        val range = "from=$base&to=${base + MINUTE}"
+
+        val pages = mutableListOf<List<JsonObject>>()
+        var cursor: String? = null
+        do {
+            val page = client.send("GET", "/admin/telemetry/events?$range&name=page.probe&limit=2${cursor?.let { "&cursor=$it" }.orEmpty()}", admin).json()
+            pages += page.getValue("events").jsonArray.map { it.jsonObject }
+            cursor = page["nextCursor"]?.jsonPrimitive?.content
+            if (pages.size == 1) client.emit(base + 3_000, null, null, "page.probe")
+        } while (cursor != null)
+        val events = pages.flatten()
+        assertEquals(listOf(2, 2, 1), pages.map { it.size })
+        assertEquals(5, events.map { it.text("id") }.toSet().size)
+        assertEquals(listOf(base + 1_000, base + 1_000, base, base, base), events.map { it.getValue("createdAt").jsonPrimitive.long })
+        assertTrue(events.all { it.getValue("payload").jsonObject.containsKey("index") }, events.toString())
+
+        val owned = client.send("GET", "/admin/telemetry/events?$range&accountId=$aliceId", admin).json().getValue("events").jsonArray.map { it.jsonObject }
+        assertEquals(3, owned.size)
+        assertTrue(owned.all { it.text("accountId") == aliceId && it.text("clientVersion") == "2.0.0" })
+        assertEquals(null, client.send("GET", "/admin/telemetry/events?$range", admin).json()["nextCursor"])
+
+        repeat(2) { client.emit(base + 10_000, null, null, *Array(150) { "bulk.probe" }) }
+        val capped = client.send("GET", "/admin/telemetry/events?$range&name=bulk.probe&limit=500", admin).json()
+        assertEquals(200, capped.getValue("events").jsonArray.size)
+        assertTrue(capped.containsKey("nextCursor"))
+    }
+
+    @Test
+    fun telemetryExplorerValidatesRangesAndGuardsRoles() = serve {
+        val admin = client.admin()
+        val now = clock
+        suspend fun status(path: String, token: String? = admin) = client.send("GET", path, token).status
+        val day = "from=${now - DAY}&to=$now"
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?from=$now&to=$now"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?from=${now - 91 * DAY}&to=$now"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?to=$now"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?from=yesterday&to=$now"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?from=${now - 7 * DAY}&to=$now&bucket=minute"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/summary?$day&bucket=week"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/events?$day&cursor=not-a-cursor"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/events?$day&limit=0"))
+        assertEquals(HttpStatusCode.BadRequest, status("/admin/telemetry/events?from=$now&to=${now - 1}"))
+        assertEquals(HttpStatusCode.OK, status("/admin/telemetry/summary?from=${now - 90 * DAY}&to=$now"))
+
+        val player = client.token("/auth/register", """{"email":"curious@example.com","password":"long-password","displayName":"Curious"}""")
+        assertEquals(HttpStatusCode.Unauthorized, status("/admin/telemetry/summary?$day", null))
+        assertEquals(HttpStatusCode.Forbidden, status("/admin/telemetry/summary?$day", player))
+        assertEquals(HttpStatusCode.Forbidden, status("/admin/telemetry/events?$day", player))
+        listOf(Roles.SUPPORT, Roles.CREATOR).forEach { role ->
+            assertEquals(HttpStatusCode.Forbidden, status("/admin/telemetry/summary?$day", client.staff(admin, "$role@pxworld.local", role)), role)
+        }
+        listOf(Roles.QA, Roles.DEV, Roles.LIVEOPS).forEach { role ->
+            val token = client.staff(admin, "$role@pxworld.local", role)
+            assertEquals(HttpStatusCode.OK, status("/admin/telemetry/summary?$day", token), role)
+            assertEquals(HttpStatusCode.OK, status("/admin/telemetry/events?$day", token), role)
+        }
+    }
+
+    companion object {
+        const val MINUTE: Long = 60_000L
+        const val HOUR: Long = 60 * MINUTE
+        const val DAY: Long = 24 * HOUR
     }
 }
