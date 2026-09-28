@@ -15,3 +15,5 @@
 | [0011](0011-three-layer-test-agent.md) | Test agent 3 lớp | Chấp nhận |
 | [0012](0012-seasonal-expansion.md) | Mở rộng theo mùa sau launch | Chấp nhận |
 | [0013](0013-data-only-mods.md) | Mod chỉ ở dạng dữ liệu | Chấp nhận |
+| 0014 | *(dành cho chính sách dải tỉ lệ thắng — WP-A3, chưa viết)* | Dành chỗ |
+| [0015](0015-android-automation-over-adb-forward.md) | Automation Android qua adb forward | Chấp nhận |

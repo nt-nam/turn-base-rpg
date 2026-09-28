@@ -1,5 +1,7 @@
 # 09 · Công thức làm nội dung (creator)
 
+> **Việc cần làm — WP-X8.** Tài liệu này mới có khung. Ai nhận WP-X8 thì viết nội dung cho các mục ghi "(chưa viết…)", dựa vào ghi chú nghiên cứu ở [05-work-packages.md §8.1](05-work-packages.md#81-ghi-chú-cho-wp-x8-đã-kiểm-trong-code-ngày-2026-09-26-dùng-lại-để-khỏi-dò-từ-đầu). Có thể giao cho subagent `pxworld-doc-writer`.
+
 > Dành cho creator và game designer. Tài liệu đang viết dở: các mục ghi "(chưa viết — làm tiếp sau)" chưa có nội dung. Trong lúc chờ, dùng [08-recipes-game-client.md](08-recipes-game-client.md) cho phần kỹ thuật liên quan và [content/BALANCE_NOTES.md](../../content/BALANCE_NOTES.md) cho số liệu cân bằng.
 
 ---

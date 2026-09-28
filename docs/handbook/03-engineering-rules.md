@@ -1,5 +1,7 @@
 # 03 · Luật kỹ thuật và quy trình
 
+> **Việc cần làm — WP-X8.** Tài liệu này mới có khung. Ai nhận WP-X8 thì viết nội dung cho các mục ghi "(chưa viết…)", dựa vào ghi chú nghiên cứu ở [05-work-packages.md §8.1](05-work-packages.md#81-ghi-chú-cho-wp-x8-đã-kiểm-trong-code-ngày-2026-09-26-dùng-lại-để-khỏi-dò-từ-đầu). Có thể giao cho subagent `pxworld-doc-writer`.
+
 > Cập nhật 2026-09-26 · Nhánh `rewrite` · **Bản khung**: tài liệu tạm dừng theo yêu cầu của PM, các mục dưới đây chưa được viết nội dung.
 > Luật kiến trúc đã viết đầy đủ ở [02-architecture.md](02-architecture.md), gồm luật phụ thuộc (§2), tất định (§12), việc CẤM (§14) và cách phá luật (§15). Trong lúc chờ, cổng test chung nằm ở [05-work-packages.md §0.3](05-work-packages.md).
 

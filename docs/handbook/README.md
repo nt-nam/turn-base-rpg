@@ -18,6 +18,7 @@
 | 08 | [Công thức: game client](08-recipes-game-client.md) | Thêm màn, luật, chuỗi UI, map, hiệu ứng trận, cheat debug | Client engineer |
 | 09 | [Công thức: nội dung](09-recipes-content.md) | Thêm anh hùng, quái, trận, quest, hội thoại; cân bằng; phát hành content | Creator, designer |
 | 10 | [Công thức: server và Console](10-recipes-server-and-console.md) | Thêm endpoint, migration, vai trò, trang Console, bước console agent | Backend, web |
+| — | [AGENTS.md](../../AGENTS.md) | Cách làm việc: bắt đầu phiên, mức tự quyết, git, báo cáo, chạy song song, tạm dừng | Tất cả, agent AI |
 | — | [Mẫu biểu](templates/) | [WP](templates/work-package.md) · [Báo lỗi](templates/bug-report.md) · [Test case](templates/test-case.md) · [ADR](templates/adr.md) | Tất cả |
 | — | [ADR](../adr/) | Vì sao kiến trúc như hiện tại | Kỹ sư |
 | — | [Screen catalog](../screens/SCREEN_CATALOG.md) | Danh sách 1.029 màn launch (2.094 sau 4 mùa) | Tất cả |

@@ -1,5 +1,7 @@
 # 06 · Hướng dẫn test và bộ test hồi quy
 
+> **Việc cần làm — WP-X8.** Tài liệu này mới có khung. Ai nhận WP-X8 thì viết nội dung cho các mục ghi "(chưa viết…)", dựa vào ghi chú nghiên cứu ở [05-work-packages.md §8.1](05-work-packages.md#81-ghi-chú-cho-wp-x8-đã-kiểm-trong-code-ngày-2026-09-26-dùng-lại-để-khỏi-dò-từ-đầu). Có thể giao cho subagent `pxworld-doc-writer`.
+
 > Đối chiếu với nhánh `rewrite` tại commit `af8fd71`. Cài đặt máy, lệnh chạy và biến môi trường: [07-setup-and-environments.md](07-setup-and-environments.md). Mẫu báo lỗi: [templates/bug-report.md](templates/bug-report.md). Mẫu test case: [templates/test-case.md](templates/test-case.md).
 
 ## 1. Cổng test trước khi merge

@@ -75,6 +75,12 @@ Repo có sẵn **project skill** cho Claude Code trong [`.claude/skills/`](../..
 | `pxworld-console-page` | Thêm trang Console kèm bước console agent |
 | `pxworld-verify` | Chạy cổng test và đọc `report.json` của các agent |
 
+Định nghĩa subagent trong [`.claude/agents/`](../../.claude/agents):
+- `pxworld-wp-agent`: làm một WP trong worktree.
+- `pxworld-doc-writer`: viết tiếp handbook.
+
+Phong cách làm việc chung cho người và agent nằm ở [AGENTS.md](../../AGENTS.md); Claude Code tự nạp file này qua `CLAUDE.md`.
+
 Quy tắc khi giao việc cho agent AI:
 1. Mỗi agent làm trong **một worktree riêng** tạo từ `rewrite` (`git worktree add -b rewrite-<wp> ../LVpxW-wt/<wp> rewrite`), rồi chép `local.properties` vào worktree.
 2. Hai agent không dùng chung cổng: 47017 (automation desktop), 47117 (automation Android qua adb forward), 8080/18080 (server), 4173 (Vite preview). Emulator chỉ cho một agent dùng.

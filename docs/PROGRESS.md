@@ -1,6 +1,6 @@
 # Tiến độ viết lại
 
-> Cập nhật: 2026-09-26 · Nhánh: `rewrite` · Handbook bàn giao: [handbook/README.md](handbook/README.md) · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md)
+> Cập nhật: 2026-09-29 · Nhánh: `rewrite` · Handbook bàn giao: [handbook/README.md](handbook/README.md) · Kế hoạch: [MASTER_PLAN.md](MASTER_PLAN.md)
 
 ## Trạng thái theo phase
 
@@ -62,43 +62,49 @@ Kế hoạch chi tiết, tiêu chí nghiệm thu và lệnh test của từng vi
 - [x] JSON Schema: `content/schemas` sinh từ record, Studio có biểu mẫu sinh từ schema
 - [x] Âm thanh: `AudioDirector` phát nhạc theo khám phá/trận và SFX, tôn trọng cài đặt
 - [x] Handbook bàn giao `docs/handbook/` và 6 project skill trong `.claude/skills/`
-- [ ] WP-A1 Android runtime — **đạt trên nhánh `rewrite-android`, chưa merge**
-- [ ] WP-A2 `sim-cli` — **xong trên nhánh `rewrite-sim`, chưa merge**
-- [ ] WP-A3 Cân bằng theo tiến trình — **đang dở trên `rewrite-sim`** (mới có số đo)
-- [ ] WP-A4 Telemetry explorer — **xong trên nhánh `rewrite-telemetry`, chưa merge**
-- [ ] WP-A5 Spike TeaVM — **đang dở trên `rewrite-web`** (biên dịch được, chưa boot)
-- [ ] WP-A6 Xoá `core/`, `lwjgl3/`, `android/`, `ios/`, `html/` — chờ merge A1
-- [ ] WP-A7 Merge đợt A và chạy hồi quy toàn phần
+- [x] WP-A1 Android runtime — đã merge; đạt P2 trên emulator (còn chạy lại khi boot nguội)
+- [x] WP-A2 `sim-cli` — đã merge
+- [ ] WP-A3 Cân bằng theo tiến trình — số đo đã merge; làm tiếp sau WP-C0
+- [x] WP-A4 Telemetry explorer — đã merge
+- [ ] WP-A5 Spike TeaVM — đã merge dạng opt-in; còn lỗi reflection chặn boot
+- [ ] WP-A6 Xoá `core/`, `lwjgl3/`, `android/`, `ios/`, `html/` — sẵn sàng
+- [ ] WP-A7 Hợp nhất đợt A — đã merge, test JVM xanh; **chưa chạy các kịch bản test agent trên bản merge**
+- [ ] WP-X8 Hoàn thiện handbook 03, 06, 09 — ghi chú nghiên cứu ở 05 §8.1
 
-## Điểm tạm dừng (2026-09-26)
+## Điểm tạm dừng (2026-09-29)
 
-Người dùng cho tạm dừng. Mọi việc đã commit, không tag, chưa push. Có 4 nhánh chưa merge, mỗi nhánh nằm trong một worktree riêng ở `D:/code/libgdx/LVpxW-wt/<tên>`. Mỗi worktree đã có sẵn `local.properties`.
+Đã bàn giao. Nhánh `rewrite` trên GitHub chứa toàn bộ công việc: 4 nhánh đợt A đã merge, cùng handbook, `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` và `.claude/agents/`.
 
-| Nhánh | Worktree | Commit | Trạng thái | Việc tiếp theo |
-|---|---|---|---|---|
-| `rewrite-android` | `LVpxW-wt/android` | `c7cfc4e` `e7ca5d6` `c93bf11` WIP `d5794ee` | `core-loop`, `chapter1` PASSED; explorer 133/133 trên emulator. Có sửa lỗi `Navigator.push` giữ lại màn build lỗi | Chạy lại khi emulator boot nguội với `d5794ee` (xem WP-A1) |
-| `rewrite-sim` | `LVpxW-wt/sim` | `db5b15c`, WIP `1428621` | `sim-cli` xong (13 test); số đo cân bằng đã ghi | WP-C0, rồi WP-A3 theo thiết kế ghi trong 05 |
-| `rewrite-telemetry` | `LVpxW-wt/telemetry` | `02836fa` `c8bd4af` `6932eb3` | Xong: `ServerTest` 10/10, console agent 11/11 | Merge |
-| `rewrite-web` | `LVpxW-wt/web` | WIP `73a3771` | Biên dịch JS được; chặn ở reflection `GlyphLayout$GlyphRun` | Đăng ký lớp cho reflection, chạy `web-smoke.mjs` (xem WP-A5) |
+**Người làm tiếp bắt đầu từ đâu:** đọc [AGENTS.md](../AGENTS.md) §1, rồi [handbook/README.md](handbook/README.md).
 
-**Khi merge (WP-A7) cần chú ý:**
-- Xung đột dự kiến ở `ci.yml`, `settings*.gradle`, `libs.versions.toml`, `ArchitectureTest.kt`, `StageAutomationDriver.kt` (android và web cùng sửa), `automation-client.mjs` và `run.mjs`.
-- ADR: 0015 có trên `rewrite-android`; 0014 được dành cho cân bằng. Thêm các ADR mới vào `docs/adr/README.md`.
-- Sau merge chạy lại toàn bộ desktop agent, vì các nhánh sửa file client dùng chung.
-
-**Dọn dẹp chờ người dùng quyết định:** trong `.claude/worktrees/` còn 4 worktree bị tạo nhầm từ `main` (đã được ignore, không ảnh hưởng build). Lệnh dọn của Claude bị chặn, nên để người dùng tự dọn.
+**Việc tiếp theo, theo thứ tự:**
+1. Chạy các kịch bản test agent trên bản merge. Đây là **phần còn lại của WP-A7**; chỉ test JVM đã được chạy. Lệnh:
+   ```bash
+   tools/test-agent/run-desktop.sh "$PWD/agent-reports/scenario"
+   SCENARIO=chapter1 tools/test-agent/run-desktop.sh "$PWD/agent-reports/chapter1"
+   SCENARIO=cloud tools/test-agent/run-desktop.sh "$PWD/agent-reports/cloud"
+   MODE=explore tools/test-agent/run-desktop.sh "$PWD/agent-reports/explore"
+   tools/test-agent/console/run-console.sh --out="$PWD/agent-reports/console"
+   ```
+   Nên chạy kỹ vì cả nhánh android lẫn nhánh web đều sửa `StageAutomationDriver.kt`, `Navigation.kt`, `automation-client.mjs` và `run.mjs`.
+2. WP-A1: chạy lại `tools/test-agent/run-android.sh` khi emulator boot nguội.
+3. WP-A6: xoá module legacy.
+4. WP-C0, rồi WP-A3.
+5. WP-A5: sửa lỗi reflection.
+6. WP-X8: viết nốt handbook.
+7. Các quyết định chờ chủ dự án ở [05 §8.2](handbook/05-work-packages.md).
 
 **Phát hiện quan trọng** (danh sách đầy đủ ở [05 §9](handbook/05-work-packages.md)):
 - S1:
   - Token 12 giờ không có refresh, nên tài khoản khách mất cloud save (P-30).
   - Staff bị thu hồi vẫn còn quyền tới 12 giờ (P-31).
   - Explorer báo PASSED dù từng màn lỗi (P-50).
-  - CI chưa từng chạy trên nhánh `rewrite` (P-61).
+  - CI chưa từng chạy trên nhánh `rewrite` (P-61, quyết định D-05).
 - Vòng khắc chế trong content khác thiết kế (WP-C0).
 
-**Số liệu hiệu chỉnh:** 579 key UI (không phải 529); content có 9 test. Sau khi merge nhánh sim sẽ là 19 test.
+**Số liệu hiệu chỉnh:** 579 key UI; content 19 test; server 10 test; sim-cli 13 test.
 
-Emulator trên máy này chỉ khởi động được với:
+Emulator trên máy dev Windows chỉ khởi động được với:
 
 ```
 E:/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36.0 -no-window -gpu swiftshader_indirect -feature -Vulkan -no-snapshot -no-audio -no-boot-anim
