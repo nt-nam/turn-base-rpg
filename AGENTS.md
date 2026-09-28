@@ -4,6 +4,7 @@
 > Chi tiết kỹ thuật nằm trong [docs/handbook/](docs/handbook/README.md). File này chỉ ghi **cách làm việc**: bắt đầu một phiên thế nào, luật cứng, git, báo cáo, chạy song song và tạm dừng.
 
 ## 1. Bắt đầu mỗi phiên
+0. Nếu mới vào dự án, đọc [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md): yêu cầu gốc của chủ dự án, nguồn của mọi plan.
 1. Đọc mục **"Điểm tạm dừng"** mới nhất trong [docs/PROGRESS.md](docs/PROGRESS.md). Mục này ghi đang dừng ở đâu và bước tiếp theo là gì.
 2. Mở [docs/handbook/05-work-packages.md](docs/handbook/05-work-packages.md) và chọn **một** gói việc (WP) có trạng thái Sẵn sàng. Gói việc đó phải hợp với kỹ năng ở [04-skills-and-roles.md](docs/handbook/04-skills-and-roles.md).
 3. Đọc các tài liệu mà WP yêu cầu trong mục "Đọc trước". Tối thiểu gồm [02-architecture.md](docs/handbook/02-architecture.md) và phần công thức hợp với việc (08, 09 hoặc 10).

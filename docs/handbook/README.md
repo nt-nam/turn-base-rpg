@@ -2,7 +2,7 @@
 
 > Viết cho người **nhận làm tiếp** dự án: kỹ sư client, backend, web, platform, creator, artist và QA. Đọc xong handbook, bạn phải tự làm được một gói việc (WP) và tự chứng minh nó chạy đúng, không cần hỏi lại đội cũ.
 >
-> Nhánh làm việc: `rewrite`. Tài liệu chiến lược: [MASTER_PLAN.md](../MASTER_PLAN.md). Tiến độ thật: [PROGRESS.md](../PROGRESS.md).
+> Nhánh làm việc: `rewrite`. Yêu cầu gốc: [REQUIREMENTS.md](../REQUIREMENTS.md). Tài liệu chiến lược: [MASTER_PLAN.md](../MASTER_PLAN.md). Tiến độ thật: [PROGRESS.md](../PROGRESS.md).
 
 ## 1. Bản đồ tài liệu
 
