@@ -1,6 +1,6 @@
 # Yêu cầu của chủ dự án
 
-> Ghi lại từ các buổi làm việc giữa chủ dự án và Claude, từ 2026-09-24 đến 2026-09-29. **Đây không phải nguyên văn**; nguyên văn (nếu có) dán vào §8.
+> Tổng hợp từ các buổi làm việc giữa chủ dự án và Claude, từ 2026-09-24 đến 2026-09-29. §1–§7 là bản đã sắp xếp lại; **§8 là nguyên văn** chủ dự án đã gõ, trích từ lịch sử phiên làm việc.
 > Tài liệu này là **nguồn gốc** của mọi plan. Khi plan và yêu cầu mâu thuẫn, yêu cầu thắng. Khi yêu cầu mơ hồ, xem cách diễn giải đã chốt ở §4, hoặc hỏi chủ dự án.
 
 ## 1. Mục tiêu
@@ -65,4 +65,68 @@
 Các quyết định còn treo nằm ở [05 §8.2](handbook/05-work-packages.md) (D-01…D-07). Người làm chỉ đề xuất, không tự quyết.
 
 ## 8. Nguyên văn yêu cầu
-*(Chủ dự án dán nguyên văn các yêu cầu gốc vào đây nếu muốn lưu lại.)*
+Giữ nguyên chính tả gốc. Chỉ trích các tin nhắn về dự án; bỏ phần hỏi đáp riêng về đăng nhập Claude CLI (2026-09-25).
+
+**2026-09-24 — yêu cầu gốc**
+```text
+Priority alert: REWRITE PROJECT
+tôi cần bạn từ những resource của dự án mà cho tôi được bản tài liệu plan hoàn chỉnh của dự án 
+- được phép clean toàn bộ code và chuyển về 1 kiến trúc hoàn hảo nhất mà bạn biết đến hiện tại 
+- được phép tái cấu trúc toàn bộ tài nguyên hình ảnh và cả file thiết kế trong toàn bộ các nền tảng
+- được phép thiết lập lại bộ những đối tượng có , tạo thêm mới những đối tượng cần hoặc liên quan, được phép xóa luôn các dối tượng xem là sai hoặc không cần thiết cho dự án
+- có thể đổi tên code hoăc file sao cho tường minh nhất, code dẽ hiểu - không cần comment
+- được phép mở rộng ra nhiều nền tảng, nhiều môi trường,
+- được phép mở rộng dự án
+- được phép sáng tạo nội dung
+- được phép tự khởi chạy, tự tạo một agent test có thể thao tác trên sản phẩm tạo ra
+* giới hạn sàn là: có thể phủ được hết toàn bộ đối tượng từ admin - dev - creater level - QA - user - gemer - polit + có hơn 1000 màn hình thao tác với mục đích khác nhau
+```
+
+**2026-09-24 — mở rộng ×2**
+```text
+Tôi yêu cầu thêm được sự sáng tạo cao hơn nữa và các sáng tạo đó vẫn nằm trong khả năng của kiến trúc dự án được lựa chọn - con số cụ thể là quy mô phải đạt được chỉ số gấp đôi hiện tại
+```
+
+**2026-09-24 — duyệt plan và giao quyền**
+```text
+Được làm đi
+```
+```text
+tôi cho bạn làm toàn quyền với tất cả giai đoạn tiếp theo - cứ tạo nhánh mới là rewrite
+-chấp nhận toàn bộ tiến trình
+```
+```text
+commit không gắng tag
+```
+
+**2026-09-25 — tạm dừng lần đầu**
+```text
+tạm pause và lưu trạng thái tại đây
+```
+
+**2026-09-26 — cách làm việc và bàn giao**
+```text
+vì là việc viết code nên có thể cho bạn mở nhiều agent code để đảm bảo xong hết queue task đã đề ra trước đó nhanh - bạn đảm nhiệm PM thôi cũng được
+```
+```text
+vì là thời gian có giới hạn nên tôi đề nghị nên làm plan thật chi tiết để người khác làm - người khác có thẻ dựa trên plan đó để teesst luôn - cần có chỉ dẫn rõ ràng luật, ý tưởng, và kiến trúc bắt buộc tuân theo, skill cần trogn dự án này và rất nhiều tài liệu cho nội dung này
+```
+```text
+xong được phần nào thì nhớ ngừng đi - để lúc khác làm tiếp
+```
+
+**2026-09-29 — chuyển giao**
+```text
+tiến trình làm lại tiếp theo lại thì cần chuyển giao công nghệ và chuyển giao plan, phong cách làm việc cũng như toàn bộ thông tin cho người khác làm tiếp các tiến độ còn đang gian dỡ thì cần đưa cho họ cái gì
+```
+```text
+1. commit, merge và push 
+2. đưa phong cách làm việc vào trong agent/ trong repo
+3. đặt ghi nhớ trong docs để người khác tự hoàn thành - chỉ cần nhắc là có cần phần đó trong các tasks là được
+```
+```text
+không cần viết và chạy teesst mà
+```
+```text
+viết tài liệu chỉ chỗ và plan phục vụ yêu cầu của tôi thôi
+```
