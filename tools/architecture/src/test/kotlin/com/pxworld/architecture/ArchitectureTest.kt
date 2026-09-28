@@ -86,6 +86,12 @@ class ArchitectureTest {
     }
 
     @Test
+    fun `balance simulator reaches the game only through content rules`() {
+        val allowed = arrayOf(*standardLibrary, "kotlinx.serialization.", "com.pxworld.domain.", "com.pxworld.content.", "com.pxworld.simulation.", "java.io.File")
+        assertEquals(emptyList(), violations("tools/sim-cli") { it.within(*allowed) })
+    }
+
+    @Test
     fun `platform launchers only wire modules together`() {
         listOf("game/platform-desktop", "game/platform-android").forEach { module ->
             val bodies = sources.filter { it.module == module }
@@ -99,7 +105,7 @@ class ArchitectureTest {
             "game/domain" to "com.pxworld.domain", "game/application" to "com.pxworld.application", "game/content" to "com.pxworld.content",
             "game/infrastructure" to "com.pxworld.infrastructure", "game/client" to "com.pxworld.client", "game/screens" to "com.pxworld.screens",
             "game/automation" to "com.pxworld.automation", "game/platform-desktop" to "com.pxworld.desktop", "game/platform-android" to "com.pxworld.android",
-            "server/app" to "com.pxworld.server", "tools/asset-pipeline" to "com.pxworld.assets",
+            "server/app" to "com.pxworld.server", "tools/asset-pipeline" to "com.pxworld.assets", "tools/sim-cli" to "com.pxworld.simulation",
         )
         val misplaced = sources.filterNot { it.packageName.startsWith(expected.getValue(it.module)) }.map { "${it.file.relativeTo(root).invariantSeparatorsPath}: ${it.packageName}" }
         assertEquals(emptyList(), misplaced)
@@ -107,7 +113,7 @@ class ArchitectureTest {
 
     @Test
     fun `domain randomness and time come from explicit inputs`() {
-        val found = sources.filter { it.module == "game/domain" || it.module == "game/application" }.flatMap { source ->
+        val found = sources.filter { it.module in DETERMINISTIC_MODULES || it.packageName.startsWith("com.pxworld.content.balance") }.flatMap { source ->
             FORBIDDEN_NONDETERMINISM.filter { it in source.text }.map { "${source.file.name}: $it" }
         }
         assertEquals(emptyList(), found)
@@ -117,8 +123,9 @@ class ArchitectureTest {
         const val LAUNCHER_LINE_BUDGET: Int = 250
         val MODULES = listOf(
             "game/domain", "game/application", "game/content", "game/infrastructure", "game/screens", "game/client",
-            "game/automation", "game/platform-desktop", "game/platform-android", "server/app", "tools/asset-pipeline",
+            "game/automation", "game/platform-desktop", "game/platform-android", "server/app", "tools/asset-pipeline", "tools/sim-cli",
         )
+        val DETERMINISTIC_MODULES = setOf("game/domain", "game/application", "tools/sim-cli")
         val FORBIDDEN_NONDETERMINISM = listOf("System.currentTimeMillis", "System.nanoTime", "Random()", "kotlin.random.Random.Default", "Math.random", "LocalDate.now", "Instant.now", "UUID.randomUUID")
     }
 }
