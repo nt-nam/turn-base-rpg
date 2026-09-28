@@ -61,7 +61,10 @@ class Database(url: String, user: String?, password: String?) : AutoCloseable {
 
     companion object {
         const val POOL_SIZE: Int = 8
-        val MIGRATIONS: List<Pair<Int, String>> = listOf(1 to "/migrations/V1__init.sql")
+        val MIGRATIONS: List<Pair<Int, String>> = listOf(
+            1 to "/migrations/V1__init.sql",
+            2 to "/migrations/V2__telemetry_time_indexes.sql",
+        )
 
         fun newId(): String = UUID.randomUUID().toString()
     }

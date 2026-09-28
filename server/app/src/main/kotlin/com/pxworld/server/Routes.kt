@@ -306,6 +306,7 @@ fun Application.routes(services: Services) {
                     call.requireRole(Roles.SUPPORT, Roles.LIVEOPS)
                     call.respond(repositories.auditLog(call.request.queryParameters["target"], AUDIT_LIMIT))
                 }
+                telemetryExplorer(repositories)
                 post("/staff") {
                     val caller = call.requireRole(Roles.ADMIN)
                     val request = call.receive<StaffRequest>()

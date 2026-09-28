@@ -8,6 +8,7 @@ import { PlayersPage } from "./pages/PlayersPage";
 import { PlayerDetailPage } from "./pages/PlayerDetailPage";
 import { AgentRunDetailPage, AgentRunsPage, AuditPage, ContentReleasesPage, StaffPage } from "./pages/OperationsPages";
 import { StudioHomePage, StudioKindPage } from "./pages/StudioPages";
+import { TelemetryPage } from "./pages/TelemetryPage";
 
 interface NavEntry {
   path: string;
@@ -15,11 +16,14 @@ interface NavEntry {
   roles: string[];
 }
 
+const TELEMETRY_READERS = [Roles.liveops, Roles.dev, Roles.qa];
+
 const NAV: NavEntry[] = [
   { path: "/", label: "Tổng quan", roles: Object.values(Roles) },
   { path: "/players", label: "Người chơi", roles: [Roles.support, Roles.liveops] },
   { path: "/audit", label: "Nhật ký", roles: [Roles.support, Roles.liveops] },
   { path: "/content", label: "Phát hành", roles: [Roles.liveops, Roles.dev, Roles.creator, Roles.qa] },
+  { path: "/telemetry", label: "Telemetry", roles: TELEMETRY_READERS },
   { path: "/studio", label: "Studio", roles: [Roles.creator, Roles.dev] },
   { path: "/qa/runs", label: "Test agent", roles: [Roles.qa, Roles.dev] },
   { path: "/staff", label: "Staff", roles: [Roles.admin] },
@@ -97,7 +101,10 @@ export function App() {
   );
 }
 
-const isActive = (current: string, target: string) => (target === "/" ? current === "/" : current === target || current.startsWith(`${target}/`));
+const withoutQuery = (path: string) => path.split("?")[0];
+
+const isActive = (current: string, target: string) =>
+  target === "/" ? withoutQuery(current) === "/" : withoutQuery(current) === target || current.startsWith(`${target}/`);
 
 function guard(account: Account, roles: string[], page: ReactNode) {
   if (hasAny(account, ...roles)) return page;
@@ -109,11 +116,11 @@ function guard(account: Account, roles: string[], page: ReactNode) {
 }
 
 function route(path: string, account: Account): ReactNode {
-  const parts = path.split("/").filter(Boolean).map(decodeURIComponent);
+  const parts = withoutQuery(path).split("/").filter(Boolean).map(decodeURIComponent);
   const support = [Roles.support, Roles.liveops];
   switch (parts[0]) {
     case undefined:
-      return <DashboardPage />;
+      return <DashboardPage canExploreTelemetry={hasAny(account, ...TELEMETRY_READERS)} />;
     case "players":
       return guard(account, support, parts[1] ? <PlayerDetailPage id={parts[1]} viewer={account} /> : <PlayersPage />);
     case "audit":
@@ -128,6 +135,8 @@ function route(path: string, account: Account): ReactNode {
       return guard(account, [Roles.creator, Roles.dev], parts[1] ? <StudioKindPage kind={parts[1]} selected={parts[2]} /> : <StudioHomePage />);
     case "qa":
       return guard(account, [Roles.qa, Roles.dev], parts[2] ? <AgentRunDetailPage id={parts[2]} /> : <AgentRunsPage />);
+    case "telemetry":
+      return guard(account, TELEMETRY_READERS, <TelemetryPage search={path.slice(withoutQuery(path).length + 1)} />);
     case "staff":
       return guard(account, [Roles.admin], <StaffPage />);
     default:

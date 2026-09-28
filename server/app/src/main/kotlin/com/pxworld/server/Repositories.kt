@@ -28,6 +28,27 @@ data class MailRow(val id: String, val subject: String, val grants: String, val 
 @Serializable
 data class AgentRunRow(val id: String, val mode: String, val status: String, val visited: Int, val registered: Int, val launchPercent: Double, val createdAt: Long)
 
+data class TelemetryFilter(val from: Long, val to: Long, val name: String? = null, val clientVersion: String? = null, val accountId: String? = null) {
+    fun clause(): Pair<String, Array<Any?>> {
+        val conditions = mutableListOf("created_at >= ?", "created_at < ?")
+        val parameters = mutableListOf<Any?>(from, to)
+        name?.let { conditions += "name = ?"; parameters += it }
+        clientVersion?.let { conditions += "client_version = ?"; parameters += it }
+        accountId?.let { conditions += "account_id = ?"; parameters += it }
+        return conditions.joinToString(" AND ") to parameters.toTypedArray()
+    }
+}
+
+data class TelemetryBucketCount(val name: String, val bucketIndex: Int, val count: Int)
+
+data class TelemetryBreakdownRow(val name: String, val clientVersion: String?, val count: Int)
+
+data class TelemetryAccountSpread(val distinctAccounts: Int, val anonymousEvents: Int)
+
+data class TelemetryPosition(val createdAt: Long, val id: String)
+
+data class TelemetryEventRow(val id: String, val accountId: String?, val name: String, val payload: String, val clientVersion: String?, val createdAt: Long)
+
 class Repositories(private val db: Database, private val clock: () -> Long) {
 
     fun createAccount(email: String?, passwordHash: String?, displayName: String, kind: String, roles: Set<String>): AccountRow {
@@ -109,6 +130,36 @@ class Repositories(private val db: Database, private val clock: () -> Long) {
 
     fun telemetryByName(since: Long): Map<String, Int> =
         db.query("SELECT name, COUNT(*) FROM telemetry_events WHERE created_at >= ? GROUP BY name", since) { it.getString(1) to it.getInt(2) }.toMap()
+
+    fun telemetryBucketCounts(filter: TelemetryFilter, start: Long, width: Long): List<TelemetryBucketCount> {
+        val (where, parameters) = filter.clause()
+        return db.query(
+            "SELECT name, bucket_index, COUNT(*) FROM (SELECT name, (created_at - CAST(? AS BIGINT)) / CAST(? AS BIGINT) AS bucket_index FROM telemetry_events WHERE $where) bucketed GROUP BY name, bucket_index",
+            start, width, *parameters,
+        ) { TelemetryBucketCount(it.getString(1), it.getLong(2).toInt(), it.getInt(3)) }
+    }
+
+    fun telemetryBreakdown(from: Long, to: Long): List<TelemetryBreakdownRow> =
+        db.query("SELECT name, client_version, COUNT(*) FROM telemetry_events WHERE created_at >= ? AND created_at < ? GROUP BY name, client_version", from, to) {
+            TelemetryBreakdownRow(it.getString(1), it.getString(2), it.getInt(3))
+        }
+
+    fun telemetryAccountSpread(filter: TelemetryFilter): TelemetryAccountSpread {
+        val (where, parameters) = filter.clause()
+        return db.single("SELECT COUNT(DISTINCT account_id), COUNT(*) - COUNT(account_id) FROM telemetry_events WHERE $where", *parameters) {
+            TelemetryAccountSpread(it.getInt(1), it.getInt(2))
+        } ?: TelemetryAccountSpread(0, 0)
+    }
+
+    fun telemetryEvents(filter: TelemetryFilter, after: TelemetryPosition?, limit: Int): List<TelemetryEventRow> {
+        val (where, parameters) = filter.clause()
+        val keyset = after?.let { " AND (created_at < ? OR (created_at = ? AND id < ?))" }.orEmpty()
+        val keysetParameters = after?.let { arrayOf<Any?>(it.createdAt, it.createdAt, it.id) } ?: emptyArray()
+        return db.query(
+            "SELECT id, account_id, name, payload, client_version, created_at FROM telemetry_events WHERE $where$keyset ORDER BY created_at DESC, id DESC LIMIT ?",
+            *parameters, *keysetParameters, limit,
+        ) { TelemetryEventRow(it.getString(1), it.getString(2), it.getString(3), it.getString(4), it.getString(5), it.getLong(6)) }
+    }
 
     fun count(table: String, where: String = "1 = 1", vararg parameters: Any?): Int {
         require(table in COUNTABLE) { "table $table is not countable" }

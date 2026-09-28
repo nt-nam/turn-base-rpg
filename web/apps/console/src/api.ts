@@ -57,6 +57,53 @@ export interface Dashboard {
   agentRuns: number;
 }
 
+export type TelemetryBucket = "minute" | "hour" | "day";
+
+export interface TelemetryNameCount {
+  name: string;
+  count: number;
+}
+
+export interface TelemetryVersionCount {
+  clientVersion?: string;
+  count: number;
+}
+
+export interface TelemetrySummary {
+  from: number;
+  to: number;
+  bucket: TelemetryBucket;
+  bucketMillis: number;
+  bucketStarts: number[];
+  total: number;
+  distinctAccounts: number;
+  anonymousEvents: number;
+  totals: TelemetryNameCount[];
+  series: { name: string; counts: number[] }[];
+  clientVersions: TelemetryVersionCount[];
+  availableNames: TelemetryNameCount[];
+  availableClientVersions: TelemetryVersionCount[];
+}
+
+export interface TelemetryEvent {
+  id: string;
+  accountId?: string;
+  name: string;
+  clientVersion?: string;
+  payload: unknown;
+  createdAt: number;
+}
+
+export interface TelemetryQuery {
+  from: number;
+  to: number;
+  name?: string;
+  clientVersion?: string;
+  bucket?: TelemetryBucket;
+  limit?: number;
+  cursor?: string;
+}
+
 export interface Release {
   version: string;
   sha256: string;
@@ -149,10 +196,19 @@ async function request<T>(method: string, path: string, body?: unknown, raw = fa
 
 const q = encodeURIComponent;
 
+const telemetryParameters = (query: TelemetryQuery) =>
+  Object.entries(query)
+    .filter(([, value]) => value !== undefined && value !== "")
+    .map(([key, value]) => `${key}=${q(String(value))}`)
+    .join("&");
+
 export const api = {
   login: (email: string, password: string) => request<Session>("POST", "/auth/login", { email, password }),
   me: () => request<Account>("GET", "/me"),
   dashboard: () => request<Dashboard>("GET", "/admin/dashboard"),
+  telemetrySummary: (query: TelemetryQuery) => request<TelemetrySummary>("GET", `/admin/telemetry/summary?${telemetryParameters(query)}`),
+  telemetryEvents: (query: TelemetryQuery) =>
+    request<{ events: TelemetryEvent[]; nextCursor?: string }>("GET", `/admin/telemetry/events?${telemetryParameters(query)}`),
   players: (query: string) => request<Account[]>("GET", `/admin/players?q=${q(query)}`),
   player: (id: string) => request<PlayerDetail>("GET", `/admin/players/${q(id)}`),
   grant: (id: string, subject: string, grants: Record<string, number>, reason: string) =>
