@@ -53,6 +53,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(project(":game:client"))
     implementation(project(":game:infrastructure"))
+    implementation(project(":game:automation"))
     implementation("com.badlogicgames.gdx:gdx-backend-android:$gdxVersion")
     listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64").forEach { abi ->
         natives("com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-$abi")

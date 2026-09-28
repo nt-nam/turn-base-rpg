@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
+import com.badlogic.gdx.utils.Base64Coder
 import com.pxworld.client.GameApp
 import com.pxworld.client.navigation.ScreenArgs
 import com.pxworld.client.navigation.ScreenContext
@@ -24,6 +25,7 @@ import com.pxworld.domain.battle.BattleCommand
 import com.pxworld.domain.battle.BattleSide
 import com.pxworld.domain.battle.UnitId
 import com.pxworld.screens.GameScreenId
+import java.io.ByteArrayOutputStream
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.TimeUnit
@@ -243,14 +245,32 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
         problems
     }
 
-    fun screenshot(target: String): String = call {
-        val width = Gdx.graphics.backBufferWidth
-        val height = Gdx.graphics.backBufferHeight
-        val pixmap = Pixmap.createFromFrameBuffer(0, 0, width, height)
+    fun screenshot(target: String?): Any {
+        val pixmap = call { Pixmap.createFromFrameBuffer(0, 0, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight) }
+        return try {
+            if (target == null) inlinePng(pixmap) else writePng(pixmap, target)
+        } finally {
+            pixmap.dispose()
+        }
+    }
+
+    private fun writePng(pixmap: Pixmap, target: String): String {
         val handle = Gdx.files.absolute(java.nio.file.Paths.get(target).toAbsolutePath().toString())
-        PixmapIO.writePNG(handle, pixmap, 6, true)
-        pixmap.dispose()
-        handle.path()
+        PixmapIO.writePNG(handle, pixmap, PNG_COMPRESSION, true)
+        return handle.path()
+    }
+
+    private fun inlinePng(pixmap: Pixmap): Map<String, Any> {
+        val bytes = ByteArrayOutputStream()
+        val encoder = PixmapIO.PNG((pixmap.width * pixmap.height * 1.5f).toInt())
+        try {
+            encoder.setFlipY(true)
+            encoder.setCompression(PNG_COMPRESSION)
+            encoder.write(bytes, pixmap)
+        } finally {
+            encoder.dispose()
+        }
+        return mapOf("format" to "png", "width" to pixmap.width, "height" to pixmap.height, "base64" to String(Base64Coder.encode(bytes.toByteArray())))
     }
 
     private fun scrollIntoView(actor: Actor) {
@@ -288,5 +308,6 @@ class StageAutomationDriver(private val app: GameApp, private val stage: Stage, 
 
     companion object {
         const val TIMEOUT_SECONDS: Long = 10
+        const val PNG_COMPRESSION: Int = 6
     }
 }

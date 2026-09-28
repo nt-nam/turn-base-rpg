@@ -49,7 +49,7 @@ data class DesktopOptions(
             )
         }
 
-        const val DEFAULT_AUTOMATION_PORT: Int = 47017
+        const val DEFAULT_AUTOMATION_PORT: Int = AutomationServer.DEFAULT_PORT
         const val DEFAULT_CLOUD_URL: String = "http://localhost:8080"
     }
 }
